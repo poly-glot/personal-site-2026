@@ -1,0 +1,74 @@
+.toc {
+  margin: 0;
+}
+
+.label {
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  margin: 0 0 var(--s-2);
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  position: relative;
+}
+
+.link {
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  display: grid;
+  font-size: 13px;
+  gap: 8px;
+  grid-template-columns: 28px 1fr;
+  line-height: 1.35;
+  padding: 8px 0 8px 12px;
+  text-decoration: none;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease,
+    padding-left 200ms ease;
+}
+
+.link:hover {
+  color: var(--fg);
+}
+
+.num {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding-top: 1px;
+  transition: color 200ms ease;
+}
+
+.text {
+  font-weight: 500;
+  text-wrap: pretty;
+  transition: color 200ms ease;
+}
+
+.item:global(.active) .link {
+  border-left-color: var(--accent);
+  color: var(--fg);
+  padding-left: 14px;
+}
+
+.item:global(.active) .num {
+  color: var(--accent-text);
+}
+
+.item:global(.active) .text {
+  color: var(--fg);
+  font-weight: 700;
+}

@@ -1,0 +1,41 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-6) 0;
+}
+
+.emptyTitle {
+  color: var(--fg);
+  font-family: var(--ff-display);
+  font-size: clamp(24px, 3vw, 32px);
+  margin: 0;
+}
+
+.reset {
+  align-items: center;
+  background: #010101;
+  border: 1px solid #010101;
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  gap: 12px;
+  letter-spacing: 0.08em;
+  padding: 12px 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.resetArrow {
+  font-weight: 500;
+  line-height: 1;
+}

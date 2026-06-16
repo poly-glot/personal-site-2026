@@ -1,0 +1,244 @@
+.gridlines {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.hline,
+.vline {
+  background: var(--grid);
+  position: absolute;
+}
+
+.hline {
+  height: 1px;
+  left: 0;
+  right: 0;
+}
+
+.vline {
+  bottom: 0;
+  top: 0;
+  width: 1px;
+}
+
+.v0 {
+  left: 0;
+}
+
+.v33 {
+  left: 33.33%;
+}
+
+.v66 {
+  left: 66.66%;
+}
+
+.v100 {
+  left: 100%;
+}
+
+.rowTop {
+  top: 0;
+}
+
+.rowA {
+  top: 12.74%;
+}
+
+.rowB {
+  top: 49.67%;
+}
+
+.rowC {
+  top: 76.07%;
+}
+
+.rowBottom {
+  bottom: 0;
+  top: auto;
+}
+
+.plus {
+  animation: starTwinkle var(--twinkle-dur, 6s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+  color: var(--accent);
+  display: grid;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  height: 21px;
+  line-height: 1;
+  place-items: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  will-change: color, opacity;
+  z-index: 4;
+}
+
+.t0 {
+  --twinkle-delay: 0s;
+  --twinkle-dur: 6.4s;
+}
+
+.t1 {
+  --twinkle-delay: 1.9s;
+  --twinkle-dur: 5.2s;
+}
+
+.t2 {
+  --twinkle-delay: 3.4s;
+  --twinkle-dur: 7.1s;
+}
+
+.t3 {
+  --twinkle-delay: 0.7s;
+  --twinkle-dur: 5.8s;
+}
+
+.t4 {
+  --twinkle-delay: 2.6s;
+  --twinkle-dur: 6.8s;
+}
+
+.t5 {
+  --twinkle-delay: 4.3s;
+  --twinkle-dur: 5.5s;
+}
+
+@keyframes starTwinkle {
+  0% {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  18% {
+    color: var(--accent);
+    opacity: 0;
+  }
+
+  28% {
+    color: var(--fg);
+    opacity: 0;
+  }
+
+  45% {
+    color: var(--fg);
+    opacity: 1;
+  }
+
+  62% {
+    color: var(--fg);
+    opacity: 0;
+  }
+
+  72% {
+    color: var(--accent);
+    opacity: 0;
+  }
+
+  100% {
+    color: var(--accent);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plus {
+    animation: none;
+  }
+}
+
+.bleed {
+  bottom: 0;
+  left: 100%;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: calc((100vw - 100%) / 2);
+  z-index: 0;
+}
+
+.bleed .hline {
+  background: var(--grid);
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.bleedB0 {
+  top: 0;
+}
+
+.bleedB1 {
+  top: 98px;
+}
+
+.bleedB2 {
+  top: 382px;
+}
+
+.bleedB3 {
+  top: 585px;
+}
+
+.vlineEdge {
+  background: var(--grid);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: -61px;
+  width: 1px;
+}
+
+.vext {
+  height: 61px;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: -61px;
+  width: 510px;
+  z-index: 0;
+}
+
+.vext .vline {
+  background: var(--grid);
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  transform: translateX(-0.5px);
+  width: 1px;
+}
+
+@media (min-width: 1080px) {
+  .rowA {
+    top: 98px;
+  }
+
+  .rowB {
+    top: 382px;
+  }
+
+  .rowC {
+    top: 585px;
+  }
+
+  .rowBottom {
+    display: none;
+  }
+
+  .tickLeft {
+    left: -28px;
+  }
+}
+
+@media (max-width: 1079px) {
+  .gridlines,
+  .vext,
+  .bleed {
+    display: none;
+  }
+}

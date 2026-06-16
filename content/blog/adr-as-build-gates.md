@@ -1,0 +1,133 @@
+---
+id: adr-as-build-gates
+title: Turning ADRs into build-time gates
+deck: Stop writing decisions you can't enforce. Pin the rule into the pipeline.
+teaser: Most ADRs read like wishes. The ones that survive are the ones the build refuses to merge without.
+date: "2026-04-12"
+year: 2026
+topics:
+  - Architecture
+  - Process
+readMin: 11
+abstract: GATE
+tone: "linear-gradient(135deg, #f8a41d22, #02292008)"
+---
+
+Most architectural decision records read like wishes. Someone writes a markdown
+file, the team nods in a review, the file goes into a /docs folder, and within a
+quarter the codebase is ignoring it. The rule still exists in the wiki. The
+build doesn't care.
+
+The fix is not better writing. The fix is a build that refuses to merge code
+that violates the decision.
+
+> An ADR you can't enforce is a feeling, not an architecture.
+
+## Why ADRs rot
+
+There is a predictable arc. Quarter one: the team writes an ADR, everyone
+agrees, the rule is fresh in everyone's head. Quarter two: a new contributor
+onboards, doesn't read /docs, makes a small violation in a feature PR. The
+reviewer is busy and the diff is small. The rule erodes by 1%.
+
+Quarter three: another small erosion. By quarter four, half the team can't tell
+you what the original ADR said, and the codebase contains three
+counter-examples. The rule is dead. It died in code review, one tired Tuesday at
+a time.
+
+This is not a discipline problem. This is a system problem. Discipline is what
+you fall back on when the system isn't doing its job.
+
+## Three questions during review {#three-questions}
+
+For every ADR we write, we now ask three questions before merging the prose:
+
+- What is the rule, expressed as a check a CI job can run?
+- What is the failure message that explains the why, not just the what?
+- What is the escape hatch, and who approves its use?
+
+If we can't answer all three, the ADR is not ready. We don't merge the prose
+until we can also merge the gate. They ship together or not at all.
+
+This sounds heavy. In practice it adds maybe an hour to the ADR. The hour pays
+itself back the first time someone reaches for the pattern in a stale codebase
+eighteen months later.
+
+## A worked example: ADR-027 {#worked-example}
+
+Take ADR-027: "Luma never persists tenant credentials." The prose is clear, but
+on its own it relies on every engineer reading it. The build-time gate looks
+like this:
+
+```bash
+# fail the pipeline if a tenant-credential
+# field appears anywhere outside the signposting module
+rg --type java -e 'TenantCredential' \
+   --glob '!**/signposting/**' \
+   --glob '!**/test/**' && exit 1 || exit 0
+```
+
+Crude — but it has stopped two regressions in the last six months. Both PRs
+failed loudly, with a link back to the ADR. The conversation moved from "is this
+OK?" to "do we want to amend the decision?" That is the conversation worth
+having.
+
+### The failure message matters more than the rule
+
+When the gate fails, it doesn't print "violation in line 42." It prints two
+paragraphs explaining the architectural reason — borrowed credentials,
+short-lived tokens, audit-log integrity — and links to the ADR. The author of
+the failing PR knows, within thirty seconds, why the build is angry. They almost
+always agree with the rule by the time they finish reading. That is the goal.
+
+## Escape hatches, on purpose {#escape-hatches}
+
+Every gate has an escape hatch — a magic comment, a flag in a per-repo
+allowlist, an explicit override that requires two reviews from the ADR's
+authors. We don't pretend rules are absolute. We make exceptions visible.
+
+The escape hatch matters for two reasons. First, it acknowledges that real
+engineering involves trade-offs the rule didn't anticipate. Second, it gives us
+a queryable list of every place we deliberately violated our own design —
+material for the next ADR.
+
+:::callout[Rule of thumb]
+
+If the only thing keeping a decision alive is institutional memory, the decision
+is already on borrowed time. Pin it into the pipeline.
+
+:::
+
+## What this changes culturally {#what-changes-culturally}
+
+The first three gates we shipped felt heavy. By the tenth, the team was
+proposing them in design reviews — not as bureaucracy, but as a way of saying "I
+want this to still be true in eighteen months." That is when you know the
+practice has taken root.
+
+The other shift is conversational. ADR debates used to be performative — someone
+would argue against the rule in the abstract, win the meeting, and move on. Now
+those debates have weight, because the next step is a CI gate that you and
+everyone else has to live with. People bring sharper objections. They also
+concede faster, because the cost of being wrong is concrete.
+
+## What not to gate
+
+Not every ADR deserves a build-time gate. Some decisions are advisory — "prefer
+composition over inheritance" — and trying to encode them in CI produces
+brittle, lint-flavoured noise. The test we use:
+
+- Can a junior engineer reasonably violate this without realising?
+- Would a violation be expensive to unwind later?
+- Is the rule enforceable with a check that won't drown the team in false
+  positives?
+
+Three yeses: gate it. Two or fewer: write the ADR, document the rationale,
+accept that this one travels by oral tradition. Pick your battles. The gates
+that matter are the ones that pay rent every week.
+
+## Closing thought {#closing}
+
+An architecture is what your build allows, not what your wiki claims. Treat your
+CI as a colleague who never gets tired, never has a bad week, and never forgets
+why a rule exists. Hand it the decisions you can't afford to lose.

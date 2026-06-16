@@ -1,0 +1,71 @@
+[data-tone="adr-as-build-gates"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #02292008);
+}
+
+[data-tone="editorial-design-systems"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #ffffff05);
+}
+
+[data-tone="hiring-principal-engineers"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #65656511);
+}
+
+[data-tone="open-source-without-burnout"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #f8a41d05);
+}
+
+[data-tone="platform-team-outcomes"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #65656520);
+}
+
+[data-tone="react-hook-budgets"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #01010108);
+}
+
+[data-tone="signposting-integrations"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #02292011);
+}
+
+[data-tone="strangler-without-pain"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #1a1a1a11);
+}
+
+[data-tone="amazing-landing"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #ffffff05);
+}
+
+[data-tone="automotive-planner"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #65656511);
+}
+
+[data-tone="azadi-go"] {
+  --bw-tone: linear-gradient(135deg, #02292022, #03222808);
+}
+
+[data-tone="bhx-travel"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #022b3308);
+}
+
+[data-tone="boston"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #1a1a1a11);
+}
+
+[data-tone="crea8ive"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #65656520);
+}
+
+[data-tone="ech-uk"] {
+  --bw-tone: linear-gradient(135deg, #65656520, #ffffff05);
+}
+
+[data-tone="hooklab"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #01010108);
+}
+
+[data-tone="luma-dam"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #02292011);
+}
+
+[data-tone="openguessr"] {
+  --bw-tone: linear-gradient(135deg, #f8a41d22, #f8a41d05);
+}

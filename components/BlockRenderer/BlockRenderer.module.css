@@ -1,0 +1,104 @@
+.h2 {
+  color: var(--fg);
+  font-size: clamp(26px, 3.4vw, 36px);
+  line-height: 1.15;
+  margin-bottom: 0;
+  margin-top: var(--s-5);
+  scroll-margin-top: 88px;
+  text-wrap: balance;
+}
+
+.h3 {
+  color: var(--fg);
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-top: var(--s-4);
+}
+
+.p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.pull {
+  border-left: 3px solid var(--accent);
+  margin: var(--s-5) 0;
+  padding: 0 0 0 var(--s-3);
+}
+
+.pull p {
+  color: var(--fg);
+  font-family: var(--ff-display);
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.25;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  padding-left: 28px;
+  position: relative;
+  text-wrap: pretty;
+}
+
+.list li::before {
+  color: var(--accent-text);
+  content: "—";
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.code {
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  color: var(--fg);
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: var(--s-3);
+}
+
+.code code {
+  font-family: var(--ff-mono);
+}
+
+.callout {
+  border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--accent);
+  display: grid;
+  gap: var(--s-2);
+  margin: var(--s-5) 0;
+  padding: var(--s-3) 0;
+}
+
+.calloutLabel {
+  color: var(--accent-text);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.callout p {
+  color: var(--fg);
+  font-family: var(--ff-display);
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.35;
+  margin: 0;
+  text-wrap: pretty;
+}

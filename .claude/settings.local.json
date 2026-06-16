@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(deno-expert)",
+      "Skill(deno-frontend)",
+      "Skill(deno-guidance)",
+      "Skill(spec-miner)",
+      "Bash(wc:*)",
+      "Bash(deno task:*)",
+      "Bash(deno fmt:*)",
+      "Bash(deno lint:*)",
+      "Bash(deno check:*)",
+      "Bash(deno test:*)",
+      "Bash(deno run:*)",
+      "Bash(git reset *)",
+      "Bash(GIT_AUTHOR_NAME=\"Junaid Ahmed\" GIT_AUTHOR_EMAIL=\"me@junaid.guru\" GIT_COMMITTER_NAME=\"Junaid Ahmed\" GIT_COMMITTER_EMAIL=\"me@junaid.guru\" git commit *)",
+      "Bash(curl -sS -o /dev/null -w \"HTTP %{http_code} in %{time_total}s\\\\n\" --max-time 5 http://localhost:8000/)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:fresh.deno.dev)",
+      "WebFetch(domain:docs.deno.com)",
+      "Read(//Users/junaidahmed/Desktop/projects/zig-directory/.devcontainer/**)"
+    ]
+  }
+}

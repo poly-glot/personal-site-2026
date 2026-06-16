@@ -1,0 +1,89 @@
+---
+id: editorial-design-systems
+title: Editorial design systems for engineers
+deck: Tokens are not enough. The system is the rhythm — bands, numbers, pauses, italics.
+teaser: A design system without a rhythm is a fontconfig. The rhythm is what makes a page feel intentional.
+date: "2025-02-08"
+year: 2025
+topics:
+  - DevEx
+  - Process
+readMin: 12
+abstract: BLOCKS
+tone: "linear-gradient(135deg, #f8a41d22, #ffffff05)"
+---
+
+A design system is not a fontconfig with extra steps. It is a rhythm — bands,
+numbers, pauses, italics — that makes a product feel intentional. Tokens are
+necessary but not sufficient.
+
+> A design system without a rhythm is a fontconfig.
+
+## What tokens miss
+
+Tokens describe atoms. They do not describe the cadence between atoms. They
+cannot tell you when to break the rules, when to leave space, when to let a
+number breathe across a column. A page with perfect tokens and no rhythm is what
+most enterprise software looks like. Functional, dead.
+
+The rhythm is editorial. It comes from print, not from web design. Magazines
+have known this for a century. Software is just catching up.
+
+## The rhythm we use
+
+- Numbered eyebrows on every section, two-digit, monospace.
+- Alternating bands between rows for editorial pace, not decoration.
+- Italic emphasis only on the one phrase per page that earns it.
+- Black solid CTAs, never tinted accent — the accent is for content, not chrome.
+- Full-bleed rules between sections, never card-bordered groupings.
+
+Each of these is a small constraint. None of them are radical. The combination
+is what makes the page feel composed instead of arranged.
+
+## Why numbered eyebrows
+
+Section numbers tell you where you are. They also tell the designer where they
+are. Numbered eyebrows force you to count sections, which forces you to ask
+whether each section deserves a number — which is a useful editing pressure. By
+the time we ship a page, every numbered section justifies the count. The ones
+that didn't were cut.
+
+## Italic restraint
+
+One italic phrase per page. That's the rule. The italic carries the emphasis you
+cannot delegate to colour or weight, because the reader will not believe colour
+or weight after the third paragraph. The italic still works in paragraph
+fifteen. Save it for then.
+
+:::callout[Test]
+
+Take a screenshot of any page. Cover the type. If you can still feel the rhythm
+of the page from the bands and the numbers alone, the system is working.
+
+:::
+
+## Accent as content, not chrome {#accent-discipline}
+
+The accent colour belongs to content — italic emphasis, the active section
+number, a single highlight on the one CTA that matters this page. It does not
+belong to chrome. Buttons, borders, header backgrounds: those stay black, white,
+neutral. The accent is precious because we use it sparingly. The moment it
+becomes decoration, it stops being a signal.
+
+## What this costs
+
+Editorial systems are slower to ship. They require an editor — usually you,
+often the same person designing the page — to make calls about what gets the
+italic, what earns the band, which section to cut. They reward restraint and
+punish copy-paste. They are also harder to teach to a new designer, because the
+rules feel arbitrary until you've sat with them.
+
+The trade is that the resulting product feels like someone made it. Not a
+committee. Not a Figma library. A person, with taste and constraints. That is
+what users register, even when they can't name it.
+
+## Closing thought {#closing}
+
+Build the tokens. Build them well. Then build the rhythm on top, and let the
+rhythm be the part new designers learn last. That is how a system stays a
+system, instead of decaying into a fontconfig.

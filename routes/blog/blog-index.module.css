@@ -1,0 +1,16 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+  padding: var(--s-6) 0;
+}
+
+.emptyTitle {
+  font-size: clamp(24px, 3.4vw, 36px);
+  margin: 0;
+}

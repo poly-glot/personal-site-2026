@@ -1,0 +1,126 @@
+---
+id: strangler-without-pain
+title: A strangler-fig migration without the pain
+deck: How Project Boston pulled Smart Tagging out of Luma — Redis queue, single leader, no downtime.
+teaser: The trick is not the pattern. The trick is what you do with the queue depth on day three.
+date: "2026-03-02"
+year: 2026
+topics:
+  - Architecture
+  - Platform
+readMin: 16
+abstract: FIG
+tone: "linear-gradient(135deg, #f8a41d22, #1a1a1a11)"
+---
+
+Project Boston was supposed to be a six-week extraction. It took six months. The
+pattern is well known — strangler fig, queue between old and new, dual-write —
+and yet every team that runs it learns something they couldn't read in a blog
+post.
+
+This is what we learned, in roughly the order it hurt.
+
+> The queue is not a buffer. It is a stress test you ship to production.
+
+## The shape of the migration {#the-shape}
+
+Smart Tagging was buried inside Luma. Every tag write went through the main
+app's transactional path, which meant every spike in tagging traffic also slowed
+the rest of the platform. We needed to pull tagging out into its own service —
+Boston — without ever taking Luma offline, and without missing a single write.
+
+The plan looked like every strangler-fig diagram on the internet: dual-write old
+and new, queue between them, cut over reads, decommission the old path. The plan
+looked simple. The plan was simple. The execution was where the lessons lived.
+
+## Day one is easy {#day-one}
+
+Putting Redis between Luma and Boston was a Tuesday. We added a producer to
+Luma's tag-write path, set up a Redis stream, wrote a Boston worker that
+consumed it. Local tests green. Staging green. Production: green for forty-eight
+hours.
+
+We celebrated. We were wrong to celebrate.
+
+## Day three is the test {#day-three}
+
+On Friday afternoon, a tenant ran a bulk re-tag operation on 200,000 assets. The
+Redis stream went from a few hundred messages to 80,000 in twenty minutes.
+Boston Leader was processing one batch every 400ms instead of one every 80ms.
+The queue depth climbed and didn't stop.
+
+We had two problems. The first was throughput — Boston Leader's batching window
+was too generous. The second was visibility — we didn't have a dashboard for
+queue depth, so we found out about the backlog from a customer ticket, not from
+our own metrics.
+
+We fixed throughput in an hour. We fixed observability over the weekend. The
+thing that should have shipped on day one was the dashboard, not the service.
+
+:::callout[What I'd do differently]
+
+Instrument queue depth and leader-lag metrics before the cut-over, not after. We
+were flying blind for the first 48 hours and it cost us a Sunday.
+
+:::
+
+## Single leader, on purpose {#single-leader}
+
+We resisted the urge to make Boston a horizontally scaled service. Smart Tagging
+writes are sequential by tenant — a tag-add followed immediately by a tag-remove
+must apply in order, or the user sees flicker. The simplicity of "one leader,
+leader-election via Redis lock" beat any cleverness we tried with sharding.
+
+When the leader dies, another instance picks up within four seconds. Good
+enough. Sharding by tenant would have given us better theoretical throughput; it
+would also have given us a coordination problem on every tenant rebalance. We
+chose the boring option, on purpose, and have not regretted it.
+
+## The dual-write window {#dual-write-window}
+
+For ten weeks we wrote to both the old path and the new. This was not a
+hot-cutover. We wanted overlap — a window where we could verify Boston produced
+identical results to Luma, before pointing reads at it.
+
+During that window we ran a daily diff job: pick 1,000 tenants at random, query
+both systems for tag state, count mismatches. The first run had 47 mismatches.
+The last run before cutover had zero. Zero is the only acceptable answer for
+read-cutover.
+
+This sounds obvious. It cost us three weeks. Some of those mismatches were real
+bugs in Boston; others were race conditions in Luma we had inherited and didn't
+know about. The diff job paid for itself many times over.
+
+## The decommissioning trap {#decom-trap}
+
+Decommissioning the old path is harder than building the new one. We carried
+both for ten weeks longer than planned because three internal tools were still
+poking at the legacy endpoint — a reporting script, a CSAT dashboard, and an
+admin console nobody had touched in two years.
+
+Each one needed an owner, a migration plan, and a deadline. We had none of that
+documented at the start of the project. The lesson: budget the decom into the
+project from day zero, with names attached. Otherwise the migration is never
+"done," just "done-ish, with two paths kept alive for safety," and you've
+doubled your operational surface area without realising.
+
+## What we reused {#reusable-pattern}
+
+By the time Boston was decommissioning the old path, we had a pattern we could
+re-use for any agent extraction:
+
+- Producer-side queue with structured events, versioned from day one.
+- Consumer-side single-leader pattern, leader election via Redis lock.
+- Dual-write window with daily diff job until zero mismatches for seven
+  consecutive days.
+- Named owners for every legacy consumer, with deadlines, before cutover.
+- Explicit decom checklist as the final ticket — not an afterthought.
+
+We have run this pattern twice more since Boston. The second one took three
+months. The third one took six weeks. Patterns compound, if you write them down.
+
+## Closing thought {#closing}
+
+Strangler-fig migrations are taught as a pattern. They are really a practice — a
+sequence of dull, careful, instrumented moves. The pattern is the easy part. The
+practice is what keeps you on the right side of a customer ticket.
