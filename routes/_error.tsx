@@ -2,6 +2,7 @@ import { HttpError, type PageProps } from "fresh";
 import type { State } from "@/utils/state.ts";
 import Header from "@/components/Header/Header.tsx";
 import Footer from "@/components/Footer/Footer.tsx";
+import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import styles from "./_error.module.css";
 
 export default function ErrorPage({ error }: PageProps<unknown, State>) {
@@ -12,10 +13,13 @@ export default function ErrorPage({ error }: PageProps<unknown, State>) {
     <>
       <Header active="" />
       <main id="main" class={styles.main} data-error-page>
-        <p class={styles.eyebrow}>
-          <span class={styles.num}>{status}</span>
-          <span class={styles.label}>Error</span>
-        </p>
+        <SectionEyebrow
+          num={String(status)}
+          label="Error"
+          align="baseline"
+          labelStrong
+          class={styles.eyebrow}
+        />
         <h1 class={styles.title}>
           {message}
         </h1>

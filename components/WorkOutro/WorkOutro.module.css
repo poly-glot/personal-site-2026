@@ -19,10 +19,6 @@
   z-index: 1;
 }
 
-.footSpacer {
-  flex: 1;
-}
-
 .footCopy {
   color: var(--bg);
   font-family: var(--ff-display);

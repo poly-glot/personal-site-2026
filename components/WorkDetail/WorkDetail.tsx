@@ -1,17 +1,33 @@
-import type { BlockNode, WorkProject } from "@/src/types.ts";
-import BlockRenderer from "@/components/BlockRenderer/BlockRenderer.tsx";
+import type { WorkProject } from "@/src/types.ts";
+import { proseComponents } from "@/components/Prose/proseComponents.tsx";
 import BrowserThumb from "@/components/hero/BrowserThumb/BrowserThumb.tsx";
+import type { ComponentType } from "preact";
 import styles from "./WorkDetail.module.css";
+
+const bodyModules = import.meta.glob("../../content/work/*.mdx", {
+  eager: true,
+}) as Record<
+  string,
+  { default: ComponentType<{ components?: Record<string, unknown> }> }
+>;
+
+const bodies: Record<
+  string,
+  ComponentType<{ components?: Record<string, unknown> }>
+> = {};
+
+for (const [path, mod] of Object.entries(bodyModules)) {
+  bodies[path.split("/").pop()!.replace(/\.mdx$/, "")] = mod.default;
+}
 
 interface WorkDetailProps {
   project: WorkProject;
-  body: BlockNode[];
   prev: WorkProject | null;
   next: WorkProject | null;
 }
 
 export default function WorkDetail(
-  { project, body, prev, next }: WorkDetailProps,
+  { project, prev, next }: WorkDetailProps,
 ) {
   const live = project.href !== "#";
 
@@ -67,7 +83,10 @@ export default function WorkDetail(
           <BrowserThumb project={project} />
         </div>
         <div class={styles.prose}>
-          <BlockRenderer body={body} />
+          {(() => {
+            const Body = bodies[project.id];
+            return Body ? <Body components={proseComponents} /> : null;
+          })()}
         </div>
       </article>
       <nav class={styles.neighbors} aria-label="More projects">

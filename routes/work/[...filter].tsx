@@ -45,7 +45,6 @@ export default define.page<typeof handler>(({ data }) => {
         <main id="main" class="container">
           <WorkDetail
             project={data.project}
-            body={data.body}
             prev={data.prev}
             next={data.next}
           />

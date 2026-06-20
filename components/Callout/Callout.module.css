@@ -1,0 +1,24 @@
+.callout {
+  border-bottom: 1px solid var(--rule);
+  border-top: 1px solid var(--accent);
+  display: grid;
+  gap: var(--s-2);
+  margin: var(--s-5) 0;
+  padding: var(--s-3) 0;
+}
+
+.calloutLabel {
+  color: var(--accent-text);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.callout p {
+  color: var(--fg);
+  font-family: var(--ff-display);
+  font-size: clamp(18px, 2.2vw, 22px);
+  line-height: 1.35;
+  margin: 0;
+  text-wrap: pretty;
+}

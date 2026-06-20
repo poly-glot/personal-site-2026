@@ -22,28 +22,8 @@
 }
 
 .eyebrow {
-  align-items: baseline;
-  border-bottom: 1px solid var(--rule);
-  color: var(--muted);
-  display: flex;
-  font-family: var(--ff-mono);
-  font-size: 13px;
-  gap: var(--s-2);
-  letter-spacing: 0.14em;
   margin: 0 0 var(--s-3);
   max-width: 18ch;
-  padding-bottom: var(--s-2);
-  text-transform: uppercase;
-}
-
-.num {
-  color: var(--accent-text);
-  font-weight: 700;
-}
-
-.label {
-  color: var(--fg-2);
-  font-weight: 500;
 }
 
 .title {

@@ -1,4 +1,4 @@
-import type { BlockNode, WorkProject, WorkSelection } from "@/src/types.ts";
+import type { WorkProject, WorkSelection } from "@/src/types.ts";
 import {
   EMPTY_WORK_SELECTION,
   parseWorkSegments,
@@ -33,7 +33,6 @@ export interface WorkListData {
 export interface WorkDetailData {
   view: "detail";
   project: WorkProject;
-  body: BlockNode[];
   prev: WorkProject | null;
   next: WorkProject | null;
 }
@@ -66,9 +65,8 @@ export function resolveWork(
     if (found) {
       return {
         view: "detail",
-        project: found.project,
-        body: found.body,
-        ...getProjectNeighbors(found.project.id),
+        project: found,
+        ...getProjectNeighbors(found.id),
       };
     }
   }

@@ -1,16 +1,12 @@
 import { CONTACT_EMAIL } from "@/src/nav.ts";
+import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import styles from "./WorkOutro.module.css";
 
 export default function WorkOutro() {
   return (
     <section class={styles.foot}>
       <div class={styles.footInner}>
-        <div class="section-eyebrow">
-          <span class="num accent">03.</span>
-          <span>What's next</span>
-          <span class={styles.footSpacer} />
-          <span class="mono">Open to roles</span>
-        </div>
+        <SectionEyebrow num="03." label="What's next" right="Open to roles" />
         <p class={styles.footCopy}>
           Currently scoping a <strong>Lead Principal</strong>{" "}
           role focused on platform durability, ADR culture, and turning

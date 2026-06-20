@@ -9,15 +9,6 @@ export interface PageMeta {
   robots?: string;
 }
 
-export type BlockNode =
-  | { kind: "p"; text: string }
-  | { kind: "h2"; id: string; text: string }
-  | { kind: "h3"; id: string; text: string }
-  | { kind: "pull"; text: string }
-  | { kind: "list"; items: string[] }
-  | { kind: "code"; lang: string; text: string }
-  | { kind: "callout"; title: string; text: string };
-
 export type BlogAbstract =
   | "GATE"
   | "FIG"
@@ -48,6 +39,7 @@ export interface BlogPost {
   abstract: BlogAbstract;
   tone: string;
   teaser: string;
+  toc: TocEntry[];
 }
 
 export interface WorkProject {
@@ -63,16 +55,6 @@ export interface WorkProject {
   href: string;
   abstract: WorkAbstract;
   tone: string;
-}
-
-export interface PostWithBody {
-  post: BlogPost;
-  body: BlockNode[];
-}
-
-export interface ProjectWithBody {
-  project: WorkProject;
-  body: BlockNode[];
 }
 
 export interface BlogFilter {

@@ -8,7 +8,6 @@ import {
   getPostNeighbors,
   getProject,
   paginate,
-  tocFor,
   workVocab,
 } from "@/data/content.ts";
 import { EMPTY_BLOG_FILTER } from "@/data/taxonomy.ts";
@@ -33,9 +32,9 @@ Deno.test("getAllPosts is date-descending", () => {
   }
 });
 
-Deno.test("getPost returns body or null", () => {
+Deno.test("getPost returns post or null", () => {
   assertEquals(
-    getPost("adr-as-build-gates")?.post.title,
+    getPost("adr-as-build-gates")?.title,
     "Turning ADRs into build-time gates",
   );
   assertEquals(getPost("missing"), null);
@@ -53,12 +52,9 @@ Deno.test("getPostNeighbors walks date-desc order", () => {
   assertEquals(getPostNeighbors(lastId).next, null);
 });
 
-Deno.test("tocFor lists h2 blocks only", () => {
+Deno.test("toc is derived from h2s", () => {
   const found = getPost("adr-as-build-gates")!;
-  const toc = tocFor(found.body);
-  const h2s = found.body.filter((b) => b.kind === "h2");
-  assertEquals(toc.length, h2s.length);
-  assertEquals(toc[0], { id: "why-adrs-rot", text: "Why ADRs rot" });
+  assertEquals(found.toc[0], { id: "why-adrs-rot", text: "Why ADRs rot" });
 });
 
 Deno.test("filterPosts: empty is all (date desc), OR within topics", () => {
@@ -84,7 +80,7 @@ Deno.test("filterPosts: empty is all (date desc), OR within topics", () => {
 Deno.test("getAllProjects is source order; getProject by id", () => {
   const projects = getAllProjects();
   assertEquals(projects[0].id, "amazing-landing");
-  assertEquals(getProject("openguessr")?.project.name, "OpenGuessr");
+  assertEquals(getProject("openguessr")?.name, "OpenGuessr");
   assertEquals(getProject("nope"), null);
 });
 
@@ -128,10 +124,10 @@ Deno.test("getAllPosts returns posts sorted by date descending", () => {
   }
 });
 
-Deno.test("getPost returns a post with body for a known id", () => {
+Deno.test("getPost returns a post for a known id", () => {
   const found = getPost("adr-as-build-gates");
-  assertEquals(found?.post.id, "adr-as-build-gates");
-  assertEquals(found!.body.length > 0, true);
+  assertEquals(found?.id, "adr-as-build-gates");
+  assertEquals(found!.toc.length > 0, true);
 });
 
 Deno.test("getPost returns null for an unknown id", () => {
@@ -170,17 +166,14 @@ Deno.test("filterPosts ORs within topics", () => {
   assertEquals(result.length > 0, true);
 });
 
-Deno.test("tocFor extracts h2 entries with the migrated ids, in order", () => {
-  const found = getPost("adr-as-build-gates");
-  const toc = tocFor(found!.body);
-  const h2s = found!.body.filter((b) => b.kind === "h2");
-  assertEquals(toc.length, h2s.length);
-  assertEquals(toc[0], { id: "why-adrs-rot", text: "Why ADRs rot" });
-  assertEquals(toc[1], {
+Deno.test("toc extracts h2 entries with the migrated ids, in order", () => {
+  const found = getPost("adr-as-build-gates")!;
+  assertEquals(found.toc[0], { id: "why-adrs-rot", text: "Why ADRs rot" });
+  assertEquals(found.toc[1], {
     id: "three-questions",
     text: "Three questions during review",
   });
-  assertEquals(toc[2], {
+  assertEquals(found.toc[2], {
     id: "worked-example",
     text: "A worked example: ADR-027",
   });

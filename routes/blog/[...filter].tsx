@@ -24,7 +24,7 @@ export const handler = define.handlers({
     }
 
     if (result.view.kind === "detail") {
-      const { post } = result.view.detail;
+      const post = result.view.detail;
       ctx.state.meta = {
         title: `${post.title} — Junaid Ahmed`,
         description: post.deck,

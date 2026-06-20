@@ -1,0 +1,91 @@
+.eyebrow {
+  align-items: center;
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  display: flex;
+  text-transform: uppercase;
+}
+
+.noRule {
+  border-bottom: 0;
+}
+
+.baseline {
+  align-items: baseline;
+}
+
+.sans {
+  font-family: var(--ff-body);
+  font-size: 14px;
+  font-weight: 700;
+  gap: 6px;
+  letter-spacing: 0.10em;
+  line-height: 1;
+  padding-bottom: 12px;
+}
+
+.mono {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-eyebrow);
+  gap: var(--s-2);
+  letter-spacing: 0.14em;
+  padding-bottom: var(--s-2);
+}
+
+.num {
+  font-weight: 700;
+}
+
+.numAccent {
+  color: var(--accent-text);
+}
+
+.numAccentBright {
+  color: var(--accent);
+}
+
+.numMuted {
+  color: var(--muted);
+}
+
+.labelStrong {
+  color: var(--fg-2);
+  font-weight: 500;
+}
+
+.right {
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.sans .right {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.rightSmall .right {
+  font-size: 11px;
+}
+
+.invert {
+  border-bottom-color: color-mix(in oklab, var(--bg) 20%, transparent);
+  color: color-mix(in oklab, var(--bg) 70%, transparent);
+}
+
+.invert .num {
+  color: var(--bg);
+}
+
+.invert .label {
+  color: var(--bg);
+}
+
+.invert .right {
+  color: var(--bg);
+}
+
+.invert .numAccent {
+  color: var(--accent);
+}
