@@ -57,12 +57,12 @@ our own metrics.
 We fixed throughput in an hour. We fixed observability over the weekend. The
 thing that should have shipped on day one was the dashboard, not the service.
 
-:::callout[What I'd do differently]
+<Callout title="What I'd do differently">
 
 Instrument queue depth and leader-lag metrics before the cut-over, not after. We
 were flying blind for the first 48 hours and it cost us a Sunday.
 
-:::
+</Callout>
 
 ## Single leader, on purpose {#single-leader}
 

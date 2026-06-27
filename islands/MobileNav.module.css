@@ -103,6 +103,22 @@
   font-size: var(--fs-mono);
 }
 
+.social {
+  align-items: center;
+  color: var(--fg);
+  display: inline-flex;
+  font-family: var(--ff-mono);
+  font-size: 13px;
+  gap: var(--s-2);
+  letter-spacing: 0.04em;
+  margin-top: var(--s-3);
+  padding: var(--s-2) 0;
+}
+
+.social:hover {
+  color: var(--accent);
+}
+
 .footer {
   color: var(--muted);
   font-family: var(--ff-mono);

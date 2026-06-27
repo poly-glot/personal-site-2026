@@ -1,11 +1,7 @@
 import type {
-  BlockNode,
   BlogFilter,
   BlogPost,
   BlogVocab,
-  PostWithBody,
-  ProjectWithBody,
-  TocEntry,
   WorkProject,
   WorkSelection,
 } from "@/src/types.ts";
@@ -17,36 +13,26 @@ import {
   type WorkVocab,
 } from "@/data/taxonomy.ts";
 
-function byDateDesc(a: PostWithBody, b: PostWithBody): number {
-  return b.post.date.localeCompare(a.post.date);
-}
-
-const postsByDate = [...POSTS].sort(byDateDesc);
+const postsByDate = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
 
 export function getAllPosts(): BlogPost[] {
-  return postsByDate.map((p) => p.post);
+  return postsByDate;
 }
 
-export function getPost(id: string): PostWithBody | null {
-  return POSTS.find((p) => p.post.id === id) ?? null;
+export function getPost(id: string): BlogPost | null {
+  return POSTS.find((p) => p.id === id) ?? null;
 }
 
 export function getPostNeighbors(
   id: string,
 ): { prev: BlogPost | null; next: BlogPost | null } {
-  const index = postsByDate.findIndex((p) => p.post.id === id);
+  const index = postsByDate.findIndex((p) => p.id === id);
   if (index < 0) return { prev: null, next: null };
 
   return {
-    prev: index > 0 ? postsByDate[index - 1].post : null,
-    next: index < postsByDate.length - 1 ? postsByDate[index + 1].post : null,
+    prev: index > 0 ? postsByDate[index - 1] : null,
+    next: index < postsByDate.length - 1 ? postsByDate[index + 1] : null,
   };
-}
-
-export function tocFor(body: BlockNode[]): TocEntry[] {
-  return body
-    .filter((b): b is Extract<BlockNode, { kind: "h2" }> => b.kind === "h2")
-    .map((b) => ({ id: b.id, text: b.text }));
 }
 
 export function filterPosts(
@@ -82,11 +68,11 @@ export function blogVocab(): BlogVocab {
 }
 
 export function getAllProjects(): WorkProject[] {
-  return PROJECTS.map((p) => p.project);
+  return PROJECTS;
 }
 
-export function getProject(id: string): ProjectWithBody | null {
-  return PROJECTS.find((p) => p.project.id === id) ?? null;
+export function getProject(id: string): WorkProject | null {
+  return PROJECTS.find((p) => p.id === id) ?? null;
 }
 
 export function filterProjects(

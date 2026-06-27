@@ -1,7 +1,7 @@
 import { useSignal } from "@preact/signals";
 import { useEffect, useRef } from "preact/hooks";
 import type { NavLink } from "@/src/nav.ts";
-import { Close, Menu } from "@/components/Icons/Icons.tsx";
+import { Close, Github, Menu } from "@/components/Icons/Icons.tsx";
 import styles from "./MobileNav.module.css";
 
 interface MobileNavProps {
@@ -126,6 +126,16 @@ export default function MobileNav({ links }: MobileNavProps) {
               </a>
             ))}
           </nav>
+          <a
+            class={styles.social}
+            href="https://github.com/poly-glot/"
+            target="_blank"
+            rel="noopener"
+            onClick={close}
+          >
+            <Github />
+            <span>github.com/poly-glot</span>
+          </a>
           <div class={styles.footer}>
             <div>* coming soon</div>
             <div class={styles.footerLine}>JUNAID · Solutions Architect</div>

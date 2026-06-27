@@ -1,5 +1,9 @@
 import { assertEquals } from "@std/assert";
-import { POSTS } from "@/data/content.gen.ts";
+import { POSTS, PROJECTS } from "@/data/content.gen.ts";
+import { workVocab } from "@/data/content.ts";
+import { assertUnambiguous } from "@/data/taxonomy.ts";
+import { extractHeadings } from "@/scripts/mdx-headings.ts";
+import { extract } from "@std/front-matter/yaml";
 
 const EXPECTED_IDS = [
   "adr-as-build-gates",
@@ -12,13 +16,19 @@ const EXPECTED_IDS = [
   "strangler-without-pain",
 ];
 
+async function sourceHeadingIds(id: string): Promise<string[]> {
+  const raw = await Deno.readTextFile(`content/blog/${id}.mdx`);
+  const { body } = extract(raw);
+  return extractHeadings(body).map((h) => h.id);
+}
+
 Deno.test("all 8 posts are generated", () => {
   assertEquals(POSTS.length, 8);
-  assertEquals(POSTS.map((p) => p.post.id).sort(), EXPECTED_IDS);
+  assertEquals(POSTS.map((p) => p.id).sort(), EXPECTED_IDS);
 });
 
 Deno.test("adr post frontmatter matches the mockup", () => {
-  const adr = POSTS.find((p) => p.post.id === "adr-as-build-gates")!.post;
+  const adr = POSTS.find((p) => p.id === "adr-as-build-gates")!;
   assertEquals(adr.title, "Turning ADRs into build-time gates");
   assertEquals(adr.topics, ["Architecture", "Process"]);
   assertEquals(adr.readMin, 11);
@@ -34,12 +44,9 @@ Deno.test("adr post frontmatter matches the mockup", () => {
   );
 });
 
-Deno.test("adr h2 ids match the mockup ids", () => {
-  const adr = POSTS.find((p) => p.post.id === "adr-as-build-gates")!;
-  const h2 = adr.body.filter((b) => b.kind === "h2").map((b) =>
-    (b as { id: string }).id
-  );
-  assertEquals(h2, [
+Deno.test("adr h2 ids match the mockup ids (via manifest toc)", () => {
+  const adr = POSTS.find((p) => p.id === "adr-as-build-gates")!;
+  assertEquals(adr.toc.map((t) => t.id), [
     "why-adrs-rot",
     "three-questions",
     "worked-example",
@@ -50,13 +57,8 @@ Deno.test("adr h2 ids match the mockup ids", () => {
   ]);
 });
 
-Deno.test("every post's h2/h3 ids match the mockup ids", () => {
-  const headingIds = (id: string) =>
-    POSTS.find((p) => p.post.id === id)!.body
-      .filter((b) => b.kind === "h2" || b.kind === "h3")
-      .map((b) => (b as { id: string }).id);
-
-  assertEquals(headingIds("strangler-without-pain"), [
+Deno.test("every post's h2/h3 ids match the mockup ids", async () => {
+  assertEquals(await sourceHeadingIds("strangler-without-pain"), [
     "the-shape",
     "day-one",
     "day-three",
@@ -66,7 +68,7 @@ Deno.test("every post's h2/h3 ids match the mockup ids", () => {
     "reusable-pattern",
     "closing",
   ]);
-  assertEquals(headingIds("platform-team-outcomes"), [
+  assertEquals(await sourceHeadingIds("platform-team-outcomes"), [
     "the-trap",
     "what-we-measure",
     "office-hours",
@@ -74,7 +76,7 @@ Deno.test("every post's h2/h3 ids match the mockup ids", () => {
     "celebrate-tenants",
     "closing",
   ]);
-  assertEquals(headingIds("signposting-integrations"), [
+  assertEquals(await sourceHeadingIds("signposting-integrations"), [
     "the-stance",
     "how-it-works",
     "hard-cases",
@@ -84,7 +86,7 @@ Deno.test("every post's h2/h3 ids match the mockup ids", () => {
     "what-this-cost",
     "closing",
   ]);
-  assertEquals(headingIds("react-hook-budgets"), [
+  assertEquals(await sourceHeadingIds("react-hook-budgets"), [
     "the-symptom",
     "the-diagnosis",
     "the-wrong-fix",
@@ -93,7 +95,7 @@ Deno.test("every post's h2/h3 ids match the mockup ids", () => {
     "what-i-tell-juniors",
     "closing",
   ]);
-  assertEquals(headingIds("hiring-principal-engineers"), [
+  assertEquals(await sourceHeadingIds("hiring-principal-engineers"), [
     "thermostats",
     "what-i-ask",
     "what-i-avoid",
@@ -101,7 +103,7 @@ Deno.test("every post's h2/h3 ids match the mockup ids", () => {
     "the-anti-signals",
     "closing",
   ]);
-  assertEquals(headingIds("open-source-without-burnout"), [
+  assertEquals(await sourceHeadingIds("open-source-without-burnout"), [
     "saying-no",
     "cadence",
     "triage-rules",
@@ -109,7 +111,7 @@ Deno.test("every post's h2/h3 ids match the mockup ids", () => {
     "sponsorship",
     "closing",
   ]);
-  assertEquals(headingIds("editorial-design-systems"), [
+  assertEquals(await sourceHeadingIds("editorial-design-systems"), [
     "what-tokens-miss",
     "the-rhythm-we-use",
     "why-numbered-eyebrows",
@@ -120,31 +122,9 @@ Deno.test("every post's h2/h3 ids match the mockup ids", () => {
   ]);
 });
 
-Deno.test("adr callout and code blocks survive", () => {
-  const adr = POSTS.find((p) => p.post.id === "adr-as-build-gates")!;
-  const callout = adr.body.find((b) => b.kind === "callout");
-  assertEquals(callout, {
-    kind: "callout",
-    title: "Rule of thumb",
-    text:
-      "If the only thing keeping a decision alive is institutional memory, the decision is already on borrowed time. Pin it into the pipeline.",
-  });
-  const code = adr.body.find((b) => b.kind === "code") as {
-    kind: "code";
-    lang: string;
-    text: string;
-  };
-  assertEquals(code.lang, "bash");
-  assertEquals(code.text.includes("rg --type java"), true);
-});
-
-import { PROJECTS } from "@/data/content.gen.ts";
-import { workVocab } from "@/data/content.ts";
-import { assertUnambiguous } from "@/data/taxonomy.ts";
-
 Deno.test("all 10 projects are generated in source order", () => {
   assertEquals(PROJECTS.length, 10);
-  assertEquals(PROJECTS.map((p) => p.project.id), [
+  assertEquals(PROJECTS.map((p) => p.id), [
     "amazing-landing",
     "automotive-planner",
     "azadi-go",
@@ -159,7 +139,7 @@ Deno.test("all 10 projects are generated in source order", () => {
 });
 
 Deno.test("openguessr project matches the mockup", () => {
-  const og = PROJECTS.find((p) => p.project.id === "openguessr")!.project;
+  const og = PROJECTS.find((p) => p.id === "openguessr")!;
   assertEquals(og.name, "OpenGuessr");
   assertEquals(og.stack, ["React", "Node", "Firebase"]);
   assertEquals(og.domains, ["Mobile", "Directory"]);

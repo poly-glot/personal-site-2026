@@ -17,7 +17,7 @@ export const NAV_LINKS: readonly NavLink[] = [
     num: "01",
     ready: false,
   },
-  { id: "about", label: "About", href: "/about", num: "02", ready: false },
+  { id: "about", label: "About", href: "/about", num: "02", ready: true },
   { id: "blog", label: "Blog", href: "/blog/", num: "03", ready: false },
   {
     id: "contact",
@@ -25,7 +25,7 @@ export const NAV_LINKS: readonly NavLink[] = [
     href: `mailto:${CONTACT_EMAIL}`,
     num: "04",
     stub: true,
-    ready: false,
+    ready: true,
   },
 ];
 

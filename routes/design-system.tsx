@@ -1,7 +1,32 @@
 import { define } from "@/utils/state.ts";
 import Header from "@/components/Header/Header.tsx";
 import Footer from "@/components/Footer/Footer.tsx";
+import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import styles from "./design-system.module.css";
+
+function DsEyebrow(
+  { num, label, right, spaced }: {
+    num: string;
+    label: string;
+    right: string;
+    spaced?: boolean;
+  },
+) {
+  return (
+    <SectionEyebrow
+      num={num}
+      label={label}
+      right={right}
+      align="baseline"
+      labelStrong
+      rightSmall
+      numTone="accentBright"
+      class={spaced
+        ? `${styles.eyebrow} ${styles.eyebrowSpaced}`
+        : styles.eyebrow}
+    />
+  );
+}
 
 interface Principle {
   n: string;
@@ -269,11 +294,12 @@ export default define.page(function DesignSystem() {
         <section class={styles.intro}>
           <div class={styles.introGrid}>
             <div>
-              <p class={`${styles.eyebrow} ${styles.eyebrowSpaced}`}>
-                <span class={`${styles.num} ${styles.numAccent}`}>00.</span>
-                <span class={styles.label}>Design System</span>
-                <span class={styles.right}>v1.0 — 2026</span>
-              </p>
+              <DsEyebrow
+                num="00."
+                label="Design System"
+                right="v1.0 — 2026"
+                spaced
+              />
               <h1 class={styles.introTitle}>
                 A quiet system, <strong>built on the seam</strong>.
               </h1>
@@ -310,11 +336,7 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={styles.section}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>01.</span>
-            <span class={styles.label}>Principles</span>
-            <span class={styles.right}>06 rules</span>
-          </p>
+          <DsEyebrow num="01." label="Principles" right="06 rules" />
           <h2 class={styles.sectionTitle}>Six rules the system obeys.</h2>
           <p class={styles.sectionLede}>
             Every component on this page exists because of one of these. When a
@@ -335,11 +357,7 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={`${styles.section} ${styles.banded}`}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>02.</span>
-            <span class={styles.label}>Color</span>
-            <span class={styles.right}>12 tokens</span>
-          </p>
+          <DsEyebrow num="02." label="Color" right="12 tokens" />
           <h2 class={styles.sectionTitle}>One accent, doing real work.</h2>
           <p class={styles.sectionLede}>
             The palette is intentionally narrow: two neutrals, two surfaces, two
@@ -355,11 +373,11 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={styles.section}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>03.</span>
-            <span class={styles.label}>Typography</span>
-            <span class={styles.right}>3 families · φ scale</span>
-          </p>
+          <DsEyebrow
+            num="03."
+            label="Typography"
+            right="3 families · φ scale"
+          />
           <h2 class={styles.sectionTitle}>
             A serif headline, a clean body, a working mono.
           </h2>
@@ -389,11 +407,7 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={`${styles.section} ${styles.banded}`}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>04.</span>
-            <span class={styles.label}>Spacing &amp; Rhythm</span>
-            <span class={styles.right}>φ = 1.618</span>
-          </p>
+          <DsEyebrow num="04." label="Spacing & Rhythm" right="φ = 1.618" />
           <h2 class={styles.sectionTitle}>A Fibonacci scale, end to end.</h2>
           <p class={styles.sectionLede}>
             Every gap, padding, and section break draws from one ladder: 8 · 13
@@ -413,11 +427,7 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={styles.section}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>05.</span>
-            <span class={styles.label}>Components</span>
-            <span class={styles.right}>06 patterns</span>
-          </p>
+          <DsEyebrow num="05." label="Components" right="06 patterns" />
           <h2 class={styles.sectionTitle}>
             The handful of parts that make the whole.
           </h2>
@@ -540,11 +550,7 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={`${styles.section} ${styles.banded}`}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>06.</span>
-            <span class={styles.label}>Patterns</span>
-            <span class={styles.right}>06 conventions</span>
-          </p>
+          <DsEyebrow num="06." label="Patterns" right="06 conventions" />
           <h2 class={styles.sectionTitle}>
             Recurring moves across the portfolio.
           </h2>
@@ -564,11 +570,7 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={styles.section}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>07.</span>
-            <span class={styles.label}>Do &amp; Don't</span>
-            <span class={styles.right}>guard rails</span>
-          </p>
+          <DsEyebrow num="07." label="Do & Don't" right="guard rails" />
           <h2 class={styles.sectionTitle}>How to keep the system honest.</h2>
           <p class={styles.sectionLede}>
             These are the calls a maintainer should be able to make in five
@@ -591,11 +593,16 @@ export default define.page(function DesignSystem() {
         </section>
 
         <section class={styles.cta}>
-          <p class={styles.eyebrow}>
-            <span class={`${styles.num} ${styles.numAccent}`}>08.</span>
-            <span class={styles.label}>In practice</span>
-            <span class={styles.right}>see it live</span>
-          </p>
+          <SectionEyebrow
+            num="08."
+            label="In practice"
+            right="see it live"
+            align="baseline"
+            labelStrong
+            rightSmall
+            tone="invert"
+            class={styles.eyebrow}
+          />
           <h1 class={styles.ctaTitle}>
             See the system <strong>doing the work</strong>.
           </h1>

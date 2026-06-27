@@ -1,6 +1,7 @@
 import { VISIBLE_NAV_LINKS } from "@/src/nav.ts";
 import ThemeToggle from "@/islands/ThemeToggle.tsx";
 import MobileNav from "@/islands/MobileNav.tsx";
+import { Github } from "@/components/Icons/Icons.tsx";
 import styles from "./Header.module.css";
 
 interface HeaderProps {
@@ -30,6 +31,15 @@ export default function Header({ active = "" }: HeaderProps) {
           </nav>
         )}
         <div class={styles.actions}>
+          <a
+            class={styles.iconLink}
+            href="https://github.com/poly-glot/"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub — poly-glot"
+          >
+            <Github />
+          </a>
           <ThemeToggle />
           {hasNav && <MobileNav links={VISIBLE_NAV_LINKS} />}
         </div>

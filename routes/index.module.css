@@ -15,27 +15,6 @@
   width: 100%;
 }
 
-.eyebrow {
-  align-items: center;
-  border-bottom: 1px solid var(--rule);
-  color: var(--muted);
-  display: flex;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  gap: 6px;
-  letter-spacing: 0.10em;
-  line-height: 1;
-  max-width: 100%;
-  padding-bottom: 12px;
-  text-transform: uppercase;
-}
-
-.eyebrow .num {
-  color: var(--accent-text);
-  font-weight: 700;
-}
-
 .headline {
   color: var(--fg);
   font-family: var(--ff-display);

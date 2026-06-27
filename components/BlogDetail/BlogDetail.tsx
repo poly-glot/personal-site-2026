@@ -1,12 +1,30 @@
-import type { BlogPost, PostWithBody, TocEntry } from "@/src/types.ts";
+import type { BlogPost, TocEntry } from "@/src/types.ts";
+import type { ComponentType } from "preact";
 import { CONTACT_EMAIL } from "@/src/nav.ts";
 import BlogHero from "@/components/hero/BlogHero/BlogHero.tsx";
-import BlockRenderer from "@/components/BlockRenderer/BlockRenderer.tsx";
+import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import Toc from "@/components/Toc/Toc.tsx";
+import { proseComponents } from "@/components/Prose/proseComponents.tsx";
 import styles from "./BlogDetail.module.css";
 
+const bodyModules = import.meta.glob("../../content/blog/*.mdx", {
+  eager: true,
+}) as Record<
+  string,
+  { default: ComponentType<{ components?: Record<string, unknown> }> }
+>;
+
+const bodies: Record<
+  string,
+  ComponentType<{ components?: Record<string, unknown> }>
+> = {};
+for (const [path, mod] of Object.entries(bodyModules)) {
+  const id = path.split("/").pop()!.replace(/\.mdx$/, "");
+  bodies[id] = mod.default;
+}
+
 interface BlogDetailProps {
-  detail: PostWithBody;
+  post: BlogPost;
   num: string;
   toc: TocEntry[];
   neighbors: { prev: BlogPost | null; next: BlogPost | null };
@@ -21,21 +39,19 @@ function formatDate(iso: string): string {
 }
 
 export default function BlogDetail(
-  { detail, num, toc, neighbors }: BlogDetailProps,
+  { post, num, toc, neighbors }: BlogDetailProps,
 ) {
-  const { post, body } = detail;
+  const Body = bodies[post.id];
 
   return (
     <main id="main" class={`container ${styles.main}`}>
       <header class={styles.head}>
-        <div class={`section-eyebrow ${styles.eyebrow}`}>
-          <span class="num accent">{num}.</span>
-          <span>{post.topics[0]}</span>
-          <span class={styles.spacer} />
-          <span class="mono">
-            {formatDate(post.date)} · {post.readMin} min read
-          </span>
-        </div>
+        <SectionEyebrow
+          num={`${num}.`}
+          label={post.topics[0]}
+          right={`${formatDate(post.date)} · ${post.readMin} min read`}
+          class={styles.eyebrow}
+        />
         <h1 class={`${styles.title} display`}>{post.title}</h1>
         <p class={styles.deck}>{post.deck}</p>
         <ul class={styles.topics} aria-label="Topics">
@@ -93,7 +109,7 @@ export default function BlogDetail(
         </aside>
 
         <article class={styles.body}>
-          <BlockRenderer body={body} />
+          {Body ? <Body components={proseComponents} /> : null}
           <hr class={styles.endRule} />
           <p class={`${styles.endSig} mono`}>
             — Junaid · {formatDate(post.date)}
@@ -134,14 +150,14 @@ export default function BlogDetail(
         </div>
       </nav>
 
-      <section class="port-foot">
+      <section class="port-foot bleed-panel">
         <div class="port-foot-inner">
-          <div class="section-eyebrow">
-            <span class="num accent">·</span>
-            <span>Stay in touch</span>
-            <span class={styles.spacer} />
-            <span class="mono">Roughly monthly</span>
-          </div>
+          <SectionEyebrow
+            num="·"
+            label="Stay in touch"
+            right="Roughly monthly"
+            tone="invert"
+          />
           <p class="port-foot-copy">
             Liked this? I write when something <strong>actually changed</strong>
             {" "}

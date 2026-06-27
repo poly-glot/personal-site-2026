@@ -126,17 +126,7 @@
 }
 
 .eyebrow {
-  align-items: baseline;
-  border-bottom: 1px solid var(--rule);
-  color: var(--muted);
-  display: flex;
-  font-family: var(--ff-mono);
-  font-size: 13px;
-  gap: var(--s-2);
-  letter-spacing: 0.14em;
   margin-bottom: var(--s-4);
-  padding-bottom: var(--s-2);
-  text-transform: uppercase;
 }
 
 .eyebrowSpaced {
@@ -145,10 +135,6 @@
 
 .num {
   font-weight: 700;
-}
-
-.numAccent {
-  color: var(--accent);
 }
 
 .label {
@@ -840,20 +826,6 @@
   color: var(--bg);
   position: relative;
   z-index: 1;
-}
-
-.cta .eyebrow {
-  border-bottom-color: color-mix(in oklab, var(--bg) 20%, transparent);
-  color: color-mix(in oklab, var(--bg) 70%, transparent);
-}
-
-.cta .eyebrow .num {
-  color: var(--accent);
-}
-
-.cta .eyebrow .label,
-.cta .eyebrow .right {
-  color: var(--bg);
 }
 
 .ctaTitle {

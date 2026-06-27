@@ -19,7 +19,7 @@ export function BlogPage({ data }: { data: PageData }) {
       <div class="page-enter">
         <Header active="blog" />
         <BlogDetail
-          detail={view.detail}
+          post={view.detail}
           num={view.num}
           toc={view.toc}
           neighbors={view.neighbors}

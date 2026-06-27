@@ -2,10 +2,6 @@
   padding-top: var(--s-4);
 }
 
-.spacer {
-  flex: 1;
-}
-
 .head {
   margin-top: var(--s-4);
   padding-bottom: var(--s-4);

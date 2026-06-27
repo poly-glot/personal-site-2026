@@ -40,25 +40,7 @@
 }
 
 .eyebrow {
-  align-items: center;
-  border-bottom: 1px solid var(--rule);
-  color: var(--muted);
-  display: flex;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  gap: 6px;
-  letter-spacing: 0.10em;
-  line-height: 1;
   margin-bottom: 16px;
-  padding-bottom: 12px;
-  text-transform: uppercase;
-  transition: border-color 240ms ease, color 240ms ease;
-}
-
-.eyebrow .num {
-  color: var(--muted);
-  font-weight: 700;
 }
 
 .title {

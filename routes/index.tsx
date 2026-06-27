@@ -5,6 +5,7 @@ import CapabilityCard, {
 } from "@/components/CapabilityCard/CapabilityCard.tsx";
 import HeroGridlines from "@/components/HeroGridlines/HeroGridlines.tsx";
 import HeroPhoto from "@/islands/HeroPhoto.tsx";
+import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import styles from "./index.module.css";
 
 const CAPABILITIES: Capability[] = [
@@ -45,10 +46,7 @@ export default define.page(function Home() {
         <section class={styles.hero}>
           <div class={styles.grid}>
             <div class={styles.left}>
-              <div class={styles.eyebrow}>
-                <span class={styles.num}>00.</span>
-                <span>CAPABILITIES</span>
-              </div>
+              <SectionEyebrow num="00." label="CAPABILITIES" variant="sans" />
               <h1 class={styles.headline}>
                 I am a Solutions Architect, serving as the glue between domains,
                 platforms &amp; products.

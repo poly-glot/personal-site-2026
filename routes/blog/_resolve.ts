@@ -12,19 +12,13 @@ import {
   getPost,
   getPostNeighbors,
   paginate,
-  tocFor,
 } from "@/data/content.ts";
-import type {
-  BlogFilter,
-  BlogPost,
-  PostWithBody,
-  TocEntry,
-} from "@/src/types.ts";
+import type { BlogFilter, BlogPost, TocEntry } from "@/src/types.ts";
 
 export type View =
   | {
     kind: "detail";
-    detail: PostWithBody;
+    detail: BlogPost;
     num: string;
     toc: TocEntry[];
     neighbors: { prev: BlogPost | null; next: BlogPost | null };
@@ -76,7 +70,7 @@ export function resolveBlog(
     const detail = getPost(segments[0]);
     if (detail) {
       const num = String(
-        getAllPosts().findIndex((p) => p.id === detail.post.id) + 1,
+        getAllPosts().findIndex((p) => p.id === detail.id) + 1,
       ).padStart(2, "0");
 
       return {
@@ -84,8 +78,8 @@ export function resolveBlog(
           kind: "detail",
           detail,
           num,
-          toc: tocFor(detail.body),
-          neighbors: getPostNeighbors(detail.post.id),
+          toc: detail.toc,
+          neighbors: getPostNeighbors(detail.id),
         },
       };
     }
