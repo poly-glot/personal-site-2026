@@ -121,9 +121,19 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ steps.auth.outputs.access_token }}
         run: |
-          firebase deploy --only hosting:${{ env.FIREBASE_SITE_ID }} \
+          set +e
+          output=$(firebase deploy --only hosting:${{ env.FIREBASE_SITE_ID }} \
             --project ${{ env.GCP_PROJECT_ID }} \
-            --non-interactive --force
+            --non-interactive --force 2>&1)
+          status=$?
+          echo "$output"
+
+          if [ "$status" -ne 0 ] && echo "$output" | grep -q "is the current active version"; then
+            echo "Hosting content unchanged — version already live. Treating as success."
+            exit 0
+          fi
+
+          exit "$status"
 
       - name: Smoke test
         run: |
