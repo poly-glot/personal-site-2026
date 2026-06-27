@@ -104,6 +104,16 @@ jobs:
             --platform managed \
             --quiet
 
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Generate static site
+        run: |
+          deno install
+          deno task static
+
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 

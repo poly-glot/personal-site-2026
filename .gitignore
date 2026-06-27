@@ -1,5 +1,7 @@
 _fresh/
 node_modules/
+/public/*
+!/public/.gitkeep
 /server
 .DS_Store
 .idea/
