@@ -302,7 +302,7 @@ export function Year(
 export function Quarter(
   { q, children }: { q: number; children?: ComponentChildren },
 ) {
-  const quarterText = q ? `Q:${q}` : '';
+  const quarterText = q ? `Q:${q}` : "";
   return (
     <li
       class={children
