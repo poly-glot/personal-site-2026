@@ -164,6 +164,18 @@ export function Bio({ children }: { children: ComponentChildren }) {
   return <div class={styles.bioProse}>{children}</div>;
 }
 
+export function BioMore({ children }: { children: ComponentChildren }) {
+  return (
+    <details class={styles.bioMore}>
+      <summary class={styles.bioMoreToggle}>
+        <span class={styles.bioMoreShow}>Read more</span>
+        <span class={styles.bioMoreHide}>Read less</span>
+      </summary>
+      {children}
+    </details>
+  );
+}
+
 export function Link(
   { href, children }: { href: string; children: ComponentChildren },
 ) {
@@ -379,6 +391,7 @@ export const aboutComponents = {
   Biography,
   TwoColumn,
   Bio,
+  BioMore,
   Pullquote,
   Values,
   Value,

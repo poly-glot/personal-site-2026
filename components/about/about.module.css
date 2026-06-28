@@ -15,7 +15,7 @@
 .introTitle {
   color: var(--fg);
   font-family: var(--ff-display);
-  font-size: clamp(26px, 3.1vw, 46px);
+  font-size: clamp(1.625rem, 3.1vw, 2.875rem);
   font-weight: 400;
   letter-spacing: -0.005em;
   line-height: 1.22;
@@ -35,7 +35,7 @@
 .introLede {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.55;
   margin: 0;
   max-width: 56ch;
@@ -69,7 +69,7 @@
 .fact dt {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   margin: 0;
@@ -78,7 +78,7 @@
 .fact dd {
   color: var(--fg);
   font-family: var(--ff-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
   letter-spacing: -0.005em;
   margin: 0;
@@ -109,15 +109,15 @@
 .bioProse p {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.65;
   margin: 0;
   text-wrap: pretty;
 }
 
-.bioProse p:first-of-type {
+.bioProse > p:first-of-type {
   color: var(--fg);
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -127,6 +127,47 @@
   font-family: var(--ff-display);
   font-weight: 700;
   letter-spacing: 0;
+}
+
+.bioMore p {
+  margin-top: var(--s-3);
+}
+
+.bioMoreToggle {
+  color: var(--accent-text);
+  cursor: pointer;
+  font-family: var(--ff-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  list-style: none;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.bioMoreToggle::-webkit-details-marker {
+  display: none;
+}
+
+.bioMoreToggle:hover {
+  text-decoration: underline;
+}
+
+.bioMoreToggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.bioMoreHide {
+  display: none;
+}
+
+.bioMore[open] .bioMoreShow {
+  display: none;
+}
+
+.bioMore[open] .bioMoreHide {
+  display: inline;
 }
 
 .link {
@@ -152,7 +193,7 @@
 .pullquote blockquote {
   color: var(--fg);
   font-family: var(--ff-display);
-  font-size: clamp(22px, 2.4vw, 32px);
+  font-size: clamp(1.375rem, 2.4vw, 2rem);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.25;
@@ -181,7 +222,7 @@
   color: var(--muted);
   display: flex;
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   gap: 12px;
   letter-spacing: 0.16em;
@@ -225,7 +266,7 @@
 .valueNum {
   color: var(--accent-text);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
 }
@@ -237,7 +278,7 @@
 .valueAxis {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -246,7 +287,7 @@
 .valueWord {
   color: var(--fg);
   font-family: var(--ff-display);
-  font-size: clamp(28px, 3.6vw, 44px);
+  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.05;
@@ -256,7 +297,7 @@
 .valueNote {
   color: var(--muted);
   font-family: var(--ff-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.55;
   margin-top: var(--s-1);
   max-width: 64ch;
@@ -285,7 +326,7 @@
   color: var(--muted);
   display: flex;
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   justify-content: space-between;
   letter-spacing: 0.16em;
@@ -373,7 +414,7 @@
   border-bottom: 1px solid var(--rule);
   color: var(--fg);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   margin: 0 0 var(--s-2);
@@ -393,7 +434,7 @@
 .goalBlock li {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.55;
   padding-left: 18px;
   position: relative;
@@ -418,8 +459,9 @@
   border-bottom: 1px solid var(--rule);
   column-gap: var(--s-4);
   display: grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns: 1fr;
   padding: var(--s-4) 0;
+  row-gap: var(--s-2);
 }
 
 .tlItem:last-child {
@@ -429,7 +471,7 @@
 .tlYear {
   color: var(--accent-text);
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   padding-top: 6px;
@@ -444,7 +486,7 @@
 .tlBody h3 {
   color: var(--fg);
   font-family: var(--ff-display);
-  font-size: clamp(22px, 2.4vw, 30px);
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
   font-weight: 400;
   letter-spacing: -0.005em;
   line-height: 1.1;
@@ -454,7 +496,7 @@
 .tlOrg {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   margin: 0;
@@ -464,7 +506,7 @@
 .tlNote {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.55;
   margin: 4px 0 0;
   text-wrap: pretty;
@@ -492,7 +534,7 @@
 .qTag {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   padding-top: 2px;
@@ -501,7 +543,7 @@
 .qNote {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
   margin: 0;
   text-wrap: pretty;
@@ -514,7 +556,7 @@
 .qEmpty {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   opacity: 0.45;
 }
 
@@ -528,7 +570,7 @@
 .ctaTitle {
   color: var(--bg);
   font-family: var(--ff-display);
-  font-size: clamp(40px, 6vw, 80px);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.05;
@@ -564,7 +606,7 @@
   display: flex;
   flex-wrap: wrap;
   font-family: var(--ff-display);
-  font-size: clamp(22px, 2.6vw, 34px);
+  font-size: clamp(1.375rem, 2.6vw, 2.125rem);
   font-weight: 400;
   gap: var(--s-3);
   justify-content: space-between;
@@ -580,7 +622,7 @@
   color: var(--accent);
   content: "→";
   font-family: var(--ff-body);
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 500;
   margin-left: 8px;
   opacity: 0;
@@ -601,11 +643,61 @@
   align-self: center;
   color: color-mix(in oklab, var(--bg) 55%, transparent);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .introTitle {
+    font-size: clamp(0.9375rem, 4.6vw, 1.5rem);
+    max-width: none;
+  }
+
+  .quarterEmpty {
+    display: none;
+  }
+
+  .quarter:has(.qTag:empty) {
+    grid-template-columns: 1fr;
+  }
+
+  .qTag:empty {
+    display: none;
+  }
+
+  .ctaTitle {
+    font-size: clamp(1.625rem, 7.2vw, 2.5rem);
+  }
+
+  .ctaList a {
+    flex-wrap: nowrap;
+    font-size: clamp(0.9375rem, 4.2vw, 1.375rem);
+    gap: var(--s-2);
+    justify-content: flex-start;
+  }
+
+  .ctaList a > span:first-child {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ctaList a::after {
+    display: none;
+  }
+
+  .ctaMeta {
+    flex: 1;
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    margin-left: var(--s-2);
+    text-align: right;
+  }
 }
 
 @media (min-width: 768px) {

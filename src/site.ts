@@ -3,6 +3,12 @@ import type { PageMeta } from "@/src/types.ts";
 export const SITE_ORIGIN = "https://junaid.guru";
 export const SITE_NAME = "Junaid Ahmed";
 
+export const SITE_OG_IMAGE = `${SITE_ORIGIN}/img/default.png`;
+export const SITE_OG_IMAGE_ALT = "Junaid Ahmed — Solutions Architect";
+export const SITE_OG_IMAGE_WIDTH = "1200";
+export const SITE_OG_IMAGE_HEIGHT = "630";
+export const SITE_LOCALE = "en_GB";
+
 const DEFAULT_TITLE = "Junaid Ahmed — Solutions Architect";
 const DEFAULT_DESCRIPTION =
   "Junaid Ahmed — Solutions Architect in London, working as the glue between domains, platforms, and products.";
@@ -64,7 +70,7 @@ export function resolveMeta(url: URL, override?: Partial<PageMeta>): PageMeta {
       DEFAULT_DESCRIPTION,
     canonical: override?.canonical ?? SITE_ORIGIN + url.pathname,
     ogType: override?.ogType ?? base.ogType ?? "website",
-    ogImage: override?.ogImage ?? base.ogImage,
+    ogImage: override?.ogImage ?? base.ogImage ?? SITE_OG_IMAGE,
     robots: override?.robots ?? base.robots,
   };
 }

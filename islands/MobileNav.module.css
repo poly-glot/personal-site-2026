@@ -108,7 +108,7 @@
   color: var(--fg);
   display: inline-flex;
   font-family: var(--ff-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   gap: var(--s-2);
   letter-spacing: 0.04em;
   margin-top: var(--s-3);

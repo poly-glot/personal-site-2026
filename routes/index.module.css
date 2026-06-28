@@ -18,7 +18,7 @@
 .headline {
   color: var(--fg);
   font-family: var(--ff-display);
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: 400;
   letter-spacing: -0.005em;
   line-height: 1.0;
@@ -107,7 +107,7 @@
 
 @media (min-width: 1080px) and (max-width: 1179px) {
   .headline {
-    font-size: 32px;
+    font-size: 2rem;
   }
 
   .caps {
@@ -165,7 +165,7 @@
     color: var(--accent-text);
     display: block;
     font-family: "Roboto", sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
     left: 50%;
     line-height: 1;
@@ -175,7 +175,7 @@
   }
 
   .headline {
-    font-size: clamp(20px, 4.6vw, 40px);
+    font-size: clamp(1.25rem, 4.6vw, 2.5rem);
     line-height: 1.15;
     width: auto;
   }

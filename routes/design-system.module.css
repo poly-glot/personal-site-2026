@@ -31,7 +31,7 @@
 
 .introTitle {
   font-family: var(--ff-display);
-  font-size: clamp(36px, 6vw, 72px);
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.05;
@@ -48,7 +48,7 @@
 .introLede {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.55;
   margin: 0;
   max-width: 56ch;
@@ -67,7 +67,7 @@
   border-bottom: 1px solid var(--rule);
   display: grid;
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   gap: var(--s-3);
   grid-template-columns: 110px 1fr;
   padding: 14px 0;
@@ -87,7 +87,7 @@
 .metaRow dd {
   color: var(--fg);
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   margin: 0;
 }
 
@@ -144,14 +144,14 @@
 
 .right {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   margin-left: auto;
 }
 
 .sectionTitle {
   font-family: var(--ff-display);
-  font-size: clamp(28px, 3.4vw, 40px);
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
   font-weight: 400;
   letter-spacing: -0.005em;
   line-height: 1.12;
@@ -161,7 +161,7 @@
 .sectionLede {
   color: var(--muted);
   font-family: var(--ff-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   margin: 0 0 var(--s-5);
   max-width: 64ch;
@@ -186,7 +186,7 @@
 .pn {
   color: var(--accent);
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   min-width: 32px;
@@ -194,7 +194,7 @@
 
 .principle h3 {
   font-family: var(--ff-display);
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 400;
   line-height: 1.2;
   margin: 0 0 4px;
@@ -203,7 +203,7 @@
 .principle p {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 15px;
+  font-size: 0.9375rem;
   line-height: 1.6;
   margin: 0;
   max-width: 64ch;
@@ -225,7 +225,7 @@
 .colorGroup h4 {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   margin: 0 0 var(--s-2);
@@ -302,7 +302,7 @@
 .swatchToken {
   color: var(--fg);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.04em;
 }
@@ -310,7 +310,7 @@
 .swatchHex {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 @media (min-width: 768px) {
@@ -339,7 +339,7 @@
   display: flex;
   flex-wrap: wrap;
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   gap: var(--s-3);
   letter-spacing: 0.06em;
 }
@@ -357,7 +357,7 @@
 
 .typeDisplayLg {
   font-family: var(--ff-display);
-  font-size: 89px;
+  font-size: 5.5625rem;
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.02;
@@ -365,7 +365,7 @@
 
 .typeDisplay {
   font-family: var(--ff-display);
-  font-size: 55px;
+  font-size: 3.4375rem;
   font-weight: 400;
   letter-spacing: -0.005em;
   line-height: 1.05;
@@ -373,28 +373,28 @@
 
 .typeDisplaySm {
   font-family: var(--ff-display);
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: 400;
   line-height: 1.1;
 }
 
 .typeXl {
   font-family: var(--ff-body);
-  font-size: 34px;
+  font-size: 2.125rem;
   font-weight: 500;
   line-height: 1.2;
 }
 
 .typeLg {
   font-family: var(--ff-body);
-  font-size: 21px;
+  font-size: 1.3125rem;
   font-weight: 400;
   line-height: 1.4;
 }
 
 .typeBody {
   font-family: var(--ff-body);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
 }
@@ -402,7 +402,7 @@
 .typeEyebrow {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -411,7 +411,7 @@
 .typeMono {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.04em;
 }
 
@@ -441,7 +441,7 @@
   color: var(--muted);
   display: grid;
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   gap: var(--s-3);
   grid-template-columns: 60px 60px 1fr;
   padding: 10px 0;
@@ -526,7 +526,7 @@
 .compName {
   color: var(--fg);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -535,7 +535,7 @@
 .compNote {
   color: var(--muted);
   font-family: var(--ff-body);
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.5;
 }
 
@@ -560,7 +560,7 @@
   cursor: default;
   display: inline-flex;
   font-family: var(--ff-body);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 500;
   gap: 6px;
   padding: 8px 14px;
@@ -569,7 +569,7 @@
 .lab {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -593,7 +593,7 @@
   cursor: pointer;
   display: inline-flex;
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   gap: 10px;
   padding: 12px 20px;
@@ -605,7 +605,7 @@
   border-radius: 999px;
   color: var(--accent);
   display: inline-flex;
-  font-size: 12px;
+  font-size: 0.75rem;
   height: 22px;
   justify-content: center;
   width: 22px;
@@ -617,7 +617,7 @@
   color: var(--muted);
   display: flex;
   font-family: var(--ff-mono);
-  font-size: 13px;
+  font-size: 0.8125rem;
   gap: 12px;
   letter-spacing: 0.14em;
   padding-bottom: 8px;
@@ -638,7 +638,7 @@
   color: var(--muted);
   display: grid;
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   gap: var(--s-3);
   grid-template-columns: 90px 1fr;
   letter-spacing: 0.12em;
@@ -653,7 +653,7 @@
 .demoV {
   color: var(--fg);
   font-family: var(--ff-body);
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -672,7 +672,7 @@
 .demoBandEyebrow {
   color: color-mix(in oklab, var(--bg) 60%, transparent);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -684,7 +684,7 @@
 
 .demoBandTtl {
   font-family: var(--ff-display);
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 1.1;
 }
 
@@ -720,7 +720,7 @@
 
 .pattern h4 {
   font-family: var(--ff-display);
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 400;
   margin: 0 0 6px;
 }
@@ -728,7 +728,7 @@
 .pattern p {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   margin: 0;
   max-width: 64ch;
@@ -748,7 +748,7 @@
 
 .rulesCol h4 {
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.16em;
   margin: 0 0 var(--s-2);
   text-transform: uppercase;
@@ -773,7 +773,7 @@
 .rulesCol li {
   color: var(--fg-2);
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.55;
   padding-left: 22px;
   position: relative;
@@ -831,7 +831,7 @@
 .ctaTitle {
   color: var(--bg);
   font-family: var(--ff-display);
-  font-size: clamp(40px, 6vw, 72px);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 400;
   line-height: 1.06;
   margin: 0;
@@ -846,7 +846,7 @@
 .ctaCopy {
   color: color-mix(in oklab, var(--bg) 70%, transparent);
   font-family: var(--ff-body);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   margin-top: var(--s-3);
   max-width: 56ch;

@@ -16,14 +16,14 @@
   --ff-display: "Rozha One", "Playfair Display", Georgia, serif;
   --ff-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --fs-body: 16px;
-  --fs-display: 55px;
-  --fs-display-lg: 89px;
-  --fs-display-sm: 40px;
-  --fs-eyebrow: 13px;
-  --fs-lg: 21px;
-  --fs-mono: 12px;
-  --fs-xl: 34px;
+  --fs-body: 1rem;
+  --fs-display: 3.4375rem;
+  --fs-display-lg: 5.5625rem;
+  --fs-display-sm: 2.5rem;
+  --fs-eyebrow: 0.8125rem;
+  --fs-lg: 1.3125rem;
+  --fs-mono: 0.75rem;
+  --fs-xl: 2.125rem;
 
   --s-1: 8px;
   --s-2: 13px;

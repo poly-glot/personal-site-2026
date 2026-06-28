@@ -1,6 +1,13 @@
 import type { PageProps } from "fresh";
 import type { State } from "@/utils/state.ts";
-import { resolveMeta, SITE_NAME } from "@/src/site.ts";
+import {
+  resolveMeta,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
+} from "@/src/site.ts";
 import { DISPLAY_FONT_WOFF2 } from "@/src/preload.ts";
 
 const THEME_INIT =
@@ -37,8 +44,16 @@ export default function App(
         <meta property="og:description" content={meta.description} />
         <meta property="og:url" content={meta.canonical} />
         <meta property="og:site_name" content={SITE_NAME} />
+        <meta property="og:locale" content={SITE_LOCALE} />
         {meta.ogImage
-          ? <meta property="og:image" content={meta.ogImage} />
+          ? (
+            <>
+              <meta property="og:image" content={meta.ogImage} />
+              <meta property="og:image:alt" content={SITE_OG_IMAGE_ALT} />
+              <meta property="og:image:width" content={SITE_OG_IMAGE_WIDTH} />
+              <meta property="og:image:height" content={SITE_OG_IMAGE_HEIGHT} />
+            </>
+          )
           : null}
         <meta
           name="twitter:card"
@@ -46,6 +61,9 @@ export default function App(
         />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
+        {meta.ogImage
+          ? <meta name="twitter:image" content={meta.ogImage} />
+          : null}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <meta
           name="theme-color"

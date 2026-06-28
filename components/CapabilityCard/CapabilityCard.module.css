@@ -46,7 +46,7 @@
 .title {
   color: var(--fg);
   font-family: "Roboto", sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
   line-height: 20px;
   margin: 0 0 4px;
@@ -55,7 +55,7 @@
 .body {
   color: var(--muted);
   font-family: "Roboto", sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 20px;
   margin: 0;
   text-wrap: pretty;

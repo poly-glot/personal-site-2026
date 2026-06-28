@@ -32,7 +32,7 @@
 
 .title {
   font-family: var(--ff-display);
-  font-size: clamp(40px, 7vw, 80px);
+  font-size: clamp(2.5rem, 7vw, 5rem);
   line-height: 1;
   margin: var(--s-2) 0 0;
 }
@@ -88,7 +88,7 @@
   color: #ffffff;
   display: inline-flex;
   font-family: "Roboto", sans-serif;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   gap: 12px;
   letter-spacing: 0.08em;

@@ -10,7 +10,7 @@
   display: flex;
   flex-wrap: wrap;
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   gap: 16px;
   justify-content: space-between;
   letter-spacing: 0.04em;
@@ -24,7 +24,7 @@
   align-items: center;
   display: inline-flex;
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   gap: 12px;
   letter-spacing: 0.04em;
 }

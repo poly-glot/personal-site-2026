@@ -62,7 +62,7 @@ export default function WorkFilter(
   }));
 
   return (
-    <section class="flt-bar" aria-label="Filter projects">
+    <section class="flt-bar flt-bar-work" aria-label="Filter projects">
       <div class="flt-inner" ref={ref}>
         <div class="flt-row">
           <div class="flt-selects">

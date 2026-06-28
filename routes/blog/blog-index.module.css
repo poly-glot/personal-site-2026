@@ -11,6 +11,6 @@
 }
 
 .emptyTitle {
-  font-size: clamp(24px, 3.4vw, 36px);
+  font-size: clamp(1.5rem, 3.4vw, 2.25rem);
   margin: 0;
 }

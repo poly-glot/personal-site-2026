@@ -12,7 +12,7 @@
 }
 
 .title {
-  font-size: clamp(40px, 7.4vw, 89px);
+  font-size: clamp(2.5rem, 7.4vw, 5.5625rem);
   line-height: 1;
   margin: 0 0 var(--s-3);
   text-wrap: balance;
@@ -21,7 +21,7 @@
 .deck {
   color: var(--muted);
   font-family: var(--ff-display);
-  font-size: clamp(18px, 2.4vw, 26px);
+  font-size: clamp(1.125rem, 2.4vw, 1.625rem);
   line-height: 1.4;
   margin: 0 0 var(--s-3);
   max-width: 720px;
@@ -44,7 +44,7 @@
   border-radius: 999px;
   color: var(--fg-2);
   display: inline-flex;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   padding: 4px 10px;
@@ -83,7 +83,7 @@
   color: var(--muted);
   display: inline-flex;
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   gap: 8px;
   letter-spacing: 0.14em;
   padding-bottom: 2px;
@@ -114,14 +114,14 @@
 .sideMeta dt {
   color: var(--muted);
   font-family: var(--ff-mono);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .sideMeta dd {
   color: var(--fg);
-  font-size: 13px;
+  font-size: 0.8125rem;
   margin: 0;
   text-wrap: pretty;
 }
@@ -137,7 +137,7 @@
 
 .shareLabel {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -146,7 +146,7 @@
   border-bottom: 1px solid var(--rule-2);
   color: var(--fg);
   font-family: var(--ff-mono);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   padding-bottom: 1px;
   text-decoration: none;
@@ -160,7 +160,7 @@
 
 .body {
   color: var(--fg-2);
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1.7;
   margin: 0;
   max-width: 720px;
@@ -172,7 +172,7 @@
 
 .body > p:first-child {
   color: var(--fg);
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.55;
 }
 
@@ -184,7 +184,7 @@
 
 .endSig {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -222,14 +222,14 @@
 
 .pnEyebrow {
   color: var(--accent-text);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .pnTitle {
   font-family: var(--ff-display);
-  font-size: clamp(20px, 2.4vw, 26px);
+  font-size: clamp(1.25rem, 2.4vw, 1.625rem);
   line-height: 1.2;
   text-wrap: balance;
   transition: color 160ms ease;

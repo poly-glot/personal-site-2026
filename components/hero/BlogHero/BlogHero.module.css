@@ -39,7 +39,7 @@
 
 .url {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.04em;
   overflow: hidden;
   text-overflow: ellipsis;

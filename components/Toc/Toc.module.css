@@ -5,7 +5,7 @@
 .label {
   border-bottom: 1px solid var(--rule);
   color: var(--muted);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   margin: 0 0 var(--s-2);
   padding-bottom: 8px;
@@ -28,7 +28,7 @@
   border-left: 2px solid transparent;
   color: var(--muted);
   display: grid;
-  font-size: 13px;
+  font-size: 0.8125rem;
   gap: 8px;
   grid-template-columns: 28px 1fr;
   line-height: 1.35;
@@ -46,7 +46,7 @@
 
 .num {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 0.625rem;
   letter-spacing: 0.1em;
   padding-top: 1px;
   transition: color 200ms ease;

@@ -44,7 +44,7 @@
 }
 
 .title {
-  font-size: clamp(28px, 4.4vw, 48px);
+  font-size: clamp(1.75rem, 4.4vw, 3rem);
   line-height: 1.05;
   margin: var(--s-2) 0;
   text-wrap: balance;
@@ -108,7 +108,7 @@
   border-radius: 999px;
   color: var(--fg-2);
   display: inline-flex;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   padding: 4px 10px;

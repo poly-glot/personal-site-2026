@@ -14,7 +14,7 @@
 .emptyTitle {
   color: var(--fg);
   font-family: var(--ff-display);
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(1.5rem, 3vw, 2rem);
   margin: 0;
 }
 
@@ -26,7 +26,7 @@
   color: #ffffff;
   display: inline-flex;
   font-family: "Roboto", sans-serif;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 600;
   gap: 12px;
   letter-spacing: 0.08em;

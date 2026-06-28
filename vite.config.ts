@@ -17,6 +17,7 @@ function mdxPreprocess() {
 }
 
 export default defineConfig({
+  publicDir: false,
   plugins: [
     mdxPreprocess(),
     {
