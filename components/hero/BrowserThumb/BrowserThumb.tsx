@@ -143,7 +143,12 @@ function Art({ abstract }: { abstract: WorkProject["abstract"] }) {
   );
 }
 
-export default function BrowserThumb({ project }: { project: WorkProject }) {
+export default function BrowserThumb(
+  { poster = false, project }: { poster?: boolean; project: WorkProject },
+) {
+  const playable = project.video && !poster;
+  const still = poster ? project.video?.poster ?? project.cover : project.cover;
+
   return (
     <div class={styles.bw} data-tone={project.id}>
       <div class={styles.bar}>
@@ -156,22 +161,22 @@ export default function BrowserThumb({ project }: { project: WorkProject }) {
       </div>
       <div class={styles.body}>
         <div class={styles.bg} aria-hidden="true" />
-        {project.video && (
+        {playable && project.video && (
           <CaseVideo
             label={`${project.name}: ${project.tagline}`}
             video={project.video}
           />
         )}
-        {!project.video && project.cover && (
+        {!playable && still && (
           <img
             class={styles.shot}
-            src={project.cover}
+            src={still}
             alt={`${project.name} — ${project.tagline}`}
             loading="lazy"
             decoding="async"
           />
         )}
-        {!project.video && !project.cover && (
+        {!playable && !still && (
           <div class={styles.content}>
             <Art abstract={project.abstract} />
           </div>

@@ -229,3 +229,17 @@ export function Lightbulb() {
     </svg>
   );
 }
+
+export function Play() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="currentColor"
+      height="12"
+      viewBox="0 0 24 24"
+      width="12"
+    >
+      <path d="M7 4.5v15l13-7.5z" />
+    </svg>
+  );
+}

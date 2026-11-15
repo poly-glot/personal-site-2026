@@ -1,6 +1,9 @@
 import Header from "@/components/Header/Header.tsx";
 import Footer from "@/components/Footer/Footer.tsx";
 import { CaseBand, CaseCard } from "@/components/CaseStudies/CaseStudies.tsx";
+import Pager from "@/components/Pager/Pager.tsx";
+import Lightbox from "@/islands/Lightbox.tsx";
+import { canonicalWorkPath } from "@/data/taxonomy.ts";
 import WorkFilter from "@/islands/WorkFilter.tsx";
 import WorkOutro from "@/components/WorkOutro/WorkOutro.tsx";
 import type { WorkListData } from "./_resolve.ts";
@@ -9,7 +12,18 @@ import styles from "./work_index.module.css";
 export * from "./_resolve.ts";
 
 export function WorkListPage({ data }: { data: WorkListData }) {
-  const { selection, projects, shown, total, domains, stack, years } = data;
+  const {
+    selection,
+    page,
+    pageCount,
+    projects,
+    shown,
+    total,
+    domains,
+    stack,
+    years,
+  } = data;
+  const pageHref = (n: number) => canonicalWorkPath({ ...selection, page: n });
 
   return (
     <div>
@@ -39,13 +53,17 @@ export function WorkListPage({ data }: { data: WorkListData }) {
           )
           : (
             <section class={styles.cases} aria-label="Projects">
-              <CaseBand>
+              <CaseBand columns={3}>
                 {projects.map((project, i) => (
                   <CaseCard index={i} project={project} key={project.id} />
                 ))}
               </CaseBand>
+              <div class="container">
+                <Pager page={page} pageCount={pageCount} hrefFor={pageHref} />
+              </div>
             </section>
           )}
+        <Lightbox />
         <div class="container">
           <WorkOutro />
         </div>

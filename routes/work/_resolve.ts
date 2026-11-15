@@ -22,6 +22,8 @@ const ALL_PROJECTS_COUNT = ALL_PROJECTS.length;
 export interface WorkListData {
   view: "list";
   selection: WorkSelection;
+  page: number;
+  pageCount: number;
   projects: WorkProject[];
   shown: number;
   total: number;
@@ -43,11 +45,17 @@ export function buildWorkListData(
   selection: WorkSelection,
 ): WorkListData {
   const matched = filterProjects(ALL_PROJECTS, selection);
-  const { items } = paginate(matched, selection.page, WORK_PAGE_SIZE);
+  const { items, page, pageCount } = paginate(
+    matched,
+    selection.page,
+    WORK_PAGE_SIZE,
+  );
 
   return {
     view: "list",
     selection,
+    page,
+    pageCount,
     projects: items,
     shown: matched.length,
     total: ALL_PROJECTS_COUNT,

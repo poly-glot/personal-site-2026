@@ -3,11 +3,14 @@ import type { WorkVideo } from "@/src/types.ts";
 import styles from "./CaseVideo.module.css";
 
 interface CaseVideoProps {
+  autoPlay?: boolean;
   label: string;
   video: WorkVideo;
 }
 
-export default function CaseVideo({ label, video }: CaseVideoProps) {
+export default function CaseVideo(
+  { autoPlay = false, label, video }: CaseVideoProps,
+) {
   useEffect(() => {
     import("media-chrome");
   }, []);
@@ -18,6 +21,7 @@ export default function CaseVideo({ label, video }: CaseVideoProps) {
         slot="media"
         src={video.src}
         poster={video.poster}
+        autoPlay={autoPlay}
         preload="metadata"
         playsInline
         aria-label={label}

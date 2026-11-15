@@ -1,10 +1,12 @@
 import type { ComponentChildren } from "preact";
 import type { WorkProject } from "@/src/types.ts";
 import BrowserThumb from "@/components/hero/BrowserThumb/BrowserThumb.tsx";
+import { Arrow, Play } from "@/components/Icons/Icons.tsx";
 import styles from "./CaseStudies.module.css";
 
 interface CaseBandProps {
   children: ComponentChildren;
+  columns?: 2 | 3;
   fill?: boolean;
 }
 
@@ -13,9 +15,15 @@ interface CaseCardProps {
   project: WorkProject;
 }
 
-export function CaseBand({ children, fill = false }: CaseBandProps) {
+export function CaseBand(
+  { children, columns = 2, fill = false }: CaseBandProps,
+) {
   return (
-    <div class={styles.inner} data-fill={fill ? "" : undefined}>
+    <div
+      class={styles.inner}
+      data-columns={columns}
+      data-fill={fill ? "" : undefined}
+    >
       <div class={styles.band}>
         <span class={`${styles.mark} ${styles.markTl}`} aria-hidden="true" />
         <span class={`${styles.mark} ${styles.markTr}`} aria-hidden="true" />
@@ -34,8 +42,31 @@ export function CaseCard({ index, project }: CaseCardProps) {
     <article class={styles.card} id={project.id}>
       <div class={styles.thumb} data-tone={project.id}>
         <div class={styles.frame}>
-          <BrowserThumb project={project} />
+          <BrowserThumb poster project={project} />
         </div>
+        {project.video && (
+          <div class={styles.actions}>
+            <a
+              class={styles.action}
+              data-captions={project.video.captions}
+              data-label={`${project.name}: ${project.tagline}`}
+              data-poster={project.video.poster}
+              data-video
+              href={project.video.src}
+            >
+              <Play />
+              <span>
+                Watch video<span class="sr-only">: {project.name}</span>
+              </span>
+            </a>
+            <a class={styles.action} href={`/work/${project.id}/`}>
+              <span>
+                Read case study<span class="sr-only">: {project.name}</span>
+              </span>
+              <Arrow />
+            </a>
+          </div>
+        )}
       </div>
       <div class={styles.titleRow}>
         <span class={styles.titleLeft}>

@@ -21,7 +21,7 @@ Deno.test("slugify kebab-cases and strips punctuation", () => {
 
 Deno.test("page sizes match the spec", () => {
   assertEquals(BLOG_PAGE_SIZE, 10);
-  assertEquals(WORK_PAGE_SIZE, 50);
+  assertEquals(WORK_PAGE_SIZE, 9);
 });
 
 Deno.test("blog topics are the 9 fixed terms with kebab slugs", () => {

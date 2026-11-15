@@ -22,6 +22,16 @@ html:has(.lightbox[open]) {
   background: rgba(0, 0, 0, 0.85);
 }
 
+.player {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--s-1);
+  box-shadow: var(--shadow);
+  max-height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: min(100%, 1200px);
+}
+
 .image {
   border-radius: var(--s-1);
   box-shadow: var(--shadow);

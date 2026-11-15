@@ -1,17 +1,38 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Close } from "@/components/Icons/Icons.tsx";
+import type { WorkVideo } from "@/src/types.ts";
+import CaseVideo from "@/islands/CaseVideo.tsx";
 import styles from "./Lightbox.module.css";
 
-interface Enlarged {
-  alt: string;
-  src: string;
-}
+type Enlarged =
+  | { kind: "image"; label: string; src: string }
+  | { kind: "video"; label: string; video: WorkVideo };
 
-const ZOOM_LINK = "a[data-zoom]";
+const OPENER = "a[data-zoom], a[data-video]";
 
 function isPlainClick(event: MouseEvent): boolean {
   return event.button === 0 && !event.metaKey && !event.ctrlKey &&
     !event.shiftKey && !event.altKey;
+}
+
+function readOpener(link: HTMLAnchorElement): Enlarged {
+  if (link.dataset.video === undefined) {
+    return {
+      kind: "image",
+      label: link.querySelector("img")?.alt ?? "",
+      src: link.href,
+    };
+  }
+
+  return {
+    kind: "video",
+    label: link.dataset.label ?? "",
+    video: {
+      captions: link.dataset.captions ?? "",
+      poster: link.dataset.poster ?? "",
+      src: link.getAttribute("href") ?? "",
+    },
+  };
 }
 
 export default function Lightbox() {
@@ -23,16 +44,13 @@ export default function Lightbox() {
   useEffect(() => {
     const open = (event: MouseEvent) => {
       const link = (event.target as Element).closest<HTMLAnchorElement>(
-        ZOOM_LINK,
+        OPENER,
       );
       if (!link || !isPlainClick(event)) return;
 
       event.preventDefault();
 
-      setEnlarged({
-        alt: link.querySelector("img")?.alt ?? "",
-        src: link.href,
-      });
+      setEnlarged(readOpener(link));
       dialog.current?.showModal();
     };
 
@@ -46,7 +64,7 @@ export default function Lightbox() {
 
   return (
     <dialog
-      aria-label={enlarged?.alt}
+      aria-label={enlarged?.label}
       class={styles.lightbox}
       onClick={closeOnBackdrop}
       onClose={() => setEnlarged(null)}
@@ -60,8 +78,13 @@ export default function Lightbox() {
       >
         <Close />
       </button>
-      {enlarged && (
-        <img class={styles.image} src={enlarged.src} alt={enlarged.alt} />
+      {enlarged?.kind === "image" && (
+        <img class={styles.image} src={enlarged.src} alt={enlarged.label} />
+      )}
+      {enlarged?.kind === "video" && (
+        <div class={styles.player}>
+          <CaseVideo autoPlay label={enlarged.label} video={enlarged.video} />
+        </div>
       )}
     </dialog>
   );

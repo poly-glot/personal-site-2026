@@ -1,6 +1,7 @@
 import { define } from "@/utils/state.ts";
 import Shell from "@/components/Shell/Shell.tsx";
 import { CaseBand, CaseCard } from "@/components/CaseStudies/CaseStudies.tsx";
+import Lightbox from "@/islands/Lightbox.tsx";
 import DisclosureToggle from "@/islands/DisclosureToggle.tsx";
 import { getAllProjects } from "@/data/content.ts";
 import { CONTACT_EMAIL } from "@/src/nav.ts";
@@ -135,6 +136,7 @@ export default define.page(function Home() {
             ))}
           </CaseBand>
         </section>
+        <Lightbox />
       </main>
     </Shell>
   );

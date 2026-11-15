@@ -9,7 +9,7 @@ import type {
 export type { BlogVocab, Term, WorkVocab } from "@/src/types.ts";
 
 export const BLOG_PAGE_SIZE = 10;
-export const WORK_PAGE_SIZE = 50;
+export const WORK_PAGE_SIZE = 9;
 
 export const EMPTY_WORK_SELECTION: WorkSelection = {
   domains: [],
