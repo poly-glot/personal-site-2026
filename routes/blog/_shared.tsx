@@ -20,7 +20,6 @@ export function BlogPage({ data }: { data: PageData }) {
         <Header active="blog" />
         <BlogDetail
           post={view.detail}
-          num={view.num}
           toc={view.toc}
           neighbors={view.neighbors}
         />
@@ -64,25 +63,15 @@ export function BlogPage({ data }: { data: PageData }) {
           {posts.length === 0
             ? (
               <div class={styles.empty}>
-                <p class={`${styles.emptyTitle} display`}>
+                <p class={styles.emptyTitle}>
                   No essays match those filters.
                 </p>
-                <a class="post-cta" href="/blog/">
-                  <span>Reset filters</span>
-                  <span class="post-cta-arrow" aria-hidden="true">→</span>
+                <a class={styles.reset} href="/blog/">
+                  Reset filters <span aria-hidden="true">→</span>
                 </a>
               </div>
             )
-            : posts.map((p, i) => (
-              <PostCard
-                key={p.id}
-                post={p}
-                index={i}
-                banded={i % 2 === 1}
-                first={i === 0}
-                last={i === posts.length - 1}
-              />
-            ))}
+            : posts.map((p, i) => <PostCard key={p.id} post={p} index={i} />)}
         </div>
 
         <Pager page={page} pageCount={pageCount} hrefFor={pageHref} />

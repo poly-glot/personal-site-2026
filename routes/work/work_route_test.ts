@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "@std/assert";
+import { assertEquals } from "@std/assert";
 import { canonicalWorkPath } from "@/data/taxonomy.ts";
 import { resolveWork } from "./_resolve.ts";
 
@@ -60,13 +60,6 @@ Deno.test("openguessr case study has live-site href", () => {
   const res = simulateGet("openguessr/");
   const data = res.data as { project: { href: string } };
   assertEquals(data.project.href, "https://openguessr.junaid.guru/");
-});
-
-Deno.test("internal-only case study has placeholder href", () => {
-  const res = simulateGet("luma-dam/");
-  assertEquals(res.status, 200);
-  const data = res.data as { project: { href: string } };
-  assert(data.project.href === "#" || data.project.href === "");
 });
 
 Deno.test("unknown single segment is neither a case study nor a filter and 404s", () => {

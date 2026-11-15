@@ -14,7 +14,7 @@ export default function Pager({ page, pageCount, hrefFor }: PagerProps) {
   const nextDisabled = page === pageCount;
 
   return (
-    <nav class={styles.pager} aria-label="Pagination">
+    <nav class={`${styles.pager} bleed-panel`} aria-label="Pagination">
       {prevDisabled
         ? (
           <span class={`${styles.btn} ${styles.disabled}`} aria-hidden="true">
@@ -36,7 +36,7 @@ export default function Pager({ page, pageCount, hrefFor }: PagerProps) {
         {pages.map((n) => (
           <li key={n}>
             <a
-              class={`${styles.num} mono ${n === page ? styles.current : ""}`}
+              class={`${styles.num} ${n === page ? styles.current : ""}`}
               href={hrefFor(n)}
               aria-current={n === page ? "page" : undefined}
               aria-label={`Page ${n}`}

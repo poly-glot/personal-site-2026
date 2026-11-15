@@ -41,8 +41,10 @@
 }
 
 .introTitle strong {
-  color: var(--accent);
+  color: var(--fg);
   font-weight: 700;
+  text-decoration: var(--mark-display);
+  text-underline-offset: var(--mark-display-offset);
 }
 
 .introLede {
@@ -184,10 +186,10 @@
 }
 
 .pn {
-  color: var(--accent);
+  color: var(--fg);
   font-family: var(--ff-mono);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.08em;
   min-width: 32px;
 }
@@ -678,7 +680,7 @@
 }
 
 .demoBandEyebrow .num {
-  color: var(--accent);
+  color: var(--accent-on-band);
   font-weight: 700;
 }
 
@@ -689,7 +691,7 @@
 }
 
 .demoBandTtl strong {
-  color: var(--accent);
+  color: var(--accent-on-band);
   font-weight: 700;
 }
 
@@ -755,7 +757,9 @@
 }
 
 .rulesDo h4 {
-  color: var(--accent);
+  color: var(--fg);
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
 }
 
 .rulesDont h4 {
@@ -839,7 +843,7 @@
 }
 
 .ctaTitle strong {
-  color: var(--accent);
+  color: var(--accent-on-band);
   font-weight: 700;
 }
 

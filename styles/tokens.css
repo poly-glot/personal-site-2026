@@ -1,6 +1,12 @@
 :root {
   --bg: #ffffff;
   --bg-2: #fafafa;
+  --bar: rgba(245, 245, 245, 0.85);
+  --panel: color-mix(
+    in oklab,
+    color-mix(in oklab, var(--fg) 4%, var(--bg)) 25%,
+    transparent
+  );
   --fg: #010101;
   --fg-2: #1a1a1a;
   --muted: #656565;
@@ -8,9 +14,14 @@
   --rule: #e5e6e6;
   --rule-2: #ddd;
   --accent: #f8a41d;
-  --accent-text: #c44900;
   --accent-fg: #010101;
+  --accent-on-band: var(--accent);
+  --mark: underline var(--accent) 2px;
+  --mark-offset: 4px;
+  --mark-display: underline var(--accent) 3px;
+  --mark-display-offset: 7px;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 7px rgba(0, 0, 0, 0.06);
 
   --ff-body: "Roboto", system-ui, -apple-system, sans-serif;
   --ff-display: "Rozha One", "Playfair Display", Georgia, serif;
@@ -37,12 +48,14 @@
   --hero-ratio-left: 1;
   --hero-ratio-right: 1.618;
   --max-w: 1280px;
+  --max-w-bleed: 1600px;
 }
 
 [data-theme="dark"] {
   --accent: #ff8080;
-  --accent-text: #ff8080;
   --accent-fg: #1b1b1a;
+  --accent-on-band: var(--bg);
+  --bar: rgba(31, 31, 30, 0.85);
   --bg: #1f1f1e;
   --bg-2: #2a2a28;
   --fg: #f9f9f7;
@@ -58,6 +71,8 @@
   :root:not([data-theme]) {
     --accent: #ff8080;
     --accent-fg: #1b1b1a;
+    --accent-on-band: var(--bg);
+    --bar: rgba(31, 31, 30, 0.85);
     --bg: #1f1f1e;
     --bg-2: #2a2a28;
     --fg: #f9f9f7;

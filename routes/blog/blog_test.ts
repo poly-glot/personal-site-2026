@@ -4,6 +4,7 @@ import {
   canonicalBlogPath,
   parseBlogSegments,
 } from "@/data/taxonomy.ts";
+import { POSTS } from "@/data/content.gen.ts";
 import type { BlogVocab } from "@/src/types.ts";
 import { resolveBlog } from "./_resolve.ts";
 
@@ -80,7 +81,7 @@ Deno.test("GET unknown post returns 404", () => {
 });
 
 Deno.test("GET middle post has both prev and next neighbors", () => {
-  const res = simulateGet("strangler-without-pain/");
+  const res = simulateGet("react-hook-budgets/");
   assertEquals(res.status, 200);
   const view = (res.data as {
     view: {
@@ -96,10 +97,10 @@ Deno.test("GET middle post has both prev and next neighbors", () => {
   assertEquals(view.neighbors.next !== null, true);
 });
 
-Deno.test("GET /blog/ list has BLOG_PAGE_SIZE posts on page 1", () => {
+Deno.test("GET /blog/ page 1 shows up to BLOG_PAGE_SIZE posts", () => {
   const res = simulateGet("");
   const view = (res.data as { view: { posts: unknown[] } }).view;
-  assertEquals(view.posts.length, BLOG_PAGE_SIZE);
+  assertEquals(view.posts.length, Math.min(POSTS.length, BLOG_PAGE_SIZE));
 });
 
 Deno.test("parseBlogSegments notfound for unknown facet value", () => {

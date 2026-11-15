@@ -1,0 +1,40 @@
+WEBVTT
+
+00:00:00.200 --> 00:00:04.058
+One customer portal, built three times, on three runtimes.
+
+00:00:04.800 --> 00:00:08.667
+Meet Azadi: the finance portal of an imaginary car maker.
+
+00:00:10.300 --> 00:00:16.221
+Customers sign in without a password. Date of birth, postcode and agreement number are enough.
+
+00:00:20.300 --> 00:00:26.717
+My account shows the agreement at a glance: the balance, the rate, the next payment, and how many are left.
+
+00:00:30.300 --> 00:00:35.909
+Paying takes one short form. Card details go straight to Stripe, not through the portal.
+
+00:00:39.300 --> 00:00:46.946
+From the same menu, customers can move their payment date, once per agreement, get a settlement figure, or order a paper statement.
+
+00:00:51.300 --> 00:00:56.017
+New bank details need three confirmations, and they're encrypted before they're stored.
+
+00:00:59.300 --> 00:01:03.462
+Contact details edit in place. Documents are a tap away.
+
+00:01:05.300 --> 00:01:10.243
+Then the portal was built three times: same pages, same templates, same data.
+
+00:01:11.300 --> 00:01:17.000
+Only the runtime changed. Spring Boot on a full JDK: 441 MB.
+
+00:01:17.000 --> 00:01:24.179
+Trimmed: 265. Helidon: about 150, first page in 1.3 seconds.
+
+00:01:24.380 --> 00:01:27.527
+Every release passes a health check before it takes traffic.
+
+00:01:27.730 --> 00:01:32.554
+Try the live demo at azadi-go.junaid.guru.

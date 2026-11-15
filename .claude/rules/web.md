@@ -31,7 +31,23 @@ so fix this file.
   rule or strip. Use the `.bleed-rule` primitive in `styles/utility.css`:
   `class="… bleed-rule" data-bleed="bottom|top|both"`. If `.bleed-rule` doesn't
   cover your case, extend the primitive rather than re-derive the raw block. The
-  web-guard hook warns on this.
+  web-guard hook warns on this. For edge-to-edge row lines inside a list, use
+  `.bleed-divider` on each row (a line under every row but the last) and
+  `.bleed-divider-top` on the list for an opening line; set
+  `--bleed-divider-right` to stop a line short of a neighbouring column.
+- NEVER: **`--accent` as a text colour on the page.** The orange is 2.04:1 on
+  white, and any orange dark enough to pass 4.5:1 reads brown. Text stays ink
+  (`--fg`) and carries the orange as a mark: `text-decoration: var(--mark)` with
+  `text-underline-offset: var(--mark-offset)`, or `--mark-display` /
+  `--mark-display-offset` at display sizes (the "glue" underline). Hover and
+  active states add the mark; they never recolour text.
+- DO: **Numerals stay plain.** Index numbers, years and eyebrow numerals are ink
+  mono at weight 500 with no mark. The mark is for links, emphasis and hover, so
+  it keeps meaning "this is interactive or important".
+- DO: **`--accent` only where contrast doesn't apply or already passes.** The
+  logotype dot, decorative glyphs (quote marks, list dashes, arrows), borders
+  and rules. On inverted ink bands use `--accent-on-band`: orange in light mode
+  (10:1 on black), the band's ink in dark mode, where the band turns light.
 
 ## Comments
 

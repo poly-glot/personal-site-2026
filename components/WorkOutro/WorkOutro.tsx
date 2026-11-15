@@ -6,7 +6,12 @@ export default function WorkOutro() {
   return (
     <section class={styles.foot}>
       <div class={styles.footInner}>
-        <SectionEyebrow num="03." label="What's next" right="Open to roles" />
+        <SectionEyebrow
+          num="03."
+          label="What's next"
+          right="Open to roles"
+          tone="invert"
+        />
         <p class={styles.footCopy}>
           Currently scoping a <strong>Lead Principal</strong>{" "}
           role focused on platform durability, ADR culture, and turning

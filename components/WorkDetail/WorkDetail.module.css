@@ -5,6 +5,111 @@
   padding: var(--s-6) 0;
 }
 
+.chaptered {
+  gap: 0;
+  padding: 0;
+}
+
+.hero {
+  display: grid;
+}
+
+.heroIntro {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-5) 0 var(--s-4);
+}
+
+.heroTitle {
+  font-size: clamp(var(--fs-display-sm), 3.6vw, var(--fs-display));
+  margin: 0 0 var(--s-2);
+}
+
+.heroLede {
+  color: var(--fg-2);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  margin: 0 0 var(--s-4);
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+
+.heroFilm {
+  padding-bottom: var(--s-4);
+}
+
+.heroFacts {
+  margin: 0;
+}
+
+.heroFact {
+  align-items: baseline;
+  column-gap: var(--s-3);
+  display: grid;
+  grid-template-columns: var(--s-6) minmax(0, 1fr);
+  padding: var(--s-2) 0;
+}
+
+.heroFact dt {
+  color: var(--muted);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heroFact dd {
+  color: var(--fg);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (min-width: 1080px) {
+  .hero {
+    column-gap: var(--s-6);
+    grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr);
+    grid-template-rows: 1fr auto;
+  }
+
+  .heroIntro {
+    align-self: center;
+    grid-column: 1;
+    grid-row: 1;
+    padding: var(--s-5) 0;
+  }
+
+  .heroFacts {
+    --bleed-divider-right: var(--s-4);
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .heroFilm {
+    align-items: center;
+    display: flex;
+    grid-column: 2;
+    grid-row: 1 / -1;
+    margin-right: calc(var(--s-3) - var(--bleed-right));
+    padding: var(--s-5) 0;
+    position: relative;
+  }
+
+  .heroFilm::before {
+    border-left: 1px solid var(--rule);
+    bottom: 0;
+    content: "";
+    left: calc(-1 * var(--s-5));
+    position: absolute;
+    top: 0;
+  }
+
+  .heroFilm > .thumb {
+    flex: 1;
+  }
+}
+
 .head {
   display: flex;
   flex-direction: column;
@@ -23,7 +128,8 @@
 }
 
 .year {
-  color: var(--accent-text);
+  color: var(--fg);
+  font-weight: 500;
 }
 
 .dotSep {
@@ -72,11 +178,11 @@
 
 .link {
   align-items: center;
-  color: var(--accent-text);
+  color: var(--fg);
   display: inline-flex;
   gap: 4px;
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
 }
 
 .cta {
@@ -131,9 +237,43 @@
   color: var(--accent-fg);
 }
 
+.heroActions {
+  align-items: stretch;
+  display: flex;
+  gap: var(--s-1);
+}
+
+.source {
+  align-items: center;
+  border: 1px solid var(--fg);
+  border-radius: 999px;
+  color: var(--fg);
+  display: inline-flex;
+  justify-content: center;
+  padding: 0 var(--s-2);
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    transform 200ms ease;
+}
+
+.source:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+  transform: translateY(-1px);
+}
+
 .thumb {
   border-radius: 12px;
   overflow: hidden;
+  scroll-margin-top: 88px;
+}
+
+.chapters {
+  display: flex;
+  flex-direction: column;
 }
 
 .prose {
@@ -180,7 +320,8 @@
 
 .prev:hover .navName,
 .next:hover .navName {
-  color: var(--accent-text);
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
 }
 
 .navSpacer {

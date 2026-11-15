@@ -1,0 +1,98 @@
+.figure {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.svg {
+  display: block;
+  height: auto;
+  min-width: 880px;
+  width: 100%;
+}
+
+.narrow {
+  min-width: 440px;
+}
+
+.pairFrame {
+  container-type: inline-size;
+}
+
+.pair {
+  display: grid;
+  gap: var(--s-2);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@container (min-width: 900px) {
+  .pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.zone {
+  fill: var(--panel);
+  stroke: var(--rule);
+}
+
+.zoneLabel {
+  fill: var(--muted);
+  font-family: var(--ff-mono);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+}
+
+.node {
+  fill: var(--bg);
+  stroke: var(--fg);
+  stroke-width: 1.5;
+}
+
+.danger {
+  stroke-width: 2.5;
+}
+
+.nodeTitle {
+  fill: var(--fg);
+  font-family: var(--ff-display);
+  font-size: 28px;
+}
+
+.nodeLine {
+  fill: var(--muted);
+  font-family: var(--ff-body);
+  font-size: 18px;
+}
+
+.wire {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 2;
+}
+
+.head {
+  fill: var(--fg);
+}
+
+.label {
+  fill: var(--fg);
+  font-family: var(--ff-mono);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+}
+
+.code {
+  fill: var(--fg);
+  font-family: var(--ff-mono);
+  font-size: 15px;
+}
+
+.boundary {
+  stroke: var(--accent);
+  stroke-dasharray: 8 6;
+  stroke-width: 3;
+}
+
+.boundaryChip {
+  fill: var(--bg);
+}

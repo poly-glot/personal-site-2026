@@ -1,0 +1,33 @@
+.topics {
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--ff-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  gap: var(--s-1) var(--s-3);
+  letter-spacing: 0.14em;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.link {
+  align-items: center;
+  color: inherit;
+  display: inline-flex;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.link svg {
+  flex: none;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--fg);
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
+}

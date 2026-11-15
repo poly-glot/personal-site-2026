@@ -18,11 +18,10 @@ function pad(n: number): string {
 }
 
 function Eyebrow(
-  { n, label, right, numTone, invert }: {
+  { n, label, right, invert }: {
     n: string;
     label: string;
     right?: string;
-    numTone: "accent" | "muted";
     invert?: boolean;
   },
 ) {
@@ -33,7 +32,7 @@ function Eyebrow(
       right={right}
       variant="sans"
       align="baseline"
-      numTone={numTone}
+      numTone="muted"
       rule={false}
       tone={invert ? "invert" : "default"}
       class={styles.eyebrow}
@@ -65,7 +64,7 @@ export function Section(
   if (insideTwo) {
     return (
       <div>
-        <Eyebrow n={n} label={eyebrow} right={right} numTone="muted" />
+        <Eyebrow n={n} label={eyebrow} right={right} />
         {children}
       </div>
     );
@@ -79,7 +78,7 @@ export function Section(
         ? `${styles.section} ${styles.banded} bleed-panel`
         : `${styles.section} bleed-panel`}
     >
-      <Eyebrow n={n} label={eyebrow} right={right} numTone="muted" />
+      <Eyebrow n={n} label={eyebrow} right={right} />
       {children}
     </section>
   );
@@ -99,26 +98,51 @@ export function TwoColumn({ children }: { children: ComponentChildren }) {
   );
 }
 
-export function Intro(
-  { eyebrow, right, children }: {
-    eyebrow: string;
-    right?: string;
-    children: ComponentChildren;
-  },
-) {
+export function Intro({ children }: { children: ComponentChildren }) {
   const counter = useContext(CounterContext);
-  const n = pad(counter.n++);
+  counter.n++;
 
   return (
     <section class={styles.intro}>
-      <Eyebrow n={n} label={eyebrow} right={right} numTone="accent" />
       <div class={styles.introGrid}>{children}</div>
     </section>
   );
 }
 
 export function IntroText({ children }: { children: ComponentChildren }) {
-  return <div>{children}</div>;
+  return <div class={styles.introText}>{children}</div>;
+}
+
+const PORTRAIT_CROSSES = [
+  styles.crossA,
+  styles.crossB,
+  styles.crossC,
+  styles.crossD,
+];
+
+export function Portrait() {
+  return (
+    <figure class={styles.portrait}>
+      {PORTRAIT_CROSSES.map((cross) => (
+        <span
+          class={`${styles.cross} ${cross}`}
+          aria-hidden="true"
+          key={cross}
+        />
+      ))}
+      <picture>
+        <source srcset="/img/junaid.webp" type="image/webp" />
+        <img
+          class={styles.portraitImg}
+          src="/img/junaid.png"
+          alt="Junaid Ahmed, standing with a laptop under his arm"
+          width="848"
+          height="1264"
+          decoding="async"
+        />
+      </picture>
+    </figure>
+  );
 }
 
 export function Title({ children }: { children: ComponentChildren }) {
@@ -135,15 +159,15 @@ export function Lede({ children }: { children: ComponentChildren }) {
 
 export function Facts({ children }: { children: ComponentChildren }) {
   return (
-    <aside>
-      <dl class={styles.facts}>{children}</dl>
+    <aside class={styles.factsCell}>
+      <dl class={`${styles.facts} bleed-divider-top`}>{children}</dl>
     </aside>
   );
 }
 
 export function Fact({ k, v }: { k: string; v: string }) {
   return (
-    <div class={styles.fact}>
+    <div class={`${styles.fact} bleed-divider`}>
       <dt>{k}</dt>
       <dd>{v}</dd>
     </div>
@@ -208,7 +232,7 @@ export function Pullquote(
 }
 
 export function Values({ children }: { children: ComponentChildren }) {
-  return <ol class={styles.values}>{children}</ol>;
+  return <ol class={`${styles.values} bleed-divider-top`}>{children}</ol>;
 }
 
 export function Value(
@@ -219,12 +243,12 @@ export function Value(
   },
 ) {
   return (
-    <li class={styles.value}>
-      <span class={styles.valueMeta}>
-        <span class={styles.valueNum} />
+    <li class={`${styles.value} bleed-divider`}>
+      <span class={styles.valueNum} />
+      <span class={styles.valueHead}>
+        <span class={styles.valueWord}>{word}</span>
         <span class={styles.valueAxis}>{axis}</span>
       </span>
-      <span class={styles.valueWord}>{word}</span>
       <span class={styles.valueNote}>{children}</span>
     </li>
   );
@@ -283,48 +307,43 @@ export function Timeline(
   );
 }
 
-export function Year(
-  { year, role, org, children }: {
-    year: string;
-    role?: string;
-    org?: string;
+type Pillar = "Vision" | "Strategy" | "Governance" | "Enablement";
+
+export function Role(
+  { years, title, org, children }: {
+    years: string;
+    title: string;
+    org: string;
     children: ComponentChildren;
   },
 ) {
-  const hasHeading = Boolean(role || org);
-
   return (
-    <li class={styles.tlItem}>
-      <span class={styles.tlYear}>{year}</span>
+    <li class={`${styles.tlItem} bleed-divider`}>
+      <span class={styles.tlYear}>{years}</span>
       <div class={styles.tlBody}>
-        {role ? <h3>{role}</h3> : null}
-        {org ? <p class={styles.tlOrg}>{org}</p> : null}
-        <ol
-          class={hasHeading
-            ? styles.quarters
-            : `${styles.quarters} ${styles.quartersFlush}`}
-        >
-          {children}
-        </ol>
+        <h3>{title}</h3>
+        <p class={styles.tlOrg}>{org}</p>
+        <ul class={styles.achievements}>{children}</ul>
       </div>
     </li>
   );
 }
 
-export function Quarter(
-  { q, children }: { q: number; children?: ComponentChildren },
+export function Achievement(
+  { pillar, children }: { pillar?: Pillar; children: ComponentChildren },
 ) {
-  const quarterText = q ? `Q:${q}` : "";
+  if (!pillar) {
+    return (
+      <li class={`${styles.achievement} ${styles.achievementPlain}`}>
+        <p class={styles.achievementText}>{children}</p>
+      </li>
+    );
+  }
+
   return (
-    <li
-      class={children
-        ? styles.quarter
-        : `${styles.quarter} ${styles.quarterEmpty}`}
-    >
-      <span class={styles.qTag}>{quarterText}</span>
-      {children
-        ? <p class={styles.qNote}>{children}</p>
-        : <span class={styles.qEmpty}>—</span>}
+    <li class={styles.achievement}>
+      <span class={styles.pillar}>{pillar}</span>
+      <p class={styles.achievementText}>{children}</p>
     </li>
   );
 }
@@ -337,7 +356,7 @@ export function Contact(
 
   return (
     <section class={`${styles.section} ${styles.cta} bleed-panel`}>
-      <Eyebrow n={n} label={eyebrow} numTone="muted" invert />
+      <Eyebrow n={n} label={eyebrow} invert />
       <h2 class={styles.ctaTitle}>
         If any of this lands,<br />
         <strong>the inbox is open.</strong>
@@ -382,6 +401,7 @@ export const aboutComponents = {
   AboutSections,
   Intro,
   IntroText,
+  Portrait,
   Title,
   Line,
   Lede,
@@ -400,8 +420,8 @@ export const aboutComponents = {
   Goals,
   PainPoints,
   Timeline,
-  Year,
-  Quarter,
+  Role,
+  Achievement,
   Contact,
   ContactLink,
 };

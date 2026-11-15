@@ -75,6 +75,13 @@ export function getProject(id: string): WorkProject | null {
   return PROJECTS.find((p) => p.id === id) ?? null;
 }
 
+export function workContextLabel(project: WorkProject): string {
+  if (project.kind === "study") return "Study";
+  if (project.kind === "client") return `Client · ${project.role}`;
+
+  return project.role ?? "";
+}
+
 export function filterProjects(
   projects: WorkProject[],
   sel: WorkSelection,

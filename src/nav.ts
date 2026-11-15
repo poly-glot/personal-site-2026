@@ -15,10 +15,10 @@ export const NAV_LINKS: readonly NavLink[] = [
     label: "Selected Work",
     href: "/work/",
     num: "01",
-    ready: false,
+    ready: true,
   },
   { id: "about", label: "About", href: "/about", num: "02", ready: true },
-  { id: "blog", label: "Blog", href: "/blog/", num: "03", ready: false },
+  { id: "blog", label: "Blog", href: "/blog/", num: "03", ready: true },
   {
     id: "contact",
     label: "Contact",

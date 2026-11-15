@@ -1,0 +1,215 @@
+.inner {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: var(--max-w-bleed);
+  padding: 0 var(--gutter);
+  width: 100%;
+}
+
+.band {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+.mark {
+  height: 11px;
+  position: absolute;
+  width: 11px;
+}
+
+.mark::before,
+.mark::after {
+  background: var(--rule-2);
+  content: "";
+  position: absolute;
+}
+
+.mark::before {
+  height: 1px;
+  left: 0;
+  top: 5px;
+  width: 11px;
+}
+
+.mark::after {
+  height: 11px;
+  left: 5px;
+  top: 0;
+  width: 1px;
+}
+
+.markTl,
+.markBl {
+  left: -6px;
+}
+
+.markTr,
+.markBr {
+  right: -6px;
+}
+
+.markTl,
+.markTr {
+  top: -6px;
+}
+
+.markBl,
+.markBr {
+  bottom: calc(var(--s-2) + var(--s-3) - 6px);
+}
+
+.markBl::before,
+.markBl::after {
+  background: var(--accent);
+}
+
+.card {
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+  scroll-margin-top: 80px;
+}
+
+.caseLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.caseLink::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.card:has(.caseLink:focus-visible) .thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.thumb {
+  aspect-ratio: 3 / 2;
+  background: var(--bw-tone, var(--bg-2));
+  border: 1px solid var(--rule);
+  container-type: size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+  padding: 0 var(--s-4);
+  place-items: center;
+  position: relative;
+  transition: border-color 200ms ease;
+}
+
+.card:hover .thumb {
+  border-color: var(--fg);
+}
+
+.thumb:has(video) {
+  z-index: 1;
+}
+
+.frame {
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: min(100%, (100cqh - 2 * var(--s-3) - 34px) * 1.618);
+}
+
+.card:hover .frame {
+  transform: translateY(-6px);
+}
+
+.titleRow {
+  align-items: baseline;
+  display: flex;
+  gap: var(--s-3);
+  height: var(--s-3);
+  justify-content: space-between;
+  line-height: var(--s-3);
+  margin-top: var(--s-2);
+}
+
+.titleLeft {
+  align-items: baseline;
+  display: inline-flex;
+  gap: var(--s-2);
+}
+
+.num {
+  color: var(--fg);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+}
+
+.name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.card:hover .name {
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
+}
+
+.titleRight {
+  align-items: center;
+  color: var(--muted);
+  display: inline-flex;
+  font-size: var(--fs-mono);
+  gap: var(--s-3);
+}
+
+.liveLink,
+.caseCue {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.liveLink {
+  color: var(--fg);
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .inner[data-fill] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .inner[data-fill] .band {
+    flex: 1;
+  }
+
+  .inner[data-fill] .thumb {
+    aspect-ratio: auto;
+    flex: 1;
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 767px) {
+  .band {
+    grid-template-columns: 1fr;
+  }
+
+  .mark {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame,
+  .thumb {
+    transition: none;
+  }
+
+  .card:hover .frame {
+    transform: none;
+  }
+}

@@ -19,7 +19,6 @@ export type View =
   | {
     kind: "detail";
     detail: BlogPost;
-    num: string;
     toc: TocEntry[];
     neighbors: { prev: BlogPost | null; next: BlogPost | null };
   }
@@ -69,15 +68,10 @@ export function resolveBlog(
   if (segments.length === 1) {
     const detail = getPost(segments[0]);
     if (detail) {
-      const num = String(
-        getAllPosts().findIndex((p) => p.id === detail.id) + 1,
-      ).padStart(2, "0");
-
       return {
         view: {
           kind: "detail",
           detail,
-          num,
           toc: detail.toc,
           neighbors: getPostNeighbors(detail.id),
         },

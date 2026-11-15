@@ -1,20 +1,153 @@
 ---
 id: azadi-go
-name: Azadi Go
-tagline: A landing experience celebrating freedom.
-role: Solo build
+name: Azadi
+tagline: One finance portal, built on three runtimes.
+summary: The customer portal for Azadi Financial Services, the finance arm of an imaginary luxury car maker. Customers sign in with their agreement details, pay by card, settle early and keep their bank details up to date. I built it three times, in Spring Boot, Helidon and Go, to measure what the runtime costs on Cloud Run.
+client: Azadi Financial Services, an imaginary brand
+delivered: Customer portal, card payments, three backends, Terraform
+role: System author
+kind: study
+layout: chapters
 stack:
-  - HTML
-  - CSS
-  - Motion
+  - Java
+  - Spring
+  - Helidon
+  - Go
+  - Firestore
+  - Stripe
+  - Cloud Run
 domains:
-  - High End Campaigns
-year: 2023
+  - Automotive
+year: 2026
 url: azadi-go.junaid.guru
 href: "https://azadi-go.junaid.guru/"
+source: "https://github.com/poly-glot/azadi-go"
 abstract: FLAG
 tone: "linear-gradient(135deg, #02292022, #03222808)"
+cover: /img/work/azadi-go.webp
+video:
+  src: /video/azadi-go.mp4
+  poster: /video/azadi-go.webp
+  captions: /video/azadi-go.vtt
 ---
 
-Single-page narrative landing page. Editorial type, sequenced motion, no
-framework overhead. Made to feel like a printed broadsheet that breathes.
+import BarChart from "@/components/diagrams/BarChart.tsx";
+
+<Study>
+
+<Chapter label="The customer" title="Run your car finance without phoning us." lede="Azadi Financial Services lends to people buying its cars. Most of what its customers need is small: what do I owe, when is the next payment, can I pay it off early. The portal had to answer those online, and keep money and bank details safe while doing it.">
+<Rows>
+  <Row title="Sign in without a password">Customers visit a few times a year, so a password would be forgotten. Date of birth, postcode and agreement number are enough, and five wrong tries lock the sign-in.</Row>
+  <Row title="See the agreement at a glance">The balance, the rate, the next payment and how many are left, on the first screen after signing in.</Row>
+  <Row title="Pay and settle online">Pay by card, get a settlement figure on screen or by text, or move the payment date once in the life of the agreement.</Row>
+  <Row title="Keep bank details safe">New bank details need three confirmations and are encrypted before they're stored. Only the last four digits stay readable.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The portal" title="Everything an agreement needs, in one menu." lede="The portal is a set of plain pages rendered on the server, and they work the same on a phone. Card details go straight to Stripe and never pass through it.">
+<Figures numbered bleed>
+  <Figure src="/img/work/azadi-go/login.webp" w={1600} h={1000} alt="The Azadi sign-in page over a dark car interior, asking for date of birth, postcode and agreement number." title="Sign in">Three details from the agreement letter, or the demo customer on the live site. No password to forget or reset.</Figure>
+  <Figure src="/img/work/azadi-go/my-account.webp" w={1600} h={1000} alt="My account: the balance, term, APR, mileage, next payment and payments remaining for an Azadi Summit V8 Touring." title="My account">The agreement at a glance: the car, the balance, the rate, the next payment and how many are left.</Figure>
+  <Figure src="/img/work/azadi-go/make-a-payment.webp" w={1600} h={1000} alt="Make a payment: choose the agreement, enter an amount and the card details, then pay." title="Make a payment">One short form. The card field is Stripe's own, so the portal never sees the card number.</Figure>
+  <Figure src="/img/work/azadi-go/update-bank-details.webp" w={1600} h={1000} alt="Update bank details: three confirmation boxes above the new account holder, account number and sort code fields." title="Update bank details">Three confirmations first, then the details are encrypted before they're saved.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/azadi-go/settlement-figure.webp" w={1600} h={1000} alt="Settlement figure: get a figure for an agreement, or have it sent by text." title="Settlement figure">The amount to clear the agreement today, on screen or sent by text.</Figure>
+  <Figure src="/img/work/azadi-go/change-payment-date.webp" w={1600} h={1000} alt="Change payment date, with a note that it can change only once and a consent box." title="Change payment date">Move the monthly date once in the life of the agreement, with a consent box.</Figure>
+  <Figure src="/img/work/azadi-go/my-contact-details.webp" w={1600} h={1000} alt="My contact details: address, phone numbers and email, each with an edit link." title="Contact details">Address, phones and email, each edited in place.</Figure>
+  <Figure src="/img/work/azadi-go/my-documents.webp" w={1600} h={1000} alt="My documents: the finance agreement and the welcome pack as PDF downloads." title="Documents">The finance agreement and welcome pack, ready to download.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The question" title="Is Java too heavy for serverless?" lede="Cloud Run bills for memory and scales to zero, so the runtime is a line on the invoice, and the cold start is the first thing a customer feels after a quiet hour. ‘Java is too heavy for serverless’ gets said a lot and measured rarely. So I built the same portal three times and measured each one.">
+<List>
+  <Item title="Change the runtime, nothing else.">The same pages, the same Datastore kinds and the same features in all three. Otherwise the comparison measures the rewrite, not the runtime.</Item>
+  <Item title="Data stays compatible.">Bank details written by the Spring Boot version stay readable by Helidon, and a startup check decrypts a seeded record to prove it.</Item>
+  <Item title="Server-rendered throughout.">Forms and tables don't need a client framework, and server rendering keeps CORS, bearer tokens and client-side routes off the attack surface.</Item>
+</List>
+</Chapter>
+
+<Chapter label="Three builds" title="The same portal, three ways." lede="Each build started from what the last one taught. The screenshots are the same page, taken from each build's own live site.">
+<Eras>
+  <Era period="01" title="Spring Boot" meta="Spring Boot 3 · GraalVM native image" src="/img/work/azadi-go/runtime-spring.webp" w={1600} h={1000} alt="My account on azadi.junaid.guru, the Spring Boot build.">
+    <Point tag="Start">Where most teams would begin: Spring MVC, Spring Security and Thymeleaf.</Point>
+    <Point tag="Memory">441 MB resident on a full JDK, 265 MB on a trimmed runtime with tuned flags.</Point>
+    <Point tag="Cold start">A native image started in about 100 ms, but every build took a quarter of an hour.</Point>
+  </Era>
+  <Era period="02" title="Helidon SE" meta="Helidon 4 SE · plain JVM" src="/img/work/azadi-go/runtime-helidon.webp" w={1600} h={1000} alt="My account on azadi-helidon.junaid.guru, the Helidon build.">
+    <Point tag="Strip back">A web server rather than a framework: no classpath scanning, no proxies.</Point>
+    <Point tag="Templates">Spring's Thymeleaf templates kept word for word, through a small adapter.</Point>
+    <Point tag="Memory">About 150 MB resident, a 98 MB image, and the first page 1.3 s after start. No native build.</Point>
+    <Point tag="Written">Sessions, a rate limiter and a login tracker, because Helidon has none.</Point>
+  </Era>
+  <Era period="03" title="Go" meta="Go 1.24 · standard library" src="/img/work/azadi-go/runtime-go.webp" w={1600} h={1000} alt="My account on azadi-go.junaid.guru, the Go build.">
+    <Point tag="Control">No JVM at all. Routing from net/http and pages from html/template.</Point>
+    <Point tag="Libraries">Two: the Datastore client and the Stripe SDK.</Point>
+    <Point tag="Sessions">Encrypted cookies, so there is no session store to run or scale.</Point>
+    <Point tag="Data">One generic repository type for every entity, about 350 lines lighter.</Point>
+  </Era>
+</Eras>
+</Chapter>
+
+<Chapter label="The figures" title="What each runtime costs." lede="Resident memory after start, measured with the same scripts on Linux.">
+<BarChart
+  readings={[
+    { label: "Spring Boot, full JDK", amount: 441, value: "441 MB" },
+    { label: "Spring Boot, trimmed runtime", amount: 265, value: "265 MB" },
+    { label: "Helidon SE, tuned", amount: 150, value: "about 150 MB", chosen: true },
+    { label: "Bare Helidon, one route", amount: 77, value: "77 MB" },
+    { label: "Go", value: "Not measured yet" },
+  ]}
+/>
+<Facts>
+  <Fact k="First page">1.3 s after start on Helidon, hidden by Cloud Run's startup CPU boost.</Fact>
+  <Fact k="Native">About 100 ms to start and 15 minutes to build. Dropped once Helidon came close enough.</Fact>
+  <Fact k="Budget">Of Helidon's 150 MB: JVM and Helidon 80, Thymeleaf 20, Stripe SDK 8, Datastore client 6, heap growth under load 10.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Security" title="Safe enough for money and bank details." lede="The customer never sees most of this, and shouldn't have to. All three builds do the same.">
+<List>
+  <Item title="Bank details encrypted at rest.">AES-256-GCM, with only the last four digits of the account and the last two of the sort code kept readable.</Item>
+  <Item title="Limits per caller.">Five sign-ins every 15 minutes, three payments an hour and 60 requests a minute. Five wrong sign-ins lock the account for 30 minutes.</Item>
+  <Item title="Headers on every page.">A content security policy with a fresh nonce per request, HSTS, frame denial and CSRF tokens on every form.</Item>
+  <Item title="An audit trail.">Payments, contact changes and bank detail updates are logged to Firestore.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The limits" title="Where each build stops." lede="Each limit is a known trade, with the next step already named.">
+<List>
+  <Item title="Helidon keeps sessions in memory.">Simple and free, but it pins the service to one instance with session affinity. Go's encrypted cookies show the way out.</Item>
+  <Item title="1.3 seconds needs the CPU boost.">If a service level demanded sub-second cold starts without it, the native build would come back.</Item>
+  <Item title="Go isn't measured yet.">Its figures go through the same scripts before they're quoted.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The learning" title="What carried forward." lede="Lessons from building the same thing three times.">
+<Split>
+<List>
+  <Item title="Parity is the method.">Freeze everything except the thing you're comparing, or the numbers measure the rewrite.</Item>
+  <Item title="Measure before you replace.">Helidon kept the standard SDKs and only hand-wrote what was missing, after measuring what each cost.</Item>
+  <Item title="Fewer parts, fewer surprises.">Go needed two libraries. Spring Boot needed a quarter-hour native build to start quickly.</Item>
+  <Item title="A release routine I'd hand to any team.">Deploy to a revision with no traffic, run an idempotent seed job, pass a health check, then take traffic. A bad build never meets a customer.</Item>
+</List>
+<Facts>
+  <Fact k="Builds">Three, same pages</Fact>
+  <Fact k="Memory">441 MB down to about 150</Fact>
+  <Fact k="Native">15-minute builds, then not needed</Fact>
+  <Fact k="Spring">[poly-glot/azadi](https://github.com/poly-glot/azadi)</Fact>
+  <Fact k="Helidon">[poly-glot/azadi-helidon](https://github.com/poly-glot/azadi-helidon)</Fact>
+  <Fact k="Go">[poly-glot/azadi-go](https://github.com/poly-glot/azadi-go)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Sign in as the demo customer and look around.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://azadi-go.junaid.guru/" external>Open the portal <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

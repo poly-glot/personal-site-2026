@@ -1,0 +1,34 @@
+WEBVTT
+
+00:00:00.050 --> 00:00:03.837
+Webhooks fail quietly. HookLab makes them loud.
+
+00:00:05.400 --> 00:00:09.023
+Hit Add New, name your endpoint, and copy the URL.
+
+00:00:10.000 --> 00:00:11.627
+It's live in seconds.
+
+00:00:12.300 --> 00:00:15.106
+Point Stripe at it, and watch every request land.
+
+00:00:17.600 --> 00:00:20.940
+Open one to see the headers, the body, and the reply it got.
+
+00:00:24.300 --> 00:00:28.078
+Then answer back. Script the reply in plain JavaScript.
+
+00:00:29.300 --> 00:00:30.709
+Save it, and test it.
+
+00:00:34.300 --> 00:00:36.362
+Every script is a stranger's code.
+
+00:00:37.000 --> 00:00:40.886
+So each one runs in its own Deno worker, with its permissions revoked.
+
+00:00:41.800 --> 00:00:45.487
+Quotas apply from day one, and deploys have no key to leak.
+
+00:00:46.800 --> 00:00:51.139
+Try it as a guest, no account needed, at hooklab.junaid.guru.

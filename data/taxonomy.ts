@@ -8,7 +8,7 @@ import type {
 
 export type { BlogVocab, Term, WorkVocab } from "@/src/types.ts";
 
-export const BLOG_PAGE_SIZE = 4;
+export const BLOG_PAGE_SIZE = 10;
 export const WORK_PAGE_SIZE = 50;
 
 export const EMPTY_WORK_SELECTION: WorkSelection = {
@@ -46,6 +46,7 @@ export const BLOG_TOPICS: readonly Term[] = [
   term("Open Source"),
   term("DevEx"),
   term("Process"),
+  term("Checklist"),
 ];
 
 export const BLOG_READS: readonly Term[] = [
@@ -71,6 +72,9 @@ export const WORK_DOMAINS: readonly Term[] = [
   term("Reporting"),
   term("Proxy"),
   term("CMS"),
+  term("Games"),
+  term("Healthcare"),
+  term("Travel"),
 ];
 
 export function labelForTopic(slug: string): string | null {
@@ -158,6 +162,10 @@ export function canonicalBlogPath(filter: BlogFilter): string {
   return `/blog/${facets.join("/")}/${filter.page}/`;
 }
 
+export function topicHref(topic: string): string {
+  return canonicalBlogPath({ ...EMPTY_BLOG_FILTER, topics: [slugify(topic)] });
+}
+
 export function parseBlogSegments(
   segments: string[],
   vocab: BlogVocab,
@@ -224,6 +232,17 @@ export function canonicalWorkPath(sel: WorkSelection): string {
   }
 
   return `/work/${facets.join("/")}/${sel.page}/`;
+}
+
+export function domainHref(domain: string): string {
+  return canonicalWorkPath({
+    ...EMPTY_WORK_SELECTION,
+    domains: [slugify(domain)],
+  });
+}
+
+export function stackHref(tech: string): string {
+  return canonicalWorkPath({ ...EMPTY_WORK_SELECTION, stack: [slugify(tech)] });
 }
 
 function parseYears(joined: string): number[] | null {

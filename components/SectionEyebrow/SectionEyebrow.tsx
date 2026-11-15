@@ -6,7 +6,7 @@ interface SectionEyebrowProps {
   right?: string;
   variant?: "sans" | "mono";
   align?: "center" | "baseline";
-  numTone?: "accent" | "accentBright" | "muted";
+  numTone?: "accent" | "muted";
   labelStrong?: boolean;
   rightSmall?: boolean;
   rule?: boolean;
@@ -16,7 +16,6 @@ interface SectionEyebrowProps {
 
 const NUM_TONE = {
   accent: styles.numAccent,
-  accentBright: styles.numAccentBright,
   muted: styles.numMuted,
 };
 

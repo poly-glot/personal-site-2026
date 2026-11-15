@@ -75,17 +75,6 @@ export default function App(
           media="(prefers-color-scheme: dark)"
           content="#1f1f1e"
         />
-        {url.pathname === "/"
-          ? (
-            <link
-              rel="preload"
-              as="image"
-              href="/img/junaid.webp"
-              type="image/webp"
-              fetchpriority="high"
-            />
-          )
-          : null}
       </head>
       <body>
         <a href="#main" class="skip-link">Skip to content</a>

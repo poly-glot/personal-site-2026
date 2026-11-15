@@ -1,20 +1,114 @@
 ---
 id: bhx-travel
 name: BHX Travel
-tagline: Travel-booking product, live in market.
-role: Engineering
+tagline: A minibus hire website the owners edit themselves, built to bring in quotes.
+summary: BHX Travel hires out minibuses and coaches with drivers from Birmingham. Every job is priced by hand, so the website had one real job, to get a group to ask for a quote. The owners also wanted to change their own pages without calling a developer. The site is built in Next.js on Vercel, edited visually in Builder.io, and sends every quote request straight to the owners' inbox.
+client: BHX Travel
+delivered: Website, visual page editor, quote form and enquiry email, weekly content backup
+role: Lead developer
+layout: chapters
 stack:
-  - Java
+  - Next.js
   - React
-  - SQL
+  - TypeScript
+  - Builder.io
+  - Vercel
+  - Resend
 domains:
-  - E-commerce
-year: 2019
+  - Travel
+year: 2022
 url: bhxtravel.com
 href: "https://bhxtravel.com/"
+source: "https://github.com/poly-glot/bhxtravel"
+cover: /img/work/bhx-travel.webp
 abstract: PLANE
-tone: "linear-gradient(135deg, #f8a41d22, #022B3308)"
+tone: "linear-gradient(135deg, #e5262620, #1a1a1a08)"
 ---
 
-Live commercial product. Search, itineraries, payments. Built with the
-trade-offs that real customers — not portfolios — expose.
+import QuoteFlow from "@/components/diagrams/QuoteFlow.tsx";
+
+<Study>
+
+<Chapter label="The business" title="A minibus firm that needed quotes." lede="BHX Travel hires out minibuses and coaches with drivers from Hall Green in Birmingham, for day trips, airport transfers, football matches, nights out and contract work. No two journeys cost the same, so every job is priced by hand. The website had to get a group to ask for a quote, and the owners wanted to keep their own pages up to date without a developer.">
+<Rows>
+  <Row title="Ask for a quote">One form with everything needed to price a journey, a click away on every page.</Row>
+  <Row title="Edit without a developer">The owners change text, photos and whole pages themselves, and see them live straight away.</Row>
+  <Row title="Quick on a phone">Many groups plan a trip on a phone. Pages had to load fast and the form had to work with a thumb.</Row>
+  <Row title="Keep the content safe">The pages live in a hosted editor, so a copy of everything had to be kept outside it.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The site" title="Clear about what's on offer." lede="Four main pages, each leading to a way to ask for a quote.">
+<Figures numbered bleed>
+  <Figure src="/img/work/bhx-travel/home.webp" w={1600} h={1000} alt="The BHX Travel home page: Call now to book your minibus and coach hire with driver, beside a photo of a white minibus." title="Home">What the firm does in one line, four reasons to choose it, and the quote button.</Figure>
+  <Figure src="/img/work/bhx-travel/services.webp" w={1600} h={1000} alt="The services page with a photo of a minibus and the first service, day trips." title="Services">Eight services, from day trips and airport transfers to hen and stag parties.</Figure>
+  <Figure src="/img/work/bhx-travel/about.webp" w={1600} h={1000} alt="The about page with two minibuses and a description of the fleet." title="About">Minibuses from 8 to 16 seats, and the area the firm covers.</Figure>
+  <Figure src="/img/work/bhx-travel/contact.webp" w={1600} h={1000} alt="The contact page with phone, email and the start of the quote form." title="Contact">Phone, email and office hours, with the quote form underneath.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="Editing" title="The owners edit the site themselves." lede="Pages, the header and the footer are all content in Builder.io, a visual editor. The owners drag in blocks, change the words and publish. They never touch code and they never wait for a deploy.">
+<QuoteFlow />
+<Facts>
+  <Fact k="Own blocks">Eight of the site's own components are registered in the editor: navigation, icons, contact details, social links, headings, lists, buttons and the quote form. Pages are built from the brand's pieces, so the design stays intact.</Fact>
+  <Fact k="Live fast">Pages are static and Next.js rebuilds a page within 15 seconds of a change. A new page made in the editor goes live without a deploy.</Fact>
+  <Fact k="Preview">The editor shows the real site in a frame. The site only allows Builder.io to frame it, so no other site can.</Fact>
+  <Fact k="Privacy">The editor adds a tracking pixel to every page. The site strips it out before the page is built.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The quote" title="From the form to the owners' inbox." lede="The form asks for what the owners need to price a journey and nothing more, then emails it to them.">
+<Figures>
+  <Figure src="/img/work/bhx-travel/form.webp" phone="/img/work/bhx-travel/form-phone.webp" phoneAlt="The quote form on a phone, one field per row." w={1600} h={1000} alt="The enquiry form on a desktop with one way or return, pickup, drop off, dates and times." title="The form">Two columns on a desktop, one on a phone, with the phone's own date and time pickers.</Figure>
+  <Figure src="/img/work/bhx-travel/email.webp" w={1600} h={730} alt="The enquiry email: a table of the journey, dates, contact details, passengers, luggage and reason for the trip." title="The email">Every answer laid out in a table that reads well in Outlook and on a phone.</Figure>
+</Figures>
+<List>
+  <Item title="One way or return.">Picking one way switches the return date and time off, so nobody fills in fields that don't apply.</Item>
+  <Item title="The reason for the trip.">15 choices, from airport to wedding to football, help the owners plan the right vehicle for the trip.</Item>
+  <Item title="Checked on the server.">Every field is checked with Zod before anything is sent, and a problem comes back as a plain message on the form.</Item>
+  <Item title="Easy to sort.">The email subject names the journey type, the pickup and the drop-off, so the owners can see each enquiry at a glance in their inbox.</Item>
+  <Item title="Terms first.">The send button stays off until the booking terms are ticked.</Item>
+</List>
+</Chapter>
+
+<Chapter label="Engineering" title="Small, fast and easy to hand over." lede="The site is a small Next.js app. Anyone who knows React can pick it up.">
+<Facts>
+  <Fact k="Hosting">Vercel. Every push to the main branch deploys, and pages are served as static files from Vercel's cache.</Fact>
+  <Fact k="Backup">Every Friday a GitHub Action exports all the Builder.io content and keeps it for 90 days. A new developer can import it into their own free space and start working.</Fact>
+  <Fact k="Icons">Service icons are SVG files turned into React components with one command, so adding a service icon needs no design tool.</Fact>
+  <Fact k="Tests">Jest and Testing Library cover the navigation and the quote form.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops." lede="Each limit was a choice that suited a small firm.">
+<List>
+  <Item title="No online booking.">The site takes enquiries, not payments. Prices depend on the route, the day and the vehicle, so the owners quote each job themselves.</Item>
+  <Item title="Content in a hosted editor.">The pages live in Builder.io. The weekly backup means the content can be moved if the service ever changes.</Item>
+</List>
+</Chapter>
+
+<Chapter label="Kept running" title="Still taking enquiries." lede="In 2026 the email moved from SendGrid to Resend, Node.js moved to version 22, and the build was fixed so the quote endpoint deploys with the site. The pages and the editor carried on unchanged.">
+<Split>
+<List>
+  <Item title="Let the owners own the words.">A visual editor with the site's own blocks gave them freedom without breaking the design.</Item>
+  <Item title="Make the form the product.">For a business that prices by hand, the quote request is the sale. Everything else leads to it.</Item>
+  <Item title="Back up what you don't host.">A weekly export kept the content safe outside a third-party service.</Item>
+</List>
+<Facts>
+  <Fact k="Pages">Four, edited visually</Fact>
+  <Fact k="Blocks">Eight site components in the editor</Fact>
+  <Fact k="Updates">Live within 15 seconds</Fact>
+  <Fact k="Backup">Weekly, kept 90 days</Fact>
+  <Fact k="Source">[github.com/poly-glot/bhxtravel](https://github.com/poly-glot/bhxtravel)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Visit it">
+  <ClosingCopy>See the site, and ask for a quote the way a group would.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://bhxtravel.com/" external>Open BHX Travel <span aria-hidden="true">→</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

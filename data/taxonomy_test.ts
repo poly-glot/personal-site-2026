@@ -20,12 +20,12 @@ Deno.test("slugify kebab-cases and strips punctuation", () => {
 });
 
 Deno.test("page sizes match the spec", () => {
-  assertEquals(BLOG_PAGE_SIZE, 4);
+  assertEquals(BLOG_PAGE_SIZE, 10);
   assertEquals(WORK_PAGE_SIZE, 50);
 });
 
-Deno.test("blog topics are the 8 fixed terms with kebab slugs", () => {
-  assertEquals(BLOG_TOPICS.length, 8);
+Deno.test("blog topics are the 9 fixed terms with kebab slugs", () => {
+  assertEquals(BLOG_TOPICS.length, 9);
   assertEquals(BLOG_TOPICS.map((t) => t.slug), [
     "architecture",
     "engineering-culture",
@@ -35,14 +35,15 @@ Deno.test("blog topics are the 8 fixed terms with kebab slugs", () => {
     "open-source",
     "devex",
     "process",
+    "checklist",
   ]);
   for (const term of BLOG_TOPICS) {
     assertEquals(term.slug, slugify(term.label));
   }
 });
 
-Deno.test("work domains are the 10 fixed terms with kebab slugs", () => {
-  assertEquals(WORK_DOMAINS.length, 10);
+Deno.test("work domains are the 13 fixed terms with kebab slugs", () => {
+  assertEquals(WORK_DOMAINS.length, 13);
   assertEquals(WORK_DOMAINS.map((t) => t.slug), [
     "directory",
     "news",
@@ -54,6 +55,9 @@ Deno.test("work domains are the 10 fixed terms with kebab slugs", () => {
     "reporting",
     "proxy",
     "cms",
+    "games",
+    "healthcare",
+    "travel",
   ]);
   for (const term of WORK_DOMAINS) {
     assertEquals(term.slug, slugify(term.label));

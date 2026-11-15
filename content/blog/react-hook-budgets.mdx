@@ -1,102 +1,212 @@
 ---
 id: react-hook-budgets
-title: "Hook budgets: a useThrottle story"
-deck: What happens when 600 cards each open a websocket. (Nothing good. Then we fixed it.)
-teaser: Treat hooks like budgets, not utilities. The 601st card is the one that takes you out.
+title: "One websocket, not 600: fixing a slow React dashboard"
+deck: Every card on our asset dashboard opened its own websocket. Throttling them didn't help. Sharing one did.
+teaser: Before you put setup inside a hook, ask how many copies of it will be on the page.
 date: "2025-09-18"
 year: 2025
 topics:
   - Performance
   - DevEx
   - Engineering Culture
-readMin: 8
+  - Checklist
+readMin: 7
 abstract: HOOK
 tone: "linear-gradient(135deg, #f8a41d22, #01010108)"
 ---
 
-600 cards on a single dashboard. Each card opens a websocket on mount to listen
-for updates. The 601st card is the one that takes you out.
+import BarChart from "@/components/diagrams/BarChart.tsx";
+import SharedSocket from "@/components/diagrams/SharedSocket.tsx";
 
-This is the story of how we accidentally built a fork bomb out of a useEffect,
-and the small change that fixed it.
+Our asset dashboard was slow for the customers with the biggest catalogues. The
+cause turned out to be one small React hook, repeated 600 times.
 
-> Treat hooks like budgets, not utilities.
+<Summary
+  problem="with 600 asset cards on screen, the dashboard took 30 seconds to load and sometimes crashed the browser tab."
+  cause="each card opened its own websocket, so the page opened 600 connections as it loaded."
+  fix="the dashboard now opens one websocket and passes each update to the card that needs it."
+/>
 
-## The symptom
+## The problem {#the-symptom}
 
-It started with a complaint from QA: the asset dashboard "feels heavy" on
-tenants with large catalogues. "Heavy" turned out to be 30-second initial loads,
-fan-fading network panels, and the occasional browser tab crash on Chrome. None
-of which appeared on our smaller test tenants. It only showed up at the top of
-the customer list.
+QA told us the asset dashboard felt heavy for customers with large catalogues.
+When we looked, it was worse than heavy. The first load took 30 seconds, the
+network panel filled up, and Chrome tabs sometimes crashed.
 
-## The diagnosis
+We hadn't seen any of it ourselves, because our test accounts had small
+catalogues. It only showed up for the customers at the top of the list.
 
-Each card on the dashboard had a useEffect that opened a websocket connection on
-mount, listened for updates to that asset, and closed on unmount. Clean.
-Idiomatic. Wrong.
+## The cause {#the-diagnosis}
 
-With 600 cards mounted at once, we were opening 600 websocket connections in the
-first second of page load. The browser had a connection ceiling we were
-tripping. The server was happy to accept. The browser was not happy to send.
-
-<Callout title="Lesson">
-
-Before optimising a hook, ask if you should be calling it 600 times in the first
-place.
-
-</Callout>
-
-## The wrong fix
-
-Our first instinct was to throttle. Stagger the connections. We wrote a
-useThrottle hook that opened a fraction of the connections per frame. The page
-loaded faster. Updates lagged. CPU usage was worse, because we were now also
-burning cycles on a backoff scheduler. We had built a more efficient version of
-the wrong thing.
-
-> You can throttle a fork bomb. It's still a fork bomb.
-
-## The right fix
-
-The fix wasn't throttling. The fix was hoisting the subscription up to the
-dashboard level and pushing updates down via context. One websocket, 600
-listeners. The hook we ended up writing — useResource — is six lines of code;
-the architectural shift behind it is what mattered.
+Each card on the dashboard used a hook to keep its asset up to date. The hook
+opened a websocket when the card appeared and closed it when the card went
+away. It looked something like this:
 
 ```jsx
-function useResource(id) {
-  const subs = useContext(SubsCtx);
-  const [v, setV] = useState(subs.get(id));
-  useEffect(() => subs.subscribe(id, setV), [id]);
-  return v;
+function useAssetUpdates(id) {
+  const [asset, setAsset] = useState(null);
+
+  useEffect(() => {
+    const socket = new WebSocket(`${UPDATES_URL}/${id}`);
+    socket.onmessage = (event) => setAsset(JSON.parse(event.data));
+
+    return () => socket.close();
+  }, [id]);
+
+  return asset;
 }
 ```
 
-Six lines. The dashboard now opens one websocket and routes updates through a
-single subscription registry. CPU is low. Network panel is quiet. Tab crashes
-are gone. The 601st card no longer matters because connecting is no longer
-per-card.
+On its own, that's tidy React. The trouble is how many copies run at once. With
+600 cards on the page, the browser tried to open 600 connections in the first
+second. The server would have accepted them all, but browsers cap how many
+websockets can be open at once, and 600 is well past that cap.
 
-## Hook budgets
+<Wide>
+  <SharedSocket />
+</Wide>
 
-It's tempting to think of hooks as primitives. They aren't. They are budgets —
-every subscription, every interval, every effect costs something. When you're
-rendering 600 of anything, those costs compound silently until the page falls
-over.
+## What didn't work: throttling {#the-wrong-fix}
 
-Now we ask, in code review: "how many of these will exist on the page at peak?"
-If the answer is more than 50, we don't put expensive setup inside the
-per-instance hook. We hoist.
+Our first idea was to open the connections more slowly. We wrote a `useThrottle`
+hook that opened a few connections on each frame instead of all of them at
+once.
 
-## What I tell juniors
+The page did load sooner. But updates now arrived late, and the browser worked
+harder than before, because it was also running the scheduler that spaced the
+connections out. And the page still opened 600 connections. We had only spread
+them out.
 
-- useEffect is not a place to do work. It's a place to subscribe to work being
-  done elsewhere.
-- If your hook opens a connection, ask who else might also open one.
-- If you're staggering, you're already losing. Hoist instead.
+<BarChart
+  bleed
+  readings={[
+    { label: "One socket per card", amount: 600, value: "600 at once" },
+    { label: "Throttled", amount: 600, value: "600, spread out" },
+    { label: "One shared socket", amount: 1, value: "1", chosen: true },
+  ]}
+/>
 
-## Closing thought {#closing}
+## What worked: one shared connection {#the-right-fix}
 
-Hooks make local reasoning cheap. They also make global cost invisible. The
-601st card is always coming. Plan for it.
+The real fix was to move the connection out of the cards. The dashboard keeps
+one websocket and a small registry: a list of which card wants updates for
+which asset. When an update arrives, the registry stores it and tells only the
+cards watching that asset. The examples below use React 19.
+
+```js
+export function createSubscriptions(url) {
+  const latest = new Map();
+  const listeners = new Map();
+  let socket = null;
+
+  function connect() {
+    socket = new WebSocket(url);
+    socket.onmessage = (event) => {
+      const { id, value } = JSON.parse(event.data);
+      latest.set(id, value);
+      listeners.get(id)?.forEach((notify) => notify());
+    };
+  }
+
+  function subscribe(id, notify) {
+    if (!socket) connect();
+
+    const forAsset = listeners.get(id) ?? new Set();
+    forAsset.add(notify);
+    listeners.set(id, forAsset);
+
+    return () => {
+      forAsset.delete(notify);
+      if (forAsset.size === 0) listeners.delete(id);
+      if (listeners.size > 0) return;
+
+      socket.close();
+      socket = null;
+    };
+  }
+
+  return { get: (id) => latest.get(id), subscribe };
+}
+```
+
+The socket opens when the first card subscribes and closes when the last one
+leaves. Creating the registry does nothing on its own, so it's safe for React to
+create it during render, even twice in Strict Mode.
+
+The dashboard creates the registry once and shares it through context. In React
+19 the context itself is the provider:
+
+```jsx
+const SubscriptionsContext = createContext(null);
+
+function Dashboard({ assets }) {
+  const [subscriptions] = useState(() => createSubscriptions(UPDATES_URL));
+
+  return (
+    <SubscriptionsContext value={subscriptions}>
+      {assets.map((asset) => <AssetCard key={asset.id} id={asset.id} />)}
+    </SubscriptionsContext>
+  );
+}
+```
+
+Each card reads its asset with a hook we called `useResource`. It uses
+`useSyncExternalStore`, React's own hook for data that lives outside React.
+React handles subscribing and unsubscribing, and every card sees the same
+version of the data in a render, which copying values into state from an effect
+doesn't guarantee.
+
+```jsx
+function useResource(id) {
+  const subscriptions = use(SubscriptionsContext);
+
+  const subscribe = useCallback(
+    (notify) => subscriptions.subscribe(id, notify),
+    [subscriptions, id],
+  );
+
+  return useSyncExternalStore(subscribe, () => subscriptions.get(id));
+}
+```
+
+`subscribe` is wrapped in `useCallback` because React subscribes again whenever
+it gets a new function. The snapshot is the stored value, which only changes
+when an update arrives, so cards don't re-render for nothing.
+
+This is a sketch. In production the registry also tells the server which assets
+it wants, and reconnects with a backoff if the connection drops.
+
+The dashboard now opens one connection. CPU use is low, the network panel is
+quiet, and the tab crashes stopped. A 601st card makes no difference, because
+cards no longer connect to anything themselves.
+
+## The rule we use now {#hook-budgets}
+
+A hook looks free because it's one line in a component. But anything it sets
+up, like a connection, a timer or an event listener, is paid for once for every
+copy on the page. With 600 copies, a small cost becomes the reason the page
+falls over.
+
+So in code review we now ask one question: how many of these will be on the
+page at the busiest moment? If the answer is more than about 50, the setup
+doesn't belong in the per-card hook. It moves up to the parent, and the cards
+subscribe to it.
+
+## A checklist for hooks {#what-i-tell-juniors}
+
+<Checklist>
+
+- For data that lives outside React, like a socket, read it with
+  `useSyncExternalStore` instead of copying it into state from an effect.
+- If a hook opens a connection, ask how many other copies will open one too.
+- If you're spacing connections out to cope, move the connection up to the
+  parent instead.
+- If most cards are off screen, only render the visible ones. Fewer cards means
+  fewer subscriptions of every kind.
+
+</Checklist>
+
+## In short {#closing}
+
+Hooks make each component easy to reason about on its own, and that makes the
+total cost easy to miss. Count the copies before you put setup inside one.

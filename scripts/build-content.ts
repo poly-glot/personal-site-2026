@@ -7,7 +7,10 @@ import type {
   BlogAbstract,
   BlogPost,
   WorkAbstract,
+  WorkKind,
+  WorkLayout,
   WorkProject,
+  WorkVideo,
 } from "@/src/types.ts";
 
 function wordCountFromSource(markdown: string): number {
@@ -56,14 +59,22 @@ async function readProject(path: string): Promise<WorkProject> {
     name: fm.name as string,
     tagline: fm.tagline as string,
     summary: (fm.summary as string) ?? firstParagraphFromSource(markdown),
-    role: fm.role as string,
+    client: fm.client as string | undefined,
+    delivered: fm.delivered as string | undefined,
+    role: fm.role as string | undefined,
+    kind: fm.kind as WorkKind | undefined,
+    layout: fm.layout as WorkLayout | undefined,
     stack: fm.stack as string[],
     domains: fm.domains as string[],
     year: Number(fm.year),
+    period: fm.period as string | undefined,
     url: fm.url as string,
     href: fm.href as string,
     abstract: fm.abstract as WorkAbstract,
     tone: fm.tone as string,
+    cover: fm.cover as string | undefined,
+    source: fm.source as string | undefined,
+    video: fm.video as WorkVideo | undefined,
   };
 }
 

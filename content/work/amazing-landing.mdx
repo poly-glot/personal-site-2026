@@ -1,22 +1,134 @@
 ---
 id: amazing-landing
 name: Amazing Landing
-tagline: A pattern library for high-conversion pages.
+tagline: Three questions. One product. One boutique.
+summary: A skincare quiz for in-store promotions. A customer answers three questions, gets one recommended product and a voucher to collect a free trial of it, and is pointed to the nearest boutique. First shipped in 2015, rebuilt in 2026 beside the original.
+client: Azadi Cosmetics, an imaginary brand
+delivered: Desktop and mobile quiz, voucher email, admin, API
 role: System author
+layout: chapters
 stack:
-  - HTML
-  - CSS
-  - Tokens
+  - Vite
+  - Web Animations API
+  - Go
+  - Firestore
+  - Cloud Run
 domains:
   - CMS
   - High End Campaigns
-year: 2022
+year: 2015
+period: "2015 → 2026"
 url: amazing-landing.junaid.guru
 href: "https://amazing-landing.junaid.guru/"
+source: "https://github.com/poly-glot/amazing-landing"
+cover: /img/work/amazing-landing.webp
+video:
+  src: /video/amazing-landing.mp4
+  poster: /video/amazing-landing.webp
+  captions: /video/amazing-landing.vtt
 abstract: BLOCKS
-tone: "linear-gradient(135deg, #f8a41d22, #ffffff05)"
+tone: "linear-gradient(135deg, #c2185b1f, #f8a41d0a)"
 ---
 
-Reusable landing-page patterns — heroes, testimonials, pricing, CTAs — that
-compose into something honest. Built to survive copy-pasting into client work
-without falling apart.
+<Study>
+
+<Chapter label="The challenge" title="From her screen to our counter." lede="Azadi launched a skincare range for women of all ages (under 25 to 55 and beyond) and sold it through its own boutiques. The success was all in one shape really: a woman at the counter with her voucher, collecting her free trial. Everything online was designed to get her to the counter.">
+<Rows>
+  <Row title="Earn the journey">A click costs nothing. A trip to a boutique costs an afternoon. The page had to make that visit feel worth the effort before it asked her for anything.</Row>
+  <Row title="Recommend one product">The quiz stands in for a conversation at the counter. Three questions on her age, her skin and her concerns lead to one product chosen for her, never a catalogue.</Row>
+  <Row title="Name the nearest door">A recommendation is wasted if the boutique is an hour away. Her town is matched to the closest participating store, which is named on the voucher and in the email.</Row>
+  <Row title="Personalise the voucher">The voucher is the last impression before the shop. It greets her by name, gives the boutique's address and the product to collect, and adds £10 off skincare, redeemed on collection.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The solution" title="Four screens from curiosity to counter." lede="The quiz is four pages and each one has a single job. The same four exist for desktop and for mobile.">
+<Figures numbered bleed>
+  <Figure src="/img/work/amazing-landing/landing.webp" w={1280} h={800} phone="/img/work/amazing-landing/mobile-landing.webp" phoneAlt="The mobile landing page: the four colours as a two by two grid, one product in each, and a Start button." alt="The landing page: four vertical bands of colour, one product in each, and a Start button." title="Landing">Four products, one colour each, and one button. The promotion is checked before anything animates. On a phone the four bands become a grid.</Figure>
+  <Figure src="/img/work/amazing-landing/questions.webp" w={1280} h={800} phone="/img/work/amazing-landing/mobile-question.webp" phoneAlt="The mobile age question as a list of six options with 45 to 55 selected." alt="The first question, age group, as six diamond tiles with 45 to 55 selected." title="Questions">Age group, skin type, then two concerns. Answers are large diamond tiles, not form fields, and each question has the screen to itself. On a phone the diamonds become a list.</Figure>
+  <Figure src="/img/work/amazing-landing/result.webp" w={1280} h={800} phone="/img/work/amazing-landing/mobile-result.webp" phoneAlt="The mobile result page in gold, recommending Bloom Cream above the trial form." alt="The result page in gold: the Bloom product recommended, beside a form on a paper card." title="Result">The page takes the colour of the matched product and names it. Only then does it ask for a name, an email and a town.</Figure>
+  <Figure src="/img/work/amazing-landing/voucher.webp" w={1280} h={800} phone="/img/work/amazing-landing/mobile-voucher.webp" phoneAlt="The mobile voucher page: thank you Caroline, the Manchester boutique's address and Bloom Cream to collect." alt="The voucher page: thank you Caroline, the Manchester boutique's address, and ten pounds off skincare." title="Voucher">Stores are ranked by distance from the customer's town, within 20 miles first. The nearest boutique goes on the voucher and in the email.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The direction" title="One colour per product." lede="The campaign is built from very few parts. Four colours, Lato in five weights and a handful of shapes carry the whole journey.">
+<Figures>
+  <Figure tile src="/img/work/amazing-landing/product-bloom.webp" w={640} h={512} alt="A gold jar among yellow flowers on a gold background." title="Bloom" meta="#FFC913" />
+  <Figure tile src="/img/work/amazing-landing/product-glow.webp" w={640} h={512} alt="A rose-pink jar inside a pink peony on a rose background." title="Glow" meta="#C21954" />
+  <Figure tile src="/img/work/amazing-landing/product-rise.webp" w={640} h={512} alt="A deep blue jar among small yellow flowers on a navy background." title="Rise" meta="#032D7A" />
+  <Figure tile src="/img/work/amazing-landing/product-silk.webp" w={640} h={512} alt="A white jar wrapped in a green leaf on a teal background." title="Silk" meta="#2DAFC7" />
+</Figures>
+<List>
+  <Item title="Colour is the navigation.">Each product owns a colour. The landing page shows all four side by side, and the result page turns into the colour of the product you matched.</Item>
+  <Item title="The diamond asks the questions.">It starts as the mark in the logo, then becomes the answer tile, its selected state and the marker above each question.</Item>
+  <Item title="Paper holds the promise.">The trial form sits on a paper card with stepped corners, set apart from the flat colour around it.</Item>
+  <Item title="Motion carries you forward.">Pages hand over in short sequences, not cuts. Tiles arrive one at a time, and the product is revealed before its description.</Item>
+</List>
+</Chapter>
+
+<Chapter label="Creative assets" title="A kit of parts." lede="The whole campaign runs on a small set of assets: four product portraits, two backgrounds and one paper card. Everything else is type, colour and shape.">
+<Figures>
+  <Figure wide src="/img/work/amazing-landing/meadow.webp" w={1280} h={500} alt="A soft gold meadow with the shadow of long grass.">The meadow behind the questions. It is film on desktop and a still on mobile.</Figure>
+  <Figure src="/img/work/amazing-landing/boutique.webp" w={1280} h={800} alt="A boutique interior washed in navy.">The boutique behind the voucher.</Figure>
+  <Figure src="/img/work/amazing-landing/paper.webp" w={1280} h={800} alt="An off-white paper card with stepped corners and a thin gold keyline.">The paper card that holds the trial form.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The build" title="Same pixels. New engine." lede="Put the 2015 and 2026 versions side by side and they look the same. That was the point. Everything underneath changed.">
+<Eras>
+  <Era period="2015" title="A jQuery campaign page" meta="23 scripts · 464 KB of JavaScript" src="/img/work/amazing-landing/landing-2015.webp" w={1280} h={800} alt="The 2015 landing page: four bands of colour with one product in each.">
+    <Point tag="Scripts">Ten libraries, then thirteen page scripts.</Point>
+    <Point tag="Motion">Velocity.js on top of jQuery.</Point>
+    <Point tag="Entry">One script per page, wired together through globals.</Point>
+  </Era>
+  <Era period="2026" title="One module and a Go service" meta="One ES module · 47 KB of JavaScript" src="/img/work/amazing-landing/landing.webp" w={1280} h={800} alt="The 2026 landing page, which looks the same as the 2015 one.">
+    <Point tag="Rollout">Both versions ship from one build and one server. A promotion picks which it uses, so the original keeps running untouched.</Point>
+    <Point tag="Scripts">One ES module, with a class per page and a page router.</Point>
+    <Point tag="Motion">The Web Animations API, behind one small helper.</Point>
+    <Point tag="Edge">Firebase Hosting serves the quiz as static files and holds the four read endpoints for 30 days, so a cold start is paid by one visitor rather than by everyone.</Point>
+    <Point tag="Server">Go's standard library on Cloud Run, with no framework. The route table is small enough not to need one.</Point>
+    <Point tag="Tenancy">Every promotion has a slug, and the quiz loads its configuration by that slug. A new client is new data, not new code.</Point>
+    <Point tag="Data">Cloud Datastore and encrypted cookie sessions: no schema to migrate and no session store to run.</Point>
+    <Point tag="Tests">Eleven Playwright suites walk both versions, both screen sizes, the admin and the full journey.</Point>
+  </Era>
+</Eras>
+</Chapter>
+
+<Chapter label="The backend" title="One admin runs every campaign." lede="The quiz is the part she sees. Behind it, a Go service and a small admin hold the stores, products, questions and every submission, so a campaign could change without a code change.">
+<Figures numbered bleed quartered>
+  <Figure src="/img/work/amazing-landing/admin-dashboard.webp" w={1600} h={1000} alt="The admin dashboard: counts for stores, promotions, submissions and products above a table of recent submissions." title="Dashboard">Counts for stores, promotions, submissions and products, and the latest entries, on one screen. Admins sign in with an encrypted session, and five wrong passwords lock the account for 15 minutes.</Figure>
+  <Figure src="/img/work/amazing-landing/admin-promotions.webp" w={1600} h={1000} alt="The promotions list with one active promotion, the 7-Day Skincare Trial, under the slug default." title="Promotions">Each campaign is a promotion with its own slug, and the quiz loads its settings by that slug. Adding a client means adding a promotion, with no new build.</Figure>
+  <Figure src="/img/work/amazing-landing/admin-stores.webp" w={1600} h={1000} alt="The stores list: eight boutiques from Regent Street to Dublin, each with its address, display order and an Active badge." title="Stores">The eight boutiques, with addresses, map positions and display order. A boutique can be paused without deleting it, and the quiz stops offering it.</Figure>
+  <Figure src="/img/work/amazing-landing/admin-products.webp" w={1600} h={1000} alt="The products list grouped by range, with each product's type and price, and buttons to import and export CSV." title="Products">The range recommended after the quiz, with each product's type and price. The list imports and exports as CSV.</Figure>
+  <Figure src="/img/work/amazing-landing/admin-questions.webp" w={1600} h={1000} alt="The question configuration: one row per age group with its skin types, concerns and mapped ranges, and the generated JSON below." title="Questions">Age groups, skin types, concerns and the range each answer leads to. One row per age group, and it imports and exports as JSON.</Figure>
+  <Figure src="/img/work/amazing-landing/admin-submissions.webp" w={1600} h={1000} alt="The submissions list: eight entries with name, email, product, store and date, and an Export CSV button." title="Submissions">Every entry with its recommended product and boutique, 25 to a page. The whole list exports as CSV.</Figure>
+  <Figure src="/img/work/amazing-landing/admin-submission.webp" w={1600} h={1000} alt="One submission in full: Caroline Hughes, Bloom, the Manchester store, her answers, and the date her voucher email was sent." title="One entry">One entry in full: her answers, the product, the boutique and whether the voucher email went out.</Figure>
+  <Figure src="/img/work/amazing-landing/admin-email.webp" w={1600} h={1000} alt="The voucher email: Dear Caroline, Bloom as her match, the 7-Day Skincare Trial and the Manchester boutique's address." title="Voucher email">The email is rendered on the server and saved, so the team can open exactly what she received.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The outcome" title="What carried forward." lede="Azadi is imaginary, so there are no campaign results to quote. These are figures anyone can check in the repository.">
+<Split>
+<List>
+  <Item title="Rebuild beside, not over.">The old version stayed live and selectable throughout. Nothing had to be switched off to ship the new one.</Item>
+  <Item title="Let data carry the variants.">Promotions, questions and stores are rows, not branches. One build serves every campaign.</Item>
+  <Item title="Cache what rarely changes.">A quiz's questions barely move, so they are held at the edge. Most of a visit never touches the server.</Item>
+</List>
+<Facts>
+  <Fact k="Variants">Four, from one build</Fact>
+  <Fact k="Weight">47 KB of JavaScript, down from 464</Fact>
+  <Fact k="Cache">30 days on the read API</Fact>
+  <Fact k="Tests">Eleven Playwright suites</Fact>
+  <Fact k="Source">[github.com/poly-glot/amazing-landing](https://github.com/poly-glot/amazing-landing)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Take the quiz. **It takes a minute.**</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://amazing-landing.junaid.guru/" external>Open the live quiz <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

@@ -28,6 +28,10 @@ export type WorkAbstract =
   | "HOOK"
   | "PLANE";
 
+export type WorkKind = "study" | "client";
+
+export type WorkLayout = "prose" | "chapters";
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -47,14 +51,28 @@ export interface WorkProject {
   name: string;
   tagline: string;
   summary: string;
-  role: string;
+  client?: string;
+  delivered?: string;
+  role?: string;
+  kind?: WorkKind;
+  layout?: WorkLayout;
   stack: string[];
   domains: string[];
   year: number;
+  period?: string;
   url: string;
   href: string;
   abstract: WorkAbstract;
   tone: string;
+  cover?: string;
+  source?: string;
+  video?: WorkVideo;
+}
+
+export interface WorkVideo {
+  captions: string;
+  poster: string;
+  src: string;
 }
 
 export interface BlogFilter {

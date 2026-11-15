@@ -17,14 +17,16 @@ export function firstParagraphFromSource(markdown: string): string {
   return out;
 }
 
-const EXPLICIT_HEADING = /^(#{2,3})\s+(.*?)\s*\{#([a-z0-9-]+)\}\s*$/gm;
+const EXPLICIT_HEADING = /^(#{2,3})[ \t]+(.*?)[ \t]*\{#([a-z0-9-]+)\}[ \t]*$/gm;
+
+const HEADING_COMPONENTS = new Set(["H2", "H3"]);
 
 export function preprocessMdx(raw: string): string {
   return raw.replace(
     EXPLICIT_HEADING,
     (_m, hashes: string, text: string, id: string) => {
-      const level = hashes.length === 2 ? 2 : 3;
-      return `<h${level} id="${id}">${text}</h${level}>`;
+      const tag = hashes.length === 2 ? "H2" : "H3";
+      return `<${tag} id="${id}">${text}</${tag}>`;
     },
   );
 }
@@ -67,10 +69,10 @@ export function extractHeadings(raw: string): HeadingInfo[] {
       out.push({ depth: n.depth as 2 | 3, id: slugger.slug(text), text });
     } else if (
       (n.type === "mdxJsxTextElement" || n.type === "mdxJsxFlowElement") &&
-      (n.name === "h2" || n.name === "h3")
+      HEADING_COMPONENTS.has(n.name ?? "")
     ) {
       const text = toString(node).trim();
-      out.push({ depth: n.name === "h2" ? 2 : 3, id: jsxAttrId(n), text });
+      out.push({ depth: n.name === "H2" ? 2 : 3, id: jsxAttrId(n), text });
     }
   });
 

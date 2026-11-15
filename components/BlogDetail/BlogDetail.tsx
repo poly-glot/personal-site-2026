@@ -1,7 +1,9 @@
 import type { BlogPost, TocEntry } from "@/src/types.ts";
 import type { ComponentType } from "preact";
 import { CONTACT_EMAIL } from "@/src/nav.ts";
-import BlogHero from "@/components/hero/BlogHero/BlogHero.tsx";
+import TagLinks from "@/components/TagLinks/TagLinks.tsx";
+import { topicHref } from "@/data/taxonomy.ts";
+import { Share } from "@/components/Icons/Icons.tsx";
 import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import Toc from "@/components/Toc/Toc.tsx";
 import { proseComponents } from "@/components/Prose/proseComponents.tsx";
@@ -25,7 +27,6 @@ for (const [path, mod] of Object.entries(bodyModules)) {
 
 interface BlogDetailProps {
   post: BlogPost;
-  num: string;
   toc: TocEntry[];
   neighbors: { prev: BlogPost | null; next: BlogPost | null };
 }
@@ -39,85 +40,66 @@ function formatDate(iso: string): string {
 }
 
 export default function BlogDetail(
-  { post, num, toc, neighbors }: BlogDetailProps,
+  { post, toc, neighbors }: BlogDetailProps,
 ) {
   const Body = bodies[post.id];
 
   return (
     <main id="main" class={`container ${styles.main}`}>
-      <header class={styles.head}>
-        <SectionEyebrow
-          num={`${num}.`}
-          label={post.topics[0]}
-          right={`${formatDate(post.date)} · ${post.readMin} min read`}
-          class={styles.eyebrow}
-        />
-        <h1 class={`${styles.title} display`}>{post.title}</h1>
+      <div class={`${styles.bar} bleed-panel`}>
+        <a class={styles.back} href="/blog/">
+          <span aria-hidden="true">←</span> All writing
+        </a>
+        <span class={styles.barMeta}>
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          {` · ${post.readMin} min read`}
+        </span>
+      </div>
+
+      <header class={`${styles.head} bleed-divider`}>
+        <h1 class={styles.title}>{post.title}</h1>
         <p class={styles.deck}>{post.deck}</p>
-        <ul class={styles.topics} aria-label="Topics">
-          {post.topics.map((t) => (
-            <li key={t} class={`${styles.topic} mono`}>{t}</li>
-          ))}
-        </ul>
+        <TagLinks label="Topics" tags={post.topics} hrefFor={topicHref} />
       </header>
 
-      <figure class={styles.hero}>
-        <BlogHero abstract={post.abstract} id={post.id} variant="hero" />
-      </figure>
-
       <div class={styles.layout}>
-        <aside class={styles.side} aria-label="Article navigation">
-          <div class={styles.sideInner}>
-            <a class={`${styles.back} mono`} href="/blog/">
-              <span aria-hidden="true">←</span> All writing
-            </a>
-            <dl class={styles.sideMeta}>
-              <div>
-                <dt class="mono">Published</dt>
-                <dd>{formatDate(post.date)}</dd>
-              </div>
-              <div>
-                <dt class="mono">Read time</dt>
-                <dd>{post.readMin} min</dd>
-              </div>
-              <div>
-                <dt class="mono">Topics</dt>
-                <dd>{post.topics.join(" · ")}</dd>
-              </div>
-            </dl>
-            <Toc entries={toc} />
-            <div class={styles.share}>
-              <span class={`${styles.shareLabel} mono`}>Share</span>
-              <a
-                class={styles.shareLink}
-                href={`https://twitter.com/intent/tweet?text=${
-                  encodeURIComponent(post.title)
-                }`}
-                target="_blank"
-                rel="noopener"
-              >
-                Twitter
-              </a>
-              <a
-                class={styles.shareLink}
-                href={`mailto:?subject=${encodeURIComponent(post.title)}`}
-              >
-                Email
-              </a>
-            </div>
-          </div>
-        </aside>
-
         <article class={styles.body}>
           {Body ? <Body components={proseComponents} /> : null}
-          <hr class={styles.endRule} />
-          <p class={`${styles.endSig} mono`}>
+          <p class={`${styles.endSig} mono bleed-divider-top`}>
             — Junaid · {formatDate(post.date)}
           </p>
         </article>
+
+        <aside class={styles.side} aria-label="Article navigation">
+          <div class={`${styles.toc} bleed-divider`}>
+            <Toc entries={toc} />
+          </div>
+          <div class={`${styles.share} bleed-divider-top`}>
+            <span class={`${styles.shareLabel} mono`}>
+              <Share />
+              Share
+            </span>
+            <a
+              class={styles.shareLink}
+              href={`https://twitter.com/intent/tweet?text=${
+                encodeURIComponent(post.title)
+              }`}
+              target="_blank"
+              rel="noopener"
+            >
+              Twitter
+            </a>
+            <a
+              class={styles.shareLink}
+              href={`mailto:?subject=${encodeURIComponent(post.title)}`}
+            >
+              Email
+            </a>
+          </div>
+        </aside>
       </div>
 
-      <nav class={styles.pn} aria-label="More essays">
+      <nav class={`${styles.pn} bleed-panel`} aria-label="More essays">
         <div class={styles.pnSide}>
           {neighbors.prev
             ? (
@@ -165,11 +147,10 @@ export default function BlogDetail(
             something.
           </p>
           <a
-            class="post-cta port-foot-cta"
+            class="port-foot-link"
             href={`mailto:${CONTACT_EMAIL}?subject=Subscribe`}
           >
-            <span>Email me to subscribe</span>
-            <span class="post-cta-arrow" aria-hidden="true">→</span>
+            Email me to subscribe <span aria-hidden="true">→</span>
           </a>
         </div>
       </section>

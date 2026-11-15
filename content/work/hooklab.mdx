@@ -1,21 +1,124 @@
 ---
 id: hooklab
 name: HookLab
-tagline: Playground for React hooks.
-role: Author
+tagline: How do you let strangers run code on your server?
+summary: A webhook tool for developers. Create an endpoint in seconds, see every request that arrives, and script the reply in JavaScript. Every script is written by a stranger and runs on my server, so I designed for that person first.
+client: My own product
+delivered: Web app, webhook receiver, script sandbox, reporting chat, Terraform
+role: System author
+kind: study
+layout: chapters
 stack:
+  - Deno
   - React
-  - Vite
-  - MDX
+  - Firestore
+  - Cloud Run
+  - Terraform
 domains:
   - Reporting
-year: 2023
+year: 2026
 url: hooklab.junaid.guru
 href: "https://hooklab.junaid.guru/"
+source: "https://github.com/poly-glot/hooklab"
 abstract: HOOK
 tone: "linear-gradient(135deg, #f8a41d22, #01010108)"
+cover: /img/work/hooklab.webp
+video:
+  src: /video/hooklab.mp4
+  poster: /video/hooklab.webp
+  captions: /video/hooklab.vtt
 ---
 
-A practical lab for sharing hook patterns — useThrottle, useIdle, useResource —
-with real demos. Built to teach a single concept per page, then get out of the
-way.
+import TrustBoundary from "@/components/diagrams/TrustBoundary.tsx";
+
+<Study>
+
+<Chapter label="The challenge" title="Make webhook integrations robust and reliable." lede="Webhooks are where integrations fail quietly. You hand Stripe or GitHub a URL and only find out what was sent when something downstream breaks. HookLab had to show every request and let you script the reply, and a scripted reply is someone else's code running on my server.">
+<Rows>
+  <Row title="See what was sent">Every request is kept with its headers, body, query and the reply it got, so a broken integration can be read, not guessed.</Row>
+  <Row title="Reply with code">A fixed reply only goes so far. A short JavaScript function lets the endpoint answer the way the real service would.</Row>
+  <Row title="Trust no script">Every script comes from someone I've never met. It must not reach the network, the disk or my secrets, however it is written.</Row>
+  <Row title="Open to anyone">Guests can try it without an account, so limits had to exist on the first day, not after the first abuse.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The product" title="From a URL to a scripted reply." lede="Four screens carry the whole job: make an endpoint, watch requests arrive, script the reply, then ask questions about the traffic.">
+<Figures numbered bleed>
+  <Figure src="/img/work/hooklab/endpoints.webp" w={1600} h={1000} alt="The HookLab dashboard listing six webhook endpoints, each with its URL, creation date, status and request count." title="Endpoints">Guest mode opens with six seeded endpoints. Each card shows its URL, its status and how many requests it has caught. A new one needs only a name.</Figure>
+  <Figure src="/img/work/hooklab/inspector.webp" w={1600} h={1000} alt="An endpoint's request list beside the Body tab, showing a payment_intent.succeeded JSON payload." title="Inspector">Every request, newest first, with its headers, body, query and the reply it got. Live mode checks for new ones as they arrive, and the list exports.</Figure>
+  <Figure src="/img/work/hooklab/script.webp" w={1600} h={1000} alt="The script editor with a JavaScript reply that echoes the request, next to a reference column of the request and response shapes." title="Script editor">The reply is a JavaScript function. Load one of three examples, save it, and test it against the live endpoint before Stripe ever calls.</Figure>
+  <Figure src="/img/work/hooklab/reports.webp" w={1600} h={1000} alt="The Hooklab AI reports chat with four suggested questions and duration and format options." title="Reports">A chat that turns a plain question about your webhooks into a query. Guests get two questions to try it.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The trust boundary" title="Split the product where the danger is." lede="Firebase does the ordinary parts: sign-in, storage and hosting. A small Deno server on Cloud Run does the one dangerous job: receive the webhook, run the script and log the result.">
+<TrustBoundary />
+<Facts>
+  <Fact k="Hosting">Firebase Hosting serves the React app and passes `/w/*` and `/api/*` to Cloud Run.</Fact>
+  <Fact k="Sign-in">Firebase Auth: Google, or a guest with seeded data.</Fact>
+  <Fact k="Data">Firestore holds users, endpoints and execution logs.</Fact>
+  <Fact k="Receiver">Deno and Hono on Cloud Run. `/w/{id}` accepts any method from anyone.</Fact>
+  <Fact k="Deploy">Terraform for both sides, and CI through Workload Identity Federation.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The sandbox" title="Each script runs with nothing." lede="Each script runs in its own Deno Worker. The runtime revokes its permissions, so the limits don't depend on my code being right.">
+<Split>
+<Facts>
+  <Fact k="Network">Denied</Fact>
+  <Fact k="Files">Read and write denied</Fact>
+  <Fact k="Environment">Denied</Fact>
+  <Fact k="Processes">Subprocesses denied</Fact>
+  <Fact k="Native">Native calls denied</Fact>
+  <Fact k="Timers">Precise timing denied</Fact>
+</Facts>
+<Facts>
+  <Fact k="Time">5 seconds inside the worker, and the server ends it at 10. Then the endpoint sends its default reply.</Fact>
+  <Fact k="Reply size">1 MB at most</Fact>
+  <Fact k="Rate">100 requests a minute per endpoint</Fact>
+  <Fact k="Guests">3 endpoints, 100 runs a day</Fact>
+  <Fact k="Registered">50 endpoints, 10,000 runs a day</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Chapter label="The evidence" title="Every claim is in the repository." lede="Security that only lives in a design document doesn't count. Each of these can be checked in the code or the history.">
+<List>
+  <Item title="Rules deny by default.">Firestore allows nothing unless a rule says so, scopes every endpoint and log to its owner, and lets only the backend write execution logs. The rules have their own tests against the emulator.</Item>
+  <Item title="No key to leak.">CI deploys through Workload Identity Federation, so there is no service account key anywhere.</Item>
+  <Item title="Fixes stay in the history.">Two later commits closed an insecure direct object reference and guarded the reporting chat's SQL check against prompt injection. Both have tests and neither was squashed.</Item>
+  <Item title="Headers set at the edge.">Firebase Hosting adds nosniff, frame denial and a permissions policy that turns off the camera, microphone and location.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="Each limit is a known trade, with the next step already named.">
+<List>
+  <Item title="One process, not one machine.">A Worker shares a process with the server. Revoked permissions stop a script reaching out, not burning CPU until the time limit. A busier service would give each run its own isolate or container, and pay for it.</Item>
+  <Item title="Polling, not listening.">The inspector checks for new requests rather than being told. Fine for one developer watching a test, wasteful for a team watching live traffic.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The outcome" title="What carried forward." lede="The figures below come from the code and can be checked in the repository.">
+<Split>
+<List>
+  <Item title="Draw the trust boundary first.">Then decide which side each feature lives on. Most security work becomes a question of placement rather than patching.</Item>
+  <Item title="The same shape everywhere.">Firebase Hosting in front, Cloud Run behind, Terraform for both. It runs this site and all three Azadi portals, so every new project starts with its front door already built.</Item>
+</List>
+<Facts>
+  <Fact k="Permissions">Seven revoked for every script</Fact>
+  <Fact k="Time limit">5 s, with a 10 s backstop</Fact>
+  <Fact k="Keys">No deploy key to leak</Fact>
+  <Fact k="Source">[github.com/poly-glot/hooklab](https://github.com/poly-glot/hooklab)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Open HookLab as a guest and send it a webhook.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://hooklab.junaid.guru/" external>Open HookLab <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>
