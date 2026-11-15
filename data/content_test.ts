@@ -22,8 +22,7 @@ const topicFilter = (...topics: string[]): BlogFilter => ({
 
 Deno.test("getAllPosts is date-descending", () => {
   const posts = getAllPosts();
-  assertEquals(posts[0].id, "adr-as-build-gates");
-  assertEquals(posts[posts.length - 1].id, "open-source-without-burnout");
+  assertEquals(posts[posts.length - 1].id, "react-hook-budgets");
 
   for (let i = 1; i < posts.length; i++) {
     const prev = new Date(posts[i - 1].date).getTime();
@@ -35,7 +34,7 @@ Deno.test("getAllPosts is date-descending", () => {
 Deno.test("getPost returns post or null", () => {
   assertEquals(
     getPost("adr-as-build-gates")?.title,
-    "Turning ADRs into build-time gates",
+    "What HookLab's out-of-date README taught me about written decisions",
   );
   assertEquals(getPost("missing"), null);
 });
@@ -54,7 +53,10 @@ Deno.test("getPostNeighbors walks date-desc order", () => {
 
 Deno.test("toc is derived from h2s", () => {
   const found = getPost("adr-as-build-gates")!;
-  assertEquals(found.toc[0], { id: "why-adrs-rot", text: "Why ADRs rot" });
+  assertEquals(found.toc[0], {
+    id: "which-stayed-true",
+    text: "Which of my decisions stayed true",
+  });
 });
 
 Deno.test("filterPosts: empty is all (date desc), OR within topics", () => {
@@ -168,14 +170,17 @@ Deno.test("filterPosts ORs within topics", () => {
 
 Deno.test("toc extracts h2 entries with the migrated ids, in order", () => {
   const found = getPost("adr-as-build-gates")!;
-  assertEquals(found.toc[0], { id: "why-adrs-rot", text: "Why ADRs rot" });
+  assertEquals(found.toc[0], {
+    id: "which-stayed-true",
+    text: "Which of my decisions stayed true",
+  });
   assertEquals(found.toc[1], {
-    id: "three-questions",
-    text: "Three questions during review",
+    id: "four-places",
+    text: "The guest limit, written in four places",
   });
   assertEquals(found.toc[2], {
-    id: "worked-example",
-    text: "A worked example: ADR-027",
+    id: "two-small-checks",
+    text: "Two small checks",
   });
 });
 

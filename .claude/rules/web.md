@@ -49,6 +49,29 @@ so fix this file.
   and rules. On inverted ink bands use `--accent-on-band`: orange in light mode
   (10:1 on black), the band's ink in dark mode, where the band turns light.
 
+## Text children
+
+- DO: **Build elements that receive MDX text with `h()`, not JSX.** The prose
+  `p`, `li`, `h2` and `h3` in `proseComponents.tsx` do. Preact's precompiled JSX
+  escapes string children in place, and when the children mix text with inline
+  elements such as a link, the renderer escapes them again, so a quotation mark
+  reaches the reader as a literal `&quot;`. `h()` escapes once.
+- DO: **Scan every route for `&amp;quot;`, `&amp;amp;` and `&amp;lt;` after
+  changing a component that renders `children`.** A page that mixes plain text
+  and an inline element is where it shows.
+
+## Links
+
+- DO: **Write external links in MDX as plain Markdown links.** An `http` URL is
+  rendered by `proseComponents.a`: `target="_blank"`, `rel="noopener"`, a
+  visually hidden "(opens in a new tab)" for screen readers, and the `External`
+  arrow for everyone else. Never hand-roll `target="_blank"` in a post.
+- DO: **Keep internal links in the same tab.** Relative paths get no attributes
+  and no arrow.
+- NEVER: **Drop the hidden warning or the arrow to tidy a sentence.** A link
+  that opens a new tab without saying so breaks the back button for the people
+  who can least afford it.
+
 ## Comments
 
 - DO: **Keep comments that explain server/client rendering boundaries, island

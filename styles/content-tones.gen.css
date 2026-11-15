@@ -6,7 +6,7 @@
   --bw-tone: linear-gradient(135deg, #f8a41d22, #65656511);
 }
 
-[data-tone="open-source-without-burnout"] {
+[data-tone="openguessr-fair-play"] {
   --bw-tone: linear-gradient(135deg, #f8a41d22, #f8a41d05);
 }
 

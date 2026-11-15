@@ -72,8 +72,8 @@ Deno.test("GET known post returns 200 with detail data and TOC", () => {
     view: { kind: string; toc: { id: string }[] };
   }).view;
   assertEquals(view.kind, "detail");
-  assertEquals(view.toc.some((e) => e.id === "why-adrs-rot"), true);
-  assertEquals(view.toc.some((e) => e.id === "three-questions"), true);
+  assertEquals(view.toc.some((e) => e.id === "which-stayed-true"), true);
+  assertEquals(view.toc.some((e) => e.id === "four-places"), true);
 });
 
 Deno.test("GET unknown post returns 404", () => {
@@ -81,7 +81,7 @@ Deno.test("GET unknown post returns 404", () => {
 });
 
 Deno.test("GET middle post has both prev and next neighbors", () => {
-  const res = simulateGet("react-hook-budgets/");
+  const res = simulateGet("openguessr-fair-play/");
   assertEquals(res.status, 200);
   const view = (res.data as {
     view: {

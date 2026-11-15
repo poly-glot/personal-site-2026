@@ -16,6 +16,7 @@
   --accent: #f8a41d;
   --accent-fg: #010101;
   --accent-on-band: var(--accent);
+  --diagram: #2193b0;
   --mark: underline var(--accent) 2px;
   --mark-offset: 4px;
   --mark-display: underline var(--accent) 3px;

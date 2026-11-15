@@ -88,6 +88,7 @@ export default function BlogDetail(
               rel="noopener"
             >
               Twitter
+              <span class="sr-only">&nbsp;(opens in a new tab)</span>
             </a>
             <a
               class={styles.shareLink}

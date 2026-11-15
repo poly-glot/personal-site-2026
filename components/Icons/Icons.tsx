@@ -84,6 +84,25 @@ export function Arrow() {
   );
 }
 
+export function External() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      focusable="false"
+      height="12"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.8"
+      viewBox="0 0 24 24"
+      width="12"
+    >
+      <path d="M6 6h12v12M6 18 18 6" />
+    </svg>
+  );
+}
+
 export function Github() {
   return (
     <svg

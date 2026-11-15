@@ -1,0 +1,329 @@
+---
+id: openguessr-fair-play
+title: What building OpenGuessr taught me about security
+deck: OpenGuessr is a geography game that friends play from one link. The server works out every score. It also sends every player's browser the answers to all five rounds, and so far the fix is only a plan.
+teaser: Anything a game sends to the browser, the player can read.
+date: "2026-05-04"
+year: 2026
+topics:
+  - Architecture
+  - Open Source
+  - Checklist
+readMin: 12
+abstract: MAP
+tone: "linear-gradient(135deg, #f8a41d22, #f8a41d05)"
+---
+
+import AnswerStore from "@/components/diagrams/AnswerStore.tsx";
+import GuessJourney from "@/components/diagrams/GuessJourney.tsx";
+import HaversineScore from "@/components/diagrams/HaversineScore.tsx";
+import HostVote from "@/components/diagrams/HostVote.tsx";
+
+[OpenGuessr](https://openguessr.junaid.guru/) ([Case Study](/work/openguessr/))
+is a geography game I built in April 2026 for playing with friends. One person
+creates a game, becomes its host and shares the link. Everyone who opens the
+link types a name and sees the same Street View panorama, an ordinary street
+somewhere in the world. You have a minute to look around and drop a pin on a
+map where you think you are. The closer the pin, the more points, and after
+five rounds the highest total wins.
+
+The game works out every score on a server, which is a computer the players
+can't get at. It also sends every player the answers to all five rounds before
+the first round starts.
+
+<Summary
+  problem="the game sends every player's browser the coordinates, the exact position on the map, of all five places as soon as a game is created. A player who knows where to look can read them before guessing."
+  cause="the first version asked players to name the country, so I hid the country and left the coordinates readable, because the browser needs them to show the panorama. The next morning I changed the game to score by distance, and from then on the coordinates were the answer."
+  fix="planned, not built. The plan keeps the coordinates of all five places on the server and gives the browser the coordinates for one round at a time. That would stop a player reading ahead. The coordinates for the round on screen would still be readable."
+/>
+
+## Why a browser game is hard to keep fair {#the-browser}
+
+There are no accounts and nothing to install. You play in an ordinary web
+browser, and a browser belongs to the person using it. Press F12, or right-click
+the page and choose Inspect, and the developer tools open: a panel that shows
+everything the page has received and lets you change what it sends. So a game
+like this can't believe what a browser tells it, and anything the game sends to
+a browser is no longer a secret.
+
+Keeping it fair comes down to two jobs. The game has to work out the score
+somewhere the players can't reach, and it has to keep the answer away from the
+browser until the guess is in. I've done most of the first job, and I haven't
+yet done the second.
+
+## The server works out the score {#the-score}
+
+When you drop a pin and press Submit Guess, your browser tells the server which
+game and round the guess is for, and where the pin is. "Where" means two
+numbers, the pin's latitude and longitude, which together are called its
+coordinates. The browser sends no score and no distance. If it did, a player
+could change them on the way out.
+
+The server is a set of Cloud Functions, which are small programs that run on
+Google's machines and not in anyone's browser. The one that receives a guess is
+called `submitGuess`. Before it scores anything, it refuses the guess unless
+all of this is true:
+
+- You're signed in. There are no passwords, but typing your name at the start
+  signs you in: the server gives your browser a token that says who you are
+  from then on.
+- The coordinates are a real place on Earth: a latitude between −90 and 90, and
+  a longitude between −180 and 180.
+- The game is being played, and the guess is for the round the game is on.
+- You haven't already guessed this round.
+
+Then it measures how far your pin is from the real place and turns the distance
+into points. It saves the guess in the game's record and adds the points to
+your total. The record is one bundle of data for each game, holding the
+players, their totals and the rounds. It lives in a database.
+
+<GuessJourney />
+
+No browser asks the server for the leaderboard. Each one keeps a live
+connection to the game's record, and the database sends it every change as it
+happens, so the totals move for everyone at the same moment.
+
+## Measuring how far off a pin is {#the-distance}
+
+Latitude and longitude are angles. Latitude says how far north or south of the
+equator a point is. Longitude says how far east or west of the line through
+Greenwich.
+
+You can't turn those angles into kilometres by subtracting one pair from the
+other, because a degree of longitude isn't a fixed length. At the equator it's
+about 111 km. At the poles, where the lines of longitude meet, it's nothing.
+
+The [haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
+gets round this by treating the Earth as a ball. It works
+out the angle between the pin and the real place as seen from the centre of the
+Earth, which is θ in the diagram. It multiplies that angle by the Earth's
+radius, R, which is 6,371 km. The result is the distance along the surface, the
+way a plane would fly it. A straight line between the two points would be
+shorter, but it runs through the Earth.
+
+The server then turns the distance into points. A perfect pin scores 5,000. A
+pin 500 km out still scores 3,894, a pin 2,000 km out scores 1,839, and a pin
+5,000 km out scores 410. For every 2,000 km further out, the score falls to a
+little over a third of what it was, so a pin on the far side of the world
+scores nothing.
+
+<Wide>
+  <HaversineScore />
+</Wide>
+
+This is the code for both steps, unchanged from the game's source:
+
+```js
+function haversineKm (lat1, lng1, lat2, lng2) {
+  const R = 6371
+  const dLat = (lat2 - lat1) * Math.PI / 180
+  const dLng = (lng2 - lng1) * Math.PI / 180
+  const a = Math.min(1, Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLng / 2) ** 2)
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+}
+
+function distanceScore (distanceKm) {
+  if (distanceKm <= 0) return 5000
+  return Math.round(5000 * Math.exp(-distanceKm / 2000))
+}
+```
+
+To score a guess, the server has to know the coordinates of the real place. In
+a game scored by distance, those coordinates are the answer, so whether the
+game is fair now depends on who else can read them.
+
+## The database checks every read and write {#the-rules}
+
+Each browser's live connection to the game's record is a second way into the
+game's data, and it doesn't pass through any of the server's checks. If the
+database accepted whatever a browser sent, a player could skip `submitGuess`
+and write a winning total straight into the record.
+
+Firebase, the service the game is built on, deals with this through a file of
+rules. The database consults the rules on every read and write, and refuses
+anything that no rule allows.
+
+I wrote the rules to refuse any attempt by a browser to change a total, a
+round, the state of the game or anything that belongs to another player. They
+have 72 tests of their own, and 50 of those try something a player shouldn't be
+able to do and expect the database to refuse.
+
+Reading is a different matter. One rule covers the whole of a game's record,
+and it lets anyone who is signed in read all of it.
+
+## Every player can read the answers {#the-leak}
+
+The project's
+[README](https://github.com/poly-glot/openguessr/blob/master/README.MD#database-rules-as-the-security-boundary),
+the page that introduces its code, makes a promise about cheating: "Even if a player inspects the database directly, upcoming answers
+stay hidden." I added that sentence on 4 April. It wasn't true that day, and it
+isn't true now.
+
+In the first version, on 3 April, players had to name the country. I hid each
+round's country until the round was over, but I left each round's coordinates
+readable, because the browser needs them to show the panorama. Even then, a
+player who read the coordinates could find the country on a map.
+
+On 4 April, the morning after, I changed the game to score by distance, so that
+a near miss scores more than a wild guess. From then on the coordinates were
+the answer itself.
+
+The browser only needs the coordinates for the round on screen. It gets all
+five because the server picks the five places when the game is created and
+writes them into the record together. This is the code that does it, unchanged
+from the game's source:
+
+```js
+for (let i = 0; i < TOTAL_ROUNDS; i++) {
+  rounds[i] = {
+    lat: selected[i].lat,
+    lng: selected[i].lng,
+    revealed: false
+  }
+  answers[i] = selected[i].country
+}
+```
+
+The server saves `answers`, the five countries, where no browser can read them.
+It saves `rounds`, coordinates included, in the game's record, which every
+signed-in player can read.
+
+So the record for a new game looks like this. I've trimmed it to the part that
+matters and used example coordinates from the project's tests:
+
+```json
+{
+  "status": "waiting",
+  "currentRound": 0,
+  "rounds": [
+    { "lat": 48.8566, "lng": 2.3522, "revealed": false },
+    { "lat": 51.5074, "lng": -0.1278, "revealed": false },
+    { "lat": 35.6762, "lng": 139.6503, "revealed": false },
+    { "lat": -33.8688, "lng": 151.2093, "revealed": false },
+    { "lat": 40.7128, "lng": -74.006, "revealed": false }
+  ]
+}
+```
+
+The status is `waiting`. The host hasn't pressed Start Game, and the answers to
+all five rounds are already in every player's browser. Type the first pair of
+numbers into any map and it puts you in the centre of Paris.
+
+A player doesn't have to do anything clever to see this. The Network tab of the
+developer tools lists the page's connection to the database and shows every
+message that arrives on it, and this record is one of them.
+
+## The fix so far is only a plan {#the-fix}
+
+My first work on this was on 30 April, more than three weeks after I changed
+the scoring. I designed a fix and wrote it down as database rules and tests.
+
+The plan is to take the coordinates of the five places out of the record that
+every player reads, and keep them in a separate store that only the server can
+open. The record would hold the coordinates for the round being played, because
+the browser can't show a panorama without them, and for the rounds already
+finished, which are no longer a secret. It would hold nothing for the rounds
+still to come.
+
+<Wide>
+  <AnswerStore />
+</Wide>
+
+I haven't built any of that. The rules I added name the new store and close it
+to every browser. But the database already refused anything that no rule
+allowed, so the store was closed before I wrote those rules, and adding them
+changed nothing. The nine new tests pass without the game changing, because each
+one makes its own game data, arranged the way the plan describes. The game itself doesn't arrange its
+data that way. It still writes all five sets of coordinates into the shared
+record, and reads them back from it when it scores a guess.
+
+The plan also has a limit. The coordinates for the round on screen would still
+have to reach the browser, because Street View draws the panorama there and has
+to be told where to look. A player who read them could still drop a perfect
+pin, round after round. The plan would stop a player learning all five places
+before the game starts, but it wouldn't stop one who looks up each round as it
+comes, and nothing in the code deals with that yet.
+
+## Four holes I closed on 7 April {#the-audit}
+
+Sending the answers is the largest hole in the game, and it isn't the only one
+I've had to deal with. On 7 April, four days into the project, I went through
+the game looking for ways to cheat or to make trouble. That audit didn't touch
+the answers. It did close four other holes.
+
+- **Game IDs went into the database unchecked.** The server finds a game's
+  record at an address made from its ID, and it used whatever ID the browser
+  sent. An ID with a slash in it sent the server to the wrong place inside a
+  game's record. Now the server refuses any ID that isn't made of letters,
+  numbers, dashes and underscores.
+- **Two players could get the same ID.** A player's ID was their name followed
+  by the time they signed in, in milliseconds. Two people who signed in with
+  the same name in the same millisecond got the same ID. Now the ID ends in a
+  long random code.
+- **Any player could run up my bill.** Adding to the game's pool of places
+  means asking Gemini, Google's AI model, for suggestions, and I pay for each
+  request. Any signed-in player could trigger one. Now the server refuses
+  unless the player is hosting a game, though anyone can create a game, so this
+  only adds a step.
+- **Silence counted as a yes.** If the host stops paying attention, any player
+  can ask to take over, and the others get a minute to vote. The request itself
+  counts as the first yes. The old rule also counted everyone who didn't vote
+  as a yes, and let a tie pass. Take a game of five players in which two vote
+  no and two don't vote.
+
+<Wide>
+  <HostVote />
+</Wide>
+
+Under the new rule, only the votes people cast are counted, and yes has to beat
+no. If nobody else votes, that first yes still wins, which is how a game
+replaces a host who has gone quiet.
+
+## Three smaller holes, still open {#smaller-gaps}
+
+I haven't fixed any of these yet.
+
+- **A late guess is accepted.** The one-minute limit is kept by the timer in
+  the browser. The server doesn't check the clock when a guess arrives, and it
+  doesn't check whether the round's answer has already been shown. A player
+  could wait for the answer to appear and then send a perfect guess, and until
+  the host moves the game on to the next round, the server would score it.
+- **Two guesses at once can both count.** The server looks for an earlier guess
+  and then saves the new one, as two separate steps. Two guesses sent at the
+  same instant can both pass the first step, and both get scored.
+- **Anyone signed in can vote.** The vote on a new host checks that you're
+  signed in and haven't voted already, but it doesn't check that you're a
+  player in that game.
+
+## A checklist for small multiplayer games {#checklist}
+
+<Checklist>
+
+- Have the browser send what the player did, and work out on the server what
+  it's worth.
+- Treat anything you send to a browser as something the player has read.
+- Each time you change how the game is scored, work out again which piece of
+  data gives the answer away, and check that it is the piece you hide.
+- Check every ID that comes from a browser before you use it as an address in
+  the database.
+- Keep the clock on the server. Anyone who wants to can ignore a timer in the
+  browser.
+- Check for an earlier guess and save the new one in a single step, so that two
+  requests at the same instant can't both get through.
+- In a vote, count the votes people cast, from people who are in the game.
+- Keep the README in step with the code. The [OpenGuessr README](https://github.com/poly-glot/openguessr/blob/master/README.MD)
+  still promises
+  hidden answers and describes country scoring and a 30-second timer.
+
+</Checklist>
+
+## In short {#closing}
+
+[OpenGuessr](https://openguessr.junaid.guru/) works out every score on the
+server, so the score is mostly out of
+the players' reach, but the answers are not. The game has sent every player the
+coordinates of all five places since its first version, and the fix is a plan
+that would still leave the round on screen readable. Before you decide what to
+hide in a game, work out which piece of data is the answer.

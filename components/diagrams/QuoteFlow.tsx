@@ -24,8 +24,8 @@ export default function QuoteFlow() {
       title="How BHX Travel publishes pages and receives quotes"
       viewBox="0 0 1600 550"
     >
-      <Zone h={230} label="PUBLISHING" w={1560} x={20} y={30} />
-      <Zone h={230} label="QUOTES" w={1560} x={20} y={290} />
+      <Zone h={230} label="Publishing" w={1560} x={20} y={30} />
+      <Zone h={230} label="Quotes" w={1560} x={20} y={290} />
 
       <Wire d={across(PUBLISH, 1, 0)} />
       <Wire d={across(PUBLISH, 1, 2)} />
@@ -105,7 +105,7 @@ export default function QuoteFlow() {
         y={QUOTE}
       />
       <Node
-        danger
+        tone="focal"
         lines={["The owners price the", "job and reply."]}
         title="Inbox"
         w={NODE_W}

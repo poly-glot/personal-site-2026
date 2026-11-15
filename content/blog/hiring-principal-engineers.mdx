@@ -1,90 +1,213 @@
 ---
 id: hiring-principal-engineers
 title: What I look for in a Principal Engineer
-deck: Less heroics, more thermostats. The job is to set the temperature of the room.
-teaser: You are not hired to be the smartest person in the room. You are hired to make the room smarter.
-date: "2025-07-30"
-year: 2025
+deck: I used to be proud of being needed for everything. Now I look for a Principal Engineer whose team runs well on a day they're not there.
+teaser: I explain how I'd interview a Principal Engineer, and what being always on taught me.
+date: "2026-11-15"
+year: 2026
 topics:
   - Career
   - Engineering Culture
-readMin: 10
+  - Checklist
+readMin: 9
 abstract: DOTS
 tone: "linear-gradient(135deg, #f8a41d22, #65656511)"
 ---
 
-The best Principal Engineers I've worked with were not the smartest people in
-the room. They were the people who made the room smarter.
+import HeroThermostat from "@/components/diagrams/HeroThermostat.tsx";
 
-This is the lens I use when I interview. It is also why I no longer ask
-system-design improv questions.
+Ten years ago I described myself as "18/24", by which I meant always on and
+always available. I wanted to be involved in everything, and I wore that as a
+badge of honour, because being needed felt like proof that I cared about the
+work.
 
-> You are not hired to be the smartest person in the room. You are hired to make
-> the room smarter.
+Growing teams changed my mind. I grew a development studio from one person to
+eight remote developers, and over the past decade I have helped small
+engineering groups become mid-sized teams (the longer version is on my [About
+page](/about/)). Somewhere along the way I stopped judging my work by how much I
+did myself, and started judging it by how much the teams around me could do,
+especially on the days I wasn't there. Those teams now include AI agents that
+write code and run tasks, so the same judgement applies to them. That is one of
+the first things I would look for in a Principal Engineer, next to the technical
+judgement the role has always needed.
 
-## Thermostats, not heroes {#thermostats}
+## From always on to guardrails {#guardrails}
 
-A heroic engineer fixes the outage at 3am. A Principal designs the system so the
-outage doesn't happen — and if it does, three other engineers can fix it without
-paging anyone. The job is to set the temperature of the room, not to be the
-warmest body in it.
+When I was always on, every outage, question and decision came to me.
 
-Heroism scales linearly with the hero. Thermostats scale with the team. One of
-those is a sustainable career; the other is a path to burnout that the org will
-applaud right up until you leave.
+<Wide>
+  <HeroThermostat />
+</Wide>
 
-## What I actually ask {#what-i-ask}
+On the left, the problems queue up for me. The team can only go as fast as I
+answer, and nothing moves while I sleep. On the right, the same problems meet a
+guardrail first, whether the one working on them is a person or an AI agent. The
+familiar ones are handled there, and only the new or hard ones reach me, which
+leaves me time to set the target the guardrails aim at.
 
-Three questions, in roughly this order:
+A guardrail is anything that catches a problem early, or tells the next
+intelligence, real or artificial, what to do, without waiting for someone
+senior. Four kinds cover most of what I mean:
 
-- Tell me about a decision your team made that you disagreed with — and lost.
-  What did you do next?
-- Walk me through an ADR you wrote that changed your team's behaviour six months
-  later.
-- Where does your influence stop, and how do you know?
+- A check stops a change, whether a person or an AI agent wrote it, that breaks
+  something other teams rely on, such as an API contract or a security rule,
+  before it ships.
+- A default makes the right way the easy way, such as a service template that
+  already has logging, timeouts and limits set up, so a person or an AI agent
+  starting a new service gets them without asking.
+- A runbook is a page of steps for a failure that will happen again, so whoever
+  or whatever is on call, a person or an AI agent, can fix it.
+- A decision record is a short note of a past decision and why it was made, so
+  the next similar decision, made by a person or an AI agent, doesn't need the
+  person who made the first.
 
-Each one is designed to surface a specific quality. Question one separates
-engineers who can disagree-and-commit from those who carry resentment into
-execution. Question two separates writers from talkers. Question three separates
-self-aware seniors from people who think their reach is unlimited.
+Here is a small one of mine. If I forgot to fill in a secret, the repository
+that sets up my own cloud services used a blank one, and one of my apps would
+have signed its output with a blank key. I [added a
+check](https://github.com/poly-glot/firebase-cloud/commit/76ab5f96a2b48f03e1eda7d25d7fb0c46f8ce62e),
+so the deploy now stops before it changes anything, with a message that names
+the secret to fill in. The next one to hit it, whether me in six months or an AI
+agent deploying for me, doesn't have to remember anything.
 
-## What I avoid
+That check works like a thermostat, and so does any good guardrail. You set the
+target temperature. It measures the room, compares the reading with the target
+and switches the heating on or off. Nobody has to stand in the room and feel the
+cold.
 
-I no longer ask whiteboard system-design questions. They reward fluency in
-performance theatre — the candidate who has memorised "throw a queue at it" and
-"shard by user_id" wins, regardless of whether they can navigate the actual mess
-of a real system.
+## The other half of the job {#the-role}
 
-Instead I bring real artefacts to the interview. A messy ADR I wrote three years
-ago, with the wrong call in section 4. "Tell me what you'd push back on." The
-artefact does the screening for me. People who can read it well — who find the
-soft spot in a real document — are the people I want to work with.
+A thermostat still needs someone to choose the temperature, and that is the
+other half of a Principal Engineer's job. Titles vary between companies, but a
+Principal Engineer is usually one of the most senior engineers in an
+organisation, and leads without managing anyone. Amazon calls its principal
+engineers its [most senior individual
+contributors](https://amazon.jobs/content/en/teams/principal-engineering/tenets),
+and the first of their tenets is "Exemplary practitioner". It describes its
+principal engineering community as [visionary leaders and hands-on
+builders](https://amazon.jobs/content/en/teams/principal-engineering) working on
+its hardest problems. Dropbox's [public career
+framework](https://dropbox.github.io/dbx-career-framework/ic6_principal_software_engineer.html)
+asks a Principal Engineer to deliver results against a company-level business
+objective, to own goals that span several teams and several years, and to make
+technical choices that have no one clearly correct answer, then rally the
+organisation behind them with a clear rationale.
 
-<Callout title="What I avoid">
+So the job has two parts that need each other. One is setting the target with
+engineering and product leaders: deciding what good looks like for systems that
+several teams depend on, given what the business needs. That takes deep
+technical judgement and staying close to the details. The other is building the
+guardrails that hold the target, so those teams, and the AI agents working with
+them, don't come back for the same answer twice, and the new and hard problems
+still reach someone who can solve them. I expect that to matter more as agents
+take on more of the work. An agent can only act on a target and guardrails it
+can read, so they have to be written down where it can find them.
 
-Trivia. System design improv-theatre. Anything that selects for talkers instead
-of thinkers.
+Will Larson's [guide to what Staff-plus engineers actually
+do](https://staffeng.com/guides/what-do-staff-engineers-actually-do/), which
+covers Principal Engineers too, covers much of the same ground: setting
+technical direction, mentoring and sponsoring other engineers, bringing an
+engineering view into decisions, exploring problems the company hasn't solved
+yet, and being glue, Tanya Reilly's name for the needed but often invisible work
+that keeps a team shipping. Writing a runbook or a decision record is glue.
+Reilly's talk on [glue work](https://noidea.dog/glue) argues that it is
+technical leadership, but that it often goes unrewarded when people do it before
+they are senior. At Principal level it is part of the job, so I would ask for
+examples.
 
-</Callout>
+## Four questions I'd ask {#what-i-ask}
 
-## Signals I watch for {#signals-i-watch}
+That is a lot to judge in an interview. At Inspired Thinking Group I streamlined
+the technical tests we hire with, and for a Principal Engineer I would want each
+question to look at a different part of the job.
 
-- Names other engineers without prompting. The ones who say "my colleague Jane
-  figured this out" are the ones who'll grow other people on your team.
-- Disagrees with their past self in the interview. Self-revision is a strong
-  indicator of intellectual honesty.
-- Asks about constraints, not just goals. "What's the hardest part of your
-  platform right now?" beats "What does success look like?" every time.
+- **"Tell me about the largest problem you owned. How many teams did it touch,
+  how long did it take, and what changed for the business?"** Scope is what
+  separates a Principal Engineer from a strong senior engineer, so I want the
+  size of the problem, the time it took and the result, in their own words.
+- **"Tell me about a decision your team made that you disagreed with, and lost.
+  What did you do next?"** A Principal Engineer's view carries weight, so I want
+  to know what they do when it doesn't win. I want to hear that they made their
+  case, accepted the result and helped it work, unless the decision was unsafe,
+  in which case I want to hear how they escalated it. Someone who agrees in the
+  meeting and then keeps fighting the decision while the team builds it is hard
+  to work with.
+- **"Walk me through a design document, RFC or decision record you wrote that
+  changed how teams worked six months later."** Setting the target only helps if
+  people can still find the reasoning after the meeting, so this tells me
+  whether the candidate's writing gets used. A record that only sits in a folder
+  hasn't done its job, and I [wrote about that](/blog/adr-as-build-gates/)
+  separately.
+- **"Where does your influence stop, and how do you know?"** A Principal Engineer
+  leads people who don't report to them, so their influence always runs out
+  somewhere: at another team's priorities, at a budget, or at a leader who sees
+  it differently. I want to hear where theirs ran out and what they did next.
 
-## Anti-signals {#the-anti-signals}
+## A real document instead of a whiteboard {#a-real-document}
 
-Talks only in first person plural about successes ("we shipped") and first
-person singular about failures ("I was in a tough spot"). Treats every story as
-a victory. Cannot give a straight answer to "what's a system you wish you hadn't
-built." These aren't dealbreakers, but they're cumulative — three or four of
-them and I know what kind of teammate I'm hiring.
+Questions tell me how someone talks about their work. To see their technical
+judgement, I would want to watch them work on something. The usual choice is a
+whiteboard system-design interview, in which the candidate sketches a service
+such as a photo-sharing site and explains how it would cope with millions of
+users. I don't like that format for this role, because it rewards rehearsed
+phrases like "put a queue in front of it" and "shard by user" (give each group
+of users their own database), whether or not the candidate can find their way
+round a real, untidy system.
 
-## Closing thought {#closing}
+I would rather hand someone a real design document that several teams depend on,
+where the trade-offs have no single right answer, and ask what they would push
+back on. A good candidate reads it the way they would read a colleague's: they
+compare what it promises with what the systems do, and they ask how each promise
+could be checked.
 
-Hire the thermostat. The hero will arrive eventually anyway, and the room will
-already be the right temperature when they do.
+Here is the kind of gap I mean, in a README (the page that explains a project)
+that I wrote myself and got wrong. [OpenGuessr](https://openguessr.junaid.guru/)
+([Case Study](/work/openguessr/)) is a geography game where players look at a
+street somewhere in the world and drop a pin on a map where they think they are.
+Its
+[README](https://github.com/poly-glot/openguessr/blob/master/README.MD#database-rules-as-the-security-boundary)
+says: "Even if a player inspects the database directly, upcoming answers stay
+hidden." That sentence has never been true. Every player can read the answers,
+which are the map coordinates for all five rounds, as soon as a game is created,
+and the one test about hidden answers runs on a sample game whose unrevealed
+round has no coordinates, so it passes. I [wrote up what I
+found](/blog/openguessr-fair-play/).
+
+Finding a gap like that takes the judgement half of the job, and closing it
+takes the guardrail half: here, a test that fails while a player can read an
+upcoming answer. I want someone who can do both, and who isn't embarrassed to
+say so when they find one, whether the mistake is a colleague's, an AI agent's,
+mine or their own.
+
+## Signals I look for {#signals}
+
+Whatever we talked about, I would be listening for a few things that no single
+question asks about.
+
+<Checklist>
+
+- They credit other people's work without being asked, because a Principal
+  Engineer gets many of their results through other people. If someone says "I"
+  about the wins and "we" about the failures, I would ask more.
+- They change their mind when they hear something new, and say what changed it.
+  They will do the same in a design review.
+- They ask about constraints as well as goals. "What can't you change here?"
+  tells me as much as "What does success look like?"
+- They can name a system they wish they hadn't built. If every story they tell
+  ends well, I would ask about the one they left out.
+- They can describe what their teams, and any AI agents working with them, do on
+  a day they're not there, and what has to wait until they're back.
+
+</Checklist>
+
+## The same test for me {#closing}
+
+I would hold myself to that last signal too. If I went away for a fortnight, a
+few things would still wait for me, and each one is a guardrail I haven't built
+yet. The 18/24 version of me would have been pleased to be missed. Now I see
+each of those things as my unfinished work, whether a person or an AI agent
+would do it once the guardrail exists.
+
+You can run the same test this week. Write down what would wait for you if you
+were away for a fortnight, pick the item that worries you most, and build the
+guardrail for it, even if it is only a runbook that a person or an AI agent
+could follow.

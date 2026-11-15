@@ -1,91 +1,115 @@
 ---
 id: platform-team-outcomes
-title: A platform team's outcomes are its consumers' outcomes
-deck: You don't get credit for shipping internal tools. You get credit for what your tenants ship.
-teaser: This is the most important sentence in our team handbook. The second-most is also about consumers.
-date: "2026-01-22"
+title: What 29 apps taught me about measuring a platform
+deck: I run a small platform for my own apps. Counting what it holds told me little, so I counted how often each new app needed me to change something in its first week.
+teaser: My first WordPress site needed five changes to its setup on my platform in its first week. The six I built after it needed one between them, plus three changes to the module they share.
+date: "2026-11-15"
 year: 2026
 topics:
   - Engineering Culture
   - Platform
-readMin: 9
+readMin: 5
 abstract: GRID
 tone: "linear-gradient(135deg, #f8a41d22, #65656520)"
 ---
 
-The most important sentence in our team handbook fits on one line: a platform
-team's outcomes are its consumers' outcomes.
+import PlatformFirstWeek from "@/components/diagrams/PlatformFirstWeek.tsx";
 
-This is not a slogan. It is the rule we use to decide what to build, what to
-ignore, and how to celebrate.
+My first WordPress site needed five changes to its setup on my platform in its
+first week. The six WordPress sites I built after it needed one between them.
 
-> You don't get credit for shipping internal tools. You get credit for what your
-> tenants ship.
+The platform is [firebase-cloud](https://github.com/poly-glot/firebase-cloud),
+the repository that sets up the cloud side of my apps. Each app has one setup
+file in it, written in Terraform, a tool that reads files describing cloud
+services and creates them. The file says what the app needs from the platform,
+and after that the app's own repository publishes new versions by itself. I
+count a change as a commit, a saved edit in git, to that file. I am the only
+maintainer, and every app on it is mine, including this site.
 
-## The trap
+## Counting what the platform holds {#receipts}
 
-Platform teams are easy to grade by their internal artefacts: services shipped,
-libraries published, dashboards built. None of those are outcomes. They are
-receipts. The outcomes belong to the tenants — the product teams whose features
-ship faster, or don't, because of the platform.
+The easy way to describe a platform is by what it holds, and that is how
+firebase-cloud's README does it: it lists the modules, which are reusable
+building blocks such as a hosting site or a database. Today there are 12
+modules, 29 apps and 167 commits since 29 March. Those numbers show how much I
+have built, but not whether the next app got easier to set up than the last. The
+Cloud Native Computing Foundation's (CNCF) [white paper on
+platforms](https://tag-app-delivery.cncf.io/whitepapers/platforms/) says the
+success of an organisation's products and applications is the true measure of a
+platform's success, and among its efficiency measures it lists the time to build
+and deploy a brand-new service. Evan Bottcher's
+[definition](https://martinfowler.com/articles/talk-about-platforms.html) points
+the same way: a platform is a set of self-service tools and services, run as an
+internal product, that lets delivery teams deliver faster with less
+co-ordination.
 
-The trap is seductive because the receipts are easy to count. "We shipped six
-new APIs this quarter" sounds like progress. It also tells you nothing about
-whether anything got better for anyone outside the platform team.
+## Counting each app's first week {#first-week}
 
-## What we measure instead {#what-we-measure}
+Both of those judge a platform by the people using it, so for every app I took
+two numbers from the git history on 15 November. The first is how many times its
+setup file changed in the app's first week, meaning commits within seven days of
+the one that added it. That is roughly how often I had to go back to the
+platform for the app after day one, whether the platform lacked something or I
+had set the app up wrong. The second is how many lines the file has today, which
+is roughly how much I have to write for each app. Both panels list the apps in
+the order they were added.
 
-We picked three metrics, all of them about the experience of being a tenant:
+<Wide>
+  <PlatformFirstWeek />
+</Wide>
 
-- Time from a tenant filing a request to that request being live for their
-  users.
-- Number of tenants who shipped at least one feature this quarter without our
-  help.
-- Number of tenants who escalated a platform issue and got a same-day fix.
+Most apps needed little: 24 of the 29 needed two changes or fewer, and 13 needed
+none. The other five needed three or more, and they account for nearly two
+thirds of the 45 changes: [HookLab](https://hooklab.junaid.guru/) ([Case
+Study](/work/hooklab/)) with twelve, OpenGuessr and my first WordPress site with
+five each, Azadi with four and Shehryar with three. HookLab was the first app on
+the platform. Its twelve covered who could access what, the app's settings, a
+database name and where its AI model runs, and some of them were me building the
+platform itself.
 
-None of those describe a platform artefact. They describe what it feels like to
-be the next team over. That is the experience the platform exists to improve.
+## The six WordPress sites {#wordpress}
 
-## Office hours, on purpose {#office-hours}
+The clearest case is my first WordPress site, `wordpress-sample`, which needed
+five changes in its first week: three changes to how it kept uploaded files, a
+schedule for WordPress's background jobs, and a change to how the platform
+checks that the site has started. The day after I added it, I wrote a [module
+and a
+template](https://github.com/poly-glot/firebase-cloud/commit/eedbffab632107edabb068dce1469040034da054)
+for WordPress sites. The template is a starter file that I copy and fill in for
+each new site.
 
-We hold weekly office hours where any tenant can drop in and complain. The bar
-to attend is intentionally low. The result is a steady stream of small
-grievances — a config that's confusing, a doc page that's stale, an error
-message that doesn't say what to do next — that we wouldn't otherwise hear
-about.
+Each of the six sites I built with the template has a file of 39 to 44 lines,
+against 197 for my first WordPress site. Those few lines give a site its own
+database, storage for uploads, web server, schedule for background jobs and web
+address. The six needed one change to their own files in their first weeks. I
+changed the module three more times after writing it, and those changes count
+against none of the six, so they cost me a little more than their numbers say.
 
-The platform team's worst failure mode is a feedback loop that only reports
-successes. Office hours are how we keep the loop honest.
+## Where the counts fall short {#limits}
 
-## Saying no, in a way that helps {#saying-no}
+These counts are rough. A commit is not a unit of effort: four of OpenGuessr's
+five changes were permission fixes made on one day, and one of Azadi's four only
+tidied spacing. Apps differ too, and a WordPress site was always going to be a
+smaller job than an app with custom server code and access rules. The line
+counts are today's, after later changes, so they overstate what an app needed on
+day one. I can't prove that the template is the reason the six needed so little.
 
-Tenants ask for things. Some of them are platform-shaped. Some of them are
-bespoke favours dressed up in platform language. Saying no is part of the job.
-Saying no badly is how a platform team becomes the bottleneck everyone hates.
+The bigger gap is that I am the only user, so the only complaints are mine. A
+platform team serving other teams would hear about things a git history can't
+show: how long a team waited, which workarounds it built, whether it gave up on
+the platform. Its platform may not have a file per app either, so I would count
+something that tells the same story: the requests a new team raises with the
+platform team in its first week. I would start with the history because it is
+free to read, and then ask the teams what it misses.
 
-Our rule: when we say no, we say no with a reason and an alternative. "We won't
-build a custom CSV exporter for your tenant, but here's the export API and a
-20-line example that does what you asked, and we'll review the PR." The no is
-the same. The relationship is different.
+## Try it on your own platform {#closing}
 
-## Celebrate the tenants, not yourselves {#celebrate-tenants}
-
-In all-hands updates, we lead with what the tenants shipped, not what we
-shipped. "Team A launched their feature in three days because we removed the
-auth onboarding step." That sentence has a subject (Team A), a verb (launched),
-and a co-conspirator (us). It is the platform team's most flattering possible
-sentence.
-
-<Callout title="A test">
-
-At your next planning session, list every initiative. Strike out anything whose
-only success metric is internal. What remains is the work that actually matters.
-
-</Callout>
-
-## Closing thought {#closing}
-
-You can run a platform team like a vendor — shipping artefacts, billing time,
-treating tenants as customers to be managed. You can also run it like a
-colleague who happens to specialise in shared problems. The second one produces
-better software and quieter weekends. We have tried both. The second one wins.
+Count those first-week requests and chart them by team, in the order the teams
+joined. In a company, each of those requests is a team waiting on the platform
+team, which is the kind of dependency [Team
+Topologies](https://teamtopologies.com/key-concepts) warns about: a good
+platform should make teams "move faster, not generate more dependencies to
+manage". If the same kind of app keeps needing the same changes, build a module
+for that kind next. I put what my first WordPress site's five changes taught me
+into the WordPress module, and the six sites built on it needed one change
+between them.

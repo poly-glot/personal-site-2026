@@ -8,7 +8,7 @@ import { extract } from "@std/front-matter/yaml";
 const EXPECTED_IDS = [
   "adr-as-build-gates",
   "hiring-principal-engineers",
-  "open-source-without-burnout",
+  "openguessr-fair-play",
   "platform-team-outcomes",
   "react-hook-budgets",
 ];
@@ -24,43 +24,43 @@ Deno.test("all 5 posts are generated", () => {
   assertEquals(POSTS.map((p) => p.id).sort(), EXPECTED_IDS);
 });
 
-Deno.test("adr post frontmatter matches the mockup", () => {
+Deno.test("adr post frontmatter", () => {
   const adr = POSTS.find((p) => p.id === "adr-as-build-gates")!;
-  assertEquals(adr.title, "Turning ADRs into build-time gates");
+  assertEquals(
+    adr.title,
+    "What HookLab's out-of-date README taught me about written decisions",
+  );
   assertEquals(adr.topics, ["Architecture", "Process"]);
-  assertEquals(adr.readMin, 11);
+  assertEquals(adr.readMin, 7);
   assertEquals(adr.abstract, "GATE");
   assertEquals(adr.year, 2026);
   assertEquals(
     adr.deck,
-    "Stop writing decisions you can't enforce. Pin the rule into the pipeline.",
+    "I write my decisions down in READMEs and rules files. The ones something checked were still true.",
   );
   assertEquals(
     adr.teaser,
-    "Most ADRs read like wishes. The ones that survive are the ones the build refuses to merge without.",
+    "I went back through four of my projects to see which written decisions were still true.",
   );
 });
 
-Deno.test("adr h2 ids match the mockup ids (via manifest toc)", () => {
+Deno.test("adr h2 ids (via manifest toc)", () => {
   const adr = POSTS.find((p) => p.id === "adr-as-build-gates")!;
   assertEquals(adr.toc.map((t) => t.id), [
-    "why-adrs-rot",
-    "three-questions",
-    "worked-example",
-    "escape-hatches",
-    "what-changes-culturally",
-    "what-not-to-gate",
+    "which-stayed-true",
+    "four-places",
+    "two-small-checks",
+    "not-everything",
     "closing",
   ]);
 });
 
 Deno.test("every post's h2/h3 ids match the mockup ids", async () => {
   assertEquals(await sourceHeadingIds("platform-team-outcomes"), [
-    "the-trap",
-    "what-we-measure",
-    "office-hours",
-    "saying-no",
-    "celebrate-tenants",
+    "receipts",
+    "first-week",
+    "wordpress",
+    "limits",
     "closing",
   ]);
   assertEquals(await sourceHeadingIds("react-hook-budgets"), [
@@ -73,19 +73,23 @@ Deno.test("every post's h2/h3 ids match the mockup ids", async () => {
     "closing",
   ]);
   assertEquals(await sourceHeadingIds("hiring-principal-engineers"), [
-    "thermostats",
+    "guardrails",
+    "the-role",
     "what-i-ask",
-    "what-i-avoid",
-    "signals-i-watch",
-    "the-anti-signals",
+    "a-real-document",
+    "signals",
     "closing",
   ]);
-  assertEquals(await sourceHeadingIds("open-source-without-burnout"), [
-    "saying-no",
-    "cadence",
-    "triage-rules",
-    "the-hard-conversations",
-    "sponsorship",
+  assertEquals(await sourceHeadingIds("openguessr-fair-play"), [
+    "the-browser",
+    "the-score",
+    "the-distance",
+    "the-rules",
+    "the-leak",
+    "the-fix",
+    "the-audit",
+    "smaller-gaps",
+    "checklist",
     "closing",
   ]);
 });

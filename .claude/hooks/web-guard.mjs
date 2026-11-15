@@ -35,7 +35,7 @@ if (resolved.endsWith(".tsx") && INLINE_STYLE.test(content)) {
 if (resolved.endsWith(".module.css") && RAW_BLEED.test(content)) {
   console.log(
     `web-guard (warning): raw 100vw / translateX(-50%) in ${rel}. Full-bleed must use ` +
-      `.bleed-rule from assets/utility.css — do not add new raw 100vw. See .claude/rules/web.md.`,
+      `.bleed-rule from styles/utility.css — do not add new raw 100vw. See .claude/rules/web.md.`,
   );
 }
 

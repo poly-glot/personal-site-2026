@@ -39,6 +39,16 @@
   text-underline-offset: var(--mark-offset);
 }
 
+.out {
+  margin-left: 0.22em;
+}
+
+.out svg {
+  height: 0.85em;
+  vertical-align: -0.1em;
+  width: 0.85em;
+}
+
 .pull {
   margin: var(--s-5) 0;
   padding: 0;

@@ -3,48 +3,41 @@ import type { BlogPost, WorkProject } from "@/src/types.ts";
 export const POSTS: BlogPost[] = [
   {
     "id": "adr-as-build-gates",
-    "title": "Turning ADRs into build-time gates",
+    "title":
+      "What HookLab's out-of-date README taught me about written decisions",
     "deck":
-      "Stop writing decisions you can't enforce. Pin the rule into the pipeline.",
-    "date": "2026-04-12",
+      "I write my decisions down in READMEs and rules files. The ones something checked were still true.",
+    "date": "2026-11-15",
     "year": 2026,
     "topics": [
       "Architecture",
       "Process",
     ],
-    "readMin": 11,
+    "readMin": 7,
     "abstract": "GATE",
     "tone": "linear-gradient(135deg, #f8a41d22, #02292008)",
     "teaser":
-      "Most ADRs read like wishes. The ones that survive are the ones the build refuses to merge without.",
+      "I went back through four of my projects to see which written decisions were still true.",
     "toc": [
       {
-        "id": "why-adrs-rot",
-        "text": "Why ADRs rot",
+        "id": "which-stayed-true",
+        "text": "Which of my decisions stayed true",
       },
       {
-        "id": "three-questions",
-        "text": "Three questions during review",
+        "id": "four-places",
+        "text": "The guest limit, written in four places",
       },
       {
-        "id": "worked-example",
-        "text": "A worked example: ADR-027",
+        "id": "two-small-checks",
+        "text": "Two small checks",
       },
       {
-        "id": "escape-hatches",
-        "text": "Escape hatches, on purpose",
-      },
-      {
-        "id": "what-changes-culturally",
-        "text": "What this changes culturally",
-      },
-      {
-        "id": "what-not-to-gate",
-        "text": "What not to gate",
+        "id": "not-everything",
+        "text": "Decisions I would not check",
       },
       {
         "id": "closing",
-        "text": "Closing thought",
+        "text": "Try it on one decision",
       },
     ],
   },
@@ -52,129 +45,141 @@ export const POSTS: BlogPost[] = [
     "id": "hiring-principal-engineers",
     "title": "What I look for in a Principal Engineer",
     "deck":
-      "Less heroics, more thermostats. The job is to set the temperature of the room.",
-    "date": "2025-07-30",
-    "year": 2025,
+      "I used to be proud of being needed for everything. Now I look for a Principal Engineer whose team runs well on a day they're not there.",
+    "date": "2026-11-15",
+    "year": 2026,
     "topics": [
       "Career",
       "Engineering Culture",
+      "Checklist",
     ],
-    "readMin": 10,
+    "readMin": 9,
     "abstract": "DOTS",
     "tone": "linear-gradient(135deg, #f8a41d22, #65656511)",
     "teaser":
-      "You are not hired to be the smartest person in the room. You are hired to make the room smarter.",
+      "I explain how I'd interview a Principal Engineer, and what being always on taught me.",
     "toc": [
       {
-        "id": "thermostats",
-        "text": "Thermostats, not heroes",
+        "id": "guardrails",
+        "text": "From always on to guardrails",
+      },
+      {
+        "id": "the-role",
+        "text": "The other half of the job",
       },
       {
         "id": "what-i-ask",
-        "text": "What I actually ask",
+        "text": "Four questions I'd ask",
       },
       {
-        "id": "what-i-avoid",
-        "text": "What I avoid",
+        "id": "a-real-document",
+        "text": "A real document instead of a whiteboard",
       },
       {
-        "id": "signals-i-watch",
-        "text": "Signals I watch for",
-      },
-      {
-        "id": "the-anti-signals",
-        "text": "Anti-signals",
+        "id": "signals",
+        "text": "Signals I look for",
       },
       {
         "id": "closing",
-        "text": "Closing thought",
+        "text": "The same test for me",
       },
     ],
   },
   {
-    "id": "open-source-without-burnout",
-    "title": "Running OpenGuessr without burning out",
+    "id": "openguessr-fair-play",
+    "title": "What building OpenGuessr taught me about security",
     "deck":
-      "Notes from two years of maintainer life. The PRs you don't merge matter most.",
-    "date": "2025-05-14",
-    "year": 2025,
+      "OpenGuessr is a geography game that friends play from one link. The server works out every score. It also sends every player's browser the answers to all five rounds, and so far the fix is only a plan.",
+    "date": "2026-05-04",
+    "year": 2026,
     "topics": [
+      "Architecture",
       "Open Source",
-      "Process",
-      "Career",
+      "Checklist",
     ],
-    "readMin": 11,
+    "readMin": 12,
     "abstract": "MAP",
     "tone": "linear-gradient(135deg, #f8a41d22, #f8a41d05)",
-    "teaser":
-      "Saying no with grace is the first skill. Saying no with a CONTRIBUTING.md that explains why is the second.",
+    "teaser": "Anything a game sends to the browser, the player can read.",
     "toc": [
       {
-        "id": "saying-no",
-        "text": "Saying no, with a CONTRIBUTING file",
+        "id": "the-browser",
+        "text": "Why a browser game is hard to keep fair",
       },
       {
-        "id": "cadence",
-        "text": "Cadence over heroism",
+        "id": "the-score",
+        "text": "The server works out the score",
       },
       {
-        "id": "triage-rules",
-        "text": "Triage rules I borrowed and never gave back",
+        "id": "the-distance",
+        "text": "Measuring how far off a pin is",
       },
       {
-        "id": "the-hard-conversations",
-        "text": "The hard conversations",
+        "id": "the-rules",
+        "text": "The database checks every read and write",
       },
       {
-        "id": "sponsorship",
-        "text": "On sponsorship",
+        "id": "the-leak",
+        "text": "Every player can read the answers",
+      },
+      {
+        "id": "the-fix",
+        "text": "The fix so far is only a plan",
+      },
+      {
+        "id": "the-audit",
+        "text": "Four holes I closed on 7 April",
+      },
+      {
+        "id": "smaller-gaps",
+        "text": "Three smaller holes, still open",
+      },
+      {
+        "id": "checklist",
+        "text": "A checklist for small multiplayer games",
       },
       {
         "id": "closing",
-        "text": "Closing thought",
+        "text": "In short",
       },
     ],
   },
   {
     "id": "platform-team-outcomes",
-    "title": "A platform team's outcomes are its consumers' outcomes",
+    "title": "What 29 apps taught me about measuring a platform",
     "deck":
-      "You don't get credit for shipping internal tools. You get credit for what your tenants ship.",
-    "date": "2026-01-22",
+      "I run a small platform for my own apps. Counting what it holds told me little, so I counted how often each new app needed me to change something in its first week.",
+    "date": "2026-11-15",
     "year": 2026,
     "topics": [
       "Engineering Culture",
       "Platform",
     ],
-    "readMin": 9,
+    "readMin": 5,
     "abstract": "GRID",
     "tone": "linear-gradient(135deg, #f8a41d22, #65656520)",
     "teaser":
-      "This is the most important sentence in our team handbook. The second-most is also about consumers.",
+      "My first WordPress site needed five changes to its setup on my platform in its first week. The six I built after it needed one between them, plus three changes to the module they share.",
     "toc": [
       {
-        "id": "the-trap",
-        "text": "The trap",
+        "id": "receipts",
+        "text": "Counting what the platform holds",
       },
       {
-        "id": "what-we-measure",
-        "text": "What we measure instead",
+        "id": "first-week",
+        "text": "Counting each app's first week",
       },
       {
-        "id": "office-hours",
-        "text": "Office hours, on purpose",
+        "id": "wordpress",
+        "text": "The six WordPress sites",
       },
       {
-        "id": "saying-no",
-        "text": "Saying no, in a way that helps",
-      },
-      {
-        "id": "celebrate-tenants",
-        "text": "Celebrate the tenants, not yourselves",
+        "id": "limits",
+        "text": "Where the counts fall short",
       },
       {
         "id": "closing",
-        "text": "Closing thought",
+        "text": "Try it on your own platform",
       },
     ],
   },

@@ -88,3 +88,5 @@ depend on stable ids that match the mockup.
   `.bleed-rule`, tokens).
 - [`architecture.md`](.claude/rules/architecture.md): smallest-change
   discipline, data assembled in one place, migration discipline.
+- [`diagrams.md`](.claude/rules/diagrams.md): diagram parts, size classes, type
+  roles, φ spacing, focal and ghost tones.

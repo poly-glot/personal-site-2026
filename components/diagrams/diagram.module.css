@@ -4,14 +4,35 @@
 }
 
 .svg {
+  --d-boundary: 3px;
+  --d-data: 16px;
+  --d-focal: color-mix(in srgb, var(--diagram) 16%, var(--bg));
+  --d-heading: 20px;
+  --d-label: 16px;
+  --d-measure: 4px;
+  --d-name: 28px;
+  --d-note: 18px;
+  --d-stroke: 2px;
+  --d-wash: 0.004;
+
   display: block;
   height: auto;
   min-width: 880px;
   width: 100%;
 }
 
-.narrow {
-  min-width: 440px;
+.panel {
+  --d-boundary: 2px;
+  --d-data: 13px;
+  --d-heading: 16px;
+  --d-label: 13px;
+  --d-measure: 3px;
+  --d-name: 21px;
+  --d-note: 15px;
+  --d-stroke: 1.5px;
+
+  max-width: 520px;
+  min-width: 416px;
 }
 
 .pairFrame {
@@ -26,73 +47,123 @@
 
 @container (min-width: 900px) {
   .pair {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 520px));
   }
 }
 
 .zone {
-  fill: var(--panel);
+  fill: var(--fg);
+  fill-opacity: var(--d-wash);
   stroke: var(--rule);
 }
 
-.zoneLabel {
+.heading {
+  fill: var(--fg);
+  font-family: var(--ff-body);
+  font-size: var(--d-heading);
+  font-weight: 700;
+}
+
+.caption,
+.label {
+  font-family: var(--ff-body);
+  font-size: var(--d-label);
+  font-weight: 500;
+}
+
+.caption {
   fill: var(--muted);
+}
+
+.label {
+  fill: var(--fg);
+}
+
+.data,
+.numeral {
   font-family: var(--ff-mono);
-  font-size: 15px;
-  letter-spacing: 0.14em;
+  font-size: var(--d-data);
+  font-weight: 500;
+}
+
+.data {
+  fill: var(--fg);
+}
+
+.numeral {
+  fill: var(--muted);
+}
+
+.name {
+  fill: var(--fg);
+  font-family: var(--ff-display);
+  font-size: var(--d-name);
+}
+
+.note,
+.aside {
+  font-family: var(--ff-body);
+  font-size: var(--d-note);
+}
+
+.note {
+  fill: var(--muted);
+}
+
+.aside {
+  fill: var(--fg);
+  font-weight: 500;
+}
+
+.centred {
+  dominant-baseline: central;
+  text-anchor: middle;
 }
 
 .node {
   fill: var(--bg);
   stroke: var(--fg);
-  stroke-width: 1.5;
+  stroke-width: 1.5px;
 }
 
-.danger {
-  stroke-width: 2.5;
+.focal {
+  fill: var(--d-focal);
+  stroke: var(--diagram);
+  stroke-width: var(--d-boundary);
 }
 
-.nodeTitle {
-  fill: var(--fg);
-  font-family: var(--ff-display);
-  font-size: 28px;
-}
-
-.nodeLine {
-  fill: var(--muted);
-  font-family: var(--ff-body);
-  font-size: 18px;
+.ghost {
+  fill: none;
+  stroke: var(--muted);
+  stroke-dasharray: 5 5;
 }
 
 .wire {
   fill: none;
   stroke: var(--fg);
-  stroke-width: 2;
+  stroke-width: var(--d-stroke);
 }
 
 .head {
   fill: var(--fg);
 }
 
-.label {
-  fill: var(--fg);
-  font-family: var(--ff-mono);
-  font-size: 15px;
-  letter-spacing: 0.14em;
+.measure {
+  fill: none;
+  stroke: var(--diagram);
+  stroke-linecap: round;
+  stroke-width: var(--d-measure);
 }
 
-.code {
-  fill: var(--fg);
-  font-family: var(--ff-mono);
-  font-size: 15px;
+.guide {
+  fill: none;
+  stroke: var(--muted);
+  stroke-dasharray: 5 5;
+  stroke-width: 1.5px;
 }
 
 .boundary {
-  stroke: var(--accent);
+  stroke: var(--diagram);
   stroke-dasharray: 8 6;
-  stroke-width: 3;
-}
-
-.boundaryChip {
-  fill: var(--bg);
+  stroke-width: var(--d-boundary);
 }

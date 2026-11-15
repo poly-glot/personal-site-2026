@@ -13,8 +13,8 @@ export default function LocationPipeline() {
       title="How OpenGuessr picks its places"
       viewBox="0 0 1600 400"
     >
-      <Zone h={340} label="ONCE A DAY" w={1220} x={20} y={30} />
-      <Zone h={340} label="EACH GAME" w={320} x={1260} y={30} />
+      <Zone h={340} label="Once a day" w={1220} x={20} y={30} />
+      <Zone h={340} label="Each game" w={320} x={1260} y={30} />
 
       <Wire d={`M310 ${MIDDLE} L348 ${MIDDLE}`} />
       <Wire d={`M610 ${MIDDLE} L648 ${MIDDLE}`} />
@@ -62,7 +62,7 @@ export default function LocationPipeline() {
         y={TOP}
       />
       <Node
-        danger
+        tone="focal"
         lines={["Shuffle the pool and", "deal five, with the", "clues hidden."]}
         title="Deal"
         w={260}

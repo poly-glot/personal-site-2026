@@ -17,10 +17,10 @@ export default function ContentMap() {
       title="Crea8ive Design's pages by job"
       viewBox="0 0 1600 580"
     >
-      <Zone h={520} label="SELL" w={ZONE_W} x={COLUMNS[0]} y={30} />
-      <Zone h={520} label="SHOW" w={ZONE_W} x={COLUMNS[1]} y={30} />
-      <Zone h={520} label="EXPLAIN" w={ZONE_W} x={COLUMNS[2]} y={30} />
-      <Zone h={520} label="BE FOUND" w={ZONE_W} x={COLUMNS[3]} y={30} />
+      <Zone h={520} label="Sell" w={ZONE_W} x={COLUMNS[0]} y={30} />
+      <Zone h={520} label="Show" w={ZONE_W} x={COLUMNS[1]} y={30} />
+      <Zone h={520} label="Explain" w={ZONE_W} x={COLUMNS[2]} y={30} />
+      <Zone h={520} label="Be found" w={ZONE_W} x={COLUMNS[3]} y={30} />
 
       <Node
         lines={["The best-selling packages", "up front, from $99."]}

@@ -1,133 +1,174 @@
 ---
 id: adr-as-build-gates
-title: Turning ADRs into build-time gates
-deck: Stop writing decisions you can't enforce. Pin the rule into the pipeline.
-teaser: Most ADRs read like wishes. The ones that survive are the ones the build refuses to merge without.
-date: "2026-04-12"
+title: What HookLab's out-of-date README taught me about written decisions
+deck: I write my decisions down in READMEs and rules files. The ones something checked were still true.
+teaser: I went back through four of my projects to see which written decisions were still true.
+date: "2026-11-15"
 year: 2026
 topics:
   - Architecture
   - Process
-readMin: 11
+readMin: 7
 abstract: GATE
 tone: "linear-gradient(135deg, #f8a41d22, #02292008)"
 ---
 
-Most architectural decision records read like wishes. Someone writes a markdown
-file, the team nods in a review, the file goes into a /docs folder, and within a
-quarter the codebase is ignoring it. The rule still exists in the wiki. The
-build doesn't care.
+import DecisionLedger from "@/components/diagrams/DecisionLedger.tsx";
 
-The fix is not better writing. The fix is a build that refuses to merge code
-that violates the decision.
+[HookLab](https://hooklab.junaid.guru/) ([Case Study](/work/hooklab/)) is a tool
+I built for developers to receive webhooks, the automatic messages one service
+sends another. Its README says a guest can create three endpoints, which are the
+addresses that receive them. The database's access rule, which enforces the
+limit, lets a guest create ten. On 6 April I raised the limit, and in the same
+commit I changed the rule, the browser code and the test that checks the rule. I
+didn't touch the README. No test failed and no tool warned me, so the README
+still says three.
 
-> An ADR you can't enforce is a feeling, not an architecture.
+The reasons behind a limit like that are what an architecture decision record,
+or ADR, is for. Michael Nygard [proposed the format in
+2011](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions):
+a short file in the repository that gives a decision, the context behind it, its
+status and its consequences. When a decision changes, the old record stays,
+marked as superseded by a new one, so the history of why remains readable, and
+[adr.github.io](https://adr.github.io/) collects templates and tools for writing
+them. The point is that whoever finds the code later can see why it is the way
+it is, so they don't have to accept it blindly or change it blindly.
 
-## Why ADRs rot
+The guest limit had no ADR, though, because I don't keep separate ADR files. My
+decisions live in whatever documentation each project already has.
+[OpenGuessr](https://openguessr.junaid.guru/) ([Case Study](/work/openguessr/))
+has a Design Decisions section in its README with nine entries, this site keeps
+its decisions in rules files, and my platform repository,
+[firebase-cloud](https://github.com/poly-glot/firebase-cloud), keeps them in its
+docs. Unlike an ADR, those describe the code as it is now, so they go wrong when
+the code changes and nobody edits them. That is what happened to HookLab's
+README.
 
-There is a predictable arc. Quarter one: the team writes an ADR, everyone
-agrees, the rule is fresh in everyone's head. Quarter two: a new contributor
-onboards, doesn't read /docs, makes a small violation in a feature PR. The
-reviewer is busy and the diff is small. The rule erodes by 1%.
+## Which of my decisions stayed true {#which-stayed-true}
 
-Quarter three: another small erosion. By quarter four, half the team can't tell
-you what the original ADR said, and the codebase contains three
-counter-examples. The rule is dead. It died in code review, one tired Tuesday at
-a time.
+To see how far that had gone, I went back through four of my projects and asked
+one question of every decision I found: if somebody broke this tomorrow, what
+would tell them? Some of the answers are tests of a database's access rules,
+which try an action as a particular user and expect the database to refuse it.
+One is a hook: a script that runs by itself each time my coding assistant edits
+a file. The first panel below holds four decisions that something checks, and
+the second holds four that nothing does. These eight are the clearest examples,
+not a full count.
 
-This is not a discipline problem. This is a system problem. Discipline is what
-you fall back on when the system isn't doing its job.
+<Wide>
+  <DecisionLedger />
+</Wide>
 
-## Three questions during review {#three-questions}
+Every decision in the second panel was already wrong or broken when I looked.
+The first is the guest limit. The OpenGuessr README promises that upcoming
+answers stay hidden, but every player can read them, which I [wrote
+up](/blog/openguessr-fair-play/) separately, and the one test that looks at the
+promise runs on a sample game whose unrevealed round has no answer in it, so it
+passes. The [firebase-cloud
+docs](https://github.com/poly-glot/firebase-cloud/blob/main/terraform.md#cloud-functions-codebase-isolation)
+say every app must declare a codebase, a name that stops one app's deploy
+deleting another app's functions, and OpenGuessr, which runs on firebase-cloud,
+doesn't declare one. And the firebase-cloud README lists eight of its modules,
+where the repository has 12.
 
-For every ADR we write, we now ask three questions before merging the prose:
+Each decision in the first panel has a check behind it that fails when the
+decision breaks, and I found no sign that any of them had drifted. A check only
+helps if something runs it, though. HookLab's rules tests run only when I start
+them on my laptop, and the automatic checks that run on every push leave them
+out.
 
-- What is the rule, expressed as a check a CI job can run?
-- What is the failure message that explains the why, not just the what?
-- What is the escape hatch, and who approves its use?
+## The guest limit, written in four places {#four-places}
 
-If we can't answer all three, the ADR is not ready. We don't merge the prose
-until we can also merge the gate. They ship together or not at all.
+Even when I run them, the rules tests check only one of the places the guest
+limit is written. The number lives in the database rule, the test, the browser
+code and the README. I changed the first three in one commit. The README is the
+one place no test or tool reads, so I missed it.
 
-This sounds heavy. In practice it adds maybe an hour to the ADR. The hour pays
-itself back the first time someone reaches for the pattern in a stale codebase
-eighteen months later.
+The limit started at three. HookLab gives every new guest six demo endpoints, so
+under the old limit every guest was already over it and got a permission error
+on their first endpoint of their own. The
+[fix](https://github.com/poly-glot/hooklab/commit/6418dec84a4242bd3aea1b3a1d9904d195c03762)
+raised the limit to ten: six demo endpoints and four of the guest's own. That
+reasoning is what an ADR would have kept. The README needs a different fix: stop
+repeating the number and point at the rule, or add a test that fails when the
+README and the rule disagree.
 
-## A worked example: ADR-027 {#worked-example}
+## Two small checks {#two-small-checks}
 
-Take ADR-027: "Luma never persists tenant credentials." The prose is clear, but
-on its own it relies on every engineer reading it. The build-time gate looks
-like this:
+The rules test that guards the limit is what Thoughtworks calls an
+[architectural fitness
+function](https://www.thoughtworks.com/insights/articles/fitness-function-driven-development):
+a test of how close a system is to an architectural aim. Fitness functions don't
+have to be big, and two small ones of mine show what makes one useful. The first
+is in firebase-cloud, which sets up the cloud services for my apps with
+Terraform, a tool that reads files describing the services and creates them. If
+a secret was missing, Terraform received an empty string and would have saved it
+as an empty signing key, the secret one of my apps signs its output with. The
+[fix](https://github.com/poly-glot/firebase-cloud/commit/76ab5f96a2b48f03e1eda7d25d7fb0c46f8ce62e)
+is a `validation` block, which refuses to continue unless the secret looks like
+a private key:
 
-```bash
-# fail the pipeline if a tenant-credential
-# field appears anywhere outside the signposting module
-rg --type java -e 'TenantCredential' \
-   --glob '!**/signposting/**' \
-   --glob '!**/test/**' && exit 1 || exit 0
+```hcl
+validation {
+  condition     = startswith(trimspace(var.c2pa_demo_signer_key), "-----BEGIN PRIVATE KEY-----")
+  error_message = "c2pa_demo_signer_key must be a PKCS#8 PEM private key; set the C2PA_DEMO_SIGNER_KEY GitHub secret to cert/claim-signer.key from c2pa-demo."
+}
 ```
 
-Crude — but it has stopped two regressions in the last six months. Both PRs
-failed loudly, with a link back to the ADR. The conversation moved from "is this
-OK?" to "do we want to amend the decision?" That is the conversation worth
-having.
+The condition checks that the secret starts with the header line of this kind of
+private key file. It fails early, before anything changes, and the message names
+the secret to fill in, so I, or anyone else who hits it, can fix it without
+digging through the code. Terraform documents [the same idea for any input
+variable](https://developer.hashicorp.com/terraform/language/validate).
 
-### The failure message matters more than the rule
+The second is the hook from the first panel. It enforces this site's rule that
+components don't use inline styles, and with the messages shortened it comes
+down to this (the [full
+script](https://github.com/poly-glot/personal-site-2026/blob/a0a9ca0aaa5be6083cf58c5f416e1fc68764aeae/.claude/hooks/web-guard.mjs)
+is in the repository):
 
-When the gate fails, it doesn't print "violation in line 42." It prints two
-paragraphs explaining the architectural reason — borrowed credentials,
-short-lived tokens, audit-log integrity — and links to the ADR. The author of
-the failing PR knows, within thirty seconds, why the build is angry. They almost
-always agree with the rule by the time they finish reading. That is the goal.
+```js
+if (resolved.endsWith(".tsx") && INLINE_STYLE.test(content)) {
+  console.error(`web-guard: inline style in ${rel}`);
+  process.exit(2);
+}
 
-## Escape hatches, on purpose {#escape-hatches}
+if (resolved.endsWith(".module.css") && RAW_BLEED.test(content)) {
+  console.log(`web-guard (warning): raw 100vw in ${rel}`);
+}
 
-Every gate has an escape hatch — a magic comment, a flag in a per-repo
-allowlist, an explicit override that requires two reviews from the ADR's
-authors. We don't pretend rules are absolute. We make exceptions visible.
+process.exit(0);
+```
 
-The escape hatch matters for two reasons. First, it acknowledges that real
-engineering involves trade-offs the rule didn't anticipate. Second, it gives us
-a queryable list of every place we deliberately violated our own design —
-material for the next ADR.
+An inline style is always wrong here, so the script exits with code 2, and my
+coding assistant gets the message back as an error to fix before it carries on.
+A raw `100vw` in a stylesheet is only sometimes wrong, because the pattern can
+also match harmless CSS, so the script prints a warning and exits normally. Both
+messages say what to do instead and point to the rule. The script only sees my
+assistant's edits, so a style attribute I typed by hand would get past it.
 
-<Callout title="Rule of thumb">
+## Decisions I would not check {#not-everything}
 
-If the only thing keeping a decision alive is institutional memory, the decision
-is already on borrowed time. Pin it into the pipeline.
+Checks like these take work and still have gaps, so not every decision gets one.
+The OpenGuessr README explains why the game is plain JavaScript with Lit web
+components instead of a framework, and why the host, not a timer, moves the game
+from one round to the next. A test could catch either one changing, but neither
+would change by accident. The record is still worth keeping, because it answers
+"why is it like this?" for the next person, and the next person is often me.
 
-</Callout>
+The decisions I would check are the ones that are easy to break by accident,
+costly when they break, and easy for a script to read, such as a number or a
+permission. A guest limit fits all three, and so do the rules that stop a player
+writing their own score. My preference for plain JavaScript is easy for a script
+to read but hard to break by accident, so it stays a written note.
 
-## What this changes culturally {#what-changes-culturally}
+## Try it on one decision {#closing}
 
-The first three gates we shipped felt heavy. By the tenth, the team was
-proposing them in design reviews — not as bureaucracy, but as a way of saying "I
-want this to still be true in eighteen months." That is when you know the
-practice has taken root.
-
-The other shift is conversational. ADR debates used to be performative — someone
-would argue against the rule in the abstract, win the meeting, and move on. Now
-those debates have weight, because the next step is a CI gate that you and
-everyone else has to live with. People bring sharper objections. They also
-concede faster, because the cost of being wrong is concrete.
-
-## What not to gate
-
-Not every ADR deserves a build-time gate. Some decisions are advisory — "prefer
-composition over inheritance" — and trying to encode them in CI produces
-brittle, lint-flavoured noise. The test we use:
-
-- Can a junior engineer reasonably violate this without realising?
-- Would a violation be expensive to unwind later?
-- Is the rule enforceable with a check that won't drown the team in false
-  positives?
-
-Three yeses: gate it. Two or fewer: write the ADR, document the rationale,
-accept that this one travels by oral tradition. Pick your battles. The gates
-that matter are the ones that pay rent every week.
-
-## Closing thought {#closing}
-
-An architecture is what your build allows, not what your wiki claims. Treat your
-CI as a colleague who never gets tired, never has a bad week, and never forgets
-why a rule exists. Hand it the decisions you can't afford to lose.
+Pick one number or permission that a README of yours promises, and either point
+the README at the code that enforces it or write a test that fails when the two
+disagree. I found four to fix. The codebase setting in OpenGuessr comes first,
+because leaving it out can delete another app's functions. HookLab's README
+should point at the rule instead of repeating the limit, and its rules tests
+should run with the automatic checks on every push. The OpenGuessr promise needs
+a test that fails while any player can read an upcoming answer, and the
+firebase-cloud README needs its module list brought up to date.

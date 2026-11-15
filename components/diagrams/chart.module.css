@@ -50,7 +50,7 @@
 }
 
 .chosen {
-  fill: var(--accent);
+  fill: var(--diagram);
 }
 
 .value,

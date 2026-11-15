@@ -10,18 +10,18 @@ export default function TrustBoundary() {
       title="HookLab's trust boundary"
       viewBox="0 0 1600 900"
     >
-      <Zone h={800} label="OUTSIDE" w={330} x={40} y={50} />
-      <Zone h={800} label="FIREBASE · ORDINARY PARTS" w={480} x={430} y={50} />
+      <Zone h={800} label="Outside" w={330} x={40} y={50} />
+      <Zone h={800} label="Firebase · ordinary parts" w={480} x={430} y={50} />
       <Zone
         h={800}
-        label="CLOUD RUN · THE DANGEROUS JOB"
+        label="Cloud Run · the dangerous job"
         w={520}
         x={1040}
         y={50}
       />
       <Boundary
         bottom={850}
-        label="TRUST BOUNDARY"
+        label="Trust boundary"
         labelY={805}
         top={50}
         x={975}
@@ -74,7 +74,7 @@ export default function TrustBoundary() {
         y={590}
       />
       <Node
-        danger
+        tone="focal"
         lines={[
           "Deno and Hono. /w/{id} takes any",
           "method from anyone. /api/* needs",
@@ -86,7 +86,7 @@ export default function TrustBoundary() {
         y={150}
       />
       <Node
-        danger
+        tone="focal"
         lines={[
           "One Worker per run. Network, files,",
           "environment, subprocesses and",
@@ -99,13 +99,13 @@ export default function TrustBoundary() {
         y={520}
       />
 
-      <Label text="WEBHOOK" x={352} y={188} />
-      <Label text="APP" x={452} y={306} />
-      <Label text="SIGN IN" x={340} y={454} />
-      <Label anchor="end" text="OWN DATA ONLY" x={430} y={548} />
-      <Label code text="/w/* · /api/*" x={905} y={200} />
-      <Label text="RUN THE SCRIPT" x={1314} y={416} />
-      <Label text="WRITE THE LOG" x={880} y={726} />
+      <Label text="Webhook" x={352} y={188} />
+      <Label text="App" x={452} y={306} />
+      <Label text="Sign in" x={340} y={454} />
+      <Label anchor="end" text="Own data only" x={430} y={548} />
+      <Label kind="data" text="/w/* · /api/*" x={905} y={200} />
+      <Label text="Run the script" x={1314} y={416} />
+      <Label text="Write the log" x={880} y={726} />
     </Canvas>
   );
 }

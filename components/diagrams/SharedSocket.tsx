@@ -1,71 +1,60 @@
-import { Canvas, Label, Line, Node, nodeHeight, Wire, Zone } from "./parts.tsx";
-import styles from "./diagram.module.css";
+import type { ComponentChildren } from "preact";
+import {
+  Chip,
+  Label,
+  Line,
+  Node,
+  nodeHeight,
+  Pair,
+  Panel,
+  PANEL_W,
+  S2,
+  S3,
+  S4,
+  S5,
+  Wire,
+} from "./parts.tsx";
 
-const CARD_X = 24;
-const REGISTRY_X = 245;
-const SERVER_X = 466;
-const NODE_W = 150;
-const CARD_GAP = [0, 90, 202];
-const CARD_MIDDLE = 39;
-const STUB = 36;
-const TOP = 60;
-const HALF_W = 640;
+const CARD_X = S3;
+const CARD_W = 120;
+const CARD_H = S5;
+const CARDS_RIGHT = CARD_X + CARD_W;
+const BUS_X = CARDS_RIGHT + S2;
+const REGISTRY_X = BUS_X + S4;
+const REGISTRY_W = 138;
+const SERVER_W = 130;
+const SERVER_X = PANEL_W - S3 - SERVER_W;
 
-function Cards({ top }: { top: number }) {
-  return (
-    <g>
-      <Node lines={[]} title="Card 1" w={NODE_W} x={CARD_X} y={top} />
-      <Node
-        lines={[]}
-        title="Card 2"
-        w={NODE_W}
-        x={CARD_X}
-        y={top + CARD_GAP[1]}
-      />
-      <Label
-        anchor="middle"
-        text="· · ·"
-        x={CARD_X + NODE_W / 2}
-        y={top + 190}
-      />
-      <Node
-        lines={[]}
-        title="Card 600"
-        w={NODE_W}
-        x={CARD_X}
-        y={top + CARD_GAP[2]}
-      />
-    </g>
-  );
-}
+const FIRST_CARD = S5;
+const SECOND_CARD = FIRST_CARD + CARD_H + S2;
+const LAST_CARD = SECOND_CARD + CARD_H + S4;
+const CARDS = [
+  { text: "Card 1", top: FIRST_CARD },
+  { text: "Card 2", top: SECOND_CARD },
+  { text: "Card 600", top: LAST_CARD },
+];
+const MORE_Y = SECOND_CARD + CARD_H + S3;
+const HEIGHT = LAST_CARD + CARD_H + S3;
 
-const CARDS_RIGHT = CARD_X + NODE_W;
-const BUS_X = CARDS_RIGHT + STUB;
+const MIDDLES = CARDS.map((card) => card.top + CARD_H / 2);
+const MIDDLE = MIDDLES[1];
+
 const SERVER_LINES = ["Gets 600", "connections."];
 const REGISTRY_LINES = ["One socket.", "Sends each", "update to its", "card."];
 const SERVER_AFTER_LINES = ["Gets one", "connection."];
 
-function cardMiddles(top: number): number[] {
-  return CARD_GAP.map((gap) => top + gap + CARD_MIDDLE);
+const BUS = [
+  ...MIDDLES.map((y) => `M${CARDS_RIGHT} ${y} L${BUS_X} ${y}`),
+  `M${BUS_X} ${MIDDLES[0]} L${BUS_X} ${MIDDLES[2]}`,
+].join(" ");
+
+function centredOn(lines: readonly string[]): number {
+  return MIDDLE - nodeHeight(lines) / 2;
 }
 
-function bus(top: number): string {
-  const middles = cardMiddles(top);
-  const stubs = middles.map((y) => `M${CARDS_RIGHT} ${y} L${BUS_X} ${y}`);
-  const spine = `M${BUS_X} ${middles[0]} L${BUS_X} ${middles.at(-1)}`;
-
-  return [...stubs, spine].join(" ");
+function arrow(fromX: number, toX: number): string {
+  return `M${fromX} ${MIDDLE} L${toX - 2} ${MIDDLE}`;
 }
-
-function centredOn(middle: number, lines: readonly string[]): number {
-  return middle - nodeHeight(lines) / 2;
-}
-
-function arrow(fromX: number, toX: number, y: number): string {
-  return `M${fromX} ${y} L${toX - 2} ${y}`;
-}
-
-const VIEW_BOX = `0 0 ${HALF_W} 366`;
 
 const BEFORE_TEXT =
   "Before: every card on the dashboard opened its own websocket, so 600 cards meant 600 connections to the server as the page loaded.";
@@ -73,60 +62,92 @@ const BEFORE_TEXT =
 const AFTER_TEXT =
   "After: the dashboard opens one websocket. A registry receives every update and passes each one to the card that shows that asset, and the server sees one connection.";
 
-export default function SharedSocket() {
-  const middle = cardMiddles(TOP)[1];
-
+function Dashboard(
+  { children, description, heading, title }: {
+    children: ComponentChildren;
+    description: string;
+    heading: string;
+    title: string;
+  },
+) {
   return (
-    <div class={styles.pairFrame}>
-      <div class={styles.pair}>
-        <Canvas
-          description={BEFORE_TEXT}
-          narrow
-          title="Before: one websocket per card"
-          viewBox={VIEW_BOX}
-        >
-          <Zone h={364} label="BEFORE" w={HALF_W - 2} x={1} y={1} />
-          <Cards top={TOP} />
-          <Line d={bus(TOP)} />
-          <Wire d={arrow(BUS_X, SERVER_X, middle)} />
-          <Label anchor="middle" text="600 SOCKETS" x={338} y={middle - 14} />
-          <Node
-            lines={SERVER_LINES}
-            title="Server"
-            w={NODE_W}
-            x={SERVER_X}
-            y={centredOn(middle, SERVER_LINES)}
-          />
-        </Canvas>
+    <Panel
+      description={description}
+      heading={heading}
+      height={HEIGHT}
+      title={title}
+    >
+      <Line d={BUS} />
+      {CARDS.map((card) => (
+        <Chip
+          h={CARD_H}
+          key={card.text}
+          strong
+          text={card.text}
+          w={CARD_W}
+          x={CARD_X}
+          y={card.top}
+        />
+      ))}
+      <Label
+        anchor="middle"
+        kind="data"
+        text="· · ·"
+        x={CARD_X + CARD_W / 2}
+        y={MORE_Y}
+      />
+      {children}
+    </Panel>
+  );
+}
 
-        <Canvas
-          description={AFTER_TEXT}
-          narrow
-          title="After: one websocket for the whole dashboard"
-          viewBox={VIEW_BOX}
-        >
-          <Zone h={364} label="AFTER" w={HALF_W - 2} x={1} y={1} />
-          <Cards top={TOP} />
-          <Line d={bus(TOP)} />
-          <Wire d={arrow(BUS_X, REGISTRY_X, middle)} />
-          <Node
-            danger
-            lines={REGISTRY_LINES}
-            title="Registry"
-            w={NODE_W}
-            x={REGISTRY_X}
-            y={centredOn(middle, REGISTRY_LINES)}
-          />
-          <Wire d={arrow(REGISTRY_X + NODE_W, SERVER_X, middle)} />
-          <Node
-            lines={SERVER_AFTER_LINES}
-            title="Server"
-            w={NODE_W}
-            x={SERVER_X}
-            y={centredOn(middle, SERVER_AFTER_LINES)}
-          />
-        </Canvas>
-      </div>
-    </div>
+export default function SharedSocket() {
+  return (
+    <Pair>
+      <Dashboard
+        description={BEFORE_TEXT}
+        heading="Before"
+        title="Before: one websocket per card"
+      >
+        <Wire d={arrow(BUS_X, SERVER_X)} />
+        <Label
+          anchor="middle"
+          text="600 sockets"
+          x={(BUS_X + SERVER_X) / 2}
+          y={MIDDLE - S2}
+        />
+        <Node
+          lines={SERVER_LINES}
+          title="Server"
+          w={SERVER_W}
+          x={SERVER_X}
+          y={centredOn(SERVER_LINES)}
+        />
+      </Dashboard>
+
+      <Dashboard
+        description={AFTER_TEXT}
+        heading="After"
+        title="After: one websocket for the whole dashboard"
+      >
+        <Wire d={arrow(BUS_X, REGISTRY_X)} />
+        <Node
+          lines={REGISTRY_LINES}
+          title="Registry"
+          tone="focal"
+          w={REGISTRY_W}
+          x={REGISTRY_X}
+          y={centredOn(REGISTRY_LINES)}
+        />
+        <Wire d={arrow(REGISTRY_X + REGISTRY_W, SERVER_X)} />
+        <Node
+          lines={SERVER_AFTER_LINES}
+          title="Server"
+          w={SERVER_W}
+          x={SERVER_X}
+          y={centredOn(SERVER_AFTER_LINES)}
+        />
+      </Dashboard>
+    </Pair>
   );
 }
