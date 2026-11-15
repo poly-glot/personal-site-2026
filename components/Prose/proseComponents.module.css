@@ -1,7 +1,7 @@
 .h2 {
   color: var(--fg);
-  font-size: clamp(1.625rem, 3.4vw, 2.25rem);
-  line-height: 1.15;
+  font-size: clamp(1.625rem, 3vw, 2rem);
+  line-height: 1.2;
   margin-bottom: 0;
   margin-top: var(--s-5);
   scroll-margin-top: 88px;
@@ -10,27 +10,51 @@
 
 .h3 {
   color: var(--fg);
-  font-family: "Roboto", sans-serif;
-  font-size: 1.125rem;
+  font-family: var(--ff-body);
+  font-size: 1.25rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  line-height: 1.4;
+  margin-bottom: 0;
   margin-top: var(--s-4);
+  scroll-margin-top: 88px;
+}
+
+.p,
+.list,
+.code {
+  margin: 1.25em 0 0;
+}
+
+.p:first-child {
+  margin-top: 0;
 }
 
 .p {
-  margin: 0;
   text-wrap: pretty;
 }
 
 .a {
-  color: var(--accent-text);
-  text-decoration: underline;
+  color: var(--fg);
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
 }
 
 .pull {
-  border-left: 3px solid var(--accent);
   margin: var(--s-5) 0;
-  padding: 0 0 0 var(--s-3);
+  padding: 0;
+}
+
+.pull p::before,
+.pull p::after {
+  color: var(--accent);
+}
+
+.pull p::before {
+  content: "\201C";
+}
+
+.pull p::after {
+  content: "\201D";
 }
 
 .pull p {
@@ -47,7 +71,6 @@
   flex-direction: column;
   gap: var(--s-2);
   list-style: none;
-  margin: 0;
   padding: 0;
 }
 
@@ -58,7 +81,7 @@
 }
 
 .list li::before {
-  color: var(--accent-text);
+  color: var(--accent);
   content: "—";
   font-family: var(--ff-mono);
   font-weight: 700;
@@ -67,18 +90,49 @@
   top: 0;
 }
 
+.p code,
+.list code {
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  color: var(--fg);
+  font-family: var(--ff-mono);
+  font-size: 0.875em;
+  padding: 0.1em 0.35em;
+}
+
 .code {
   background: var(--bg-2);
   border: 1px solid var(--rule);
-  border-radius: 8px;
   color: var(--fg);
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  max-width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.6;
   overflow-x: auto;
   padding: var(--s-3);
 }
 
 .code code {
   font-family: var(--ff-mono);
+}
+
+.code span {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style);
+}
+
+:global([data-theme="dark"]) .code span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+}
+
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme])) .code span {
+    color: var(--shiki-dark);
+    font-style: var(--shiki-dark-font-style);
+  }
+}
+
+.wide {
+  --outdent: min(calc(var(--bleed-left) - var(--gutter)), 240px);
+  margin: var(--s-5) 0 var(--s-5) calc(-1 * var(--outdent));
+  width: calc(100% + var(--outdent));
 }

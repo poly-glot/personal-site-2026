@@ -3,12 +3,11 @@
 }
 
 .label {
-  border-bottom: 1px solid var(--rule);
   color: var(--muted);
   font-size: 0.6875rem;
   letter-spacing: 0.14em;
-  margin: 0 0 var(--s-2);
-  padding-bottom: 8px;
+  margin: 0;
+  padding: var(--s-3) var(--s-3) var(--s-2);
   text-transform: uppercase;
 }
 
@@ -30,14 +29,12 @@
   display: grid;
   font-size: 0.8125rem;
   gap: 8px;
-  grid-template-columns: 28px 1fr;
+  grid-template-columns: 28px minmax(0, 1fr);
   line-height: 1.35;
-  padding: 8px 0 8px 12px;
+  margin-left: -1px;
+  padding: var(--s-2) var(--s-1) var(--s-2) calc(var(--s-3) - 1px);
   text-decoration: none;
-  transition:
-    border-color 200ms ease,
-    color 200ms ease,
-    padding-left 200ms ease;
+  transition: border-color 200ms ease, color 200ms ease;
 }
 
 .link:hover {
@@ -54,18 +51,19 @@
 
 .text {
   font-weight: 500;
-  text-wrap: pretty;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: color 200ms ease;
+  white-space: nowrap;
 }
 
 .item:global(.active) .link {
   border-left-color: var(--accent);
   color: var(--fg);
-  padding-left: 14px;
 }
 
 .item:global(.active) .num {
-  color: var(--accent-text);
+  color: var(--fg);
 }
 
 .item:global(.active) .text {

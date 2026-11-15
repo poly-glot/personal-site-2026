@@ -114,3 +114,99 @@ export function Plus() {
     </svg>
   );
 }
+
+export function Tag() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height="12"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.8"
+      viewBox="0 0 24 24"
+      width="12"
+    >
+      <path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z" />
+      <circle cx="7.5" cy="7.5" r="1" />
+    </svg>
+  );
+}
+
+export function Share() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height="12"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.8"
+      viewBox="0 0 24 24"
+      width="12"
+    >
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" />
+    </svg>
+  );
+}
+
+export function Warning() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height="18"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.7"
+      viewBox="0 0 24 24"
+      width="18"
+    >
+      <path d="M10.3 3.9 2.4 17.6A2 2 0 0 0 4.1 20.6h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" />
+      <path d="M12 9.2v4.6M12 17h.01" />
+    </svg>
+  );
+}
+
+export function Magnifier() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height="18"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-width="1.7"
+      viewBox="0 0 24 24"
+      width="18"
+    >
+      <circle cx="10.6" cy="10.6" r="7.1" />
+      <path d="m15.8 15.8 5 5" />
+    </svg>
+  );
+}
+
+export function Lightbulb() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height="18"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.7"
+      viewBox="0 0 24 24"
+      width="18"
+    >
+      <path d="M9.2 17.2h5.6M9.9 20.6h4.2" />
+      <path d="M12 2.8a6.4 6.4 0 0 0-3.9 11.5c.7.5 1.1 1.4 1.1 2.3v.6h5.6v-.6c0-.9.4-1.8 1.1-2.3A6.4 6.4 0 0 0 12 2.8Z" />
+    </svg>
+  );
+}

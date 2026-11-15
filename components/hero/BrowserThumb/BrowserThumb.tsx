@@ -1,4 +1,5 @@
 import type { WorkProject } from "@/src/types.ts";
+import CaseVideo from "@/islands/CaseVideo.tsx";
 import styles from "./BrowserThumb.module.css";
 
 function Art({ abstract }: { abstract: WorkProject["abstract"] }) {
@@ -155,9 +156,26 @@ export default function BrowserThumb({ project }: { project: WorkProject }) {
       </div>
       <div class={styles.body}>
         <div class={styles.bg} aria-hidden="true" />
-        <div class={styles.content}>
-          <Art abstract={project.abstract} />
-        </div>
+        {project.video && (
+          <CaseVideo
+            label={`${project.name}: ${project.tagline}`}
+            video={project.video}
+          />
+        )}
+        {!project.video && project.cover && (
+          <img
+            class={styles.shot}
+            src={project.cover}
+            alt={`${project.name} — ${project.tagline}`}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        {!project.video && !project.cover && (
+          <div class={styles.content}>
+            <Art abstract={project.abstract} />
+          </div>
+        )}
       </div>
     </div>
   );

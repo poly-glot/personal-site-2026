@@ -94,7 +94,8 @@
 }
 
 .nav a:hover {
-  color: var(--accent);
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
 }
 
 .idx {
@@ -116,7 +117,8 @@
 }
 
 .social:hover {
-  color: var(--accent);
+  text-decoration: var(--mark);
+  text-underline-offset: var(--mark-offset);
 }
 
 .footer {

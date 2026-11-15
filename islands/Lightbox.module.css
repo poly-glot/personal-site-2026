@@ -1,0 +1,48 @@
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+.lightbox {
+  background: transparent;
+  border: 0;
+  height: 100dvh;
+  max-height: none;
+  max-width: none;
+  padding: var(--s-5) var(--gutter);
+  width: 100vw;
+}
+
+.lightbox[open] {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.image {
+  border-radius: var(--s-1);
+  box-shadow: var(--shadow);
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.close {
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  right: var(--s-2);
+  top: var(--s-2);
+  width: 40px;
+}

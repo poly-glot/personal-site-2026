@@ -7,13 +7,10 @@ import { extract } from "@std/front-matter/yaml";
 
 const EXPECTED_IDS = [
   "adr-as-build-gates",
-  "editorial-design-systems",
   "hiring-principal-engineers",
   "open-source-without-burnout",
   "platform-team-outcomes",
   "react-hook-budgets",
-  "signposting-integrations",
-  "strangler-without-pain",
 ];
 
 async function sourceHeadingIds(id: string): Promise<string[]> {
@@ -22,8 +19,8 @@ async function sourceHeadingIds(id: string): Promise<string[]> {
   return extractHeadings(body).map((h) => h.id);
 }
 
-Deno.test("all 8 posts are generated", () => {
-  assertEquals(POSTS.length, 8);
+Deno.test("all 5 posts are generated", () => {
+  assertEquals(POSTS.length, 5);
   assertEquals(POSTS.map((p) => p.id).sort(), EXPECTED_IDS);
 });
 
@@ -58,32 +55,12 @@ Deno.test("adr h2 ids match the mockup ids (via manifest toc)", () => {
 });
 
 Deno.test("every post's h2/h3 ids match the mockup ids", async () => {
-  assertEquals(await sourceHeadingIds("strangler-without-pain"), [
-    "the-shape",
-    "day-one",
-    "day-three",
-    "single-leader",
-    "dual-write-window",
-    "decom-trap",
-    "reusable-pattern",
-    "closing",
-  ]);
   assertEquals(await sourceHeadingIds("platform-team-outcomes"), [
     "the-trap",
     "what-we-measure",
     "office-hours",
     "saying-no",
     "celebrate-tenants",
-    "closing",
-  ]);
-  assertEquals(await sourceHeadingIds("signposting-integrations"), [
-    "the-stance",
-    "how-it-works",
-    "hard-cases",
-    "background-jobs",
-    "webhooks",
-    "compliance-side",
-    "what-this-cost",
     "closing",
   ]);
   assertEquals(await sourceHeadingIds("react-hook-budgets"), [
@@ -111,73 +88,76 @@ Deno.test("every post's h2/h3 ids match the mockup ids", async () => {
     "sponsorship",
     "closing",
   ]);
-  assertEquals(await sourceHeadingIds("editorial-design-systems"), [
-    "what-tokens-miss",
-    "the-rhythm-we-use",
-    "why-numbered-eyebrows",
-    "italic-restraint",
-    "accent-discipline",
-    "what-this-costs",
-    "closing",
-  ]);
 });
 
-Deno.test("all 10 projects are generated in source order", () => {
-  assertEquals(PROJECTS.length, 10);
+Deno.test("all 7 projects are generated in source order", () => {
+  assertEquals(PROJECTS.length, 7);
   assertEquals(PROJECTS.map((p) => p.id), [
     "amazing-landing",
-    "automotive-planner",
     "azadi-go",
     "bhx-travel",
-    "boston",
     "crea8ive",
     "ech-uk",
     "hooklab",
-    "luma-dam",
     "openguessr",
   ]);
 });
 
-Deno.test("openguessr project matches the mockup", () => {
+Deno.test("openguessr project matches its case study", () => {
   const og = PROJECTS.find((p) => p.id === "openguessr")!;
   assertEquals(og.name, "OpenGuessr");
-  assertEquals(og.stack, ["React", "Node", "Firebase"]);
-  assertEquals(og.domains, ["Mobile", "Directory"]);
-  assertEquals(og.year, 2024);
+  assertEquals(og.stack, [
+    "JavaScript",
+    "Lit",
+    "Firebase",
+    "Gemini",
+    "Leaflet",
+    "Google Maps",
+  ]);
+  assertEquals(og.domains, ["Games"]);
+  assertEquals(og.year, 2026);
   assertEquals(og.abstract, "MAP");
   assertEquals(og.href, "https://openguessr.junaid.guru/");
-  assertEquals(og.tagline, "Guess the place. Open-source GeoGuessr.");
+  assertEquals(og.source, "https://github.com/poly-glot/openguessr");
+  assertEquals(og.layout, "chapters");
   assertEquals(
-    og.summary,
-    "An open, community-driven take on the location-guessing genre. Streetscape rendering, scoring rounds, multiplayer-ready architecture. Treated like a real platform — not a weekend hack.",
+    og.tagline,
+    "A geography game for friends, played from one link.",
   );
 });
 
 Deno.test("derived stack and years cover the project data", () => {
   const vocab = workVocab();
-  assertEquals(vocab.years, [2019, 2020, 2021, 2022, 2023, 2024, 2025]);
+  assertEquals(vocab.years, [2007, 2014, 2015, 2022, 2026]);
   assertEquals(vocab.stack, [
-    "animation",
-    "auth",
-    "azure",
-    "c",
+    "builder-io",
+    "cloud-run",
     "css",
+    "deno",
     "firebase",
     "firestore",
-    "html",
+    "gemini",
+    "go",
+    "google-maps",
+    "helidon",
+    "html5",
     "java",
-    "liquibase",
-    "mdx",
-    "motion",
-    "mysql",
-    "net",
-    "node",
+    "javascript",
+    "jquery",
+    "leaflet",
+    "lit",
+    "next-js",
+    "php",
     "react",
-    "redis",
+    "resend",
     "spring",
-    "sql",
-    "tokens",
+    "stripe",
+    "terraform",
+    "typescript",
+    "vercel",
     "vite",
+    "web-animations-api",
+    "xhtml",
   ]);
 });
 

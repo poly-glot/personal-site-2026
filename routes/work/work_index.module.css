@@ -1,6 +1,5 @@
-.list {
-  display: flex;
-  flex-direction: column;
+.cases {
+  padding: var(--s-4) 0;
 }
 
 .empty {

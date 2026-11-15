@@ -1,22 +1,129 @@
 ---
 id: openguessr
 name: OpenGuessr
-tagline: Guess the place. Open-source GeoGuessr.
-role: Lead Engineer · Open Source
+tagline: A geography game for friends, played from one link.
+summary: A free, open-source game for a group of friends. Everyone sees the same Street View panorama, drops a pin where they think it is, and scores by how close they get. The places come from a daily pipeline. Gemini suggests ordinary streets, and Google's Street View data confirms each one is real.
+client: My own product, open source
+delivered: Multiplayer game, location pipeline, Cloud Functions, Playwright suite
+role: System author
+kind: study
+layout: chapters
 stack:
-  - React
-  - Node
+  - JavaScript
+  - Lit
   - Firebase
+  - Gemini
+  - Leaflet
+  - Google Maps
 domains:
-  - Mobile
-  - Directory
-year: 2024
+  - Games
+year: 2026
 url: openguessr.junaid.guru
 href: "https://openguessr.junaid.guru/"
+source: "https://github.com/poly-glot/openguessr"
+cover: /img/work/openguessr.webp
+video:
+  src: /video/openguessr.mp4
+  poster: /video/openguessr.webp
+  captions: /video/openguessr.vtt
 abstract: MAP
-tone: "linear-gradient(135deg, #f8a41d22, #f8a41d05)"
+tone: "linear-gradient(135deg, #2e7d3220, #01010808)"
 ---
 
-An open, community-driven take on the location-guessing genre. Streetscape
-rendering, scoring rounds, multiplayer-ready architecture. Treated like a real
-platform — not a weekend hack.
+import BarChart from "@/components/diagrams/BarChart.tsx";
+import LocationPipeline from "@/components/diagrams/LocationPipeline.tsx";
+
+<Study>
+
+<Chapter label="The challenge" title="Play with friends on places nobody has seen." lede="A geography game only works if the places are a real puzzle and the scores feel fair. A famous square is guessed in a second, a recycled list soon becomes familiar, and right-or-wrong scoring treats a near miss like a wild guess. The game also had to start from a shared link, with no accounts.">
+<Rows>
+  <Row title="Start from a link">A name and a shared link are enough. The host runs the room, and if the host leaves, the game carries on.</Row>
+  <Row title="Places nobody knows">Ordinary streets in small towns, not landmarks, and a fresh supply every day so the list never becomes familiar.</Row>
+  <Row title="Score how close">A guess in the next town should beat a guess on the wrong continent. Points fall smoothly with distance.</Row>
+  <Row title="Keep it honest">The server scores every guess and holds the answer until everyone has played the round.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The game" title="Five rounds, one minute each." lede="The host shares a link, friends join with a name, and everyone plays the same five places at the same time.">
+<Figures numbered bleed>
+  <Figure src="/img/work/openguessr/lobby.webp" w={1600} h={1000} alt="The lobby: two players waiting for the host to start, with the leaderboard and a world map." title="Lobby">The host shares one link. Friends join with a name, and the list updates as they arrive.</Figure>
+  <Figure src="/img/work/openguessr/round.webp" w={1600} h={1000} alt="A round: a Street View panorama of a side street, the timer at 53 seconds and a pin on the guess map." title="Round">Look around the street, then drop a pin, or pick a country to fly the map there. Sixty seconds.</Figure>
+  <Figure src="/img/work/openguessr/result.webp" w={1600} h={1000} alt="A result: a dashed line from the guess in Algeria to the real place in Portugal, 1,674 km away, worth 2,166 points." title="Result">Once everyone has guessed, the answer appears with a line from the pin to the real place. Here 1,674 km off earned 2,166 points.</Figure>
+  <Figure src="/img/work/openguessr/leaderboard.webp" w={1600} h={1000} alt="The last round's result next to the final leaderboard of two players." title="Leaderboard">Scores add up over five rounds, live for everyone, and the final standings close the game.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="Picking places" title="How to pick a place nobody can guess." lede="Every day a scheduled function asks Gemini for 50 new places, and Google decides which ones are real. A place reaches a game only after passing every step.">
+<LocationPipeline />
+<Facts>
+  <Fact k="Ask">Gemini 2.5 Flash, once a day, for 50 streets: at least four of six world regions, no country more than twice, named roads in small towns and side streets, never near a top-100 landmark.</Fact>
+  <Fact k="Check">Each suggestion goes to Google's Street View metadata API. Only places with a real panorama within 1 km survive, moved to where the panorama actually is.</Fact>
+  <Fact k="Thin out">Places within about a kilometre of one already in the pool are dropped. The pool stops at 500.</Fact>
+  <Fact k="Deal">Each new game shuffles the pool and takes five. If the pool is ever short, a list of about 100 places across six continents keeps the game working.</Fact>
+  <Fact k="Hide">The panorama opens facing north, with the address, road labels and movement arrows switched off. The country stays on the server until the round is revealed.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Scoring" title="Score how close you were." lede="The server measures the distance between the pin and the real place along the curve of the Earth, then turns it into points: 5,000 × e to the power of minus the distance over 2,000 km. Up to 5,000 points a round, falling away smoothly as the guess gets further off.">
+<Split>
+<BarChart
+  readings={[
+    { label: "25 km away", amount: 4938, value: "4,938" },
+    { label: "100 km", amount: 4756, value: "4,756" },
+    { label: "500 km", amount: 3894, value: "3,894" },
+    { label: "1,000 km", amount: 3033, value: "3,033" },
+    { label: "2,000 km", amount: 1839, value: "1,839" },
+    { label: "5,000 km", amount: 410, value: "410" },
+    { label: "10,000 km", amount: 34, value: "34" },
+  ]}
+/>
+<List>
+  <Item title="Distance on a sphere.">The haversine formula gives the great-circle distance, so a guess across the Pacific is measured the right way round.</Item>
+  <Item title="A curve, not a cliff.">The right region still earns most of the points. The other side of the world earns almost none.</Item>
+  <Item title="Scored on the server.">The browser sends only the pin. A function works out the score and adds it to the total in one transaction.</Item>
+  <Item title="No guess, no points.">If the minute runs out, the round scores zero.</Item>
+</List>
+</Split>
+</Chapter>
+
+<Chapter label="Playing live" title="Everyone sees the same round at once." lede="The game state lives in Firebase Realtime Database, so every change reaches every player as it happens.">
+<List>
+  <Item title="Presence.">When a player's connection drops, the database marks them offline, and the round no longer waits for them.</Item>
+  <Item title="The host can leave.">If the host disappears, the highest-scoring player still online takes over. Players can also ask the room to vote them in.</Item>
+  <Item title="Reveal when ready.">The answer appears the moment every online player has guessed, without waiting out the clock.</Item>
+  <Item title="No accounts.">A name gets a signed token for this game only. Old rooms are deleted after 24 hours.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="Each limit is a known trade, with the next step already named.">
+<List>
+  <Item title="The coordinates reach the browser.">The panorama needs them, so a player with the developer tools open can read the answer. The country is already locked away, and a locked place for coordinates exists with tests. The next step is serving the panorama by an opaque ID.</Item>
+  <Item title="The pool follows the prompt.">Gemini spreads places by the rules it is given, which is varied but not truly random. A random sample of Street View coverage would be fairer and costlier.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The learning" title="What carried forward." lede="The figures below come from the code and can be checked in the repository.">
+<Split>
+<List>
+  <Item title="Let AI suggest, let real data decide.">Gemini is good at ordinary places, and wrong often enough that every one is checked against Street View before it counts.</Item>
+  <Item title="Score on a curve.">A near miss in the right region earns most of the points, so the score rewards knowing the world, not luck with one country.</Item>
+  <Item title="Choose the database for what it does.">Realtime Database's presence and connection signals do the multiplayer work that would take extra services elsewhere.</Item>
+</List>
+<Facts>
+  <Fact k="Rounds">Five, one minute each</Fact>
+  <Fact k="Best game">25,000 points</Fact>
+  <Fact k="Pool">Up to 500 places, topped up daily</Fact>
+  <Fact k="Tests">469 unit tests, nine Playwright suites</Fact>
+  <Fact k="Source">[github.com/poly-glot/openguessr](https://github.com/poly-glot/openguessr)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Start a game and send the link to a friend.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://openguessr.junaid.guru/" external>Open OpenGuessr <span aria-hidden="true">→</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

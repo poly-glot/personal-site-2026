@@ -1,20 +1,119 @@
 ---
 id: crea8ive
 name: Crea8ive Design
-tagline: Studio site for a creative agency.
+tagline: A logo studio's website from 2007, built to sell and to be found.
+summary: Crea8ive Design sold custom logos, websites and stationery online from 2007, with packages from $99. The site had to do the selling on its own. It showed the work, made the prices clear, explained the process, and ranked for the phrases customers typed into search. It used the best web techniques of its day, and it is still online, exactly as it was.
+client: Crea8ive Design
+delivered: Studio website, packages and portfolio, 23 search landing pages, archive
 role: Lead developer
+layout: chapters
 stack:
-  - React
-  - Animation
+  - PHP
+  - jQuery
+  - XHTML
+  - CSS
+  - Firebase
 domains:
-  - High End Campaigns
-  - CMS
-year: 2021
+  - E-commerce
+year: 2007
+period: "2007 → 2026"
 url: crea8ivedesign.junaid.guru
 href: "https://crea8ivedesign.junaid.guru/"
+source: "https://github.com/poly-glot/crea8ivedesign"
+cover: /img/work/crea8ive.webp
 abstract: DOTS
-tone: "linear-gradient(135deg, #f8a41d22, #65656520)"
+tone: "linear-gradient(135deg, #1565c020, #f8a41d0a)"
 ---
 
-Studio identity rendered in motion. Showcase grid that earns attention through
-restraint — heavy when it needs to be, quiet when it doesn't.
+import ContentMap from "@/components/diagrams/ContentMap.tsx";
+
+<Study>
+
+<Chapter label="The studio" title="A logo studio that sold online." lede="In 2007 most small businesses still found a designer through someone they knew. Crea8ive Design sold logos online instead. A customer picked a package from $99, filled in a brief, and got concepts back from the studio's designers. There was no shop and no sales team, so the website had to do all of the selling.">
+<Rows>
+  <Row title="Show the work">A customer buying a logo from a stranger needs to see what they'll get, sorted by the kind of business they run.</Row>
+  <Row title="Make the price clear">Packages in tiers, with what each includes, so a customer can choose without having to ask.</Row>
+  <Row title="Explain the process">Every step from signing up to the final files, so paying up front feels safe.</Row>
+  <Row title="Be found">Customers searched for phrases like "custom logo design". The site had to rank for them.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The site" title="A design studio's shop window." lede="The pages are still online exactly as they were. The home page still wishes visitors a happy 2011, from the last time it was updated.">
+<Figures numbered bleed>
+  <Figure src="/img/work/crea8ive/home.webp" w={1600} h={1000} alt="The Crea8ive Design home page with a 2011 new year greeting, a logo showcase and three logo packages." title="Home">The three best-selling logo packages up front, under the season's greeting.</Figure>
+  <Figure src="/img/work/crea8ive/packages.webp" w={1600} h={1000} alt="Logo design packages: Budget, Basic and Advance, with what each includes and its price." title="Packages">Budget, Basic and Advance packages, with a tab each for logos, websites, stationery, brochures and illustration.</Figure>
+  <Figure src="/img/work/crea8ive/portfolio.webp" w={1600} h={1000} alt="The logo portfolio, filtered by industry, with logo thumbnails." title="Portfolio">Logos sorted into over 30 industries, from accounting to sport, each opening full size in a lightbox.</Figure>
+  <Figure src="/img/work/crea8ive/case-study.webp" w={1600} h={1000} alt="A corporate logo design case study page with text and recent corporate logos." title="Case studies">23 case studies, most of them on one style of logo, from corporate to retro.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/crea8ive/how-it-works.webp" w={1600} h={1000} alt="Step-by-step guide: sign up, package, questionnaire, payment, design, concepts, revisions and final files." title="How it works">Eight steps from signing up to receiving the final files.</Figure>
+  <Figure src="/img/work/crea8ive/testimonials.webp" w={1600} h={1000} alt="A testimonial carousel beside a special offer for free stationery." title="Testimonials">Customer quotes in a carousel, beside the season's offer.</Figure>
+  <Figure src="/img/work/crea8ive/quote.webp" w={1600} h={1000} alt="The request a quote form with name, email, phone, company and website fields." title="Request a quote">The brief form for anything the packages didn't cover.</Figure>
+  <Figure src="/img/work/crea8ive/about.webp" w={1600} h={1000} alt="The about page describing the studio and its round-the-clock design team." title="About">The studio in its own words: a design team on call day and night.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The craft of 2007" title="Polish before CSS3." lede="In 2007 there were no rounded corners in CSS, no smartphones to design for, and Internet Explorer 6 was still everywhere. A polished site meant images, careful markup and a few well-chosen jQuery plugins.">
+<Facts>
+  <Fact k="Markup">Every page declared XHTML 1.0 Strict, the standard that serious front-end work aimed for at the time.</Fact>
+  <Fact k="Corners">The rounded boxes are background images, a cap at the top and a strip that repeats down the side, years before border-radius worked everywhere.</Fact>
+  <Fact k="IE6">Internet Explorer 6 couldn't show transparent PNGs, so a script patched each one. It, and separate stylesheets for IE6 and IE7, loaded only for those browsers.</Fact>
+  <Fact k="Slideshows">jQuery Cycle runs the home showcase, the portfolio galleries and the testimonials.</Fact>
+  <Fact k="Lightbox">prettyPhoto opens portfolio work full size without leaving the page.</Fact>
+  <Fact k="Navigation">Superfish dropdown menus, tipTip tooltips and a smooth scroll back to the top.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Content architecture" title="Four templates, 52 pages." lede="Each page had one job: sell, show, explain or help the site be found. Behind them, four templates for packages, portfolios, case studies and services did most of the work, filled from data.">
+<ContentMap />
+<Facts>
+  <Fact k="Data">Packages and portfolio pieces live in data files, so a new package or a new logo is a data change, not a new page.</Fact>
+  <Fact k="Components">The header, footer, offers, testimonials and top ten reasons are shared pieces, reused across pages.</Fact>
+  <Fact k="Addresses">One script answers every address and picks the page from it, so every page has a readable address, like `/pages/logo_design`.</Fact>
+  <Fact k="Weight">Each page loads only what it needs. The portfolio script, for instance, loads only on portfolio pages.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Search" title="Built to be found." lede="Search was how a logo studio met its customers, and search engines of the day rewarded pages written around the phrases people typed.">
+<List>
+  <Item title="A page for every search.">The 23 case studies are landing pages, each named for a phrase customers searched for: free logo design, retro, corporate, web 2.0, professional logo designer.</Item>
+  <Item title="Links that name the phrase.">Each case study links its phrase back to the home page, so the link itself says what the page is about. That was the link-building advice of the time.</Item>
+  <Item title="Tags for every page.">Every page carries keywords and a description aimed at logo design searches, down to "Custom Logo Design just $99".</Item>
+  <Item title="A map for crawlers.">An HTML sitemap with 97 links lets a search engine reach every page from one place.</Item>
+  <Item title="A logo search engines can read.">The logo is an image laid over the studio's name, so crawlers still read "Crea8ivedesign.com".</Item>
+</List>
+</Chapter>
+
+<Chapter label="Looking back" title="What aged, and what didn't." lede="Seen from today, the site shows which search habits lasted and which didn't.">
+<List>
+  <Item title="One title for every page.">The page class could give each page its own title, but no page does, so all 52 share one. The case studies would have ranked better with their own.</Item>
+  <Item title="Keyword tags stopped counting.">Google said in 2009 that it ignores the keywords tag. Repeating one phrase in links now reads as stuffing, not relevance.</Item>
+  <Item title="Structure still wins.">Readable addresses, a page per topic and a sitemap are still how a site gets found.</Item>
+</List>
+</Chapter>
+
+<Chapter label="Kept online" title="Still online, with no server." lede="In 2023 the site moved, as it was, into a container on Kubernetes. In 2026 the deploy started running PHP once per page and saving the HTML, and Firebase Hosting now serves those files. Apart from one line that hides PHP's errors, the source is the same.">
+<Split>
+<List>
+  <Item title="Templates and data scale content.">Four templates and two data files carried 52 pages and over 30 portfolio industries.</Item>
+  <Item title="Search rewards structure, not tricks.">The readable addresses and the sitemap aged well. The keyword tricks didn't.</Item>
+  <Item title="Archive, don't rewrite.">Keeping the source as it was means the site people see is the site that was built.</Item>
+</List>
+<Facts>
+  <Fact k="Pages">52</Fact>
+  <Fact k="Templates">Four</Fact>
+  <Fact k="Case studies">23 landing pages</Fact>
+  <Fact k="Sitemap">97 links</Fact>
+  <Fact k="Code">[github.com/poly-glot/crea8ivedesign](https://github.com/poly-glot/crea8ivedesign)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Visit it">
+  <ClosingCopy>Browse a logo studio's website from 2007, exactly as it was.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://crea8ivedesign.junaid.guru/" external>Open the site <span aria-hidden="true">→</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

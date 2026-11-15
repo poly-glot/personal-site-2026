@@ -8,10 +8,12 @@
 }
 
 .calloutLabel {
-  color: var(--accent-text);
+  color: var(--fg);
   font-size: 0.6875rem;
   letter-spacing: 0.14em;
+  text-decoration: var(--mark);
   text-transform: uppercase;
+  text-underline-offset: var(--mark-offset);
 }
 
 .callout p {

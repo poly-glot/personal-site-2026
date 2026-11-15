@@ -30,7 +30,7 @@
 }
 
 .footCopy strong {
-  color: var(--accent);
+  color: var(--accent-on-band);
   font-weight: 700;
 }
 

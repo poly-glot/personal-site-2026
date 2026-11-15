@@ -23,7 +23,7 @@ const topicFilter = (...topics: string[]): BlogFilter => ({
 Deno.test("getAllPosts is date-descending", () => {
   const posts = getAllPosts();
   assertEquals(posts[0].id, "adr-as-build-gates");
-  assertEquals(posts[posts.length - 1].id, "editorial-design-systems");
+  assertEquals(posts[posts.length - 1].id, "open-source-without-burnout");
 
   for (let i = 1; i < posts.length; i++) {
     const prev = new Date(posts[i - 1].date).getTime();

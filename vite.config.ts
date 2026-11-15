@@ -2,7 +2,9 @@ import { defineConfig } from "vite";
 import { fresh } from "@fresh/plugin-vite";
 import mdx from "@mdx-js/rollup";
 import remarkFrontmatter from "remark-frontmatter";
+import rehypeShiki from "@shikijs/rehype";
 import rehypeSlug from "rehype-slug";
+import { ideaDark, ideaLight } from "./scripts/code-themes.ts";
 import { preprocessMdx } from "./scripts/mdx-headings.ts";
 
 function mdxPreprocess() {
@@ -25,7 +27,13 @@ export default defineConfig({
       ...mdx({
         jsxImportSource: "preact",
         remarkPlugins: [remarkFrontmatter],
-        rehypePlugins: [rehypeSlug],
+        rehypePlugins: [
+          rehypeSlug,
+          [rehypeShiki, {
+            defaultColor: false,
+            themes: { dark: ideaDark, light: ideaLight },
+          }],
+        ],
       }),
     },
     fresh(),

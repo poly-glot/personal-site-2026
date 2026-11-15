@@ -1,0 +1,372 @@
+.chapter {
+  --bleed-panel-border: 1px solid var(--rule);
+  --golden: minmax(0, 1.618fr) minmax(0, 1fr);
+  padding: var(--s-6) 0;
+}
+
+.banded {
+  --bleed-panel-bg: var(--panel);
+}
+
+.eyebrow {
+  margin-bottom: var(--s-4);
+}
+
+.title {
+  font-size: clamp(1.75rem, 3.4vw, var(--fs-display-sm));
+  line-height: 1.1;
+  margin: 0;
+}
+
+.lede {
+  color: var(--muted);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  margin: var(--s-2) 0 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  margin-top: var(--s-5);
+}
+
+.split {
+  display: grid;
+  row-gap: var(--s-5);
+}
+
+.label {
+  color: var(--muted);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.facts {
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.fact {
+  align-items: baseline;
+  border-bottom: 1px solid var(--rule);
+  column-gap: var(--s-3);
+  display: grid;
+  grid-template-columns: var(--s-6) minmax(0, 1fr);
+  padding: var(--s-2) 0;
+}
+
+.fact dd {
+  color: var(--fg);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  margin: 0;
+}
+
+.cards,
+.eras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cards {
+  counter-reset: card;
+  display: grid;
+  gap: var(--s-3);
+}
+
+.card {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow-card);
+  container-type: inline-size;
+  counter-increment: card;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-4) var(--s-3);
+}
+
+.cardNumber {
+  align-items: center;
+  background: var(--fg);
+  color: var(--bg);
+  display: inline-flex;
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  height: var(--s-4);
+  justify-content: center;
+  margin-bottom: 20px;
+  width: var(--s-4);
+}
+
+.cardNumber::before {
+  content: counter(card);
+}
+
+.heading {
+  font-size: var(--fs-lg);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.card > .heading {
+  font-size: min(var(--fs-lg), 8.4cqi);
+  text-wrap: balance;
+}
+
+.card > .note {
+  text-wrap: balance;
+}
+
+.period {
+  color: var(--fg);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.note {
+  color: var(--muted);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.figures {
+  column-gap: var(--s-3);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: var(--s-4);
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  grid-column: span 2;
+  margin: 0;
+}
+
+.tile {
+  grid-column: span 1;
+}
+
+.plate {
+  border: 1px solid var(--rule);
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.pair {
+  column-gap: var(--s-2);
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.587fr);
+}
+
+.zoom {
+  cursor: zoom-in;
+  display: block;
+}
+
+.pair > .zoom:last-child > .plate {
+  border-radius: var(--s-1);
+  box-shadow: var(--shadow);
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.captionHead {
+  align-items: baseline;
+  column-gap: var(--s-2);
+  display: flex;
+}
+
+.meta {
+  color: var(--muted);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: 0.14em;
+  margin-left: auto;
+}
+
+.caption > .note {
+  max-width: 48ch;
+}
+
+.wide > .caption > .note {
+  max-width: 64ch;
+}
+
+.bleed {
+  padding: 0 var(--gutter);
+}
+
+.numbered {
+  counter-reset: figure;
+}
+
+.numbered > .figure {
+  counter-increment: figure;
+}
+
+.numbered .captionHead::before {
+  color: var(--fg);
+  content: "0" counter(figure);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.era {
+  display: grid;
+  padding: var(--s-4) 0;
+  row-gap: var(--s-3);
+}
+
+.eraText {
+  align-items: baseline;
+  column-gap: var(--s-3);
+  display: grid;
+  row-gap: var(--s-2);
+}
+
+.eraBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  list-style: none;
+  margin: var(--s-3) 0 0;
+  padding: 0;
+}
+
+.point {
+  align-items: baseline;
+  column-gap: var(--s-3);
+  display: grid;
+  grid-template-columns: var(--s-6) minmax(0, 1fr);
+}
+
+.point p {
+  color: var(--fg-2);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 64ch;
+  text-wrap: pretty;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  list-style: none;
+  margin: 0;
+  max-width: 64ch;
+  padding: 0;
+}
+
+.item {
+  color: var(--fg-2);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  padding-left: var(--s-3);
+  position: relative;
+  text-wrap: pretty;
+}
+
+.item::before {
+  color: var(--accent);
+  content: "—";
+  font-weight: 700;
+  left: 0;
+  position: absolute;
+}
+
+.item strong {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.closingLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+}
+
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    min-height: 480px;
+  }
+
+  .era {
+    align-items: start;
+    column-gap: var(--s-6);
+    grid-template-columns: var(--golden);
+  }
+
+  .eraText {
+    grid-template-columns: var(--s-6) minmax(0, 1fr);
+  }
+
+  .figures {
+    column-gap: var(--s-4);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: var(--s-5);
+  }
+
+  .wide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1080px) {
+  .cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .split {
+    align-items: start;
+    column-gap: var(--s-6);
+    grid-template-columns: var(--golden);
+  }
+
+  .figures {
+    column-gap: var(--s-5);
+  }
+
+  .quartered > .figure {
+    grid-column: span 1;
+  }
+}

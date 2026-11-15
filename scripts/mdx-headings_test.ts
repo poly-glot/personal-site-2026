@@ -1,16 +1,23 @@
 import { assertEquals } from "@std/assert";
 import { extractHeadings, preprocessMdx } from "./mdx-headings.ts";
 
-Deno.test("preprocessMdx rewrites explicit-id headings to JSX", () => {
+Deno.test("preprocessMdx rewrites explicit-id headings to prose components", () => {
   assertEquals(
     preprocessMdx("## Closing thought {#closing}").trim(),
-    '<h2 id="closing">Closing thought</h2>',
+    '<H2 id="closing">Closing thought</H2>',
   );
   assertEquals(
     preprocessMdx("### A sub {#sub-id}").trim(),
-    '<h3 id="sub-id">A sub</h3>',
+    '<H3 id="sub-id">A sub</H3>',
   );
   assertEquals(preprocessMdx("## Plain heading").trim(), "## Plain heading");
+});
+
+Deno.test("preprocessMdx keeps the blank line that ends the heading block", () => {
+  assertEquals(
+    preprocessMdx("## Closing thought {#closing}\n\nBody."),
+    '<H2 id="closing">Closing thought</H2>\n\nBody.',
+  );
 });
 
 Deno.test("extractHeadings: h2/h3 ids match github-slugger + explicit ids", () => {

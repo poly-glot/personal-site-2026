@@ -37,11 +37,7 @@
 }
 
 .numAccent {
-  color: var(--accent-text);
-}
-
-.numAccentBright {
-  color: var(--accent);
+  color: var(--fg);
 }
 
 .numMuted {
@@ -87,5 +83,5 @@
 }
 
 .invert .numAccent {
-  color: var(--accent);
+  color: var(--accent-on-band);
 }

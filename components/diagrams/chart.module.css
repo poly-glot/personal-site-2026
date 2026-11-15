@@ -1,0 +1,78 @@
+.chart {
+  margin: 0;
+}
+
+.readings {
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.reading {
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  gap: var(--s-1);
+  padding: var(--s-2) 0;
+}
+
+.bleed {
+  border-top: 0;
+}
+
+.bleed > .reading {
+  border-bottom: 0;
+}
+
+.bleed > .reading:last-child::after {
+  content: "";
+}
+
+.label {
+  color: var(--fg);
+  font-size: var(--fs-body);
+}
+
+.measure {
+  align-items: center;
+  column-gap: var(--s-2);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 9rem;
+  margin: 0;
+}
+
+.track {
+  display: block;
+  height: var(--s-3);
+  width: 100%;
+}
+
+.bar {
+  fill: var(--fg);
+}
+
+.chosen {
+  fill: var(--accent);
+}
+
+.value,
+.pending {
+  color: var(--fg);
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.pending {
+  color: var(--muted);
+  grid-column: 1 / -1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .reading {
+    align-items: center;
+    column-gap: var(--s-4);
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+}

@@ -20,7 +20,6 @@ function DsEyebrow(
       align="baseline"
       labelStrong
       rightSmall
-      numTone="accentBright"
       class={spaced
         ? `${styles.eyebrow} ${styles.eyebrowSpaced}`
         : styles.eyebrow}

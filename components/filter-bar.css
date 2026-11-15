@@ -1,17 +1,13 @@
 .flt-bar {
   -webkit-backdrop-filter: saturate(160%) blur(12px);
   backdrop-filter: saturate(160%) blur(12px);
-  background: rgba(245, 245, 245, 0.85);
+  background: var(--bar);
   border-bottom: 1px solid var(--rule);
   margin: 0 calc(-1 * var(--bleed-right)) 0 calc(-1 * var(--bleed-left));
   padding: 0;
   position: sticky;
   top: 64px;
   z-index: 30;
-}
-
-[data-theme="dark"] .flt-bar {
-  background: rgba(31, 31, 30, 0.85);
 }
 
 .flt-inner {
@@ -63,7 +59,7 @@
   background: transparent;
   border: 0;
   border-bottom: 1px solid var(--accent);
-  color: var(--accent);
+  color: var(--fg);
   cursor: pointer;
   font: inherit;
   letter-spacing: 0.14em;
@@ -195,12 +191,14 @@
 .flt-panel-clear {
   background: transparent;
   border: 0;
-  color: var(--accent);
+  color: var(--fg);
   cursor: pointer;
   font: inherit;
   letter-spacing: 0.14em;
   padding: 0;
+  text-decoration: var(--mark);
   text-transform: uppercase;
+  text-underline-offset: var(--mark-offset);
 }
 
 .flt-panel-clear:hover {
