@@ -4,7 +4,7 @@
     "dev": "vite",
     "build": "deno task content && vite build",
     "static": "deno run -A scripts/build-static.ts",
-    "compile": "deno compile --include static --include _fresh --include deno.json -A --output server _fresh/compiled-entry.js",
+    "compile": "deno compile --no-check --include static --include _fresh --include deno.json -A --output server _fresh/compiled-entry.js",
     "start": "deno serve -A --port 8100 _fresh/server.js",
     "preview": "deno serve -A --port 8100 _fresh/server.js",
     "update": "deno run -A -r jsr:@fresh/update .",
