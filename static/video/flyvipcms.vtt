@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.433
+FlyVIP is one private-jet club, written twice.
+
+00:00:05.750 --> 00:00:11.150
+Staff record a member's fee, and the same amount arrives as points straight away.
+
+00:00:15.750 --> 00:00:21.017
+Members pick their seats on a cabin map, and the points come off their balance.
+
+00:00:25.750 --> 00:00:32.417
+On a shared flight, each member pays for their own seats, and the first booker gets that share back.
+
+00:00:35.750 --> 00:00:41.417
+It was written in PHP first, then again in .NET, with the same styles and scripts.
+
+00:00:42.250 --> 00:00:45.383
+In both, the database refuses a double booking.
+
+00:00:47.750 --> 00:00:51.550
+The PHP build is live at flyvipcms.junaid.guru.

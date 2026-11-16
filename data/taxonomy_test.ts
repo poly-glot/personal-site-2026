@@ -42,8 +42,8 @@ Deno.test("blog topics are the 9 fixed terms with kebab slugs", () => {
   }
 });
 
-Deno.test("work domains are the 13 fixed terms with kebab slugs", () => {
-  assertEquals(WORK_DOMAINS.length, 13);
+Deno.test("work domains are the 18 fixed terms with kebab slugs", () => {
+  assertEquals(WORK_DOMAINS.length, 18);
   assertEquals(WORK_DOMAINS.map((t) => t.slug), [
     "directory",
     "news",
@@ -58,6 +58,11 @@ Deno.test("work domains are the 13 fixed terms with kebab slugs", () => {
     "games",
     "healthcare",
     "travel",
+    "professional-services",
+    "education",
+    "charity",
+    "messaging",
+    "developer-tools",
   ]);
   for (const term of WORK_DOMAINS) {
     assertEquals(term.slug, slugify(term.label));

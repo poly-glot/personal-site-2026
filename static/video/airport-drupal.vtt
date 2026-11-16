@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.250 --> 00:00:02.983
+Fog this morning? Check before you leave.
+
+00:00:06.000 --> 00:00:13.067
+Meridian Airport is an imaginary airport, and its departures board filters as you type a flight or a city.
+
+00:00:15.750 --> 00:00:21.483
+Travel notices sit at the top of the home page, each with a link to check your flight.
+
+00:00:24.750 --> 00:00:30.283
+Compare the three car parks by price, with the long stay marked as the one to pick.
+
+00:00:32.500 --> 00:00:39.433
+Editors build every page in Drupal from 48 components, and a separate Next.js app serves them.
+
+00:00:39.750 --> 00:00:45.883
+When an editor saves, Drupal tells Next.js to drop its cache, with an hour as a safety net.
+
+00:00:48.250 --> 00:00:52.850
+Search the board for a city yourself, at airport.junaid.guru.

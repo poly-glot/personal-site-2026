@@ -94,16 +94,30 @@ Deno.test("every post's h2/h3 ids match the mockup ids", async () => {
   ]);
 });
 
-Deno.test("all 7 projects are generated in source order", () => {
-  assertEquals(PROJECTS.length, 7);
+Deno.test("all 21 projects are generated in source order", () => {
+  assertEquals(PROJECTS.length, 21);
   assertEquals(PROJECTS.map((p) => p.id), [
+    "academy",
+    "airport-drupal",
     "amazing-landing",
     "azadi-go",
     "bhx-travel",
+    "boxes",
+    "cabinet",
     "crea8ive",
+    "donation",
     "ech-uk",
+    "flyvipcms",
+    "halveron",
     "hooklab",
+    "legal",
     "openguessr",
+    "outrun",
+    "parley",
+    "shorten",
+    "txtlocal",
+    "wealth",
+    "zig-directory",
   ]);
 });
 
@@ -134,34 +148,59 @@ Deno.test("derived stack and years cover the project data", () => {
   const vocab = workVocab();
   assertEquals(vocab.years, [2007, 2014, 2015, 2022, 2026]);
   assertEquals(vocab.stack, [
+    "asp-net-core",
+    "athena",
+    "aws-lambda",
     "builder-io",
+    "cakephp",
     "cloud-run",
+    "cloudfront",
+    "codeigniter",
+    "cognito",
     "css",
     "deno",
+    "docker",
+    "drupal",
+    "dynamodb",
+    "fastapi",
     "firebase",
     "firestore",
+    "framer-motion",
+    "fresh",
     "gemini",
     "go",
     "google-maps",
+    "graphql",
     "helidon",
     "html5",
     "java",
     "javascript",
     "jquery",
+    "kubernetes",
     "leaflet",
     "lit",
+    "mdx",
+    "mysql",
     "next-js",
+    "node-js",
     "php",
+    "playwright",
+    "preact",
+    "python",
     "react",
     "resend",
+    "rust",
     "spring",
     "stripe",
     "terraform",
+    "tiptap",
     "typescript",
     "vercel",
     "vite",
     "web-animations-api",
+    "wordpress",
     "xhtml",
+    "zig",
   ]);
 });
 

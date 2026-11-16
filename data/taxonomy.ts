@@ -75,6 +75,11 @@ export const WORK_DOMAINS: readonly Term[] = [
   term("Games"),
   term("Healthcare"),
   term("Travel"),
+  term("Professional Services"),
+  term("Education"),
+  term("Charity"),
+  term("Messaging"),
+  term("Developer Tools"),
 ];
 
 export function labelForTopic(slug: string): string | null {

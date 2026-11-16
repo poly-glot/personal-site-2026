@@ -1,0 +1,155 @@
+---
+id: flyvipcms
+name: FlyVIP
+tagline: A private-jet club's points and bookings, written once in PHP and again in .NET.
+summary: A membership system for a private-jet club. Members turn their fees into points and spend them on seats or whole aircraft, and staff run the club from a back office. I rebuilt a 2015 app in PHP, then wrote it again in .NET with the same pages, and kept the points and refund rules identical in both.
+client: My own product
+delivered: Member portal, admin back office, points ledger, shared-flight booking, PHP and .NET builds, Cloud Run pipelines
+role: System author
+kind: study
+layout: chapters
+stack:
+  - PHP
+  - CodeIgniter
+  - ASP.NET Core
+  - MySQL
+  - Playwright
+  - Cloud Run
+domains:
+  - CMS
+  - Travel
+year: 2026
+url: flyvipcms.junaid.guru
+href: "https://flyvipcms.junaid.guru/"
+source: "https://github.com/poly-glot/flyvipcms"
+abstract: PLANE
+tone: "linear-gradient(135deg, #3a3dcb22, #ffffff05)"
+cover: /img/work/flyvipcms.webp
+video:
+  src: /video/flyvipcms.mp4
+  poster: /video/flyvipcms.webp
+  captions: /video/flyvipcms.vtt
+---
+
+import SeatBooking from "@/components/diagrams/SeatBooking.tsx";
+
+<Study>
+
+<Chapter label="The member" title="Fly when you want, where you want." lede="That is the first line a member of this private-jet club reads. Members pay a fee, hold it as points and spend the points on seats. Staff run the club from a back office, and the system is a rebuild of a membership app from 2015.">
+<Rows>
+  <Row title="Pay a fee, hold points">An admin records the yearly or quarterly fee, and the member's account gains the same amount in points at once. The amount comes from the member's stored plan, whatever figure the form sends.</Row>
+  <Row title="Book a seat or the aircraft">A complete booking takes the whole aircraft. A partial booking shares it, and the member picks seats on a cabin map.</Row>
+  <Row title="Share the cost of a flight">Other members can join a shared flight. Each pays for their own seats, and the member who booked first gets that share back.</Row>
+  <Row title="Bring the family">Staff can add sub-members, such as family, to a primary member's account. Sub-members have no fees or points of their own. They see the primary member's account and can't book.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The product" title="Members and staff each get their own side." lede="Everyone comes in through the same two public pages, the gate and the sign-in. After signing in, members go to the portal and staff go to the admin area. The live sites hold no demo data, so the screens inside come from a local run of the PHP build with the invented demo members Ana and Carlos.">
+<Figures numbered bleed>
+  <Figure src="/img/work/flyvipcms/gate.webp" w={1600} h={1000} phone="/img/work/flyvipcms/gate-phone.webp" phoneAlt="The gate on a phone: the FLY VIP wordmark on a navy strip, the headline and a full-width Member sign in button." alt="The FLY VIP gate: a navy panel reading The sky at your fingertips, beside the headline Fly when you want, where you want and a Member sign in button." title="The gate">One button, Member sign in, and no sign-up form. The page says memberships are arranged with the club's concierge team, and staff create each member's account.</Figure>
+  <Figure src="/img/work/flyvipcms/sign-in.webp" w={1600} h={1000} alt="The sign-in page: Sign in, Welcome back. Manage your flights and points, with empty Email and Password fields and a Sign in button." title="Sign in">Email and password. Admins land in the back office and members in the portal.</Figure>
+  <Figure src="/img/work/flyvipcms/member-dashboard.webp" w={1600} h={1000} phone="/img/work/flyvipcms/member-dashboard-phone.webp" phoneAlt="The member portal on a phone: Welcome, Ana, a Book a flight button, the points card and the next flight." alt="The member portal: Welcome, Ana, with 10,700.00 available points, next payment due 5 Oct 2027 and a pending flight on 22 Nov." title="The member's view">Ana's points, her next payment date and her next flight. The flight is a shared one, pending until Carlos, who booked it, or an admin confirms her seats.</Figure>
+  <Figure src="/img/work/flyvipcms/admin-dashboard.webp" w={1600} h={1000} alt="The admin dashboard: six tiles from Active members 3 to Pilots 2, one upcoming flight from Maiquetia to Porlamar, and Nobody is overdue." title="The back office">Members, upcoming flights, pending seat requests and anyone overdue on one screen. The sidebar holds the club, the fleet and the crew.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The points" title="Every payment and booking is a ledger row." lede="Ana's 10,700.00 points come from a ledger. The 2015 app spread points over four overlapping quarterly tables, plus a fifth that a web address anyone could call kept topping up. I replaced them with one table: every payment, booking and refund adds a row, plus or minus, and the balance is the latest row's total.">
+<SeatBooking />
+<Figures>
+  <Figure src="/img/work/flyvipcms/record-payment.webp" w={1600} h={1000} alt="Record payment for Ana Personal, with Yearly 12000.00 selected beside Quarterly 3000.00 per quarter, Points and Bonus." title="Record a payment">The admin picks the payment type. The fee comes from Ana's stored plan, 12000.00 for a year, and the server ignores any amount the browser sends.</Figure>
+  <Figure src="/img/work/flyvipcms/points-history.webp" w={1600} h={1000} alt="Ana's points history: Yearly fee 2026-10-01, +12,000.00, balance 12,000.00, then Seat request #2 on flight #1, -1,300.00, balance 10,700.00." title="Points history">The yearly fee goes in, then her seats on a shared flight come out. Each row shows the balance after it.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Credit">A payment adds a positive row straight away, so nothing waits for a scheduled job.</Fact>
+  <Fact k="Lock">Before it reads the balance, the service locks the member's account row in the database, so a second booking for the same member waits its turn.</Fact>
+  <Fact k="Refusal">The service turns down any row that would take the balance below zero, says Not enough points for this operation, and writes nothing.</Fact>
+  <Fact k="Money">Points and fees are exact decimals with two places. PHP does the sums through bcmath, its exact-decimal maths library, and C# uses its decimal type.</Fact>
+  <Fact k="Overdraft">Refused, with one exception, which belongs to shared flights.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Shared flights" title="Two members can share one aircraft." lede="Ana's 1,300 points went on a shared flight. A partial booking leaves the aircraft's other seats open to other members. The first member to book owns the flight and pays for the whole aircraft up front, and each member who joins pays for their seats while the owner gets that share back.">
+<Figures>
+  <Figure src="/img/work/flyvipcms/book-a-flight.webp" w={1600} h={1000} alt="Book a flight with 10,700.00 points available: Maiquetia to Porlamar on a Citation CJ3 on 22/11/2026, Partial or Complete, and a cabin map with seats 1 to 4 taken and 5 and 6 free." title="Choose your seats">The member picks a route, an aircraft and a day, then seats on the cabin map. Four of the Citation CJ3's six seats are already taken.</Figure>
+  <Figure src="/img/work/flyvipcms/shared-flight.webp" w={1600} h={1000} alt="Reservation #1, a shared flight from Maiquetia to Porlamar booked by Carlos Family for 2,600.00 pts, with a pending seat request from Ana Personal for 2 seats at 1,300.00 pts and seats 1 and 2 held on the cabin map." title="A shared flight">Carlos's flight as staff see it. Ana's request for 2 seats is pending, and Carlos has paid 2,600.00 once her share came back to him.</Figure>
+</Figures>
+<Split>
+<Facts>
+  <Fact k="Seat price">The route's cost plus the aircraft's cost. On the demo flight that is 400 + 250 = 650 points.</Fact>
+  <Fact k="Owner">Carlos books 2 seats on the Citation CJ3 and pays 3,900 for all 6.</Fact>
+  <Fact k="Joiner">Ana joins with 2 seats and pays 1,300.</Fact>
+  <Fact k="Refund">Carlos gets 1,300 back at once, so his flight costs him 2,600.</Fact>
+</Facts>
+<List>
+  <Item title="The database refuses a double booking.">A unique key, a database rule that each aircraft, date and seat number appears once, stops two members holding the same seat, even if they book at the same moment.</Item>
+  <Item title="A member can always leave.">If a joiner cancels, the joiner gets the points back and the owner pays the share again, even if that takes the owner below zero. It is the one overdraft the ledger allows.</Item>
+  <Item title="The owner's cancellation refunds everyone.">The owner and every joiner get their points back. The 2015 app refunded both sides when a joiner left, and never refunded joiners when the owner cancelled.</Item>
+  <Item title="Cancelled bookings stay on record.">A cancelled reservation keeps its row with the status cancelled. The 2015 app deleted it.</Item>
+</List>
+</Split>
+</Chapter>
+
+<Chapter label="Two builds" title="The same rules, written in a second language." lede="I wrote these rules first in PHP with the CodeIgniter 4 framework, then again in C# with Microsoft's ASP.NET Core. The .NET build treats the PHP app as the reference, so where a behaviour is unclear, PHP decides. Both live sites render the gate as the same image file, so both plates show one picture.">
+<Eras>
+  <Era period="01" title="CodeIgniter 4" meta="PHP 8.4 · MySQL 8.4 · FrankenPHP" src="/img/work/flyvipcms.webp" w={1600} h={988} alt="The FLY VIP gate from the PHP build: the wordmark on a navy panel, Fly when you want, where you want, and a Member sign in button.">
+    <Point tag="Money">Strings with two decimal places, added and subtracted by a small Money class through bcmath.</Point>
+    <Point tag="Sessions">The session cookie is named `__session`, the only cookie Firebase Hosting, the layer in front of Cloud Run, passes on. The sessions live in MySQL, because Cloud Run can run several copies of the app.</Point>
+    <Point tag="Tests">74 PHPUnit tests, and PHPStan, a checker that reads the code without running it, at level 8 in the CI gate.</Point>
+    <Point tag="Deploy">The container applies its database changes at boot, before it serves a page.</Point>
+  </Era>
+  <Era period="02" title="ASP.NET Core" meta=".NET 10 · EF Core 10 · MySQL 9" src="/img/work/flyvipcms.webp" w={1600} h={988} alt="The FLY VIP gate from the .NET build, byte for byte the PHP build's: the wordmark, the headline and a Member sign in button.">
+    <Point tag="Money">C#'s decimal type is exact, so the Money class had no job to do and I left it out.</Point>
+    <Point tag="Locking">Transactions open at READ COMMITTED, an isolation level that lets each read see the latest committed data. At MySQL's default level, a balance read after the row lock could be out of date.</Point>
+    <Point tag="Sessions">ASP.NET sets three cookies, so a middleware, a step every request passes through, packs them into one `__session` cookie and unpacks them on the way back in.</Point>
+    <Point tag="Tests">121 test methods, 14 of them for the packed cookie.</Point>
+    <Point tag="Deploy">CI runs each database change on a database the previous release built and filled with demo data, and fails if the compressed image grows past 28 MB.</Point>
+  </Era>
+</Eras>
+</Chapter>
+
+<Chapter label="Parity" title="Both builds share the same styles and scripts." lede="Those differences sit behind the pages. With two codebases, a fix in one can miss the other, so I froze the styles, the scripts and the wording, and gave both builds the same browser tests.">
+<List>
+  <Item title="The same styles and scripts.">The 8 CSS stylesheets and 6 JavaScript files, 2,999 lines in all, are byte-identical in the two repositories. The .NET markup keeps every field id, data attribute and class those scripts rely on.</Item>
+  <Item title="CodeIgniter's wording, word for word.">The .NET validation messages reproduce CodeIgniter's text. The .NET forms read number fields as text, so ASP.NET's own error message never replaces CodeIgniter's.</Item>
+  <Item title="Even a quirk stayed.">CodeIgniter leaves a double space in the HTML class of a field with an error. The .NET tests assert that double space, and the repository's working agreement, its written rulebook, says not to fix it.</Item>
+  <Item title="The same tests and accounts.">Both builds run the same three Playwright files, which drive a real browser, and seed the same seven demo accounts. The six ledger tests carry the same names in both test suites.</Item>
+  <Item title="Two differences reached the pages.">The .NET profile form adds one optional question, Where did you hear about us? The .NET pages also name the page in the browser tab, such as Sign in · FLY VIP, where the PHP pages say only FLY VIP.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The shared tests check the rules one request at a time, so nothing yet proves what happens when two bookings land at once. The PHP build also trails the .NET build in two places, and neither build charges a card.">
+<List>
+  <Item title="No test books in parallel.">The unique key and the row lock protect seats and points by design, but no test sends two bookings at once. I would add that test next.</Item>
+  <Item title="The PHP build sets no isolation level.">It runs at MySQL's default, where the .NET build documents why it chose READ COMMITTED. I would port that one setting back to PHP.</Item>
+  <Item title="PHP deploys without waiting for its tests.">Its deploy workflow runs on every push to main, apart from the test workflow. The .NET pipeline deploys only after its quality and browser jobs pass, and I would give PHP the same order.</Item>
+  <Item title="No payment gateway.">An admin records each payment and types its mode, such as Wire transfer or Card, and nothing charges a card. Members can't sign up on their own either, so staff create every account.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The learning" title="What carried forward." lede="Ana sees the same screens in either build, apart from one extra question on her profile, and the same rules decide her points and her refunds. Each figure here can be checked in the two repositories.">
+<Split>
+<List>
+  <Item title="Write each rule down with its reason.">The PHP working agreement lists the domain rules beside the 2015 behaviour they replace, and the .NET one names the PHP app as the reference. That gave the second build something exact to translate.</Item>
+  <Item title="Freeze the styles, scripts and wording.">With those fixed, any difference between the builds had to come from the code behind them.</Item>
+  <Item title="Store each change and read the balance from it.">A row per payment, booking and refund explains every balance from its history, as Ana's two rows show.</Item>
+</List>
+<Facts>
+  <Fact k="Front end">14 files, 2,999 lines, byte-identical</Fact>
+  <Fact k="Tests">74 in PHP, 121 in .NET</Fact>
+  <Fact k="Image">28 MB ceiling on the .NET build</Fact>
+  <Fact k="PHP">[poly-glot/flyvipcms](https://github.com/poly-glot/flyvipcms)</Fact>
+  <Fact k=".NET">[poly-glot/flyvipcms_net](https://github.com/poly-glot/flyvipcms_net)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>The live builds stop at the sign-in page, and the rules and tests are in the two repositories.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://flyvipcms.junaid.guru/" external>Open the PHP build <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="https://flyvipcms-net.junaid.guru/" external>Open the .NET build <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

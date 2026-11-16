@@ -1,0 +1,131 @@
+---
+id: donation
+name: Charity Raffle
+tagline: A charity raffle where every ticket number is accounted for, even under a rush.
+summary: A raffle site for an imaginary UK charity, running in Stripe's test mode. Supporters pick £1 tickets, can add a donation with Gift Aid and pay by debit card, and the charity's staff run a recorded draw from a signed-in console. The decision worth reading is how it hands out each ticket number once, with no gaps, when payments arrive together.
+client: An imaginary charity
+delivered: Supporter checkout, ticket ledger, recorded draw, admin console, scheduled checks, stress test
+role: System author
+kind: study
+layout: chapters
+stack:
+  - Rust
+  - AWS Lambda
+  - DynamoDB
+  - Stripe
+  - Terraform
+  - Cognito
+domains:
+  - Charity
+year: 2026
+url: donation.junaid.guru
+href: "https://donation.junaid.guru/"
+source: "https://github.com/poly-glot/donation"
+video:
+  src: /video/donation.mp4
+  poster: /video/donation.webp
+  captions: /video/donation.vtt
+abstract: BLOCKS
+tone: "linear-gradient(135deg, #1c90e322, #ffffff05)"
+cover: /img/work/donation.webp
+---
+
+import TicketLedger from "@/components/diagrams/TicketLedger.tsx";
+
+<Study>
+
+<Chapter label="The raffle" title="Sell raffle tickets the way the licence expects." lede="A supporter buys a few £1 tickets to help a charity and hopes to win. The charity runs the raffle under a Gambling Commission licence, which expects a record of every ticket sold. Charity Raffle is a demonstration for an imaginary charity, running in Stripe's test mode, so no real money changes hands.">
+<Rows>
+  <Row title="£1 a ticket, by debit card">Up to 20 tickets an order, for adults living in Great Britain. Payment is by debit card only, and the server refunds a credit card payment and issues no tickets.</Row>
+  <Row title="Gift Aid on the donation">Gift Aid lets a charity reclaim 25p in tax on every £1 a UK taxpayer gives. It applies to the donation and never to the tickets, so the site keeps the two sums apart.</Row>
+  <Row title="Each number once">Each paid order gets its own run of ticket numbers. No number goes out twice and none is skipped, even when payments arrive in the same instant.</Row>
+  <Row title="A record a regulator can read">The charity's staff run the draw from a signed-in console, and the draw record says how the winners were picked and who ran it.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The product" title="From picking tickets to paying by card." lede="The supporter never sees that record, only their own ticket numbers at the end. They choose tickets and a donation on one card, answer six short steps, then pay on Stripe's own card form, so the card number never reaches the raffle's servers.">
+<Figures numbered bleed>
+  <Figure src="/img/work/donation/pick-tickets.webp" w={1600} h={1000} phone="/img/work/donation/pick-tickets-phone.webp" phoneAlt="The Play the raffle card on a phone with 15 tickets and no donation selected, a total of £15.00, and the choices as large buttons." alt="The Play the raffle card with 10 tickets and a £10 donation selected, a total of £20.00, and the note that entrants must be 18 or over and live in Great Britain." title="Pick tickets">Choose 5, 10 or 15 tickets, or any number up to 20, and add a donation if you like. The total updates as you choose.</Figure>
+  <Figure src="/img/work/donation/gift-aid.webp" w={1600} h={1000} phone="/img/work/donation/gift-aid-phone.webp" phoneAlt="The Gift Aid step on a phone, with the step strip cut at the right edge and No selected." alt="Step 01 of the order, Gift Aid, with the heading Boost your donation by 25%, a Yes and No choice with No selected, and Next and Back buttons." title="Gift Aid">The first of six steps. A taxpayer can say yes to Gift Aid on the donation, and No is the default. Details, address, contact choices, a VIP subscription to 10 tickets in every future raffle, and a review follow.</Figure>
+  <Figure src="/img/work/donation/prizes.webp" w={1600} h={650} alt="The prizes section headed 14 cash prizes, with the draw on 20 December 2026 and rows for £1,000 cash, £100 cash × 3 and £25 voucher × 10, above a dark footer with the licence details." title="Prizes">See what you can win and when the draw takes place. The footer names the regulator, with placeholder licence and charity numbers, and the rule on age and residence.</Figure>
+  <Figure src="/img/work/donation/admin-gate.webp" w={1600} h={650} alt="The admin page before sign-in, with the heading Sign in to continue, a line saying the console reads and changes the gambling ledger and personal data, and a blue Sign in button." title="Admin console">The charity's named administrators sign in here to find a supporter, read the ticket ledger and run the draw. There is no guest entry.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The ticket ledger" title="Hand out each ticket number once." lede="The server gives out ticket numbers only when Stripe confirms a payment, and writes each run to the ledger, the list of which order holds which tickets. Tickets only run out at the licence's £5 million cap, so the checkout reserves nothing. The hard case is two payments landing in the same instant.">
+<TicketLedger />
+<Facts>
+  <Fact k="Trigger">When a card payment succeeds, Stripe sends a webhook, a signed message, to a small function on AWS Lambda. The function checks the signature and that the card is a debit card, then hands out the numbers.</Fact>
+  <Fact k="The range">It reads the raffle's ticket counter, the count of tickets sold so far, say 70, so an order for 5 tickets takes 71 to 75.</Fact>
+  <Fact k="One transaction">Three writes to DynamoDB, Amazon's database, that succeed or fail together: raise the count if it still reads 70, add the ledger row if it is new, and mark the order paid if it is still pending.</Fact>
+  <Fact k="Losing a race">If another order moved the count first, the function waits a random time of up to 25 ms times the attempt number, reads the count again and retries. After 10 attempts it answers with an error, and Stripe sends the message again later.</Fact>
+  <Fact k="A repeat message">If the order is already paid, the function stops and spends no numbers.</Fact>
+  <Fact k="Sold out">An order that would pass the raffle's cap gets no numbers, and the webhook refunds its payment.</Fact>
+  <Fact k="Proof">A test starts 12 orders at once, for 1 to 12 tickets, against a local copy of DynamoDB, and checks that tickets 1 to 78 each went out once. GitHub Actions runs it on every pull request.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The ceiling" title="Measure the limit on the live site." lede="Every paid order on a raffle has to update that one count, in turn. On 19 September 2026 I sent the live webhook bursts of signed payment messages, once on the live raffle with its single counter and once on a demo raffle that splits its count across eight counters.">
+<Facts>
+  <Fact k="40 at once">One counter took 35 first time and refused 5. Eight counters took all 40.</Fact>
+  <Fact k="80 at once">One counter took 66 and refused 14. Eight took all 80.</Fact>
+  <Fact k="160 at once">One counter took 117 and refused 43, with a typical wait of 2.6 s for tickets. Eight took all 160, with a typical wait of 0.48 s.</Fact>
+  <Fact k="20 a second for 5 s">Both took all 100 orders, with a typical wait of 60 ms on one counter and 59 ms on eight.</Fact>
+  <Fact k="50 a second for 3 s">One counter took 93 and refused 57. Eight took 107 and refused 43, after 380 sales in three minutes had used up the database's spare capacity.</Fact>
+</Facts>
+<List>
+  <Item title="A refused order still got its tickets.">Refused means the webhook answered with an error. The test sent each refused message again five seconds later, as Stripe would, and every one got its tickets.</Item>
+  <Item title="Counters have a cost.">A raffle can have up to 99 counters, and each one numbers its own tickets, so a ticket reads 3-412. With eight, up to 152 tickets can stay unsold when the raffle reaches its cap. The live raffle keeps one counter.</Item>
+  <Item title="The test sales are still there.">Each order in the test was a made-up entrant with one £1 ticket, marked paid with no Stripe charge behind it. Most of the tickets the live raffle shows as sold came from these runs.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The draw" title="Run a draw the regulator can check." lede="After the raffle closes, the draw turns those runs of numbers into winners. The licence asks for a fair draw, a record of it and a named responsible person. The draw runs as a function of its own, and running it a second time can't change the result.">
+<Facts>
+  <Fact k="Checks">It refuses to run until the raffle has closed, the draw date has passed, and there are tickets sold and prizes set.</Fact>
+  <Fact k="Claim">One transaction writes the draw record and marks the raffle drawn, if no draw exists yet. It freezes the count of tickets sold, so a late payment can't enter the draw.</Fact>
+  <Fact k="Pick">Each prize gets a number from 1 to the tickets sold, from the operating system's random source. The function throws away the values that would favour low numbers and draws again, so each ticket has the same chance.</Fact>
+  <Fact k="Skip">The function draws again for a ticket that has already won or whose order was refunded, up to 1,000 times a prize. Refunded tickets stay in the ledger as void.</Fact>
+  <Fact k="Record">The draw record names the method, `os-csprng-uniform-rejection`, the person who ran it and any witness.</Fact>
+  <Fact k="Resume">If a draw stops halfway, running it again carries on from the winners already written. A finished draw returns the same winners.</Fact>
+  <Fact k="Counters">On a raffle with counters, the draw still picks one number from 1 to the total, then finds the counter and ticket from counts frozen in the draw record.</Fact>
+  <Fact k="Tests">One test feeds scripted random values at the edges of the accepted range. Six more run the draw against a local copy of DynamoDB.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="Before a real charity could run this, four limits would matter first. The README and the data model spec name each one and the next step for it.">
+<List>
+  <Item title="One counter takes about 30 orders a second.">To go past that on one raffle, the README describes a queue that hands each raffle's orders to one worker in batches of ten. It is written down and not built.</Item>
+  <Item title="Free capacity sustains about one sale a second.">The database runs at a fixed 25 read and 25 write units, the AWS free allowance, and each sale takes several writes. Spare capacity banks up for a burst of about 300 sales. For a launch, the README says to raise the capacity by hand for the window.</Item>
+  <Item title="The console has no roles.">Any signed-in administrator can do everything, and there is no record of each action beyond the user's id in the logs.</Item>
+  <Item title="Age comes from a typed date of birth.">There is no electronic age check yet. The spec names the column, `ageVerifiedAt`, to add when a provider is connected.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The outcome" title="What carried forward." lede="The licence asked for a record of every ticket sold, and the ledger is that record. Each morning at 06:00 UTC a scheduled check called reconcile walks each live raffle's ledger for gaps, and an alarm fires if it finds one or fails to run.">
+<Split>
+<List>
+  <Item title="Put the regulators' rules in the data.">Ticket money and donation money sit in separate columns on every order and in the raffle's totals, because only the donation takes Gift Aid and the two report to different regulators. Each consent and Gift Aid answer is a dated row with the version of the wording the supporter saw.</Item>
+  <Item title="Write the measured number down.">The README's figures for the ticket counter came from the run on the live site, so the next person starts from a measurement instead of a guess.</Item>
+  <Item title="Make each retry harmless.">Stripe resends messages and the scheduled runs repeat, so the ledger, order and subscription writes each check a condition first. A repeated payment spends no numbers, and a subscriber pays once per raffle.</Item>
+</List>
+<Facts>
+  <Fact k="Tests">132, and GitHub Actions runs all but the 4 load measurements</Fact>
+  <Fact k="Functions">7, in Rust on AWS Lambda</Fact>
+  <Fact k="Code">5,870 lines of Rust and 3,441 of tests</Fact>
+  <Fact k="History">18 commits, 13 September to 25 October 2026</Fact>
+  <Fact k="Source">[github.com/poly-glot/donation](https://github.com/poly-glot/donation)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Open the Winter 2026 raffle and step through an order in Stripe's test mode.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://donation.junaid.guru/" external>Open Charity Raffle <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="https://github.com/poly-glot/donation" external>Read the source <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

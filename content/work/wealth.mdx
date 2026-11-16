@@ -1,0 +1,138 @@
+---
+id: wealth
+name: Wealth
+tagline: An investment manager's website where each strategy leads to the people who run it.
+summary: Wealth is the website of an imaginary investment manager in London, written for institutional and professional investors. Each strategy names the people who run it, and a person's page shows what they manage and what they last wrote. The decision worth reading about is where those links live. WordPress stores each one on one side only, and the theme works out the other side, so two pages cannot disagree.
+client: Wealth Asset Management, an imaginary brand
+delivered: HTML and CSS prototype, WordPress theme, YAML content model, rerunnable content seed, enquiry form, Cloud Run deployment
+role: System author
+kind: study
+layout: chapters
+stack:
+  - WordPress
+  - PHP
+  - Docker
+  - Cloud Run
+  - Firebase
+domains:
+  - Professional Services
+year: 2026
+url: wealth.junaid.guru
+href: "https://wealth.junaid.guru/"
+source: "https://github.com/poly-glot/wealth"
+video:
+  src: /video/wealth.mp4
+  poster: /video/wealth.webp
+  captions: /video/wealth.vtt
+abstract: DOTS
+tone: "linear-gradient(135deg, #58727922, #ffffff05)"
+cover: /img/work/wealth.webp
+---
+
+<Study>
+
+<Chapter label="The investor" title="An investor checking who runs the money." lede="Wealth Asset Management is an imaginary investment manager in London. In its own words, it manages focused equity, credit and multi-asset portfolios for institutional and professional investors, such as pension schemes, insurers and charities. Before an investor like that gets in touch, they want to know who runs each strategy and how those people think.">
+<Rows>
+  <Row title="Compare the strategies">Four strategies, each with how the team invests, the key risks, the questions investors ask and the facts at a glance, from benchmark to typical holdings.</Row>
+  <Row title="Meet the people">Six people in two groups, executive management and the investment team. Four of them run strategies, and each of their pages lists which ones.</Row>
+  <Row title="Read what they write">Six insights on markets, stewardship and strategy. Each one names the person who wrote it, with a link to their page.</Row>
+  <Row title="Know where the firm stands">The legal pages read like a regulated firm's, then say that Wealth is fictional: it is not authorised and holds no client money or assets.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The site" title="Strategies, people and insights link to each other." lede="From a strategy, a visitor reaches the people who run it, and from each person's page, the last thing they wrote. The layout came from a design comp, a set of page mock-ups. The name, the compass logo and the words are new.">
+<Figures numbered bleed>
+  <Figure src="/img/work/wealth/strategies.webp" w={1600} h={1000} alt="The strategies page: four cards in blue, lavender, pale grey and tan for UK Equity Income, European Quality Growth, Short-Dated Sterling Credit and Global Multi-Asset Income, each with Learn more." title="Strategies">Choose one of four strategies, each card in its own tint.</Figure>
+  <Figure src="/img/work/wealth/strategy.webp" w={1600} h={1000} alt="The UK Equity Income Strategy page: How we invest in four numbered blocks, beside the At a glance list and the Documents list." title="One strategy">Read how the team invests, then check the benchmark, launch date, holdings and liquidity at a glance.</Figure>
+  <Figure src="/img/work/wealth/people.webp" w={1600} h={1000} alt="The people page: grey-scale portraits in three columns, with Eleanor Whitcombe, Chief Investment Officer, Daniel Okafor, Head of Equities, and Sophie Lindqvist, Portfolio Manager, Fixed Income." title="People">Meet six invented people and open anyone's page from the grid.</Figure>
+  <Figure src="/img/work/wealth/person.webp" w={1600} h={1000} alt="Daniel Okafor's page: Connect links, Download vCard, a Manages list with European Quality Growth Strategy and UK Equity Income Strategy, and his latest insight, Quality growth in Europe: patience as an edge." title="One person">See what a person manages and what they last wrote, and save their contact card.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/wealth/home-tabs.webp" w={1600} h={1000} alt="The home page with the Investment opportunities tab selected beside About us, its copy starting Research is at the heart of every decision we make, and a pale compass motif." title="Home">Switch between About us and Investment opportunities.</Figure>
+  <Figure src="/img/work/wealth/article.webp" w={1600} h={1000} alt="The insight Why income still matters in a higher-rate world: Markets, 28 September 2026, By Eleanor Whitcombe, 5 min read and the standfirst, above the top of a photograph of a black door with a brass letterbox." title="An insight">Read an insight and follow the byline to its author.</Figure>
+  <Figure src="/img/work/wealth/contact.webp" w={1600} h={1000} alt="The contact page: Send us a message with fields for name, organisation, email, phone and investor type, beside a grey card with the firm's address, phone number, email address and Follow us." title="Contact">Send an enquiry and say what kind of investor you are.</Figure>
+  <Figure src="/img/work/wealth/legal.webp" w={1600} h={1000} alt="The Important information page: the Regulatory status section saying Wealth is not authorised and holds no client money or assets, with an On this page list of 11 sections." title="Legal">Jump to any of 11 sections, including the firm's regulatory status.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The content model" title="WordPress stores each link on one side." lede="Those links come from fields, the boxes an editor fills in for each record. A strategy lists the people who manage it, and an insight names its author. A person's record stores neither, so the theme works out what each person manages and what they last wrote, and the two pages cannot disagree.">
+<Facts>
+  <Fact k="Model">Six YAML files, a plain text format, define three content types (strategy, person and enquiry), a Site settings page and 65 fields in 12 groups. The platform's yacf plugin reads them and builds the edit screens.</Fact>
+  <Fact k="A strategy">14 fields, from its tint and tagline to How we invest, Key risks, Questions investors ask and Managed by. The theme builds the page from six template parts, and the tint colours the band at the top of the page.</Fact>
+  <Fact k="Managed by">An ordered link to one or more people. The strategy page prints the names, in that order, as a sentence of links.</Fact>
+  <Fact k="Manages">The person page goes through the four strategies and finds the person's place in each Managed by list, so the strategies where they are named first come first. Daniel Okafor's page lists European Quality Growth, where he is the only name, before UK Equity Income, where Eleanor Whitcombe is named first.</Fact>
+  <Fact k="Latest insight">The person page asks for the newest insight whose author field points at that person. The insights list fetches all its authors in one trip to the database, instead of one per insight.</Fact>
+  <Fact k="One relation">At first a person also had a Manages field of their own, so one fact lived on two records and an editor could change one and forget the other. Commit 4802e49 on 2 October 2026 removed it, and the seed deletes the old value.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The front end" title="The pages work before JavaScript loads." lede="The theme turns those fields into plain HTML and leaves most of the interaction to the browser. The tabs, the questions on each strategy page and the jumps between home screens need no JavaScript. The theme's one script runs the phone menu.">
+<Figures>
+  <Figure src="/img/work/wealth/home-tabs.webp" phone="/img/work/wealth/home-phone.webp" phoneAlt="The home page on a phone: the headline Wealth is an independent investment manager based in London over a photograph of Tower Bridge at night, with the menu button top right." w={1600} h={1000} alt="The home page on a desktop with the Investment opportunities tab selected." title="Home">Pick a tab, with or without JavaScript. On a phone the headline fills the first screen, and a chevron leads to the next.</Figure>
+  <Figure src="/img/work/wealth/strategies.webp" phone="/img/work/wealth/strategies-menu-phone.webp" phoneAlt="The phone menu open over the strategies page, listing About, Strategy, People, News, Contact and Legal, with Strategy underlined." w={1600} h={1000} alt="The strategies page on a desktop with four tinted cards." title="The phone menu">On a phone the six links fold into a menu, and the current section stays underlined.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Tabs">Each tab is a link to its panel's address. The stylesheet shows the panel the address points to, using `:target` and `:has()`, and the first panel when it points to neither.</Fact>
+  <Fact k="Questions">On each strategy page, the questions investors ask are native `<details>` elements, so they open and close without a script.</Fact>
+  <Fact k="Menu">The menu button starts hidden. A 34-line script shows it, opens and closes the list, closes it on Escape and returns focus to the button. Without the script the six links wrap under the logo.</Fact>
+  <Fact k="Motion">Each home screen ends in a chevron, a link to the next screen. The smooth scroll switches off for visitors who ask their system for reduced motion.</Fact>
+  <Fact k="Basics">A link to skip past the menu, a 3px outline on whatever has keyboard focus, a label on every form field, and the current section marked in the menu for screen readers.</Fact>
+  <Fact k="Weight">The theme adds one script of 895 bytes. The Docker build joins 30 CSS files into one stylesheet of 39,357 bytes, about 7 KB compressed.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The enquiry" title="WordPress stores every enquiry as a private record." lede="The contact form also leans on the browser, which checks the required fields before the visitor can send them. Behind the form, I wrote the handler in about 40 lines of theme code instead of adding a form plugin. It saves each enquiry in WordPress, and the site sends no email.">
+<List>
+  <Item title="A token on the form.">WordPress checks a security token tied to the form, called a nonce, before it reads anything, and sends the visitor back if the token fails.</Item>
+  <Item title="A trap for bots.">A hidden field called website stays empty for people. A bot that fills it sees the thank-you page, and the site stores nothing.</Item>
+  <Item title="Only known answers.">The handler cleans every value and blanks any investor type outside the 6 listed choices. If the name, email, message or consent tick is missing, it sends the visitor back and saves nothing.</Item>
+  <Item title="A list in wp-admin.">Enquiries are a content type the public cannot reach. In wp-admin, WordPress's editing screens, an editor sees each one under the sender's name and the time, with columns for organisation, email and investor type.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The platform" title="The repository rebuilds the whole site." lede="The handler is one small part of the theme. The theme runs on wp-base, a WordPress server image that five of my other sites also use, hosted on Cloud Run, Google's service for running packaged apps. This repository adds a prototype, a theme and a seed, built in that order.">
+<Facts>
+  <Fact k="Prototype">I built every page first in plain HTML and CSS: 26 pages and 4 shared pieces, such as the header and footer, in `static/`, with the 30 CSS files the theme ships.</Fact>
+  <Fact k="Theme">On 1 October 2026 I ported those pages into a classic WordPress theme of 41 PHP files, 24 of them template parts.</Fact>
+  <Fact k="Seed">A PHP script of 866 lines that writes the content into WordPress: 4 strategies, 6 people, 6 insights, 7 pages, 2 menus and 21 images. It also deletes WordPress's sample content.</Fact>
+  <Fact k="Safe to rerun">The seed finds each post by its slug, the last part of its address, and updates it. It repairs a menu item only when its position or link has changed, and rebuilds an image only when the image sizes or WebP support change. Three fixes on 2 October 2026 added the menu and image rules.</Fact>
+  <Fact k="On each deploy">A push to the main branch builds the image, deploys it to Cloud Run, then runs the seed as a job and waits for it. Only a successful seed lets the run redeploy Firebase Hosting, which serves the public address. The new image is already live by then, so a failed seed stops the run without rolling the site back.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where the site stops today." lede="The seed and the theme run the live site today. Wealth is a demonstration, so some gaps are deliberate, and others belong to the build.">
+<List>
+  <Item title="Nobody hears about an enquiry.">The thank-you text promises a reply within two working days, but a stored enquiry waits until someone opens wp-admin. The privacy notice also names an email service the code does not use. I would add a notification to the same handler.</Item>
+  <Item title="The seed owns the content.">From the code, every deploy rewrites the seeded posts, fields and settings, so an edit made in wp-admin would last until the next push to main. I have not tested this on the live site. I would change the seed to fill in only what is missing.</Item>
+  <Item title="The home menu opens behind the hero.">At 390 pixels wide, the open menu on the home page sits under the hero photograph. It works on the inner pages. I expect the fix is a stacking order that puts the open list above the photograph, but I have not tried it.</Item>
+  <Item title="Documents and search are placeholders.">Each strategy lists a factsheet, a key information summary and a quarterly letter with no files, and tells screen readers so. A search results template exists, but no page shows a search box.</Item>
+  <Item title="No checks before a deploy.">The repository has no tests and no HTML or accessibility checks. The seed job is the closest thing to a check, and it runs after the new image is already live.</Item>
+</List>
+</Chapter>
+
+<Chapter label="What carried forward" title="What carried forward." lede="An investor can open a strategy, follow it to the people who run it and read what they last wrote, and the legal pages tell them the firm is imaginary. The links stay correct because WordPress stores each one on one side only.">
+<Split>
+<List>
+  <Item title="Store a relationship once.">Work out the other side when the page renders, and two pages cannot contradict each other.</Item>
+  <Item title="Let HTML handle the interaction.">Tabs made of links and CSS, and native questions, left one script of 895 bytes, for the phone menu.</Item>
+  <Item title="Say where the data goes.">The form keeps each enquiry in a private record, and the page tells visitors not to send real details.</Item>
+</List>
+<Facts>
+  <Fact k="Model">3 content types, 65 fields in 12 groups</Fact>
+  <Fact k="Seed">866 lines, run on every deploy</Fact>
+  <Fact k="Stylesheet">39 KB, about 7 KB compressed</Fact>
+  <Fact k="Commits">29, of which 28 fell between 1 and 3 October 2026</Fact>
+  <Fact k="Source">[github.com/poly-glot/wealth](https://github.com/poly-glot/wealth)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Visit it">
+  <ClosingCopy>Open a strategy and follow it to the people who run it.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://wealth.junaid.guru/" external>Open Wealth <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

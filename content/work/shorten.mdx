@@ -1,0 +1,137 @@
+---
+id: shorten
+name: shorten
+tagline: A link shortener that routes each visitor by country and device, with no accounts.
+summary: A link shortener anyone can use without signing up. One short link sends visitors to different places by country, region, platform and device, and a secret shown once is the only key to change it. The decision worth reading about is the redirect, which costs one database read at most and none when CloudFront has the answer cached.
+client: My own product
+delivered: Web app, Rust Lambda functions, CloudFront edge function, nightly click count, CI and deploy workflows
+role: System author
+kind: study
+layout: chapters
+stack:
+  - Rust
+  - AWS Lambda
+  - CloudFront
+  - DynamoDB
+  - Athena
+  - JavaScript
+domains:
+  - Developer Tools
+year: 2026
+url: shorten.junaid.guru
+href: "https://shorten.junaid.guru/"
+source: "https://github.com/poly-glot/shorten"
+abstract: BLOCKS
+tone: "linear-gradient(135deg, #1c90e322, #ffffff05)"
+cover: /img/work/shorten.webp
+video:
+  src: /video/shorten.mp4
+  poster: /video/shorten.webp
+  captions: /video/shorten.vtt
+---
+
+import RedirectPath from "@/components/diagrams/RedirectPath.tsx";
+
+<Study>
+
+<Chapter label="The challenge" title="One link should send people to different places." lede="Say you want one link that sends an Android phone in India to the Play Store, an iPad in California to the App Store and everybody else to your website. shorten does that with one short code. Anyone can make a link without an account.">
+<Rows>
+  <Row title="Route by who is clicking">Rules match on country, region, platform and device. The first rule that matches wins, and the default URL catches everyone else.</Row>
+  <Row title="No account to make">Creating a link returns a management secret, shown once. Whoever holds it can change the link or delete it.</Row>
+  <Row title="Keep personal data out">The app never writes an IP address, the number that identifies a connection, to its logs. The database keeps it in one place, a counter that allows 30 new links per address per day, and that counter expires after 2 days. CloudFront, the Amazon network in front of the app, keeps addresses in its own access log for 90 days.</Row>
+  <Row title="Fit the free tier">I designed shorten to fit AWS's free tier, the usage Amazon gives away each month. It shares one database table, and that table's 15 writes a second, with another of my apps.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The product" title="Make a link, then manage it." lede="The whole product is one page with two tabs, Create a link and Manage a link. Neither asks you to sign in. The browser remembers the links you make, so you can come back on the same device and edit them.">
+<Figures numbered bleed>
+  <Figure src="/img/work/shorten/rule-builder.webp" w={1600} h={1000} phone="/img/work/shorten/rule-builder-phone.webp" phoneAlt="Rule 1 on a phone at 390 pixels with Countries IN, PK and android ticked, its fields stacked in one column and its summary line wrapping." alt="Rule 1 with Countries IN, android ticked and the target https://junaid.guru/work/, its one-line summary underneath, and the start of Rule 2 below." title="Rules">Add up to 20 rules and move them up or down to set the order. Each card prints a one-line summary of who it matches and where they go.</Figure>
+  <Figure src="/img/work/shorten/link-created.webp" w={1600} h={1000} phone="/img/work/shorten/link-created-phone.webp" phoneAlt="The same result card on a phone, with the notice, the short link and the masked secret." alt="The emptied create form above the card headed Your short link is live, with an amber notice that the secret is shown once and the new short link beside a Copy link button." title="The secret">Copy the short link and its management secret. shorten stores only a hash of the secret, so the page shows it once and nobody can recover it.</Figure>
+  <Figure src="/img/work/shorten/saved-links.webp" w={1600} h={1000} alt="The Manage a link tab with one saved link to https://junaid.guru/ under Your links, and the Code and Management secret fields below it." title="Your links">Pick a remembered link to edit it, or type a code and its secret to load a link made on another device.</Figure>
+  <Figure src="/img/work/shorten/analytics-empty.webp" w={1600} h={1000} alt="The Analytics tab reading 0 clicks in the last 90 days, with empty By day and Top segments tables." title="Analytics">See clicks by day over the last 90 days. Clicks are counted once a night, so today's clicks appear tomorrow. For now the Top segments table puts every click under unknown.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The redirect" title="A redirect costs one database read." lede="Anyone can make a link for free, so each click has to be cheap to answer. A small Rust program on AWS Lambda answers each click, and the project's written rulebook sets its price: one read of one row in DynamoDB, Amazon's key-value database. The rulebook calls this 'the whole reason the product fits in the free tier'.">
+<Facts>
+  <Fact k="Check">A code that is not 10 characters from the 64-symbol alphabet gets a 404, the not-found answer, before the function touches the network. Guessing paths costs no database capacity.</Fact>
+  <Fact k="Read">One eventually consistent read of the link's row by its code, the cheaper kind that can trail a recent edit by a moment, and nothing else: no click counter and no second lookup. A row past its expiry date counts as gone, even before DynamoDB deletes it.</Fact>
+  <Fact k="Match">Rules run top to bottom and the first match wins. Values in one field are alternatives, every filled field must match, and an empty field matches anything.</Fact>
+  <Fact k="Fields">Country, region, platform and device are one Rust enum, a fixed list of four cases, and the compiler makes every check on a field handle all four.</Fact>
+  <Fact k="Answer">A 302, a temporary redirect, marked cacheable for 300 seconds. I ruled out a 301 because browsers keep a permanent redirect, and you can edit these targets.</Fact>
+  <Fact k="Miss">An unknown, malformed or expired code gets the same 95-byte 404, so someone guessing codes learns nothing from a near miss.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The edge" title="One string decides the route and the cache." lede="One read per click adds up on a busy link, so CloudFront answers repeat visitors from its cache. A small function at CloudFront's edge, the servers nearest the visitor, describes each visitor in one string, the segment, such as IN|MH|android|mobile.">
+<RedirectPath />
+<Split>
+<List>
+  <Item title="It reads what CloudFront knows about the visitor.">CloudFront adds headers for the visitor's country, region, platform and device. The function turns eight of them into the segment and makes it the only query parameter, `s`. Anything it cannot read becomes `XX` or `other`.</Item>
+  <Item title="The cache key is the path plus s.">CloudFront files each stored answer under the link's path and the segment, with no headers or cookies in the key. A second Android phone in Maharashtra can get the stored 302 from CloudFront without starting the redirect function or reading the table.</Item>
+  <Item title="Tablet comes before mobile.">CloudFront can flag an iPad as both, so the function checks for a tablet first. The tests cover that case, a request with no visitor headers at all and a forged `s` sent by the visitor.</Item>
+  <Item title="The separator travels as %7C.">A Lambda function URL, the web address AWS gives the function, answers a raw `|` with a 400 error before the function runs, and no log shows it. The edge function writes the bar as `%7C`, and the redirect function accepts both spellings.</Item>
+</List>
+<Facts>
+  <Fact k="Live test">A link with a default of junaid.guru and two rules, android to /work/ and ios with tablet to /blog/, requested once as each of four browsers.</Fact>
+  <Fact k="Mac desktop">No rule matches, so the default.</Fact>
+  <Fact k="Android phone">Rule 1, junaid.guru/work/.</Fact>
+  <Fact k="iPad">Rule 2, junaid.guru/blog/.</Fact>
+  <Fact k="iPhone">The default. It is ios but not a tablet, so rule 2 does not match.</Fact>
+  <Fact k="Repeat">A second request in the same segment came back as a CloudFront cache hit.</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Chapter label="The clicks" title="CloudFront logged the click without its segment." lede="A cached redirect never reaches the function, and the function never writes, so I count clicks from CloudFront's access log, which records cache hits too. The design assumed the log would carry the segment the edge function wrote. On 18 September 2026 I checked the deployed stack, and the log did not carry it.">
+<Split>
+<List>
+  <Item title="The log keeps what the visitor sent.">CloudFront records the query string as it arrived. The edge function's rewrite never reaches the log, so an ordinary click logs its query as a dash.</Item>
+  <Item title="The nightly run counted nothing.">It threw away every row it read: 0 codes, 0 clicks, an empty dashboard and no error anywhere.</Item>
+  <Item title="The fix keeps every click.">The run now drops a row only when its path is not a code, and counts a click with no readable segment under `XX|XX|other|other`. It reports discarded and unsegmented clicks apart, and tests cover both.</Item>
+  <Item title="Totals are right today.">Daily clicks, the 90-day window and each lifetime count are correct. The Top segments table puts every click under the unknown segment. Routing still works, because the segment still reaches the redirect function.</Item>
+</List>
+<Facts>
+  <Fact k="Schedule">02:15 UTC each day. One Athena query, Amazon's SQL over the log files, reads the previous day's logs and no others.</Fact>
+  <Fact k="Replays">The run writes the day's row whole, and moves the lifetime total only when that day is newer than the last one counted. Running a night twice changes nothing.</Fact>
+  <Fact k="Pace">5 writes a second, a third of the table's 15, which it shares with the other app.</Fact>
+  <Fact k="Record">The spec keeps the measurement, the query result and the upgrade path beside the design it corrects.</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The segment gap in the log is the largest limit today. The spec and the README record it beside three smaller ones, each with its next step written down.">
+<List>
+  <Item title="Segments read as unknown.">The shared AWS setup my apps deploy into now asks CloudFront to log the visitor's country, but the nightly query does not read it yet. The next step takes country from that column, and platform and device from the user agent, the browser's description of itself, in the same query.</Item>
+  <Item title="Clicks show the next day.">A click at 02:20 UTC appears after the following night's run. CloudFront's real-time logs would bring that down to a minute, and AWS bills for them.</Item>
+  <Item title="Query strings are dropped.">The edge function replaces the whole query string, so `?utm_source=x` never reaches the target. Carrying the original in a second parameter, outside the cache key, would pass it on.</Item>
+  <Item title="Three alarms and no canary.">The alarms fire when a function crashes or times out. A redirect that fails every lookup, for example because of a wrong table name, still answers with an error page, so CloudWatch, AWS's monitoring, sees a healthy function. A canary (a scheduled test click) with a fourth alarm on it would catch that.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The learning" title="What carried forward." lede="A link still needs no account, and a redirect still costs one read at most. The figures below come from the code, and you can check each one in the repository.">
+<Split>
+<List>
+  <Item title="Price the busiest path first.">Fixing a redirect at one read decided the table design, the cache key and where clicks get counted.</Item>
+  <Item title="One value picks the rule and the cache entry.">Because the segment does both, a cached answer only reaches the kind of visitor it was made for.</Item>
+  <Item title="Test the assumption on the real stack.">No unit test could see what CloudFront writes to its log. A probe against the deployed log found the gap, and the spec now records it.</Item>
+</List>
+<Facts>
+  <Fact k="Tests">135 Rust tests, plus Node tests for the edge function and the page, run by CI on every push to main</Fact>
+  <Fact k="Edge">58 lines of JavaScript</Fact>
+  <Fact k="Page">41,373 bytes, compiled into the redirect function, under a 51,200-byte limit</Fact>
+  <Fact k="Code">10 characters, 60 random bits</Fact>
+  <Fact k="Source">[github.com/poly-glot/shorten](https://github.com/poly-glot/shorten)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Make a link with one rule and open it on your phone.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://shorten.junaid.guru/" external>Open shorten <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.250 --> 00:00:03.317
+One link, a different place for every visitor.
+
+00:00:05.750 --> 00:00:11.550
+Add a rule for Android phones and give it its own target. A link can hold up to twenty.
+
+00:00:15.750 --> 00:00:21.950
+Create it, and you get a management secret, shown once. Whoever holds it can change the link.
+
+00:00:25.750 --> 00:00:31.617
+Android phones go to the work page, iPads to the blog, and everyone else to the default.
+
+00:00:35.750 --> 00:00:41.617
+A click costs one database read at most, and none when CloudFront has the answer cached.
+
+00:00:42.000 --> 00:00:47.333
+Clicks are counted from the access logs once a night, never during the redirect.
+
+00:00:48.250 --> 00:00:52.917
+Make a link and open it on your phone, at shorten.junaid.guru.

@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.567
+Each ticket number goes out once, even in a rush.
+
+00:00:05.633 --> 00:00:13.433
+Charity Raffle is a demonstration for an imaginary charity. Pick your tickets, add a donation, and the total updates.
+
+00:00:15.633 --> 00:00:21.633
+Six short steps follow. A taxpayer can add Gift Aid to the donation, never to the tickets.
+
+00:00:22.133 --> 00:00:30.600
+Pay by debit card on Stripe's own form, so the card number never reaches the raffle's servers. Then your ticket numbers appear.
+
+00:00:33.633 --> 00:00:41.900
+When Stripe confirms a payment, one transaction takes the next run of numbers, only if no other order moved the count first.
+
+00:00:42.250 --> 00:00:47.450
+A test starts twelve orders at once, and every morning a check looks for gaps.
+
+00:00:48.300 --> 00:00:53.433
+Step through an order in Stripe's test mode, at donation.junaid.guru.

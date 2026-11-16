@@ -1,0 +1,129 @@
+---
+id: cabinet
+name: Cabinet
+tagline: One content system for many shops, with each shop's content kept to itself.
+summary: Cabinet is a content management system for small shops and studios. Each workspace gets its own public site, admin area and GraphQL API, and every workspace shares one database. I wrote the rule that keeps one shop's content out of another's once, in the code every database read and save goes through, and it refuses to run when no workspace is set.
+client: My own product, open source
+delivered: Multi-workspace CMS, Page and post editor, Reusable blocks, GraphQL API, Content as code, Cloud Run deployment
+role: System author
+kind: study
+layout: chapters
+stack:
+  - CakePHP
+  - PHP
+  - MySQL
+  - GraphQL
+  - TipTap
+  - Cloud Run
+domains:
+  - CMS
+year: 2026
+url: cms.junaid.guru
+href: "https://cms.junaid.guru/"
+source: "https://github.com/poly-glot/cms"
+abstract: BLOCKS
+tone: "linear-gradient(135deg, #4a6fa522, #ffffff05)"
+cover: /img/work/cabinet.webp
+video:
+  src: /video/cabinet.mp4
+  poster: /video/cabinet.webp
+  captions: /video/cabinet.vtt
+---
+
+import WorkspaceFence from "@/components/diagrams/WorkspaceFence.tsx";
+
+<Study>
+
+<Chapter label="The workshops" title="A website for every small workshop." lede="Cabinet is a content management system for small shops and studios that run their own website. Its sign-in screen says ‘Sign in to manage your shop.’ Each shop signs up for a workspace and gets a site, an admin area and an API of its own, but every workspace lives in the same database.">
+<Rows>
+  <Row title="A site of its own">Sign-up asks for a workspace name and a web address, then creates the account and its first workspace. The site lives at /your-slug/.</Row>
+  <Row title="Pages and reusable pieces">A shop writes long pages, dated journal posts and entries in collections it defines itself, such as products. Blocks are pieces it writes once and drops into any page.</Row>
+  <Row title="Content for other apps">Each workspace has a GraphQL API, so a shop's other apps can fetch its content. Published content needs no token. A personal access token lets a preview build see drafts, or lets another app make changes.</Row>
+  <Row title="Kept to itself">One shop's pages, drafts and comments must stay out of every other shop's admin, site and API, although they all sit in the same tables.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The product" title="From sign-up to a working site." lede="A new workspace starts with an empty site at its own address. The admin screens below come from a local run, filled with the sample content that ships with the code: a furniture workshop called The Cabinet Makers, an imaginary brand. The live workspace has no content yet.">
+<Figures numbered bleed>
+  <Figure src="/img/work/cabinet/create-workspace.webp" w={1600} h={1000} alt="The Cabinet sign-up window on a wood-grain desk, with fields for name, email, password, workspace name and workspace URL, and a Create workspace button." title="Create your workspace">Choose a name and a URL. Sign-up creates the account and its first workspace, with a public site at /your-slug/.</Figure>
+  <Figure src="/img/work/cabinet/start-something-new.webp" w={1600} h={1000} alt="The Create screen with six tiles for Page, Post, Collection, Media, Navigation and Block, and four saved blocks listed under Your blocks." title="Start something new">The admin opens on six kinds of thing to make. Saved blocks sit underneath, ready to drop into a page.</Figure>
+  <Figure src="/img/work/cabinet/schema-builder.webp" w={1600} h={1000} alt="The Product collection's schema with Price, Summary, Gallery, Availability and Specifications fields, each showing its type, and Add field and Save schema buttons." title="Collections">Define a content type once from 12 field types, then add entries. Fields reorder by dragging, and a repeatable group holds its own sub-fields.</Figure>
+  <Figure src="/img/work/cabinet/graphql-playground.webp" w={1600} h={1000} alt="The GraphQL playground with a posts query on the left and its JSON result on the right, showing one live post titled Welcome to the workshop." title="GraphQL playground">Each workspace has its own API at `/{workspace}/graphql`. The playground runs example queries and issues a temporary token that expires after 1 hour.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="Isolation" title="Every query belongs to one workspace." lede="Those pages, entries and tokens share their MySQL tables with every other workspace. A single query that forgot to filter by workspace would show one shop another shop's drafts. I wrote the filter once, in the model layer that every database read and save goes through, so the code that answers a request can't leave it out.">
+<WorkspaceFence />
+<Facts>
+  <Fact k="Reads">Cabinet is built on CakePHP, a PHP framework. A CakePHP behaviour (code the framework runs on every find and save for a table) called `TenantBehavior` adds a filter for the active workspace to every find on 19 tables.</Fact>
+  <Fact k="Writes">A new row takes the active workspace. Saving a row that belongs to another workspace stops with the error ‘Refusing to persist a row owned by another workspace.’</Fact>
+  <Fact k="No workspace">If nothing has set a workspace, the query stops with an error instead of returning every shop's rows, so a mistake fails closed.</Fact>
+  <Fact k="Who sets it">The first part of the URL sets the workspace for each web request. An unknown workspace gets a 404, and a signed-in user from outside it gets a 403 on its admin pages.</Fact>
+  <Fact k="Addresses">Page addresses (slugs) are unique within a workspace, so two shops can each have an /about page.</Fact>
+  <Fact k="Migration">Cabinet began as one site. One migration (a script that changes the database) added `workspace_id` to 15 tables, a second moved the existing rows into a default workspace, and a third made the column required.</Fact>
+</Facts>
+<List>
+  <Item title="Tested from both sides.">16 tests in 3 files cover the rule. Nine use a second workspace: they try to read its rows, point a page, comment or menu item at its pages, or save a row stamped with its id. One clears the workspace and expects the query to fail.</Item>
+  <Item title="The API too.">Three GraphQL tests check that one workspace's post does not appear on another workspace's endpoint, that a token for one workspace is refused on another's, and that a write token cannot change another workspace's post.</Item>
+</List>
+</Chapter>
+
+<Chapter label="Reusable blocks" title="Write a block once, use it anywhere." lede="Inside a workspace, I kept each piece of content in one place too. The sample workshop's opening hours are a block. A page body holds a reference to the block, so editing the block changes every page that uses it, and Cabinet refuses to delete a block that a page still uses.">
+<Figures>
+  <Figure src="/img/work/cabinet/page-editor.webp" w={1600} h={1000} alt="The About Us page in the editor: a line of text, then a dashed box labelled Block #1, with Insert Block in the toolbar, an Auto-saved chip and cards for details, tags and revisions." title="In the editor">The page body holds only a placeholder for block 1. Insert Block opens a picker of saved blocks.</Figure>
+  <Figure src="/img/work/cabinet/public-page.webp" w={1600} h={1000} alt="The public About Us page in the Heritage theme, with a grey callout reading Open Monday to Friday, 9am to 5pm under the heading." title="On the site">On the public site the placeholder becomes the opening hours callout. Change the hours in the block and every page that holds it shows the new text.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Save">Cabinet reads the block ids out of the page body and rewrites that page's rows in a `page_blocks` table in one all-or-nothing database transaction, so it knows which pages use which block.</Fact>
+  <Fact k="Render">Each placeholder becomes escaped HTML that suits its kind: a callout becomes an `aside`. A reference to a deleted or unknown block renders nothing.</Fact>
+  <Fact k="Delete">A delete rule checks `page_blocks` and refuses to delete a block a page still uses, with a foreign key in the database (a rule that ties each use to its block) behind it. The admin says ‘This block is in use on one or more pages and cannot be deleted.’</Fact>
+  <Fact k="Safety">Cabinet passes rich text through HTMLPurifier on save, a library that keeps only allowed tags, and the placeholder's id must be a number. A call to action with an unsafe link renders without the link.</Fact>
+  <Fact k="Kinds">Six: callout, quote, statistic, call to action, image and file.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Content as code" title="Pages that live in version control." lede="A block lives in one place in the database. Cabinet can also keep pages, posts and collection entries as plain text files (YAML) in version control, for CI (the checks that run on every change) to import. An import that CI runs again and again has to change nothing when nothing has changed.">
+<Facts>
+  <Fact k="Export">`bin/cake content_export` writes a workspace's content to `content/{workspace}/`. Collection schemas live as files in `config/collections/`, and `bin/cake schema_import` loads them.</Fact>
+  <Fact k="Hash gate">Import takes a SHA-256 hash of each file, a fingerprint of its text, and skips the file when the hash matches the last import. `--force` ignores the gate.</Fact>
+  <Fact k="Scope">Import runs inside the one workspace named by `--workspace`, so the isolation rule covers every row it writes.</Fact>
+  <Fact k="Bad files">A file that fails becomes a failed result. The rest of the run carries on, and the command exits with an error.</Fact>
+  <Fact k="CI proof">On every pull request and every push to main, the Content Sync workflow builds a fresh MySQL 8.4 database, imports the committed files, then imports them again. The job fails unless the second run reports 0 created, 0 updated, at least 1 skipped and 0 failed.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The workspace rule covers every find and save on 19 tables. These are the places where Cabinet still relies on code that remembers the workspace by hand, or on running as one server.">
+<List>
+  <Item title="The scheduler runs outside any workspace.">The cron command that publishes scheduled pages looks them up without choosing a workspace first, so the rule stops it with an error and nothing publishes. Its 2 tests pass because the test setup starts every test inside workspace 1. I would run it once per workspace, as the import does, and cover posts and entries, which have a scheduled state but no command.</Item>
+  <Item title="Bulk changes name the workspace by hand.">CakePHP runs the rule on finds and saves, but not on bulk updates and deletes. Each of the 9 bulk calls in the code adds the workspace to its own conditions, and a new one that forgot could change another shop's rows.</Item>
+  <Item title="Each admin action checks its own permissions.">Admin actions call their policies (the rules for who may do what) themselves, and the framework's check that each action did so is switched off. A new action that forgot would not be caught. I would switch that check on.</Item>
+  <Item title="The code assumes one server.">Sessions, caches and the rate limiter's counters default to files on the server's own disk. The README names Redis or APCu for the cache when there is more than one server.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The learning" title="What carried forward." lede="Every shop's content sits in one database, so each shop's privacy rests on one rule and on the few places that rule does not reach.">
+<Split>
+<List>
+  <Item title="Put the rule where nothing can skip it.">A workspace filter in the code behind each request would rely on every one of them getting it right. One behaviour on 19 tables takes that chance away for finds and saves, and the 9 bulk calls show what is still left to code by hand.</Item>
+  <Item title="Make the unsafe case an error.">With no workspace set, a query stops with an error, so a job that forgets its workspace stops instead of reading across shops. The scheduler is such a job, and its tests missed it because each one starts inside a workspace. Tests should start with no workspace, as production does.</Item>
+  <Item title="Prove a repeatable job by repeating it.">CI runs the import twice, and the second run has to change nothing.</Item>
+</List>
+<Facts>
+  <Fact k="Isolation">One behaviour on 19 tables</Fact>
+  <Fact k="Boundary tests">16 in 3 files, plus 3 for GraphQL</Fact>
+  <Fact k="Test suite">564 PHPUnit tests, 29 Playwright tests</Fact>
+  <Fact k="Source">[github.com/poly-glot/cms](https://github.com/poly-glot/cms)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Open the sign-in page, or read how the workspace rule works in the source.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://cms.junaid.guru/" external>Open Cabinet <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="https://github.com/poly-glot/cms" external>Read the source <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

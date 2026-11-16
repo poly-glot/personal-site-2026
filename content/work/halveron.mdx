@@ -1,0 +1,124 @@
+---
+id: halveron
+name: Halveron
+tagline: One consultancy's website for clients, trainees, forum members and job seekers.
+summary: Halveron is the website of an imaginary operations and customer-experience consultancy. One site serves service leaders looking for help, people choosing a course, members of a peer forum and job seekers. I built all 56 pages as a static prototype first, then gave WordPress a content model of 8 record types that point at each other, so a person or a client is written down once.
+client: Halveron Consulting, an imaginary brand
+delivered: Static prototype, WordPress theme, content model, content seed, enquiry handler, Cloud Run deployment
+role: System author
+kind: study
+layout: chapters
+stack:
+  - WordPress
+  - PHP
+  - CSS
+  - Cloud Run
+  - Firebase
+domains:
+  - Professional Services
+year: 2026
+url: halveron.junaid.guru
+href: "https://halveron.junaid.guru/"
+source: "https://github.com/poly-glot/halveron"
+abstract: DOTS
+tone: "linear-gradient(135deg, #39207c22, #ffffff05)"
+cover: /img/work/halveron.webp
+video:
+  src: /video/halveron.mp4
+  poster: /video/halveron.webp
+  captions: /video/halveron.vtt
+---
+
+<Study>
+
+<Chapter label="The visitor" title="An operations leader looking for help." lede="Halveron Consulting is an imaginary consultancy that helps banks, utilities, universities and other service organisations, in its own words, 'do the right work, once, and do it well'. Its website speaks first to the operations leader who needs that help, and it also serves people choosing a course, forum members and job seekers.">
+<Rows>
+  <Row title="Find help for my sector">Eight capabilities and eight sectors. Each sector page names a consultant to talk to and links to Halveron's case studies.</Row>
+  <Row title="Choose a course">Five courses. Three open courses list their dates, length, price and location, and two are arranged with each client.</Row>
+  <Row title="Join the forum">The Lean Service Forum is a free peer network for UK organisations that run service operations, with a page for each meeting.</Row>
+  <Row title="Find a job">Six roles across consulting, training and the graduate programme: four permanent, one for an associate and one for a graduate.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The site" title="Each audience gets its own section." lede="Those four audiences share one site of 56 pages, from capabilities and sectors to a training catalogue, the forum, a conference, 13 articles and careers. The page layouts follow an existing design. The Halveron brand, the words and the images were made for this build.">
+<Figures numbered bleed>
+  <Figure src="/img/work/halveron/sector-utilities.webp" w={1600} h={1000} alt="The Utilities sector page: the breadcrumb Home / Our sectors / Utilities, a water-treatment photograph and a purple panel beginning Utility customers cannot choose to leave a water company." title="A sector page">Read how Halveron works with water and energy companies, then talk to the named consultant or send an enquiry further down the page.</Figure>
+  <Figure src="/img/work/halveron/course-facts.webp" w={1600} h={1000} alt="A course fact grid: accredited by the Service Operations Institute, next course 10 November 2026, a schedule, five days, £2,450 plus VAT and Woodstock, Oxfordshire, above the headings Who it is for and Modules." title="A course">Check a course's accreditation, dates, length, price and location before reading its modules.</Figure>
+  <Figure src="/img/work/halveron/forum-next-event.webp" w={1600} h={1000} alt="A purple band headed Next event, saying Northwyn Rail hosts members in Manchester on Thursday 19 November 2026, above an event card with a View detail button." title="The forum">See where the forum meets next, and open the meeting for its detail.</Figure>
+  <Figure src="/img/work/halveron/case-study-results.webp" w={1600} h={1000} alt="The heading The result over three stat cards reading 64%, 7 days and 31%, and a quote from a Customer Services Director." title="A case study">Read what Halveron did for a water company and the results it reports. The figures and the quote are invented, like the firm.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/halveron/home-capabilities.webp" w={1600} h={1000} alt="The heading Discover our capabilities over a row of eight icon tabs with Operating model design selected, beside a street photograph and a purple panel of text." title="Home">Move through the eight capabilities from the home page.</Figure>
+  <Figure src="/img/work/halveron/capability-wheel.webp" w={1600} h={1000} alt="The heading Our capabilities beside an eight-segment wheel around the label The Halveron method." title="Capabilities">See the eight capabilities as one method, with a card for each further down the page.</Figure>
+  <Figure src="/img/work/halveron/conference-tickets.webp" w={1600} h={1000} alt="The headings Speakers include and Tickets available now, two speaker portraits with session blurbs, and a ticket panel showing £295 plus VAT per person and a Book tickets button." title="Conference">Read about the speakers and the ticket price. Booking is by email.</Figure>
+  <Figure src="/img/work/halveron/search-results.webp" w={1600} h={1000} alt="The Search heading above a cyan search band with demand typed in, the line We found 9 results for 'demand', and a first result tagged In brief." title="Search">Search the site. The server answers and lists every match on one page.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The prototype" title="Every prototype address works on the live site." lede="Those 56 pages existed as plain HTML and CSS before I wrote any WordPress, with the words and images in place. The prototype stays in the repository, and the WordPress theme had to reproduce it. The first check was simple: each prototype page should open at the same address on the live site.">
+<Facts>
+  <Fact k="Order">The git history shows it. Seven commits built the static site, from the design system to the 13 articles, two rounds of fixes and the image set. The platform, the content model, the seed and the theme came after.</Fact>
+  <Fact k="Stylesheets">The theme holds the prototype's 39 component stylesheets unchanged. A file comparison of the two folders finds no difference.</Fact>
+  <Fact k="Templates">The theme builds its pages from 53 template parts, small PHP files for pieces such as the enquiry form and the contact box.</Fact>
+  <Fact k="Two fixes">Articles live under `/thinking/`, and WordPress would have put that prefix in front of the capability, course, event and sector addresses too. One commit turned it off. Another sent `/search/` to WordPress's own search, because no page existed at that address.</Fact>
+  <Fact k="The check">On 15 November 2026 a loop over all 56 prototype addresses got 200 from the live site for each one, the code a server sends for a page that loaded. The loop is a command-line check, not a test in the repository.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The content model" title="Eight record types that point at each other." lede="Matching addresses proves the pages exist. Staff also had to change them without a developer, so the theme holds the layout and the copy lives in fields described in YAML, a plain text format. A field can also point at another record instead of repeating it.">
+<Facts>
+  <Fact k="Record types">16 YAML files, 1,314 lines in all, describe 8 types: capability, course, enquiry, event, job, organisation, person and sector. Articles use WordPress's own posts in four kinds: news, in brief, white paper and case study.</Fact>
+  <Fact k="Edit screens">The yacf plugin, part of the WordPress image shared across the agency's client sites, reads the YAML and builds the edit screens in wp-admin, WordPress's staff area.</Fact>
+  <Fact k="Links">27 fields point from one record to another. A sector names its contact, its client logos and its case studies. An article names its author, capabilities and sectors. A forum meeting names the organisation that hosts it.</Fact>
+  <Fact k="One person">Ruth Calloway is one person record. The Business transformation and Utilities pages name her as their contact, two articles name her as author and the careers page quotes her. The Talk to Ruth box takes her name, email and phone from that record.</Fact>
+  <Fact k="Organisations">22 invented organisations with their own logos fill four roles: 8 clients, 6 forum members, 4 accrediting bodies and 4 technology partners.</Fact>
+  <Fact k="Reading links">The theme loads each list of links in one query, in the order the editor set, and keeps only published records of the right type. If staff unpublish a person, that person drops off every page that named them.</Fact>
+  <Fact k="Seed">The seed, a PHP script of 2,696 lines, writes every record into WordPress on each deploy and is safe to rerun. It creates people and organisations first, then the records that point at them, and comes back after the articles to fill in each sector's case studies.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The enquiry" title="From a sector page to a private enquiry." lede="The enquiry is one of those eight record types, and it is where the operations leader from the first chapter ends up. The contact page, each sector page and each white-paper download carry a version of the same form. All three post to one handler in the theme, with no form plugin.">
+<List>
+  <Item title="It records where the message came from.">The form sends the id of the page it sits on. The handler accepts only a published page, article or sector, and sends anything else back to the home page.</Item>
+  <Item title="A bot gets no sign it was caught.">Each form carries a nonce, a token WordPress issues with the page and checks when the form comes back, and a hidden field called website that people never see. A bot that fills it in gets the usual thank-you, and the handler saves nothing.</Item>
+  <Item title="Interests must match a real capability.">The white-paper form asks which capabilities interest you. The handler keeps a choice only if it names a real capability and drops anything invented.</Item>
+  <Item title="Each form has its own rules.">A name and a valid email are always required. The contact and sector forms also need a message, and a download needs a company name.</Item>
+  <Item title="Saved where only staff can see it.">The handler saves the enquiry as a private record. Staff find it in wp-admin under Enquiries, with columns for the form, the page it was sent from, the company and the email. No email goes out.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="Halveron is a demonstration that takes no money and no bookings. The clearest gap is on the enquiry form, and the rest come from choices I made in the build.">
+<List>
+  <Item title="The form note contradicts the handler.">The note under the form says messages are not stored or read, but the handler saves each one as a private enquiry. I would change the note to say what the code does.</Item>
+  <Item title="Dates stay where staff left them.">Staff set each course's next date and pick each next forum meeting, and nothing moves them on. On 15 November 2026 the home page still shows a Lean Practitioner course on 10 November. I would have the theme hide a date once it has passed.</Item>
+  <Item title="The seed overwrites staff edits.">A change made in wp-admin to a seeded record lasts until the next deploy, when the seed writes its own copy back. For a real client I would seed once and then leave the content to staff.</Item>
+  <Item title="No checks run before a deploy.">The repository has no tests, no HTML validator and no accessibility checker, and the deploy pipeline builds the site and ships it. The accessibility statement says screen-reader testing has not yet been completed. I would commit the 56-address check as the first test.</Item>
+  <Item title="Nothing sends email.">Enquiries wait in wp-admin and the newsletter box stores nothing. The conference page asks people to book by email, and courses cannot be booked at all.</Item>
+</List>
+</Chapter>
+
+<Chapter label="What carried forward" title="What carried forward." lede="An operations leader can find their sector, see who at Halveron to call and send a message that staff can trace back to the page they read. People choosing a course, forum members and job seekers use the same 56 pages, and their copy lives in the content model.">
+<Split>
+<List>
+  <Item title="Check the move to WordPress by address.">Requesting every prototype address from the live site is a quick way to show that no page went missing.</Item>
+  <Item title="Write a record down once.">A person, a client or a case study lives in one record, and each page that names it points there. One edit reaches every page.</Item>
+  <Item title="Make the page say what the code does.">The enquiry note and the handler disagree, and a visitor has no way to find that out.</Item>
+</List>
+<Facts>
+  <Fact k="Pages">56, all live at the same addresses</Fact>
+  <Fact k="Record types">8, joined by 27 link fields</Fact>
+  <Fact k="Seed">2,696 lines, run on every deploy</Fact>
+  <Fact k="Source">[github.com/poly-glot/halveron](https://github.com/poly-glot/halveron)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Visit it">
+  <ClosingCopy>Pick a sector and see who at Halveron you would talk to.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://halveron.junaid.guru/" external>Open Halveron <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

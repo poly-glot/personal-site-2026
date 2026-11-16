@@ -1,0 +1,149 @@
+---
+id: airport-drupal
+name: Meridian Airport
+tagline: Airport pages that editors build in Drupal and travellers get from Next.js.
+summary: The website for Meridian Airport, an imaginary two-terminal airport in Birmingham, written for travellers checking their trip before they leave the house. Editors build its 29 pages in Drupal from 48 components, and a separate Next.js app serves them to visitors. The decision worth reading is that split, and what an editor's save does to the cache.
+client: Meridian Airport, an imaginary brand
+delivered: 29-page website, 48 React components, split-flap flight board, two Cloud Run services, publishing on save
+role: System author
+kind: study
+layout: chapters
+stack:
+  - Drupal
+  - Next.js
+  - React
+  - Playwright
+  - Cloud Run
+domains:
+  - Travel
+  - CMS
+year: 2026
+url: airport.junaid.guru
+href: "https://airport.junaid.guru/"
+source: "https://github.com/poly-glot/airport-drupal"
+video:
+  src: /video/airport-drupal.mp4
+  poster: /video/airport-drupal.webp
+  captions: /video/airport-drupal.vtt
+abstract: PLANE
+tone: "linear-gradient(135deg, #14213d22, #ffffff05)"
+cover: /img/work/airport-drupal.webp
+---
+
+import PublishPath from "@/components/diagrams/PublishPath.tsx";
+
+<Study>
+
+<Chapter label="The traveller" title="Check your flight before you leave the house." lede="Meridian Airport has two terminals in Birmingham, and its website is for travellers. Its home page promises they can check everything before they leave the house. A traveller had to find the answers on the first screen, and the airport's editors had to change those answers as soon as anything changed.">
+<Rows>
+  <Row title="Check a flight">Read the departures and arrivals board on the home page, and type a flight number or a city to filter it.</Row>
+  <Row title="Hear about disruption">Travel notices sit at the top of the home page, such as fog delaying morning departures, each with a link to check the flight.</Row>
+  <Row title="Plan the trip">Compare the car parks, find the way in by train, car or coach, and see both terminals on a map.</Row>
+  <Row title="Change it the same morning">The airport's editors build and change pages themselves, without a developer or a deploy.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The site" title="Everything between the door and the gate." lede="The site has 29 pages, and a traveller needs no account for any of them. No form books or charges anything, and every form that asks for personal details says it is a demonstration.">
+<Figures numbered bleed>
+  <Figure src="/img/work/airport-drupal/hero-and-search.webp" w={1600} h={1000} alt="The Meridian Airport home page: a Travel disruption notice above the heading Welcome to Meridian Airport over a sunrise airport picture, beside a white Flight tracking card with a Search flights button." title="Home">Start from the flight tracking card, or go straight to duty free, parking and Fast Track.</Figure>
+  <Figure src="/img/work/airport-drupal/live-board.webp" w={1600} h={1000} alt="The Security wait times panel, showing 8 min at Terminal 1 and 22 min at Terminal 2, above the dark Live flights board with its clock, Departures and Arrivals tabs, search field and a first row for Lisbon, boarding." title="Flights">See the security queue at each terminal, then switch between departures and arrivals or search the board.</Figure>
+  <Figure src="/img/work/airport-drupal/parking-compare.webp" w={1600} h={1000} alt="Compare car parks: cards for P1 Short-stay from £4 an hour, P2 Long-stay from £8.50 a day with a Recommended tag, and Mid-Stay from £12 a day." title="Parking">Compare the three car parks by price, with the long stay marked as the one to pick.</Figure>
+  <Figure src="/img/work/airport-drupal/getting-here-map.webp" w={1600} h={1000} alt="The Airport map section of Getting here: rows for By train, By car or taxi and By bus or coach beside a drawn map of Terminal 1, Terminal 2, the car parks and runway 09/27." title="Getting here">Choose train, car or coach, and find each terminal and car park on a drawn map.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The split" title="Drupal stores the pages and Next.js serves them." lede="Behind those 29 pages are two services. Editors build pages in Drupal 11 with Canvas, Drupal's visual page builder, and a separate Next.js app asks Drupal for each page, draws it and keeps it in a cache until an editor saves a change. Once a page is cached, a sleeping Drupal doesn't hold up a traveller.">
+<PublishPath />
+<Split>
+<Facts>
+  <Fact k="Editor">Canvas runs on Drupal's own Cloud Run address, behind a sign-in. Editors place components on a page and fill in their words.</Fact>
+  <Fact k="Content API">Next.js asks `/canvas/content-api` for a path and gets back a tree of components, each with its settings (props) and the spaces other components can fill (slots).</Fact>
+  <Fact k="Page shell">Next.js takes the notice bar, header and footer out of the tree and wraps the rest in one `main` element, so the skip link has a place to land.</Fact>
+  <Fact k="Two services">`airport-web` runs Next.js on Node 24, and Cloud Run starts at most 2 copies of it. `airport-drupal` runs Drupal on FrankenPHP, a PHP web server. One container for both would need a process supervisor and would share its scaling and cold starts.</Fact>
+  <Fact k="Front door">Firebase Hosting sends every path on airport.junaid.guru to `airport-web`. Two scheduled pings every 15 minutes keep both services warm.</Fact>
+</Facts>
+<Facts>
+  <Fact k="Cache">Each copy of the Next.js app keeps every published page in its own cache under one tag. Drafts in the editor skip the cache and fetch live.</Fact>
+  <Fact k="On save">A small Drupal module waits until a saved page or page template is in the database, then sends Next.js one request with a secret token and a 5-second timeout.</Fact>
+  <Fact k="The check">Next.js compares the token in constant time, so timing the reply can't reveal it, and answers 401 to a missing or wrong one. A good token expires the tag at once, and the next visitor to that copy gets the new page.</Fact>
+  <Fact k="If it fails">Drupal logs a warning and keeps the save. Every cached page also goes stale after an hour (3,600 seconds), so a missed call leaves an old page up for about an hour.</Fact>
+  <Fact k="Tested">Playwright checks both 401 cases. No test covers a successful save yet.</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Chapter label="The components" title="Editors build every page from 48 components." lede="Every tree Next.js gets from Drupal is built from the same 48 React components, and Canvas reads that list from the running Next.js app. The coding agents that built the site worked to a rulebook in the repository, and one rule in it keeps the components reusable: editorial copy lives in Canvas pages, never in a component.">
+<Figures>
+  <Figure src="/img/work/airport-drupal/where-we-fly.webp" w={1600} h={1000} alt="Where we fly: the heading Find your next holiday, a counter reading 1 to 3 of 4 with previous and next buttons, and cards for Cairo, New York and Beijing with price, flight time and frequency." title="City rail">Step through destinations with the arrows. Each card gives the starting fare, the flight time and how often it flies.</Figure>
+  <Figure src="/img/work/airport-drupal/at-the-airport.webp" w={1600} h={1000} alt="At the airport: the line Everything between the door and the gate above four navy towers numbered 01 to 04, for security and customs, eat and drink, baggage and lost property, and terminal maps." title="Tower grid">Four numbered links to what a traveller needs inside the terminal. Every word on them lives in the page, where an editor can change it.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Three files">`component.yml` names the component and lists its props and slots, `index.tsx` draws it, and an optional CSS module styles it. 31 of the 48 have one.</Fact>
+  <Fact k="Fixed words">A component may hold only the words every page shares, such as the skip link and the legend labels. Destinations and notices live in pages. The forms bend the rule: the parking form's prices and the flight search's 3 dates are written in the code.</Fact>
+  <Fact k="Names">The content API turns prop names into camelCase, such as imageSrc. The first full render returned 500 on three pages until the names matched, so every prop and slot is camelCase now.</Fact>
+  <Fact k="Scale">The 29 pages hold 999 component instances between them. The home page alone has 48.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The board and the hero" title="The page works before the script arrives." lede="Of the 48 components, 5 also run in the browser, and the two a traveller sees first are among them: the hero and the departures board. Both arrive from the server as plain HTML that works without JavaScript, and a script adds the motion afterwards.">
+<Figures>
+  <Figure src="/img/work/airport-drupal.webp" phone="/img/work/airport-drupal/board-phone.webp" phoneAlt="The same board on a phone, with the clock, the Departures and Arrivals tabs, the search field and columns for time, destination and flight." w={1600} h={988} alt="The dark split-flap board on the flights page, headed Departures and arrivals, with rows for Lisbon boarding, Reykjavík delayed and Amsterdam gate open." title="Departures board">Switch between departures and arrivals, or type a flight or city to filter the rows. On a phone the table scrolls sideways.</Figure>
+  <Figure src="/img/work/airport-drupal/hero-and-search.webp" phone="/img/work/airport-drupal/home-phone.webp" phoneAlt="The home page on a phone: the Travel disruption notice, the header icons, and Welcome to Meridian Airport under a 14°C cloudy line." w={1600} h={1000} alt="The home page hero with a sunrise airport picture behind the heading Welcome to Meridian Airport and the Flight tracking card." title="Hero">Two of the 12 skies: a sunny morning on the desktop and a cloudy afternoon on the phone.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Board">The server sends ordinary captioned tables. The script turns each cell into split-flap tiles and keeps a hidden copy of the text for screen readers.</Fact>
+  <Fact k="Demo data">The rows are part of the page's content. Five scripted events, such as a gate change and a delay, play one every 6 seconds and move the clock on a minute each. There is no flight-data feed.</Fact>
+  <Fact k="Motion">A visitor who asks for reduced motion sees the final characters without the flip. Each status is a dot and a word, so colour is never the only signal.</Fact>
+  <Fact k="Hero">The server sends the rainy-morning picture. The script swaps in one of 12 AI-generated photos (4 times of day by 3 kinds of weather) from the visitor's clock and the weather the editor chose.</Fact>
+  <Fact k="Contrast">A Python script blends the hero's dark overlay, in its desktop and phone forms, over all 12 photos and fails if white text would fall below 4.5:1. CI doesn't run it.</Fact>
+  <Fact k="Behaviours">All of it lives in one 607-line script that finds elements by `data-*` attributes. A small helper catches and logs a behaviour that throws, and the page stays up.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The bootstrap" title="Rebuild the whole site from an empty database." lede="The board, the hero and the 29 pages around them have to exist before an editor first signs in. The repository holds the pages as a content recipe and the templates and components as exported configuration. On an empty database the production image builds the site from them, and CI rehearses those steps on every pull request.">
+<List>
+  <Item title="The steps on an empty database.">Drush, Drupal's command-line tool, installs the site from the exported configuration, rebuilds its caches, then applies the content recipe. A database that already exists gets `drush deploy` instead.</Item>
+  <Item title="CI rehearses the first install.">CI is the set of automated checks GitHub runs on every pull request. Its end-to-end job builds the production Drupal image, bootstraps it against an empty MySQL 8.4, starts the production Next.js image and runs Playwright against the pair.</Item>
+  <Item title="The rebuild came from a failure.">The first production install stopped because Drupal was still using what it had cached during the install, which didn't know the Metatag module yet. The same steps had passed in CI and in local rehearsals. I finished the install by hand, and a cache rebuild between the install and the recipe now prevents it.</Item>
+  <Item title="Tests that follow the recipe.">Playwright opens each of the 29 pages at 1440 and 390 pixels wide and checks that it loads without errors, has one `main` landmark, shows the exact title and description, and logs no console errors. axe-core, an accessibility checker, fails the run on any breach of the WCAG A and AA rules it checks, up to WCAG 2.2. A new page in the recipe joins both checks with no change to the tests.</Item>
+  <Item title="Then the editors take over.">The recipe runs once, on the first install. After that the content belongs to the editors in production.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The bootstrap gives editors a working site on the first day. These are the limits a visitor or an editor would meet first.">
+<List>
+  <Item title="No real flights, waits or bookings.">The board, the security waits and the weather are fixed copy and scripted events, and the parking and alert forms send nothing. Flights and notices are components on pages, so I would first make flights their own kind of record in Drupal before connecting a feed.</Item>
+  <Item title="A save reaches one copy of the app.">Cloud Run can run 2 copies of Next.js at once, each with its own cache, and Drupal's call reaches only one of them. A visitor sent to the other copy can see the old page for about an hour. Fixing it needs a cache both copies share.</Item>
+  <Item title="The content API is experimental.">In Canvas 1.12 the module behind it, Canvas Headless, may change its APIs without a deprecation path, so a Canvas upgrade could break what Next.js reads.</Item>
+  <Item title="Slots accept anything.">Canvas 1.12 ignores the components a slot expects, so an editor can put any component in any slot.</Item>
+  <Item title="Drupal's own pages are bare.">A page opened on the Drupal address shows Drupal's unstyled Stark theme. Redirecting those routes to the public site is still an open question.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The learning" title="What carried forward." lede="When fog delays the morning flights, an editor changes one notice in the home page template and saves. The next traveller to open the home page before leaving the house sees the new notice, and everyone after gets it from the cache.">
+<Split>
+<List>
+  <Item title="Give editors and visitors their own service.">Drupal and Next.js scale on their own, and one cache tag cleared on save brings the public pages up to date.</Item>
+  <Item title="Keep the words in the pages.">48 components make up all 29 pages, and an editor changes their words without a deploy, apart from the few the forms hold in code.</Item>
+  <Item title="A passing rehearsal can still miss a failure.">CI installed the site from an empty database and passed, and the production install still broke. The fix went into the one script both of them run.</Item>
+</List>
+<Facts>
+  <Fact k="Components">48, of which 5 also run in the browser</Fact>
+  <Fact k="Pages">29, with 999 component instances</Fact>
+  <Fact k="On save">One request, with an hour's safety net</Fact>
+  <Fact k="Checks">29 pages at 2 widths on every pull request</Fact>
+  <Fact k="Source">[github.com/poly-glot/airport-drupal](https://github.com/poly-glot/airport-drupal)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Open the home page and search the departures board for a city.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://airport.junaid.guru/" external>Open Meridian Airport <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="https://github.com/poly-glot/airport-drupal" external>Read the source <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

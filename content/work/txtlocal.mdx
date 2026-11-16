@@ -1,0 +1,146 @@
+---
+id: txtlocal
+name: txtlocal
+tagline: Business texting on AWS Lambda, with a fake carrier so the demo costs nothing.
+summary: A business texting platform for a small team that sends texts to its customers and pays for each one in pounds. It has a console, a developer API and Stripe billing, and every message passes one send policy and one gateway, which runs a fake carrier on the live site. The worker claims each text before it calls AWS, so a retried job never sends it twice.
+client: My own product
+delivered: Web console, developer API, signed webhooks, Stripe billing, four SMS modes, landing page
+role: System author
+kind: study
+layout: chapters
+stack:
+  - Python
+  - FastAPI
+  - AWS Lambda
+  - DynamoDB
+  - React
+  - Stripe
+domains:
+  - Messaging
+year: 2026
+url: txtlocal.junaid.guru
+href: "https://txtlocal.junaid.guru/"
+source: "https://github.com/poly-glot/txtlocal"
+video:
+  src: /video/txtlocal.mp4
+  poster: /video/txtlocal.webp
+  captions: /video/txtlocal.vtt
+abstract: DOTS
+tone: "linear-gradient(135deg, #2657c422, #ffffff05)"
+cover: /img/work/txtlocal.webp
+---
+
+import SendGate from "@/components/diagrams/SendGate.tsx";
+
+<Study>
+
+<Chapter label="The customer" title="Text your customers and pay per message." lede="A small team texts its customers: a shop sends an order update, the front desk answers a reply, and the team pays in pounds for each message. That team has to trust that each text goes out once and that its balance is right. A real text costs money, so the public demonstration had to run for free.">
+<Rows>
+  <Row title="Send one text or thousands">Type a number or pick a list, send now or at a set time, and see the price before you confirm.</Row>
+  <Row title="Answer every reply">Replies land in one shared inbox, threaded by contact, so anyone on the team can pick them up.</Row>
+  <Row title="Pay as you go in pounds">A new account gets £2 of trial credit to use within 14 days. The team tops up by card through Stripe, and a UK text costs £0.0427.</Row>
+  <Row title="Send from code">A developer can send up to 1,000 messages in one call to the API and have delivery reports and replies sent to their own server as signed messages, called webhooks.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The product" title="From sign-up to a sent message." lede="The live site is that demonstration, and only its landing page opens without an account. I modelled the features on an existing SMS console, and the repository's specification transcribes 46 of its screenshots. txtlocal is a personal build with no connection to any SMS company. The console screens come from a local run with test data.">
+<Figures numbered bleed>
+  <Figure src="/img/work/txtlocal/landing-hero.webp" w={1600} h={1000} alt="The txtlocal landing page with the headline Send SMS your customers actually read, Start free and View on GitHub buttons, and an Order updates card showing two of three messages delivered." title="Landing page">The one page open to everyone, with the offer as the product states it: £2 of trial credit, no contract, pay as you go. The sending card beside the headline is a fixed illustration.</Figure>
+  <Figure src="/img/work/txtlocal/home-dashboard.webp" w={1600} h={1000} phone="/img/work/txtlocal/home-dashboard-phone.webp" phoneAlt="The console home on a phone, with the sidebar folded away, Balance £2.00, the trial banner and a Welcome to txtlocal card." alt="The console home with Balance £2.00, a banner saying 14 days are left to use the free trial credit, a Send a test message tab with a handset preview, and a sidebar of Home, Contacts, Sender IDs, SMS, MMS and Developers." title="Home">After sign-in the balance and the days of trial left sit at the top. A test message previews on a handset before it goes.</Figure>
+  <Figure src="/img/work/txtlocal/quick-sms-quote.webp" w={1600} h={1000} alt="The Quick SMS form with one recipient and an order message, under a Confirm SMS Send dialog listing 1 recipient, immediate delivery and £0.0427 cost deducted, with Close and Send buttons." title="Quick SMS">Add a number and write the message. Preview and confirm shows the recipients, the delivery time and the cost before you press Send.</Figure>
+  <Figure src="/img/work/txtlocal/history-statuses.webp" w={1600} h={1000} alt="The SMS History table with two Delivered messages, one Failed message to a number ending 100, and two Received replies, under the note that historical data is retained for 4 months." title="History">Each message with its status, kept for 4 months. The fake carrier sends nothing and picks each outcome from the number's last two digits, so a number ending 00 fails.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/txtlocal/messenger-thread.webp" w={1600} h={1000} alt="The Messenger inbox with two conversations and an open thread: an appointment reminder, then the reply Hi, can I move my appointment to Thursday?" title="Messenger">Read a reply in the shared inbox and answer it from the same screen.</Figure>
+  <Figure src="/img/work/txtlocal/landing-features.webp" w={1600} h={1000} alt="The landing page section Everything a small team needs to text customers, with five cards from Quick SMS and campaigns to Developer API." title="Features">Five cards on the landing page list what the console does.</Figure>
+  <Figure src="/img/work/txtlocal/landing-developers.webp" w={1600} h={1000} alt="The landing page section Send your first SMS with one request, with three ticks beside a dark send-sms.sh curl sample." title="One request">One request from the command line sends a text, using the same account and balance as the console.</Figure>
+  <Figure src="/img/work/txtlocal/api-documentation.webp" w={1600} h={1000} alt="The API Documentation screen showing GET /api/v3/account with a table of response fields, then GET /api/v3/account/balance." title="API reference">The console draws its API reference from the OpenAPI file, a machine-readable list of every endpoint.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The gate" title="Every message passes one gate." lede="Each of those sends, from the console or the API, goes through one gateway, the only code that hands a text to AWS, after a send policy of seven checks has said yes. One setting picks the gateway's mode. That keeps the code that spends money, and the switch from a laptop to production, in one place.">
+<Split>
+<Facts>
+  <Fact k="Fake">Sends nothing. The gateway reports every text delivered, unless the number ends 00 to 03, which fail as invalid, unreachable, blocked or spam. The live site runs this mode.</Fact>
+  <Fact k="Dry run">AWS checks the request and stops, so a developer can test the real path and nobody receives or pays for a text.</Fact>
+  <Fact k="Sandbox">Real texts, but only to the account's own verified numbers, under AWS's cap of US$1.00 a month.</Fact>
+  <Fact k="Live">Real texts to anyone the policy allows, once AWS grants production access.</Fact>
+</Facts>
+<Facts>
+  <Fact k="Country">Refuses a country the account hasn't enabled. The default list holds GB alone.</Fact>
+  <Fact k="Opt-out">Refuses a number that has opted out.</Fact>
+  <Fact k="Trial">Refuses once the 14-day trial ends without a top-up.</Fact>
+  <Fact k="Balance">Refuses a send that costs more than the balance, and names both amounts.</Fact>
+  <Fact k="Daily cap">Refuses the 501st message of the day, under the default cap of 500.</Fact>
+  <Fact k="Sender">Refuses a sender ID, the brand name or number a text comes from, that isn't ready for that country.</Fact>
+  <Fact k="Verified">In sandbox mode, refuses a number the account hasn't verified.</Fact>
+</Facts>
+</Split>
+<List>
+  <Item title="Fake mode refuses the same sends as live.">The policy runs in fake mode too, in the order above, and a test checks each refusal's wording letter for letter.</Item>
+  <Item title="A price ceiling on each call.">Each request to AWS carries a maximum price, US$0.10 by default, so a text that would cost more fails on its own instead of running up the AWS bill.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The money" title="Count money in millionths of a pound." lede="The balance check in that policy compares two amounts, and a UK text costs £0.0427, a sum pence can't hold. I stored every amount as a whole number of micro-pounds, millionths of a pound, and kept floating-point numbers, which round, away from balances, quotes and rates.">
+<Facts>
+  <Fact k="Units">£0.0427 is 42,700 and the £2 trial credit is 2,000,000. Stripe works in pence, and the code converts at that one boundary.</Fact>
+  <Fact k="One owner">Only the billing part of the code changes a balance.</Fact>
+  <Fact k="The debit">One transaction in DynamoDB, Amazon's database, holds two writes that succeed or fail together. It takes the money if the balance still covers it, and adds a row to the ledger, the record of each change to the balance, if that row is new.</Fact>
+  <Fact k="Reserve, then settle">Confirming a send reserves the full quote. When the last recipient is accounted for, the campaign keeps the cost of what AWS accepted and refunds the rest with a refund row.</Fact>
+  <Fact k="Failed texts">The campaign bills a text AWS accepted even if it later fails, because AWS bills the platform the same way. A text AWS never accepted goes back to the balance.</Fact>
+  <Fact k="The ledger">Rows are only ever added, so reading one account's rows rebuilds its balance.</Fact>
+  <Fact k="Both sides">Tests sit on each side of a limit: a balance equal to the quote sends, the policy refuses a balance one micro-pound short, and the 500th send of the day goes while the 501st stops.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The retries" title="Send each text once, even on a retry." lede="A reserved balance stays right only if each text goes once. The queue feeding the send worker, a small function on AWS Lambda, can deliver a job twice, and AWS has no way to mark a send as a repeat. The worker writes a claim to DynamoDB before calling the gateway, so a repeated job finds the claim and stops.">
+<SendGate />
+<Facts>
+  <Fact k="Claim the row">In one transaction, the worker writes the message row as queued and a marker for that send and number, on the condition that no marker exists yet. If one exists, the job is a repeat.</Fact>
+  <Fact k="Check again">The worker checks the opt-out list and the daily cap again, because time has passed since the customer confirmed.</Fact>
+  <Fact k="Claim the attempt">One conditional update, a write that applies only if the row still matches, stamps the row as attempted if it is still queued and unattempted. The worker calls the gateway after that, and marks the row sent.</Fact>
+  <Fact k="After a crash">A row with no attempt stamp that is at least 60 seconds old resumes. A row with a stamp never sends again, because AWS may already have it. A crash at that moment loses the text instead, and the sweep for stuck campaigns refunds it.</Fact>
+  <Fact k="Late reports">Each send carries its row's key, so a delivery report updates the row in one write. A late Sent can't overwrite Delivered, and a repeated report changes nothing.</Fact>
+  <Fact k="One bad job">The worker reports failures message by message, so one bad job doesn't resend the nine that worked. After three failed tries a job moves to a dead-letter queue, a holding queue for failed jobs.</Fact>
+  <Fact k="Stuck campaigns">The scheduler settles a campaign with no progress for an hour and refunds the texts that never went out.</Fact>
+  <Fact k="Proof">Tests run the same job twice and see one call to the gateway, and check that a 60-second claim resumes while a 59-second one doesn't. The spec allowed one duplicate after a crash; the code is stricter, and a test holds it there.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The claim before each send and the ledger both run against the fake carrier on the live site, and that is the first limit. The code and its specs show the other three.">
+<List>
+  <Item title="No real text leaves the live site.">The deployment runs the fake carrier and takes payments through a Stripe sandbox, Stripe's test mode, so it sends no text and charges no card. Live sending needs production access from AWS, a raised spend quota and a country block set at AWS.</Item>
+  <Item title="About five messages a second.">The send worker runs two copies at once on a table it shares with two other apps. The spec works that out at about five messages a second, or half an hour for 10,000. The spec's next step is a table of its own and more copies of the worker.</Item>
+  <Item title="No emails go out.">The code can send low-balance and invitation emails through Amazon SES, Amazon's email service, but the deployment sets no sender address, so it logs a line in place of each email.</Item>
+  <Item title="A ledger note can drift.">Each ledger row also notes the balance after it, worked out from a read before the transaction. Two debits at the same moment can leave that note off by the other's amount, while the account's balance stays exact.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The outcome" title="What carried forward." lede="The small team at the start needed each text to go out once and its balance to be right. The claim before each send stops a second text, and the ledger transaction keeps the balance exact. The gate lets the live site show every screen without sending a text.">
+<Split>
+<List>
+  <Item title="Put the call that costs money behind one gateway.">With one gateway and one policy, moving from the fake carrier to live is one setting in the code. The rest is set up at AWS.</Item>
+  <Item title="Pick the unit from the smallest price.">£0.0427 set the unit. With whole micro-pounds, the code never rounds a balance.</Item>
+  <Item title="Write the ceilings down.">The data model spec names 38 deliberate limits, and most say the scale they suit and the step beyond it.</Item>
+</List>
+<Facts>
+  <Fact k="Functions">11 on AWS Lambda</Fact>
+  <Fact k="Backend">1,085 test functions, run in CI against a local copy of DynamoDB</Fact>
+  <Fact k="Console">112 test files, run in CI</Fact>
+  <Fact k="Ceilings">38 in the data model spec</Fact>
+  <Fact k="Source">[github.com/poly-glot/txtlocal](https://github.com/poly-glot/txtlocal)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Open the landing page, then read the send policy in the source, which is public on GitHub.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://txtlocal.junaid.guru/" external>Open txtlocal <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="https://github.com/poly-glot/txtlocal" external>Read the source <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

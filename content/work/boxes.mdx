@@ -1,0 +1,122 @@
+---
+id: boxes
+name: Boxes
+tagline: A trade packaging shop where the price per pack drops as you order more.
+summary: Boxes is the online shop of an imaginary packaging supplier, where small businesses buy boxes, mailers, bags and tape in packs and pay less per pack as they order more. I built it on WordPress with no shop plugin. The basket lives in the browser, and the server works out every price again before it stores an order request.
+client: Boxes, an imaginary brand
+delivered: Static prototype, WordPress theme and content model, browser basket, trade order form, content seed, Cloud Run deployment
+role: System author
+kind: study
+layout: chapters
+stack:
+  - WordPress
+  - PHP
+  - JavaScript
+  - Node.js
+  - Cloud Run
+domains:
+  - E-commerce
+year: 2026
+url: boxes.junaid.guru
+href: "https://boxes.junaid.guru/"
+source: "https://github.com/poly-glot/boxes"
+abstract: BLOCKS
+tone: "linear-gradient(135deg, #2d1b8022, #ffffff05)"
+cover: /img/work/boxes.webp
+video:
+  src: /video/boxes.mp4
+  poster: /video/boxes.webp
+  captions: /video/boxes.vtt
+---
+
+<Study>
+
+<Chapter label="The buyer" title="Packaging for small businesses, in packs." lede="Boxes is an imaginary supplier that sells boxes, mailers, bags and tape to small businesses such as online sellers, cafés and makers. They buy in packs and reorder often. The site had to show what a pack costs at the quantity they want, and let them send a trade order without paying by card.">
+<Rows>
+  <Row title="See the price for my quantity">Each product has three pack prices. Order 12 packs of the crash-lock mailer box and each pack costs £24.50 instead of £29.50.</Row>
+  <Row title="Know the delivery charge">Delivery is £7.95 ex VAT and free once the order reaches £150 ex VAT. Below that, the basket says how much more to spend.</Row>
+  <Row title="Find a product by its code">Search takes a keyword or a SKU, the stock code printed on each product, such as BX-CL220.</Row>
+  <Row title="Order on trade terms">The trade order form asks for a company name and a delivery postcode, with room for a purchase order reference if the buyer's accounts team needs one. It never asks for a card.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The shop" title="From a category to a trade order." lede="A buyer finds 32 products in 8 categories, a printable price list and pages for custom printing and bespoke boxes. The layout follows an existing shop theme. The brand, the products, the words and the photographs are all new to this build.">
+<Figures numbered bleed>
+  <Figure src="/img/work/boxes/shop-categories.webp" w={1600} h={1000} alt="Eight product category tiles from Boxes and cartons to Tape, wrap and void fill, two service tiles for Custom printing and Bespoke boxes, and a strip reading Next-working-day delivery, Free delivery over £150, Trade accounts, Recycled and recyclable." title="Categories">Pick one of eight categories or one of the two made-to-order services. The strip below sets out the delivery and trade terms.</Figure>
+  <Figure src="/img/work/boxes/product-bulk-prices.webp" w={1600} h={1000} alt="The crash-lock mailer box page with SKU BX-CL220, a Bulk discounts table of 1 to 3 packs at £29.50, 4 to 11 at £27.25 and 12 or more at £24.50, quantity 12, and a green line confirming 12 packs were added to the basket." title="Product">Check the three bulk prices, choose a quantity in packs and add it to the basket without leaving the page.</Figure>
+  <Figure src="/img/work/boxes/basket-totals.webp" phone="/img/work/boxes/basket-phone.webp" phoneAlt="The basket on a phone: the crash-lock mailer box line with Bulk price for 12+ packs, quantity 12 and £294.00, above the summary ending in a total of £352.80." w={1600} h={1000} alt="Your basket with one line at £24.50 per pack labelled Bulk price for 12+ packs, a line total of £294.00, and a summary showing free delivery, VAT at 20% of £58.80 and a total of £352.80." title="Basket">See the 12-pack price applied, with delivery, VAT and the total worked out again each time the quantity changes. On a phone the summary moves under the line.</Figure>
+  <Figure src="/img/work/boxes/trade-order-form.webp" w={1600} h={1000} alt="The Place a trade order form with fields for name, company, email, phone, delivery postcode, purchase order reference and notes, an orange Place trade order button and a note asking visitors not to enter real details." title="Trade order">Send the basket as a trade order with a company name, a delivery postcode and, if needed, a purchase order reference.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/boxes/category-listing.webp" w={1600} h={1000} alt="The Mailing bags and envelopes category with a sidebar of categories and collections, the line Showing 4 products, and product cards with their SKU and pack size." title="Category">Browse a category with each product's SKU, pack size and price ex VAT.</Figure>
+  <Figure src="/img/work/boxes/search-results.webp" w={1600} h={1000} alt="Search results for mailer, 9 results, the first three labelled Product with their SKU, pack size and price ex VAT." title="Search">Search by name or SKU. A search for mailer finds 9 results: 3 products, then categories, collections and pages.</Figure>
+  <Figure src="/img/work/boxes/price-list.webp" w={1600} h={1000} alt="The Price list page with a Print this price list button and a Boxes and cartons table of product, SKU, pack, price per pack, bulk price and best price." title="Price list">See every product's three prices on one page, then print it.</Figure>
+  <Figure src="/img/work/boxes/custom-printing.webp" w={1600} h={1000} alt="The Minimum quantities table from the Custom printing page, from 2,000 paper counter bags down to 100 cotton totes, with lead times, above Artwork guidance and How it works." title="Custom printing">Check the minimum order for printed bags, boxes, tape and labels before sending an enquiry.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The trade maths" title="The same price rule runs in two places." lede="The basket shows the right pack price as the buyer types a quantity, so the rule has to run in the browser. Anyone can change the numbers in their own browser, though, so the server works the order out again from its own data before it stores anything.">
+<Facts>
+  <Fact k="Three prices">Each of the 32 products has three price breaks, the pack counts where a cheaper price starts. The first starts at 1 pack and matches the headline price. Half the range gets cheaper at 4 and 12 packs, the other half at 5 and 10.</Fact>
+  <Fact k="Best price">The top price break saves 16.1% to 22.3% on the single-pack price, and 18.1% on average.</Fact>
+  <Fact k="The rule">Of the price breaks the quantity has reached, use the one with the most packs. The browser's `activeTier` in JavaScript and the server's `boxes_unit_price` in PHP both apply that rule.</Fact>
+  <Fact k="Delivery and VAT">Delivery is £7.95 unless the subtotal is £150 or more. VAT is 20% of the subtotal plus delivery. Both sides round each line, the subtotal, the VAT and the total to the penny, in the same order.</Fact>
+  <Fact k="Worked example">12 packs at £24.50 make £294.00. Delivery is free, VAT is £58.80 and the total is £352.80. The server's code, with the delivery and VAT figures the seed stores, works out the same four figures.</Fact>
+  <Fact k="What the server trusts">The browser sends only the SKU and the number of packs for each line. The server looks up each price itself, caps each line at 999 packs as the browser does, and drops any line below 1.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The basket" title="A basket without a shop plugin." lede="The usual way to keep a basket and an order on WordPress is a shop plugin such as WooCommerce, and I left it out. Firebase Hosting, which serves the public address, passes only one cookie through to WordPress, so it would drop the plugin's basket cookie between pages.">
+<Facts>
+  <Fact k="Products">A WordPress content type of their own, `product`, defined in a YAML settings file. An editor changes prices in a list called Bulk discounts, one row per price break.</Fact>
+  <Fact k="Add to basket">A plain form that points at the basket page with the SKU and quantity, so without JavaScript it still opens the basket page, which says how to order by phone or email instead. With JavaScript, a 9,903-byte script saves the line in the browser's own storage and announces it to screen readers. The server holds nothing until the buyer places the order.</Fact>
+  <Fact k="Basket prices">The script reads them from one data file, `/assets/search-index.json`, which the theme builds from the product records. Search reads the same file.</Fact>
+  <Fact k="Placing the order">The script copies the lines into a hidden field. The server checks a WordPress nonce, a token that proves the form came from the site, prices the lines again and stores a private `order_request` record. A bot that fills in a hidden trap field gets the thank-you page and stores nothing.</Fact>
+  <Fact k="Who can see it">Order requests and enquiries are private and left out of WordPress's public API, the address other programs use to read a site's content. The live site's list of content types shows neither.</Fact>
+  <Fact k="What the buyer gets">The thank-you page reads 'Thank you, we have your order'. The site takes no payment and sends no email. The order request waits in the WordPress admin for someone to read.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The catalogue" title="One catalogue file feeds both builds." lede="The product records behind that index come from one catalogue, content/catalogue.json, with 32 products, 8 categories and 2 collections. I built the whole shop as static HTML pages from it first. The WordPress seed, a script that fills the database, reads the same file, so both builds start from the same prices.">
+<Facts>
+  <Fact k="Static build">A Node.js script with no dependencies writes 63 HTML files and the search index. It refuses a page that lacks a path, a title, a description or a body, and any path that appears twice.</Fact>
+  <Fact k="Seed">A PHP script of 1,092 lines reads the catalogue and fills WordPress. It stops with an error if the file is missing or empty.</Fact>
+  <Fact k="Running it again">The seed looks each product up by its SKU and updates the one it finds instead of adding another. It uploads an image again only when the theme's image sizes change.</Fact>
+  <Fact k="Same front end">The theme's 4 JavaScript files and its stylesheets are copies of the prototype's. A file comparison of the two folders finds no difference.</Fact>
+  <Fact k="Platform">The site runs on Cloud Run, Google's service for running containers, from a WordPress image shared with five other sites. Each deploy updates the Cloud Run service, then runs the seed as a job and waits for it. If the seed fails, the deploy stops before it updates Firebase Hosting, which serves the public address. By then Cloud Run is already serving the new image.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The seed fills a working shop, but Boxes is a demonstration, so it stops short of selling anything. A few gaps belong to the build itself, and I say what I would do about each.">
+<List>
+  <Item title="Nothing is sold.">There is no payment, no customer account and no stock count that goes down. The Trade account link leads to an application form. The thank-you page promises a reply by email, but the theme has no code that sends one. I would start by sending each order request to the shop's inbox.</Item>
+  <Item title="The delivery and VAT rules live in two places.">The browser has £7.95, £150 and 20% written into its script, and the server reads them from the Shop settings. Change a setting and the basket would show a different total from the stored one. I would put those three figures in the JSON file the basket already loads.</Item>
+  <Item title="The basket stays in one browser.">It does not follow a buyer from a laptop to a phone. That needs accounts.</Item>
+  <Item title="No test checks that the two copies agree.">The repository has no tests and the deploy runs none. I would add one test that prices the same baskets in JavaScript and in PHP, so the two copies of the rule cannot drift apart unnoticed.</Item>
+</List>
+</Chapter>
+
+<Chapter label="What carried forward" title="What carried forward." lede="A buyer who orders 12 packs of mailer boxes sees £24.50 a pack and a total of £352.80 in the basket. The server works out the same total before it stores the order request, from the same catalogue I built the prototype from.">
+<Split>
+<List>
+  <Item title="Let the server own the stored total.">The browser shows prices as the buyer types, and the order keeps the figures the server worked out from its own data.</Item>
+  <Item title="Check what the host does to cookies before picking a plugin.">Knowing that Firebase Hosting passes one cookie ruled out a shop plugin and kept the basket in the browser, where the prototype already had it.</Item>
+</List>
+<Facts>
+  <Fact k="Products">32, each with three pack prices</Fact>
+  <Fact k="Static pages">63, built from one catalogue file</Fact>
+  <Fact k="Shop plugins">None</Fact>
+  <Fact k="Source">[github.com/poly-glot/boxes](https://github.com/poly-glot/boxes)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Add 12 packs of the crash-lock mailer box and see the price per pack drop in the basket.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://boxes.junaid.guru/" external>Open Boxes <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

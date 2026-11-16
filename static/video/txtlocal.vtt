@@ -1,0 +1,37 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.033
+Text your customers, and pay per message.
+
+2
+00:00:05.750 --> 00:00:09.950
+Type a number and a message, and see the price before you send.
+
+3
+00:00:10.250 --> 00:00:12.600
+A UK text costs £0.0427.
+
+4
+00:00:15.750 --> 00:00:20.550
+Replies land in one shared inbox, so anyone on the team can answer them.
+
+5
+00:00:25.750 --> 00:00:30.883
+From code, one request sends up to 1,000 messages from the same balance.
+
+6
+00:00:33.750 --> 00:00:38.883
+Every send passes seven checks and one gateway, the only code that calls AWS.
+
+7
+00:00:39.000 --> 00:00:41.267
+The live site runs a fake carrier.
+
+8
+00:00:42.000 --> 00:00:47.400
+The worker claims each text before it calls AWS, so a retry never sends it twice.
+
+9
+00:00:50.500 --> 00:00:53.233
+Try it at txtlocal.junaid.guru.

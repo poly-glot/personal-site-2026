@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.567
+One database for many shops, each kept to itself.
+
+00:00:06.000 --> 00:00:12.200
+Sign up, name your workspace, and your shop gets a site, an admin area and an API of its own.
+
+00:00:16.000 --> 00:00:20.933
+Write a block once, such as your opening hours, and drop it into any page.
+
+00:00:21.133 --> 00:00:24.733
+Change the block, and every page that uses it changes.
+
+00:00:27.500 --> 00:00:32.367
+Define your own content types, such as products, from twelve field types.
+
+00:00:35.750 --> 00:00:41.483
+Every shop shares one database, so one rule adds the workspace to every read and save.
+
+00:00:41.833 --> 00:00:45.367
+With no workspace set, the query stops with an error.
+
+00:00:48.300 --> 00:00:51.700
+Sign up for a workspace at cms.junaid.guru.

@@ -86,6 +86,10 @@ export function nodeHeight(lines: readonly string[]): number {
   return PANEL.bare + lines.length * PANEL.leading;
 }
 
+export function sheetNodeHeight(lines: readonly string[]): number {
+  return SHEET.bare + lines.length * SHEET.leading;
+}
+
 function Figure(
   { children, description, metrics, svgClass, title, viewBox }: {
     children: ComponentChildren;

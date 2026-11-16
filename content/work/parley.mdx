@@ -1,0 +1,137 @@
+---
+id: parley
+name: Parley
+tagline: A communications agency's website that shows its work by region.
+summary: Parley is the website of an imaginary London communications agency for clients caught up in complex international issues. It shows the agency's work by region, with coordinates and results, and takes a confidential first message. I built it as a WordPress theme with one stylesheet and 2,499 bytes of JavaScript, and the menu and carousels work without the script.
+client: Parley, an imaginary brand
+delivered: WordPress theme, YAML content model, rerunnable content seed, enquiry form, Cloud Run deploy pipeline
+role: System author
+kind: study
+layout: chapters
+stack:
+  - WordPress
+  - PHP
+  - CSS
+  - Cloud Run
+  - Firebase
+domains:
+  - Professional Services
+year: 2026
+url: parley.junaid.guru
+href: "https://parley.junaid.guru/"
+source: "https://github.com/poly-glot/parley"
+video:
+  src: /video/parley.mp4
+  poster: /video/parley.webp
+  captions: /video/parley.vtt
+abstract: MAP
+tone: "linear-gradient(135deg, #16299c22, #ffffff05)"
+cover: /img/work/parley.webp
+---
+
+<Study>
+
+<Chapter label="The client" title="A client who needs to be heard." lede="Parley is an imaginary London communications agency for clients caught up in complex international issues. In its own words, it runs media campaigns, handles reputational attack and makes the case to policymakers, usually all at once. The people reading its website are foundations, family businesses, campaigners, public figures and the law firms that refer them.">
+<Rows>
+  <Row title="Show where it has worked">A client needs to be heard in a particular country, so the case studies are listed by region, from Latin America to Asia.</Row>
+  <Row title="Explain each service">Seven services, each with what's included, how the work runs in four steps and the questions clients often ask.</Row>
+  <Row title="Introduce the people">The brand promises a senior partner on every account, so the team page shows who leads the work, and each profile lists their languages.</Row>
+  <Row title="Take a first message in confidence">A form that promises confidentiality, and a 24-hour line for anyone facing a crisis right now.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The site" title="From the first page to a message." lede="The site has six sections: About, Services, Our Work, Team, Dispatches (the blog) and Contact. Nothing needs a sign-in. The agency, its six staff, its clients and their results are invented, and the phone number is a placeholder.">
+<Figures numbered bleed>
+  <Figure src="/img/work/parley/home-work-carousel.webp" w={1600} h={1000} alt="The home page carousel labelled Our work: the coordinates 4.71° N · 74.07° W above the heading Latin America, the client line A regional think tank, Bogotá, a summary, a Read the case study link and four slide dots, beside a line drawing of a globe." title="Home">Browse the case studies by place, each headed by its coordinates and region.</Figure>
+  <Figure src="/img/work/parley/about-venn.webp" w={1600} h={1000} alt="A three-circle Venn diagram labelled Media relations, Digital campaigns and International public affairs, with the caption Most agencies are strong in one circle. We work in the overlap." title="About">See where the agency says it works: in the overlap of media, digital and public affairs.</Figure>
+  <Figure src="/img/work/parley/services-index.webp" w={1600} h={1000} alt="The services list showing Media Relations and Digital & Social, each with an icon, a summary and a View details button, on alternating sides." title="Services">Compare the seven services, then open one for the steps and the questions clients ask.</Figure>
+  <Figure src="/img/work/parley/team.webp" w={1600} h={1000} alt="Greyscale portraits in a grid with names and roles, from Eleanor Marsh, Founder & Managing Partner, to Kasia Nowak, Director, Digital & Audio, with a second row starting below." title="Team">Meet the six people behind the accounts, each with a profile page.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The work" title="Each case study starts with a place." lede="Our Work is where a visitor checks whether Parley has worked in their part of the world, and the About page says the team has worked in more than 30 countries. The content model, the set of fields an editor fills in, puts the place first in every case study.">
+<Figures>
+  <Figure src="/img/work/parley/work-regions.webp" w={1600} h={1000} alt="The Latin America band on the Our Work page: the coordinates 4.71° N · 74.07° W, the client line A regional think tank, Bogotá, a summary and Read the case study, over a faded photograph of a city square, with the Africa band starting below." title="Our Work">Read the work one region at a time, with the client and a summary for each.</Figure>
+  <Figure src="/img/work/parley/case-study.webp" phone="/img/work/parley/case-study-phone.webp" phoneAlt="The same case study on a phone, with the three results stacked in one column, each with a blue rule on its left, then the heading The challenge." w={1600} h={1000} alt="A case study page with the facts Region Latin America, Services Media Relations, Digital & Social, Film & Explainers, and Duration 6 months, above the results 3 corrections published, 11 international interviews and 2.4m explainer views." title="A case study">Check the region, the services and how long the work took, then the results. On a phone the results stack.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Model">A case study is a set of fields written in a YAML file, a plain text format. The shared platform's yacf plugin reads the file and builds the edit screen in the WordPress admin.</Fact>
+  <Fact k="Place">A region chosen from five (Africa, Asia, Europe, Latin America and the Middle East), coordinates written as text, such as 4.71° N · 74.07° W, and a line naming the client.</Fact>
+  <Fact k="Results">A list of figures, each with a label. The sample Bogotá study says '3 corrections published'. Like every result on the site, it is written copy and measures nothing.</Fact>
+  <Fact k="Services">Links to the service pages. The template writes the services line from their titles, so renaming a service updates every case study that uses it.</Fact>
+  <Fact k="Chapters">The challenge, Our approach and The outcome are three rich-text fields. The template leaves out any that is empty, so a short study needs no layout of its own.</Fact>
+  <Fact k="Next">The Next case study link follows the order an editor sets, and wraps from the last study to the first.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The front end" title="One stylesheet and two small scripts." lede="Those places reach a visitor through the carousel on the home page and long pages of photographs. I kept the code a browser downloads for them small: one stylesheet, and 2,499 bytes of JavaScript that adds controls to pages that already work without it.">
+<Figures>
+  <Figure wide src="/img/work/parley/service-faq.webp" w={1600} h={1000} alt="The heading Questions we're often asked, with the question Will our conversation be confidential? open and answered, above two closed questions." title="The questions">Open a question to read the answer. Each one is the browser's own open and close element, with no script behind it.</Figure>
+</Figures>
+<Facts>
+  <Fact k="41 files">The theme's CSS is 41 small files, one per piece of the page: 3 for the base, 6 for small parts such as the logo, and 32 for components. Together they hold 2,738 lines.</Fact>
+  <Fact k="One file">One shell command joins the 41 files in a fixed order into `main.css` as Docker builds the server image. The repository ignores that file and keeps only the sources.</Fact>
+  <Fact k="Before and after">The commit that made the change says the page went from 41 render-blocking requests (files the browser must finish before drawing anything), 20.3 KB compressed, to 1 request of 8.8 KB. The live file today is 55,748 bytes, and the server sends it compressed as 9,998 bytes.</Fact>
+  <Fact k="Local setup">If `main.css` is missing, the theme loads the 41 files one by one in the same order, so the local development setup runs without a build step.</Fact>
+  <Fact k="Scripts">The menu script (679 bytes) loads on every page and the carousel script (1,820 bytes) on the home page only. Both wait until the browser has read the page, so neither holds it up while it loads.</Fact>
+  <Fact k="Without them">On a screen narrower than 1,024 pixels the menu links sit in a row under the logo, and each carousel on the home page scrolls sideways and stops on each slide. The menu script shows a menu button, and pressing Escape closes the menu and puts focus back on the button. The carousel script adds the dots and arrows.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The enquiry" title="A first message, kept in the admin." lede="After reading the work, a client writes in, and the form works without JavaScript like the rest of the site. Parley promises every conversation is confidential, so the form saves each message as a private record inside WordPress instead of passing it to an outside form service.">
+<Figures>
+  <Figure wide src="/img/work/parley/contact-form.webp" phone="/img/work/parley/contact-form-phone.webp" phoneAlt="The enquiry form on a phone, with full-width fields and a label above each, from Organisation (optional) to Were you referred to us? (optional)." w={1600} h={1000} alt="The enquiry form with fields for name, organisation, email, phone, what the visitor needs help with and who referred them, beside a panel headed Facing a crisis right now? with a phone number and the office address." title="Contact">Tell the agency what's happening, or call the 24-hour line beside the form. The number on screen is a placeholder.</Figure>
+</Figures>
+<List>
+  <Item title="A private record.">Each message becomes an enquiry, a content type that stays off the public site. The admin lists enquiries with the email and the topic in their own columns.</Item>
+  <Item title="Plain HTML first.">The form posts to WordPress's own handler, and the thank-you is the contact page with `?sent=1` on the address. The browser checks the required fields and marks a field red only after the visitor has tried it.</Item>
+  <Item title="Checked on the server.">A one-time token from WordPress, called a nonce, shows the post came from this form. The handler cleans every field before saving it, and saves nothing without a name, an email and a message.</Item>
+  <Item title="A trap for bots.">A hidden field called website stays empty for people. A bot that fills it lands on the same thank-you page as everyone else, so it cannot tell that the handler threw its message away.</Item>
+  <Item title="The crisis line.">The 24-hour number on the contact page and in the footer is a link that starts a call on a phone. Both read the same two fields in Site settings, the number as shown and the number to dial, so an editor changes it in one place.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The platform" title="One seed fills the site on each deploy." lede="The contact page that holds the form reaches production the way every page, service and case study does: through one seed, a PHP file that writes the site's content and is safe to run again. Parley shares its server image and the yacf plugin with five other client sites. The theme, the model and the seed belong to this repository.">
+<Facts>
+  <Fact k="Seed">One file of 968 lines writes 8 pages, 7 services, 5 case studies, 6 team profiles, 9 posts, 4 menus, the site settings and 23 images, then deletes WordPress's sample content.</Fact>
+  <Fact k="Safe to rerun">It finds each post by its slug, the last part of its address, and updates it if it exists. It tags each image so a rerun does not upload it twice, and fills a menu only when the menu is empty.</Fact>
+  <Fact k="On each deploy">GitHub Actions builds the image and deploys it to Cloud Run, Google's service for running containers, then runs the seed as a job and waits for it. If the job fails, the run stops before it updates Firebase Hosting, which serves the public address. By then Cloud Run is already serving the new image.</Fact>
+  <Fact k="Why">The first deploys left the seed job as a manual step. I added it to the pipeline so seeded content and images, including the team portraits, reach production without one.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="Parley is a demonstration, so the phone number and the legal pages are placeholders, and the newsletter form in the footer goes nowhere. The gaps that belong to the build start with the enquiry form and the seed.">
+<List>
+  <Item title="Nobody hears about an enquiry.">The handler sends no email, so someone has to open the Enquiries list in the admin. An agency that promises a reply within one working day needs a notification for each new record, and that is the first thing I would add.</Item>
+  <Item title="The seed undoes admin edits.">Each deploy rewrites the seeded pages, posts and settings, so a change made in the admin, such as a new crisis line number, lasts until the next push. Menus are the exception. I would change the seed to write content only when it is missing.</Item>
+  <Item title="A rejected form says nothing.">If the name, email or message reaches the server empty, the handler sends the visitor back to the form with no error. Only the browser checks the consent box. I would have the handler say what is missing and check consent too.</Item>
+  <Item title="The home page clips on a phone.">At 390 pixels wide the second line of the headline, Win the argument, loses its last letter, because the CSS stops the line from wrapping. I would let it wrap or scale the type with the screen.</Item>
+  <Item title="Nothing checks the build.">The repository has no tests, and the deploy runs no page or accessibility checks. The live pages send no content security policy, the header that tells a browser which scripts it may run. I would add a page check after the seed runs, and set the headers in the Firebase Hosting config.</Item>
+</List>
+</Chapter>
+
+<Chapter label="What carried forward" title="What carried forward." lede="A client who needs to be heard can find a place where Parley has worked and send a confidential message, with or without JavaScript. The piece still missing is an email that tells a partner the message has arrived.">
+<Split>
+<List>
+  <Item title="Model the brand's own idea.">Parley's clients need to be heard in particular places, so a case study starts with a region and coordinates, and the home page and Our Work lead with them.</Item>
+  <Item title="Join the stylesheets at build time.">41 small files kept the CSS easy to find and edit. One shell command in the image build removed the cost of sending them one by one.</Item>
+  <Item title="Build the page first, then add the script.">The menu, the carousels and the questions work in HTML and CSS, so a slow or failed script costs the visitor the extra controls and nothing more.</Item>
+</List>
+<Facts>
+  <Fact k="Stylesheet">41 files joined into 1, about 10 KB as sent</Fact>
+  <Fact k="JavaScript">2,499 bytes in 2 scripts</Fact>
+  <Fact k="Model">4 content types and 11 field groups in 7 YAML files</Fact>
+  <Fact k="Source">[github.com/poly-glot/parley](https://github.com/poly-glot/parley)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Visit it">
+  <ClosingCopy>Pick a region and read how the imaginary agency says it handled the work there.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://parley.junaid.guru/" external>Open Parley <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

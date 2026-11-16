@@ -1,0 +1,134 @@
+---
+id: outrun
+name: Outrun Extinction
+tagline: An imaginary charity run page that asks five questions, then shows your way in.
+summary: Outrun Extinction 2027 is an imaginary charity run, 12 Sunday mornings across the UK to raise money for cheetahs. Its page asks five questions and rearranges itself around the answer, in the browser with no server behind it. The same build now hosts a second campaign, and automated accessibility checks have to pass before each deploy.
+client: Outrun Extinction, an imaginary brand
+delivered: Campaign site in English and German, five-question quiz, second campaign on the same build, accessibility checks in CI
+role: System author
+kind: study
+layout: chapters
+stack:
+  - Next.js
+  - React
+  - TypeScript
+  - MDX
+  - Framer Motion
+  - Firebase
+domains:
+  - Charity
+  - High End Campaigns
+year: 2026
+url: outrun.junaid.guru
+href: "https://outrun.junaid.guru/outrun/en"
+source: "https://github.com/poly-glot/outrun"
+abstract: BLOCKS
+tone: "linear-gradient(135deg, #ffcd1122, #ffffff05)"
+cover: /img/work/outrun.webp
+video:
+  src: /video/outrun.mp4
+  poster: /video/outrun.webp
+  captions: /video/outrun.vtt
+---
+
+import VisitorPath from "@/components/diagrams/VisitorPath.tsx";
+
+<Study>
+
+<Chapter label="The visitor" title="One page for three kinds of supporter." lede="Outrun Extinction 2027 is an imaginary charity run: 12 Sunday mornings across the UK, raising money for cheetahs. There is no real charity behind it, and no money changes hands. Some visitors want to run, some will bring a team and some would rather give, so the page had to find the right way in for each of them.">
+<Rows>
+  <Row title="Run on my own">Solo is 'one entry, one distance, your own pace': a 5K or a 10K on one morning, £20 to enter.</Row>
+  <Row title="Bring my team">Coalition is a team of three or more, 'a workplace, a club, a classroom, a family', at £15 each.</Row>
+  <Row title="Back a runner instead">Guardian is for people who would rather back a runner, sponsor a dog, give monthly or marshal on the day, from £5 a month.</Row>
+  <Row title="Use it however I browse">By keyboard, with a screen reader, on a phone, or with motion turned off. The page asks the public to register and give, so the README counts it as a service under the Equality Act 2010, the UK law on disabled people's access to services.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The page" title="One long page in two languages." lede="Every visitor starts on the same long page, in English or German, with a separate page of cities and dates. The prices, dates and cities belong to the mock campaign, and the photos and clips are Pixabay stock.">
+<Figures numbered bleed>
+  <Figure src="/img/work/outrun/welcome.webp" w={1600} h={1000} alt="A seated cheetah on a mound in long grass beside the heading SPEED WON'T SAVE THEM and body text beginning Nought to sixty in three seconds." title="Welcome">The case for the run in one paragraph, ending 'Come and run with them.' The word 'more' appears three times, and its underline draws as you scroll.</Figure>
+  <Figure src="/img/work/outrun/strength.webp" w={1600} h={1000} alt="Three yellow rings reading -91%, -85% and -80%, and the counters 7100, 50 and 300 under the caption COUNTING DOWN." title="Strength in numbers">The rings and counters fill as you scroll, with the figures the page cites. A screen reader hears the final value, never the digits on their way up.</Figure>
+  <Figure src="/img/work/outrun/miles.webp" w={1600} h={1000} alt="Two cheetah cubs and an adult on a mound beside the heading WHERE YOUR MILES GO and four facts: guardian dogs, GPS collars, community scouts and the cub safe house." title="Where your miles go">Scrolling plays a clip of the cubs while four facts say where the money would go.</Figure>
+  <Figure src="/img/work/outrun/roadshow.webp" w={1600} h={1000} alt="The heading Outrun Extinction 2027 beside a list of cities and dates grouped under England, Scotland, Wales and Northern Ireland." title="Cities and dates">Register in the header opens this list over the page: 12 cities in 4 nations. Each city links to a placeholder address, so there is no real sign-up.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The quiz" title="Five answers decide what the page shows." lede="Before picking a city, a visitor needs a way in, and Solo, Coalition and Guardian differ in distance, cost and where the money goes. Rather than ask them to compare all three, the page asks five short questions, picks one and rearranges the sections below around it, in the browser with nothing saved.">
+<VisitorPath />
+<Figures>
+  <Figure src="/img/work/outrun/quiz.webp" phone="/img/work/outrun/quiz-phone.webp" phoneAlt="The quiz on a phone, with the first question's three options in a grid and the second question greyed out." w={1600} h={1000} alt="Five answered questions beside a panel reading WE RECOMMEND, with a COALITION ribbon over a photograph of two cheetahs." title="Which works best for you?">Each question opens once you answer the one before. A runner who brings their club and wants a team total gets Coalition.</Figure>
+  <Figure src="/img/work/outrun/ways.webp" w={1600} h={1000} alt="A bar of three options with COALITION selected, and AT A GLANCE rows for distance, time, entry, target and where the money goes." title="Three ways in">The bar follows the quiz, and a visitor can still press another option. The rows and the cards below change with it.</Figure>
+</Figures>
+<Facts>
+  <Fact k="The rule">A 19-line file in the campaign's own folder. Guardian if any answer points to giving instead of running ('I'd rather cheer than run', 'Money' or 'Five minutes a month'), then Coalition if the visitor brings others or wants a team total, then Solo. Three tests pin that order.</Fact>
+  <Fact k="One value">Each click works out the recommendation again and selects it.</Fact>
+  <Fact k="Screen readers">Each answer is a toggle button that reports whether it is pressed. The page announces the recommendation to screen readers when it changes, without cutting in on what they are reading.</Fact>
+  <Fact k="Nothing kept">The answers live in the page's memory. There is no cookie, no analytics and no server to send them to, so a reload starts the quiz again.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Many campaigns" title="One build, ready for the next campaign." lede="The quiz rule sits in a campaign folder because the build holds more than one campaign. The first commit was a single site. Eleven hours later each address named a campaign, then a language, then a page (/outrun/en/roadshow), and a second campaign, Paws & Pace, went in with the same commit to prove the split.">
+<Figures>
+  <Figure src="/img/work/outrun.webp" w={1600} h={988} alt="The heading OUTRUN EXTINCTION over a running cheetah, with a black header holding PLAY MOTION, DE | EN and a yellow REGISTER button." title="Outrun Extinction">The founding campaign, in English and German, with the cities behind Register.</Figure>
+  <Figure src="/img/work/outrun/pace.webp" w={1600} h={1000} alt="The heading PAWS & PACE over a running cheetah, with a paw-print logo in the header and no language switcher or Register button." title="Paws & Pace">The second campaign. It has one language, so the switcher hides, and no cities page, so Register doesn't render.</Figure>
+</Figures>
+<Facts>
+  <Fact k="A campaign">A folder of copy, settings and a media list, plus an optional folder for the code it owns: a logo, a font, a quiz rule and a theme.</Fact>
+  <Fact k="Languages">Each language is a folder. A new one brings its own routes, hreflang links (the tags that point search engines at a translation) and pages in the accessibility checks, with no code change.</Fact>
+  <Fact k="Registry">Each campaign's settings sit in a registry, a short list in the code. A campaign folder missing from it fails the build, and the error says where to add it.</Fact>
+  <Fact k="Parallel builds">Next.js builds the pages in parallel, so each page keeps its own record of its campaign in React's `cache()`. One shared variable would let one page pick up another's campaign.</Fact>
+  <Fact k="Boundaries">A lint rule stops campaign code importing the app's internals, so a campaign plugs in through the registry alone.</Fact>
+  <Fact k="Paws & Pace">10 files of its own, plus its registry entries. Its brand colour is two CSS custom properties, and it brings its own font and quiz rule and renames the options Stride, Pack and Patron.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The checks" title="Each rule names the check that catches it." lede="Each new campaign or language adds pages that must meet WCAG 2.2 AA, the web's accessibility guidelines: 8 pages so far. The rulebook, CLAUDE.md, written for people and for coding agents, names the check that catches each rule. The build server runs the automated ones and won't deploy past a failure.">
+<List>
+  <Item title="Types, lint and tests on each commit.">`npm run check` runs in the repository's pre-commit hook and again on the build server. Lint, an automatic code checker, treats its accessibility rules as errors. Tests fail on a screen-reader label typed into the code instead of taken from the translations, a stylesheet that hides the focus outline, a font size in pixels, a skipped heading level, or section ids that differ between languages.</Item>
+  <Item title="16 browser audits.">axe-core, an automated accessibility scanner, opens each of the 8 pages at a desktop and a phone width, scrolls through it, and fails the run on any serious or critical problem. A scanner finds only what a machine can measure, which is part of WCAG.</Item>
+  <Item title="12 journeys.">Scripted visits click, press keys and measure the page, most of them on the two English home pages: text spacing raised to the WCAG overrides with no text spilling out of its section, contrast read from the pixels behind the hero heading, and no control hidden under another. That last one exists because the logo once covered the motion button at 390px, and axe missed it.</Item>
+  <Item title="One check stays manual.">The rulebook's definition of done includes a five-minute pass by keyboard and with VoiceOver, Apple's screen reader, with no script behind it.</Item>
+</List>
+<Facts>
+  <Fact k="One switch">Motion is one of those rules. Every animation and scroll effect reads one flag, `motionPaused`, so one setting stops them all.</Fact>
+  <Fact k="System first">The flag follows the reduce-motion setting in the visitor's operating system, live. The Play motion and Stop motion button in the header overrides it until that setting changes.</Fact>
+  <Fact k="Paused">Counters and reveals show their finished state, and on a desktop the sticky cub scene shrinks from three screens of scrolling to one still screen.</Fact>
+  <Fact k="Tested">4 unit tests cover the switch, including a stored choice that expires when the system setting changes. The `motionControl` journey presses the header button and checks the page pauses and resumes.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The checks cover the page a visitor sees. The campaign behind it stops at the sign-up, and the README, the rulebook and the published accessibility statement list most of these gaps themselves.">
+<List>
+  <Item title="It stops at the sign-up.">Each city links to a placeholder address, and Privacy, Terms and Contact in the footer are plain text. There is no registration, payment or fundraising page, although the copy describes them. To run it for real, I would put a sign-up service behind the city links.</Item>
+  <Item title="The opening video is heavy.">The desktop hero clip in AV1, a newer video format, is more than 9 MB. A phone that can't play AV1 downloads a portrait file of more than 7 MB. Each image slot holds one file, sized for the largest screen that shows it, so a phone downloads the desktop picture. The rulebook names the fix for images, a build step that writes smaller sizes, and I would encode smaller clips.</Item>
+  <Item title="The statement lists its own gaps.">Gallery photos have no descriptions, copy over the hero photo may fall short of 4.5:1 contrast in some viewports, and the feature videos rely on YouTube's captions. I haven't yet checked the 320px width that 400% zoom produces.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The outcome" title="What carried forward." lede="Three lessons from the build, and figures you can check in the repository.">
+<Split>
+<List>
+  <Item title="Let one answer drive the page.">Five questions reduce to one value, and the sections below the quiz read it, so a visitor reads about one way in rather than comparing three.</Item>
+  <Item title="Add the second campaign early.">Building Paws & Pace on the first day showed which parts belong to a campaign and which to the platform. The campaign's share came to 10 files.</Item>
+  <Item title="Tie each rule to a check.">When a rule names an automated check, breaking it stops the deploy, so the rulebook stays true as the page changes.</Item>
+</List>
+<Facts>
+  <Fact k="Campaigns">2, on one build</Fact>
+  <Fact k="Second campaign">10 files</Fact>
+  <Fact k="Before each deploy">16 axe audits and 12 journeys</Fact>
+  <Fact k="Back end">None</Fact>
+  <Fact k="Source">[github.com/poly-glot/outrun](https://github.com/poly-glot/outrun)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Answer the five questions and see which way in the page picks for you.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://outrun.junaid.guru/outrun/en" external>Open Outrun Extinction <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="https://outrun.junaid.guru/pace/en" external>Open Paws & Pace <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

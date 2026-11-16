@@ -1,0 +1,127 @@
+---
+id: legal
+name: Ferrow & Lisle
+tagline: A website for an imaginary disputes firm in London and New York.
+summary: Ferrow & Lisle is an imaginary disputes firm in London and New York, and this is its WordPress website for companies looking for counsel. The layout follows an existing design, and a written contract replaced the brand, the words and the images. The decision worth reading is the world map, where each pin is two numbers an editor types in.
+client: Ferrow & Lisle, an imaginary brand
+delivered: WordPress theme, brand and icon set, dotted world map, repeatable content seed, enquiry form, Cloud Run deployment
+role: System author
+kind: study
+layout: chapters
+stack:
+  - WordPress
+  - PHP
+  - Docker
+  - Cloud Run
+  - Firebase
+domains:
+  - Professional Services
+year: 2026
+url: legal.junaid.guru
+href: "https://legal.junaid.guru/"
+source: "https://github.com/poly-glot/legal"
+abstract: MAP
+tone: "linear-gradient(135deg, #00145e22, #ffffff05)"
+cover: /img/work/legal.webp
+video:
+  src: /video/legal.mp4
+  poster: /video/legal.webp
+  captions: /video/legal.vtt
+---
+
+<Study>
+
+<Chapter label="The client" title="Helping a company find counsel for a dispute." lede="A company in a dispute that crosses borders needs counsel. Ferrow & Lisle, an imaginary brand, is a disputes firm in London and New York that acts, in its own words, for companies, states and individuals when the stakes are high and the facts are contested. Its website had to help that company choose the firm and get in touch.">
+<Rows>
+  <Row title="Find the right practice">Six practice areas, from international arbitration to asset tracing and recovery, each with its recent highlights.</Row>
+  <Row title="Meet the people">Four professionals, from the senior partner to counsel, each with a biography and three representative matters.</Row>
+  <Row title="See where the firm works">Offices in London and New York, and the cities where the firm does client work, on a world map.</Row>
+  <Row title="Get in touch">A 24/7 hotline at the top of every page, and a contact form with both offices beside it.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The site" title="The site leads from a practice to a partner." lede="That company moves from a practice area to a partner, then to the contact form. The site's layout follows an existing design. The brand, the words and the images are new, and every footer says the firm is fictional and nothing on the site is legal advice.">
+<Figures numbered bleed>
+  <Figure src="/img/work/legal/home-hero.webp" w={1600} h={1000} alt="The Ferrow & Lisle home page: the menu across the top, the headline Counsel for disputes that cross borders, and the buttons Our Practices and Get in Touch over St Paul's and the Millennium Bridge at night." title="Home">Read what the firm does in one line, over a 10-second clip of London at night, then jump to the practices or the contact page.</Figure>
+  <Figure src="/img/work/legal/practice-area.webp" w={1600} h={1000} alt="The International Arbitration page: a dark banner, the opening paragraphs, the heading Recent Highlights, and the Our Practices side list with International Arbitration in blue." title="A practice">Read how the firm works on one kind of dispute, with its recent highlights.</Figure>
+  <Figure src="/img/work/legal/professional-profile.webp" w={1600} h={1000} alt="Priya Raman's page: her name and the title Partner on a banner, her biography, three representative matters, a black-and-white portrait and a blue Send Email button." title="A professional">Read a partner's background and three of her matters, with a Send Email button beside the portrait.</Figure>
+  <Figure src="/img/work/legal/contact.webp" w={1600} h={1000} alt="The contact page: the line Tell us about your matter, four empty fields and a Send Message button, beside the London and New York office addresses." title="Contact">Describe the matter in four fields, with both office addresses beside the form.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/legal/practice-areas.webp" w={1600} h={1000} alt="The heading Our Practices over six square tiles, each with a blue line icon and a practice name." title="Practices">Pick one of the six practice areas from the home page.</Figure>
+  <Figure src="/img/work/legal/professionals.webp" w={1600} h={1000} alt="The heading Our Professionals over four black-and-white portraits in a row." title="Professionals">Open any of the four professionals from their portrait.</Figure>
+  <Figure src="/img/work/legal/global-presence.webp" w={1600} h={1000} alt="The heading Global Presence over a dotted grey world map with six blue pins." title="Global presence">See the two offices and four cities of client work on one map.</Figure>
+  <Figure src="/img/work/legal/news-mosaic.webp" w={1600} h={1000} alt="The heading Latest News over a wide and a narrow tile of dark photographs, titled What the new arbitration rules mean for emergency relief and Five questions boards should ask before an internal investigation, with two more tiles below." title="Latest news">Read the six newest articles, laid out in wide and narrow tiles.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The contract" title="A written contract said what could change." lede="The first build had a design of its own, in oxblood and brass. The next commit replaced it with the layout of an earlier theme, and CONTRACT.md, a file in the public repository, set the terms: replace only what identifies a real organisation, and keep everything else as it is.">
+<Facts>
+  <Fact k="Kept">The layout, the CSS, the typography, the markup and the content model. The rules forbid restyling, renaming classes or reorganising templates.</Fact>
+  <Fact k="Replaced">The logo, the images, the hero video, the old icon font, the drawing code copied into the social icons, and all the content.</Fact>
+  <Fact k="Three builders">The contract splits the work between three builders, for assets, theme and content, and gives each one its own files so they can work in parallel.</Fact>
+  <Fact k="Icons">An SVG sprite, one file holding 17 drawn icons, replaced the old icon font. One helper, `legal_icon()`, draws each icon and hides it from screen readers. Bootstrap's own glyph font stays, because it ships with Bootstrap.</Fact>
+  <Fact k="Invented">Every person, matter and article is invented. Emails use the legal.junaid.guru domain, and the disclaimer is a setting the footer template prints on every page.</Fact>
+  <Fact k="The swap">The restore commit changed 80 files. It deleted 3,255 lines, among them the first design's 1,457-line stylesheet.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The map" title="An editor moves the six pins without code." lede="One of the images the contract replaced was the dotted world map behind Global Presence. Six pins sit over it, and each pin's position is two numbers in the Site settings page, so an editor can move a pin without code. Those numbers mean something only if the image follows a known projection, so the contract fixed one.">
+<Figures>
+  <Figure src="/img/work/legal/global-presence.webp" phone="/img/work/legal/global-presence-phone.webp" phoneAlt="Global Presence on a phone: a list of London, Headquarters, New York, US Office, then Dubai, Singapore, Johannesburg and Mexico City, each marked Client work." w={1600} h={1000} alt="The dotted world map with six blue pins across the Americas, Europe, Africa, the Middle East and Asia." title="One list, two views">Each pin links to the contact page. Below 768 pixels the page hides the map and shows the same six settings as a list.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Image">A PNG of grey dots, 1,026 by 506 pixels and 11 KB.</Fact>
+  <Fact k="Projection">Equirectangular, a flat grid where each degree takes the same space: x = (longitude + 180) × 2.85 and y = 50 + (83 − latitude) × 2.85, in pixels. So each degree is 2.85 pixels, and 83° north sits 50 pixels from the top.</Fact>
+  <Fact k="Pins">A 28 by 42 pixel SVG pin with its tip at the bottom centre. The settings hold the pin's top-left corner, so the tip lands 14 pixels right of it and 42 below.</Fact>
+  <Fact k="London">51.5° north and 0.1° west project to 513, 140. The settings say left 499px and top 98px, which puts the tip on 513, 140.</Fact>
+  <Fact k="All six">I projected each city's coordinates with the same formula, and all six pin tips land within 1 pixel of their city, from Mexico City to Singapore.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The content" title="One script writes all of the firm's content." lede="The pins are one of many settings. The contract kept the earlier theme's content model, the list of fields an editor fills in, so the work in WordPress was the content itself. One seed script, a program that writes the content into WordPress, fills those fields, and it runs again on each deploy.">
+<Facts>
+  <Fact k="Model">8 YAML files, 232 lines in all. They declare five content types (practice areas, professionals, white papers, engagements and private enquiries), a news tag and a Site settings page with four groups. The platform's yacf plugin, shared by the agency's WordPress sites, reads them and builds the edit screens.</Fact>
+  <Fact k="Templates">Section headings and button labels, such as Our Practices and Get in Touch, stay in the templates. Anything that names a person, a place or a matter is a field.</Fact>
+  <Fact k="Seed">One PHP script of 800 lines creates 6 practice areas, 4 professionals, 4 white papers, 5 engagements, 6 news posts, 3 pages, 3 menus and 10 images, and removes WordPress's sample content.</Fact>
+  <Fact k="Safe to rerun">It finds each post by its slug, the last part of its address, and updates it rather than adding a copy. It matches images by their path in the seed folder, and empties and rebuilds each menu so the order cannot drift.</Fact>
+  <Fact k="On each deploy">GitHub Actions builds the image and deploys it to Cloud Run, Google's service for running containers. It then runs the seed as a job and waits for it to finish. Firebase Hosting, which serves the public address and passes each request to Cloud Run, deploys last.</Fact>
+  <Fact k="Enquiries">34 lines in the theme handle the contact form. They check a WordPress nonce, a short-lived token that proves the form came from the site, and save the message as a private post in the site's admin. If a hidden field that only bots fill in has a value, they show the thank-you and save nothing.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The seed fills a site that looks finished. Ferrow & Lisle is a demonstration, though, so some parts do nothing, and a few gaps belong to the build itself.">
+<List>
+  <Item title="The pins have no names on a desktop.">Each pin carries its city and label in the markup, but no script shows them, and hovering only darkens the pin. I would build a tooltip from those two values.</Item>
+  <Item title="The newsletter and share buttons do nothing.">The Subscribe button sends nothing, and the share buttons go nowhere. Their counts are numbers typed into fields: 18, 12 and 41 on the first article and 0 on the rest. A working firm would need a mailing service and live share links.</Item>
+  <Item title="Enquiries wait in the admin.">The form sends no email. Someone has to open Enquiries in WordPress to read a message, so I would add a notification.</Item>
+  <Item title="Nothing checks the pages.">The pipeline runs no tests and no accessibility check. The home page has seven h1 headings, the page tells phones to block pinch zoom, and the contact form uses placeholders where it needs labels. Each is a small fix, and I would add an accessibility check to the pipeline to keep them fixed.</Item>
+  <Item title="The contract fell behind the site.">It still lists the earlier phone numbers, a 12 to 15 second abstract video and no portraits. Later commits added a 10-second London clip and generated portraits, and I would bring the contract up to date with them.</Item>
+</List>
+</Chapter>
+
+<Chapter label="What carried forward" title="What carried forward." lede="A company looking for counsel finds six practices, four professionals and a map of where the firm works. All of it is invented, and the footer on every page says so.">
+<Split>
+<List>
+  <Item title="Write down what may change.">A contract that named what to keep, what to replace and who owned which files let three builders work in parallel.</Item>
+  <Item title="Tie editable numbers to a formula.">An editor can place a new pin from a city's coordinates, because the map image follows a stated projection.</Item>
+  <Item title="Update the contract with the site.">Commits that change what the contract describes should change the contract too.</Item>
+</List>
+<Facts>
+  <Fact k="Commits">9, from 27 September to 22 October 2026</Fact>
+  <Fact k="Pins">6 of 6 within 1 pixel of their city</Fact>
+  <Fact k="Seed">800 lines, safe to rerun</Fact>
+  <Fact k="Source">[github.com/poly-glot/legal](https://github.com/poly-glot/legal)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Visit it">
+  <ClosingCopy>Choose a practice, meet the professionals, then read the footer that says none of it is real.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://legal.junaid.guru/" external>Open Ferrow & Lisle <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>

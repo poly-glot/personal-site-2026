@@ -81,7 +81,7 @@ Deno.test("filterPosts: empty is all (date desc), OR within topics", () => {
 
 Deno.test("getAllProjects is source order; getProject by id", () => {
   const projects = getAllProjects();
-  assertEquals(projects[0].id, "amazing-landing");
+  assertEquals(projects[0].id, "academy");
   assertEquals(getProject("openguessr")?.name, "OpenGuessr");
   assertEquals(getProject("nope"), null);
 });

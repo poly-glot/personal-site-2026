@@ -1,0 +1,148 @@
+---
+id: zig-directory
+name: DMOZSTYLE
+tagline: A three-million-link web directory on a database I built in Zig.
+summary: DMOZSTYLE is a web directory of 3,042,240 links in the style of DMOZ, the old Open Directory Project. People browse it by topic or describe the site they want, and AI assistants ask it the same questions through MCP. Underneath is dmozdb, a database server I built in Zig that confirms a write only once it is on disk.
+client: My own product
+delivered: Database server in Zig, directory website, hybrid search, MCP server and JSON API, benchmarks and evaluation harness
+role: System author
+kind: study
+layout: chapters
+stack:
+  - Zig
+  - Deno
+  - Fresh
+  - Preact
+  - Python
+  - Kubernetes
+domains:
+  - Directory
+year: 2026
+url: directory.junaid.guru
+href: "https://directory.junaid.guru/"
+source: "https://github.com/poly-glot/zig-directory"
+video:
+  src: /video/zig-directory.mp4
+  poster: /video/zig-directory.webp
+  captions: /video/zig-directory.vtt
+abstract: BLOCKS
+tone: "linear-gradient(135deg, #0a0a0a22, #ffffff05)"
+cover: /img/work/zig-directory.webp
+---
+
+import DurableWrite from "@/components/diagrams/DurableWrite.tsx";
+
+<Study>
+
+<Chapter label="The visitor" title="Find a website by topic or by description." lede="Someone looking for a website can walk down a tree of topics in DMOZSTYLE, or describe the site in a sentence. It is a web directory in the style of DMOZ, the old Open Directory Project, and its 3,042,240 links come from that project's archived data. Every answer comes from a database server I built in Zig.">
+<Rows>
+  <Row title="Browse by topic">Fifteen topics, from Arts to World, open out into 632,471 categories, and each one shows how many links sit beneath it.</Row>
+  <Row title="Describe the site">Type what you're after in your own words. Results match on what the words mean as well as on the words themselves.</Row>
+  <Row title="Ask a precise question">Name a site, a country, a religion or a category in the sentence, and the results narrow to it. Each of those becomes a chip you can remove.</Row>
+  <Row title="Read without signing in">Reading needs no account, and the reading pages load one script at most.</Row>
+</Rows>
+</Chapter>
+
+<Chapter label="The directory" title="From fifteen topics down to one link." lede="The visitor sees a website built with Deno and Fresh that renders each page on the server, so the reading pages need almost no JavaScript. Browsing runs from the home page down the tree to a list of links, and search sits in the header of every page.">
+<Figures numbered bleed>
+  <Figure src="/img/work/zig-directory/home.webp" w={1600} h={1000} alt="The DMOZSTYLE home page: a search box in the header, the headline A hand-curated directory of the open web, a search panel with trending terms and two counters for indexed links and categories." title="Home">Search from the first screen, or start browsing. The two counters are live figures from the database.</Figure>
+  <Figure src="/img/work/zig-directory/index.webp" w={1600} h={1000} alt="A numbered list of top-level categories, from 01 Arts with 153,324 links to 05 Health, each with a Browse link." title="Top of the tree">The top of the tree follows the original Open Directory taxonomy, with the number of links under each branch.</Figure>
+  <Figure src="/img/work/zig-directory/subcategories.webp" w={1600} h={1000} alt="Browse by subcategory under Animation, listing Anime with 3,667 links, Artists, Awards, Cartoons with 1,083 links and Chats and Forums." title="Down the tree">Each category lists its subcategories and their link counts, so you can walk from Arts to Animation to Anime.</Figure>
+  <Figure src="/img/work/zig-directory/category-links.webp" w={1600} h={1000} alt="All links in the Animation category, showing the first 50 of 5,976, with a density switch, a sort control and three link cards." title="Links">Fifty links a page, sorted by relevance, by date or from A to Z, in three densities.</Figure>
+</Figures>
+<Figures bleed quartered>
+  <Figure src="/img/work/zig-directory/search-words.webp" w={1600} h={1000} alt="Matching links for jazz, with the word jazz highlighted in yellow in titles such as All That Jazz." title="Search">Type a few words and the matches come back with your words highlighted.</Figure>
+  <Figure src="/img/work/zig-directory/search-targets.webp" w={1600} h={1000} alt="Matching links with three chips, In Arts, Tied to Pakistan and About Islam, above a single result." title="Ask in a sentence">I asked for art links tied to Pakistan and about Islam. The search set three chips and found one link.</Figure>
+  <Figure src="/img/work/zig-directory/link-record.webp" w={1600} h={1000} alt="The link record for The Sculpture Center, with its breadcrumb from Top through Arts, Visual Arts, Sculpture and Organizations, Visit site and Back to listings buttons, and a Record panel showing DMZ ID DMZ-0150000 and Status Approved." title="Link record">Each link has a page of its own with its place in the tree, a Visit site button and its record.</Figure>
+  <Figure src="/img/work/zig-directory/built-in-zig.webp" w={1600} h={1000} alt="A black band headed An embedded database, with counters for indexed links, categories, cache pages and cache hit rate." title="The database">The home page shows the database's own counters: links, categories, cached pages and the cache hit rate.</Figure>
+</Figures>
+</Chapter>
+
+<Chapter label="The engine" title="The server confirms writes once they're on disk." lede="Behind every page is dmozdb, a database server I built in Zig for this directory. When it answers ok to a new link, that link has to survive a power cut. Waiting for the disk on every record made big imports crawl, so I changed where the wait happens.">
+<DurableWrite />
+<Split>
+<Facts>
+  <Fact k="Storage">A store file of 16 KB pages arranged as B+Trees, sorted trees that find any record in a few page reads.</Fact>
+  <Fact k="Log first">Every change goes first to the write-ahead log, a file where dmozdb adds each change to the end, with a checksum and a sequence number. Then dmozdb applies it to the trees.</Fact>
+  <Fact k="One wait">Each write in a request notes its sequence and lets go of the write lock. Before the reply leaves, the request waits once for its last entry to reach the disk.</Fact>
+  <Fact k="Shared sync">A background thread syncs every 2 ms, or sooner at 256 waiting entries, so one disk sync covers many requests.</Fact>
+  <Fact k="Failure">If a sync fails, dmozdb stops the process before it replies, so after the restart it serves only what reached the disk.</Fact>
+</Facts>
+<List>
+  <Item title="The old cost.">Each write waited for its own sync while it held the write lock. A 1,000-item import paid for 1,000 syncs, one after another.</Item>
+  <Item title="Bulk import.">3,180 items a second before the change and 45,454 after, 14.3 times faster. The median 1,000-item request fell from 306 ms to under 22 ms.</Item>
+  <Item title="Small batches.">Ten-link requests went from 4,278 links a second to 22,222, counting the quarter that were duplicates the server turned away. I ran both on a Docker VM with 4 CPUs on my Mac, against a test store of 50,000 links, and haven't measured the production cluster.</Item>
+  <Item title="Tested on a crash.">One test writes a link, drops the store without a clean shutdown, reopens it and checks the link comes back from the log. CI runs it on every pull request to main.</Item>
+</List>
+</Split>
+</Chapter>
+
+<Chapter label="The search" title="I tested each search idea before building it." lede="A link that is safe on disk still has to be found. The first search required every word to match, so 396 of 420 plain-sentence test questions returned nothing. Before changing any Zig, I tested the options on a 91,995-link copy and kept the scripts and results in the repository.">
+<Split>
+<Facts>
+  <Fact k="Score">Recall at 10: the share of 300 test lookups whose target link came back in the first 10 results.</Fact>
+  <Fact k="Every word">0.077.</Fact>
+  <Fact k="Ranked words">0.853, with rare words counting for more than common ones.</Fact>
+  <Fact k="Hybrid">0.907 from the hybrid mode I built into dmozdb. On my laptop, half the searches finished within 19 ms and 95 in 100 within 23 ms.</Fact>
+  <Fact k="GraphRAG">Tested and dropped. A graph of the people, places and topics the links mention scored 0.870 at best against 0.893 for hybrid in the same Python test, and extracting its entities with a large language model would have taken about 13 hours for the whole copy.</Fact>
+</Facts>
+<List>
+  <Item title="Two lists, fused.">Hybrid takes the top 200 keyword matches and the top 200 by meaning, then ranks each link by its place in both lists, so a link near the top of both comes first. A later change added a third list: links from the categories closest in meaning.</Item>
+  <Item title="Meaning as numbers.">An embedding is a list of 384 numbers that puts texts with similar meaning close together. The model, bge-small-en-v1.5, runs in the website's Deno server. dmozdb stores the numbers and compares them.</Item>
+  <Item title="No stale vectors.">Each embedding carries a fingerprint of the text it came from, and dmozdb refuses one written for an older version of the link.</Item>
+</List>
+</Split>
+</Chapter>
+
+<Chapter label="Two front doors" title="The same directory for people and assistants." lede="Ranked search finds a site, but it can't count how many sites sit on one host. I added a facts index for questions like that, and opened the directory to AI assistants through MCP, the Model Context Protocol, a standard way for assistants to call tools. People and assistants read from the same dmozdb.">
+<Split>
+<Facts>
+  <Fact k="Tools">browse_category, list_links, search_directory, query_links and review_submission, each one a whole task, such as browsing a category or reviewing a submission.</Fact>
+  <Fact k="Facts index">query_links counts, filters and groups links by site, host, domain, country, religion, person and organisation. It answered all 19 test questions the same way as an independent Python reference.</Fact>
+  <Fact k="An answer">Asked how many sites sit on tripod.com, it answered 22,869 sites holding 24,240 links, counting each personal page such as members.tripod.com/~name as a site of its own.</Fact>
+  <Fact k="Chips">The website uses the same index. Its server spots places, religions, people and organisations in a sentence, and each becomes a chip.</Fact>
+</Facts>
+<List>
+  <Item title="Reading needs no account.">Any assistant can browse and search the way a visitor can.</Item>
+  <Item title="Sign in to review submissions.">review_submission is for admins. Called without a token, it answers with a sign-in challenge, so the assistant can ask the user to sign in at that moment.</Item>
+  <Item title="One set of accounts.">The website's own accounts act as the OAuth server that signs an assistant in, and the Python MCP service checks its tokens against keys the website publishes, so the two share no secret.</Item>
+  <Item title="Checked twice.">The tool checks the role, and so does the API route behind it. A test in CI fails if a tool that writes is missing from the list of tools that need a sign-in.</Item>
+</List>
+</Split>
+</Chapter>
+
+<Chapter label="The limits" title="Where it stops today." lede="The search figures come from a smaller copy of the data, and I built dmozdb to serve one directory and nothing else.">
+<List>
+  <Item title="I measured search on 91,995 links.">The live store holds 3,042,240. On the full archive I measured only the search by meaning: 0.946 recall at 10 against an exact search. I would run the whole test set against the large store next.</Item>
+  <Item title="Saving the indexes pauses writes.">On 2026-10-28 a restart read 21 GB and took 15 minutes, with search hanging. dmozdb now saves its in-memory indexes to a file every hour and restores them at boot. Writing the 1.17 GB file took 46.7 s, new writes wait while each part is saved, and I haven't yet timed a boot that restores it.</Item>
+  <Item title="Built for one directory.">dmozdb has no query language, no transactions across records and one writing process. The wire protocol has no encryption, so the server listens only to its own machine unless told to trust the network.</Item>
+  <Item title="Keywords must match as typed.">dmozdb has no phrase search and no allowance for typing mistakes, and it doesn't lowercase accented letters, so blüm won't find Blüm.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The learning" title="What carried forward." lede="A visitor who describes a site in a sentence gets links that reached the disk before dmozdb said ok, in an order I chose by measuring it. An assistant asking through MCP gets its answer from the same store.">
+<Split>
+<List>
+  <Item title="Test the idea before building it.">GraphRAG lost to hybrid search in a folder of Python scripts, so I never built it in Zig.</Item>
+  <Item title="Wait for the disk once per request.">A confirmed write still means a write on disk, and a bulk import no longer queues behind 1,000 syncs.</Item>
+  <Item title="Keep the engine separate.">The paged file, B+Trees, log and network code became zigstore, a library of its own. Upgrading the engine is a one-line change to a pinned version.</Item>
+</List>
+<Facts>
+  <Fact k="Links">3,042,240 in 632,471 categories</Fact>
+  <Fact k="Zig">25,613 lines here, plus 13,730 in zigstore</Fact>
+  <Fact k="Tests">295 Zig tests, run in CI with a style check</Fact>
+  <Fact k="Search">0.077 to 0.907 recall at 10, on 91,995 links</Fact>
+  <Fact k="Source">[github.com/poly-glot/zig-directory](https://github.com/poly-glot/zig-directory)</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Closing label="Try it">
+  <ClosingCopy>Describe the site you're looking for and see what the directory finds.</ClosingCopy>
+  <ClosingLinks>
+    <ClosingLink href="https://directory.junaid.guru/" external>Open DMOZSTYLE <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="#film">Watch the film <span aria-hidden="true">↑</span></ClosingLink>
+  </ClosingLinks>
+</Closing>
+
+</Study>
