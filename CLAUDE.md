@@ -34,6 +34,13 @@ user opens the page and it is still broken.
 The stack version lives in **`deno.json`**. Docs and rules describe it; they
 never override it. When a doc disagrees with `deno.json`, fix the doc.
 
+The Deno runtime is one version in three places: `Dockerfile`,
+`.github/workflows/ci.yml` and `.github/workflows/cd.yml`. Change all three
+together; `scripts/deno-version_test.ts` fails when they differ. On 2026-11-16
+CI installed the newest Deno 2 while the Dockerfile built with 2.5.6, the two
+formatters wrapped a CSS selector differently, and the deploy stopped at the
+gate.
+
 ## Knowledge hierarchy
 
 - **Durable canon:** this file and `.claude/rules/`, version-controlled and
