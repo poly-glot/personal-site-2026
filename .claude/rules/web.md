@@ -34,7 +34,10 @@ so fix this file.
   web-guard hook warns on this. For edge-to-edge row lines inside a list, use
   `.bleed-divider` on each row (a line under every row but the last) and
   `.bleed-divider-top` on the list for an opening line; set
-  `--bleed-divider-right` to stop a line short of a neighbouring column.
+  `--bleed-divider-right` to stop a line short of a neighbouring column. Inside
+  the wider `--max-w-bleed` container, `--bleed-wide` is the distance from the
+  container's edge to the viewport's edge: the work grid's row rules use it
+  (`CaseStudies.module.css`), so the `100vw` sum stays in `styles/utility.css`.
 - NEVER: **`--accent` as a text colour on the page.** The orange is 2.04:1 on
   white, and any orange dark enough to pass 4.5:1 reads brown. Text stays ink
   (`--fg`) and carries the orange as a mark: `text-decoration: var(--mark)` with

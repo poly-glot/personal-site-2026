@@ -3,7 +3,7 @@ import Footer from "@/components/Footer/Footer.tsx";
 import { CaseBand, CaseCard } from "@/components/CaseStudies/CaseStudies.tsx";
 import Pager from "@/components/Pager/Pager.tsx";
 import Lightbox from "@/islands/Lightbox.tsx";
-import { canonicalWorkPath } from "@/data/taxonomy.ts";
+import { canonicalWorkPath, WORK_PAGE_SIZE } from "@/data/taxonomy.ts";
 import WorkFilter from "@/islands/WorkFilter.tsx";
 import WorkOutro from "@/components/WorkOutro/WorkOutro.tsx";
 import type { WorkListData } from "./_resolve.ts";
@@ -24,6 +24,7 @@ export function WorkListPage({ data }: { data: WorkListData }) {
     years,
   } = data;
   const pageHref = (n: number) => canonicalWorkPath({ ...selection, page: n });
+  const firstIndex = (page - 1) * WORK_PAGE_SIZE;
 
   return (
     <div>
@@ -52,10 +53,14 @@ export function WorkListPage({ data }: { data: WorkListData }) {
             </div>
           )
           : (
-            <section class={styles.cases} aria-label="Projects">
+            <section aria-label="Projects">
               <CaseBand columns={3}>
                 {projects.map((project, i) => (
-                  <CaseCard index={i} project={project} key={project.id} />
+                  <CaseCard
+                    index={firstIndex + i}
+                    project={project}
+                    key={project.id}
+                  />
                 ))}
               </CaseBand>
               <div class="container">
