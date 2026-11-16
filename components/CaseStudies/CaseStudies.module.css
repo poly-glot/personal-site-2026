@@ -95,7 +95,6 @@
 .inner[data-columns="3"] .card::after {
   background: var(--rule);
   bottom: 0;
-  content: "";
   height: 1px;
   left: calc(-1 * var(--row-rule-left, 0px));
   position: absolute;
@@ -290,12 +289,8 @@
     --row-rule-right: var(--row-rule-reach);
   }
 
-  .inner[data-columns="3"]
-    .card:nth-of-type(2n+1):nth-last-of-type(-n+2)::after,
-  .inner[data-columns="3"]
-    .card:nth-of-type(2n+1):nth-last-of-type(-n+2)
-    ~ .card::after {
-    content: none;
+  .inner[data-columns="3"] .card:has(~ .card:nth-of-type(2n+1))::after {
+    content: "";
   }
 }
 
@@ -322,12 +317,8 @@
     --row-rule-right: var(--row-rule-reach);
   }
 
-  .inner[data-columns="3"]
-    .card:nth-of-type(3n+1):nth-last-of-type(-n+3)::after,
-  .inner[data-columns="3"]
-    .card:nth-of-type(3n+1):nth-last-of-type(-n+3)
-    ~ .card::after {
-    content: none;
+  .inner[data-columns="3"] .card:has(~ .card:nth-of-type(3n+1))::after {
+    content: "";
   }
 }
 
@@ -367,8 +358,8 @@
     --row-rule-right: var(--row-rule-reach);
   }
 
-  .inner[data-columns="3"] .card:last-of-type::after {
-    content: none;
+  .inner[data-columns="3"] .card:has(~ .card)::after {
+    content: "";
   }
 }
 
