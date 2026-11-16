@@ -9,7 +9,7 @@ interface SectionEyebrowProps {
   numTone?: "accent" | "muted";
   labelStrong?: boolean;
   rightSmall?: boolean;
-  rule?: boolean;
+  rule?: boolean | "bleed";
   tone?: "default" | "invert";
   class?: string;
 }
@@ -38,7 +38,8 @@ export default function SectionEyebrow({
     align === "baseline" && styles.baseline,
     tone === "invert" && styles.invert,
     rightSmall && styles.rightSmall,
-    !rule && styles.noRule,
+    rule !== true && styles.noRule,
+    rule === "bleed" && "bleed-divider",
     className,
   ].filter(Boolean).join(" ");
 

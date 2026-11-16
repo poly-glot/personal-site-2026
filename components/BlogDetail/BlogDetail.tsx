@@ -139,6 +139,7 @@ export default function BlogDetail(
             num="·"
             label="Stay in touch"
             right="Roughly monthly"
+            rule="bleed"
             tone="invert"
           />
           <p class="port-foot-copy">
@@ -148,7 +149,7 @@ export default function BlogDetail(
             something.
           </p>
           <a
-            class="port-foot-link"
+            class="port-foot-cta"
             href={`mailto:${CONTACT_EMAIL}?subject=Subscribe`}
           >
             Email me to subscribe <span aria-hidden="true">→</span>

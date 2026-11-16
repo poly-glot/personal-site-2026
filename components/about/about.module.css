@@ -665,19 +665,13 @@
 }
 
 .ctaList {
+  --bleed-divider-last: "";
+  --rule: color-mix(in oklab, var(--bg) 18%, transparent);
   display: flex;
   flex-direction: column;
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.ctaList li {
-  border-top: 1px solid color-mix(in oklab, var(--bg) 18%, transparent);
-}
-
-.ctaList li:last-child {
-  border-bottom: 1px solid color-mix(in oklab, var(--bg) 18%, transparent);
 }
 
 .ctaList a {

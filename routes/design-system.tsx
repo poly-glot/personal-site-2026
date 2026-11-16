@@ -599,6 +599,7 @@ export default define.page(function DesignSystem() {
             align="baseline"
             labelStrong
             rightSmall
+            rule="bleed"
             tone="invert"
             class={styles.eyebrow}
           />

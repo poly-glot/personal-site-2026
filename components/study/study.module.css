@@ -316,6 +316,7 @@
 }
 
 .closingLinks {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-2) var(--s-4);

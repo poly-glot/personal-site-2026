@@ -247,7 +247,7 @@ export function Closing({ label, children }: Slot & { label: string }) {
   return (
     <section class="port-foot bleed-panel">
       <div class="port-foot-inner">
-        <SectionEyebrow num="·" label={label} tone="invert" />
+        <SectionEyebrow num="·" label={label} rule="bleed" tone="invert" />
         {children}
       </div>
     </section>
@@ -259,7 +259,7 @@ export function ClosingCopy({ children }: Slot) {
 }
 
 export function ClosingLinks({ children }: Slot) {
-  return <div class={styles.closingLinks}>{children}</div>;
+  return <div class={`${styles.closingLinks} port-foot-links`}>{children}</div>;
 }
 
 export function ClosingLink(

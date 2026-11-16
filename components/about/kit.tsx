@@ -361,8 +361,8 @@ export function Contact(
         If any of this lands,<br />
         <strong>the inbox is open.</strong>
       </h2>
-      <ul class={styles.ctaList}>
-        <li>
+      <ul class={`${styles.ctaList} bleed-divider-top`}>
+        <li class="bleed-divider">
           <a href={`mailto:${CONTACT_EMAIL}`}>
             <span>{CONTACT_EMAIL}</span>
             <span class={styles.ctaMeta}>Email</span>
@@ -383,7 +383,7 @@ export function ContactLink(
   },
 ) {
   return (
-    <li>
+    <li class="bleed-divider">
       <a
         href={href}
         target={external ? "_blank" : undefined}
