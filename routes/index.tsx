@@ -3,7 +3,7 @@ import Shell from "@/components/Shell/Shell.tsx";
 import { CaseBand, CaseCard } from "@/components/CaseStudies/CaseStudies.tsx";
 import Lightbox from "@/islands/Lightbox.tsx";
 import DisclosureToggle from "@/islands/DisclosureToggle.tsx";
-import { getAllProjects } from "@/data/content.ts";
+import { getProject } from "@/data/content.ts";
 import { CONTACT_EMAIL } from "@/src/nav.ts";
 import styles from "./index.module.css";
 
@@ -47,10 +47,11 @@ const CAPABILITIES: Capability[] = [
 
 const HOW_I_WORK_ID = "how-i-work";
 
-const FEATURED = getAllProjects()
-  .filter((project) => project.cover)
-  .toSorted((a, b) => b.year - a.year)
-  .slice(0, 2);
+const FEATURED_IDS = ["azadi-go", "hooklab"];
+
+const FEATURED = FEATURED_IDS
+  .map(getProject)
+  .filter((project) => project !== null);
 
 export default define.page(function Home() {
   return (
