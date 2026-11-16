@@ -266,11 +266,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #0a5fa322, #ffffff05)",
     "cover": "/img/work/academy.webp",
     "source": "https://github.com/poly-glot/academy",
-    "video": {
-      "src": "/video/academy.mp4",
-      "poster": "/video/academy.webp",
-      "captions": "/video/academy.vtt",
-    },
   },
   {
     "id": "airport-drupal",
