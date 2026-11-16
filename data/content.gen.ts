@@ -298,11 +298,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #14213d22, #ffffff05)",
     "cover": "/img/work/airport-drupal.webp",
     "source": "https://github.com/poly-glot/airport-drupal",
-    "video": {
-      "src": "/video/airport-drupal.mp4",
-      "poster": "/video/airport-drupal.webp",
-      "captions": "/video/airport-drupal.vtt",
-    },
   },
   {
     "id": "amazing-landing",
@@ -436,11 +431,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #2d1b8022, #ffffff05)",
     "cover": "/img/work/boxes.webp",
     "source": "https://github.com/poly-glot/boxes",
-    "video": {
-      "src": "/video/boxes.mp4",
-      "poster": "/video/boxes.webp",
-      "captions": "/video/boxes.vtt",
-    },
   },
   {
     "id": "cabinet",
@@ -541,11 +531,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #1c90e322, #ffffff05)",
     "cover": "/img/work/donation.webp",
     "source": "https://github.com/poly-glot/donation",
-    "video": {
-      "src": "/video/donation.mp4",
-      "poster": "/video/donation.webp",
-      "captions": "/video/donation.vtt",
-    },
   },
   {
     "id": "ech-uk",
@@ -642,11 +627,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #39207c22, #ffffff05)",
     "cover": "/img/work/halveron.webp",
     "source": "https://github.com/poly-glot/halveron",
-    "video": {
-      "src": "/video/halveron.mp4",
-      "poster": "/video/halveron.webp",
-      "captions": "/video/halveron.vtt",
-    },
   },
   {
     "id": "hooklab",
@@ -713,11 +693,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #00145e22, #ffffff05)",
     "cover": "/img/work/legal.webp",
     "source": "https://github.com/poly-glot/legal",
-    "video": {
-      "src": "/video/legal.mp4",
-      "poster": "/video/legal.webp",
-      "captions": "/video/legal.vtt",
-    },
   },
   {
     "id": "openguessr",
@@ -787,11 +762,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #ffcd1122, #ffffff05)",
     "cover": "/img/work/outrun.webp",
     "source": "https://github.com/poly-glot/outrun",
-    "video": {
-      "src": "/video/outrun.mp4",
-      "poster": "/video/outrun.webp",
-      "captions": "/video/outrun.vtt",
-    },
   },
   {
     "id": "parley",
@@ -823,11 +793,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #16299c22, #ffffff05)",
     "cover": "/img/work/parley.webp",
     "source": "https://github.com/poly-glot/parley",
-    "video": {
-      "src": "/video/parley.mp4",
-      "poster": "/video/parley.webp",
-      "captions": "/video/parley.vtt",
-    },
   },
   {
     "id": "shorten",
@@ -933,11 +898,6 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #58727922, #ffffff05)",
     "cover": "/img/work/wealth.webp",
     "source": "https://github.com/poly-glot/wealth",
-    "video": {
-      "src": "/video/wealth.mp4",
-      "poster": "/video/wealth.webp",
-      "captions": "/video/wealth.vtt",
-    },
   },
   {
     "id": "zig-directory",
@@ -970,10 +930,5 @@ export const PROJECTS: WorkProject[] = [
     "tone": "linear-gradient(135deg, #0a0a0a22, #ffffff05)",
     "cover": "/img/work/zig-directory.webp",
     "source": "https://github.com/poly-glot/zig-directory",
-    "video": {
-      "src": "/video/zig-directory.mp4",
-      "poster": "/video/zig-directory.webp",
-      "captions": "/video/zig-directory.vtt",
-    },
   },
 ];
