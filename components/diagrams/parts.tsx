@@ -33,6 +33,7 @@ interface Metrics {
 
 interface Scale extends Metrics {
   arrow: string;
+  dot: string;
 }
 
 const PANEL: Metrics = {
@@ -57,7 +58,7 @@ const SHEET: Metrics = {
   zonePad: 24,
 };
 
-const ScaleContext = createContext<Scale>({ ...SHEET, arrow: "" });
+const ScaleContext = createContext<Scale>({ ...SHEET, arrow: "", dot: "" });
 
 const TONES: Record<Tone, string> = {
   focal: styles.focal,
@@ -102,6 +103,7 @@ function Figure(
 ) {
   const id = useId();
   const arrow = `${id}-arrow`;
+  const dot = `${id}-dot`;
   const { head } = metrics;
 
   return (
@@ -129,8 +131,23 @@ function Figure(
               d={`M0,0 L${head},${head / 2} L0,${head} z`}
             />
           </marker>
+          <marker
+            id={dot}
+            markerHeight={head}
+            markerUnits="userSpaceOnUse"
+            markerWidth={head}
+            refX={head / 2}
+            refY={head / 2}
+          >
+            <circle
+              class={styles.head}
+              cx={head / 2}
+              cy={head / 2}
+              r={head / 3}
+            />
+          </marker>
         </defs>
-        <ScaleContext.Provider value={{ ...metrics, arrow }}>
+        <ScaleContext.Provider value={{ ...metrics, arrow, dot }}>
           {children}
         </ScaleContext.Provider>
       </svg>
@@ -138,10 +155,13 @@ function Figure(
   );
 }
 
+const QUIET_SHEET: Metrics = { ...SHEET, head: 9 };
+
 export function Canvas(
-  { children, description, title, viewBox }: {
+  { children, description, quiet, title, viewBox }: {
     children: ComponentChildren;
     description: string;
+    quiet?: boolean;
     title: string;
     viewBox: string;
   },
@@ -149,8 +169,8 @@ export function Canvas(
   return (
     <Figure
       description={description}
-      metrics={SHEET}
-      svgClass={styles.svg}
+      metrics={quiet ? QUIET_SHEET : SHEET}
+      svgClass={quiet ? `${styles.svg} ${styles.quiet}` : styles.svg}
       title={title}
       viewBox={viewBox}
     >
@@ -226,7 +246,8 @@ export function Zone(
 }
 
 export function Node(
-  { lines, title, tone, w, x, y }: {
+  { h, lines, title, tone, w, x, y }: {
+    h?: number;
     lines: readonly string[];
     title: string;
     tone?: Tone;
@@ -236,7 +257,7 @@ export function Node(
   },
 ) {
   const scale = useContext(ScaleContext);
-  const height = scale.bare + lines.length * scale.leading;
+  const height = h ?? scale.bare + lines.length * scale.leading;
   const left = x + scale.pad;
 
   return (
@@ -302,14 +323,31 @@ export function Label(
   );
 }
 
-export function Wire({ d }: { d: string }) {
-  const { arrow } = useContext(ScaleContext);
+export function Wire({ d, from }: { d: string; from?: "dot" }) {
+  const { arrow, dot } = useContext(ScaleContext);
 
-  return <path class={styles.wire} d={d} marker-end={`url(#${arrow})`} />;
+  return (
+    <path
+      class={styles.wire}
+      d={d}
+      marker-end={`url(#${arrow})`}
+      marker-start={from && `url(#${dot})`}
+    />
+  );
 }
 
-export function Line({ d }: { d: string }) {
-  return <path class={styles.wire} d={d} />;
+export function Line({ d, from }: { d: string; from?: "dot" }) {
+  const { dot } = useContext(ScaleContext);
+
+  return (
+    <path class={styles.wire} d={d} marker-start={from && `url(#${dot})`} />
+  );
+}
+
+export function Sketch(
+  { h, w, x, y }: { h: number; w: number; x: number; y: number },
+) {
+  return <rect class={styles.sketch} height={h} width={w} x={x} y={y} />;
 }
 
 export function Measure({ d }: { d: string }) {
@@ -353,4 +391,38 @@ export function Boundary(
       <Label anchor="middle" text={label} x={x} y={labelY} />
     </g>
   );
+}
+
+export function Sticker(
+  { lines, r = S4 + S2, x, y }: {
+    lines: readonly string[];
+    r?: number;
+    x: number;
+    y: number;
+  },
+) {
+  const { leading } = useContext(ScaleContext);
+  const firstLine = y - ((lines.length - 1) * leading) / 2;
+
+  return (
+    <g transform={`rotate(-12 ${x} ${y})`}>
+      <circle class={styles.sticker} cx={x} cy={y} r={r} />
+      {lines.map((line, index) => (
+        <text
+          class={`${styles.stickerText} ${styles.centred}`}
+          key={line}
+          x={x}
+          y={firstLine + index * leading}
+        >
+          {line}
+        </text>
+      ))}
+    </g>
+  );
+}
+
+export function Spotlight(
+  { h, w, x, y }: { h: number; w: number; x: number; y: number },
+) {
+  return <rect class={styles.spotlight} height={h} width={w} x={x} y={y} />;
 }

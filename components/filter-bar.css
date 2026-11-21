@@ -6,7 +6,7 @@
   margin: 0 calc(-1 * var(--bleed-right)) 0 calc(-1 * var(--bleed-left));
   padding: 0;
   position: sticky;
-  top: 64px;
+  top: var(--header-h);
   z-index: 30;
 }
 

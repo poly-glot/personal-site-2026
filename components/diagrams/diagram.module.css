@@ -148,6 +148,11 @@
   fill: var(--fg);
 }
 
+.sketch {
+  fill: var(--muted);
+  fill-opacity: 0.2;
+}
+
 .measure {
   fill: none;
   stroke: var(--diagram);
@@ -166,4 +171,32 @@
   stroke: var(--diagram);
   stroke-dasharray: 8 6;
   stroke-width: var(--d-boundary);
+}
+
+.quiet {
+  --d-stroke: 1.25px;
+}
+
+.quiet .wire {
+  stroke: var(--muted);
+}
+
+.quiet .head {
+  fill: var(--muted);
+}
+
+.sticker {
+  fill: var(--sticker);
+}
+
+.stickerText {
+  fill: var(--sticker-ink);
+  font-family: var(--ff-body);
+  font-size: var(--d-label);
+  font-weight: 700;
+}
+
+.spotlight {
+  fill: var(--sticker);
+  fill-opacity: 0.12;
 }

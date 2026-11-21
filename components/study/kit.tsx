@@ -2,6 +2,7 @@ import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 import type { ComponentChildren } from "preact";
 import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
+import BoardScroller from "@/islands/BoardScroller.tsx";
 import styles from "./study.module.css";
 
 interface StudyCounter {
@@ -52,7 +53,8 @@ export function Study({ children }: Slot) {
 }
 
 export function Chapter(
-  { label, title, lede, children }: Slot & {
+  { label, title, lede, dark, children }: Slot & {
+    dark?: boolean;
     label: string;
     title: string;
     lede?: string;
@@ -62,10 +64,12 @@ export function Chapter(
   counter.chapter++;
 
   const banded = counter.chapter % 2 === 0;
+  const tone = dark ? styles.dark : banded && styles.banded;
 
   return (
     <section
-      class={classes(styles.chapter, banded && styles.banded, "bleed-panel")}
+      class={classes(styles.chapter, tone, "bleed-panel")}
+      data-theme={dark ? "dark" : undefined}
     >
       <SectionEyebrow
         num={`${String(counter.chapter).padStart(2, "0")}.`}
@@ -196,6 +200,43 @@ export function Figure(
   );
 }
 
+type ScreenSize = "lead" | "phone";
+
+const SCREEN_SIZES: Record<ScreenSize, string> = {
+  lead: styles.lead,
+  phone: styles.phone,
+};
+
+export function Board({ children }: Slot) {
+  return (
+    <div class={`${styles.boardFrame} bleed-rule`}>
+      <BoardScroller class={styles.board}>{children}</BoardScroller>
+    </div>
+  );
+}
+
+export function Screen(
+  { alt, h, size, src, w }: Picture & { size?: ScreenSize },
+) {
+  return (
+    <a
+      class={classes(styles.screen, size && SCREEN_SIZES[size])}
+      data-zoom
+      href={src}
+    >
+      <img
+        alt={alt}
+        class={styles.screenImage}
+        decoding="async"
+        height={h}
+        loading="lazy"
+        src={src}
+        width={w}
+      />
+    </a>
+  );
+}
+
 export function Eras({ children }: Slot) {
   return <ol class={`${styles.eras} bleed-divider-top`}>{children}</ol>;
 }
@@ -287,6 +328,8 @@ export const studyComponents = {
   Row,
   Figures,
   Figure,
+  Board,
+  Screen,
   Eras,
   Era,
   Point,

@@ -18,7 +18,7 @@
 .inner {
   align-items: center;
   display: flex;
-  height: 64px;
+  height: var(--header-h);
   justify-content: space-between;
   margin: 0 auto;
   max-width: var(--max-w);

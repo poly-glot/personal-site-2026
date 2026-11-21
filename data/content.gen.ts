@@ -239,13 +239,15 @@ export const PROJECTS: WorkProject[] = [
     "id": "academy",
     "name": "Academy",
     "tagline":
-      "A business-education site built in plain HTML first, then moved to WordPress.",
+      "A 26-page brochure site its own staff can update without a developer.",
     "summary":
-      "Academy is the website of an imaginary business-education body in Birmingham, where people who manage contracts and suppliers choose a certificate, a course or a membership. I built all 26 pages in plain HTML and CSS first, then moved them into WordPress with the same stylesheets, so an editor can change the prices, courses and people without touching the design.",
+      "Academy is the website of an imaginary business-education body. I settled its content, components, accessibility and speed in plain HTML, then built it in WordPress.",
+    "story": {
+      "Audience": "Professionals and the organisations that train them.",
+      "Outcome":
+        "26 light pages, built from 24 components, that work from a keyboard. Staff can change any of 125 fields without breaking a layout.",
+    },
     "client": "Academy, an imaginary brand",
-    "delivered":
-      "26-page HTML prototype, WordPress theme, YAML content model, rerunnable content seed, Cloud Run deploy",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [

@@ -8,6 +8,10 @@
   --bleed-panel-bg: var(--panel);
 }
 
+.dark {
+  --bleed-panel-bg: var(--bg);
+}
+
 .eyebrow {
   margin-bottom: var(--s-4);
 }
@@ -32,6 +36,10 @@
   flex-direction: column;
   gap: var(--s-5);
   margin-top: var(--s-5);
+}
+
+.body:empty {
+  display: none;
 }
 
 .split {
@@ -239,6 +247,66 @@
   letter-spacing: 0.14em;
 }
 
+.boardFrame {
+  container-type: inline-size;
+}
+
+.board {
+  --board-fit: calc(
+    var(--board-rows) / 2 * var(--board-lead-pitch) - var(--board-gap)
+  );
+  --board-gap: var(--s-1);
+  --board-h: max(15rem, min(var(--board-room), var(--board-fit)));
+  --board-lead-pitch: calc(var(--board-lead-w) * 9 / 16 + var(--board-gap));
+  --board-lead-share: 0.48;
+  --board-lead-w: calc(var(--board-lead-share) * (100cqi - 2 * var(--gutter)));
+  --board-pitch: calc((var(--board-h) + var(--board-gap)) / var(--board-rows));
+  --board-room: calc(100svh - var(--header-h) - 2 * var(--s-4));
+  --board-row: calc(var(--board-pitch) - var(--board-gap));
+  --board-rows: 4;
+  --board-small-rows: 1;
+
+  display: grid;
+  gap: var(--board-gap);
+  grid-auto-columns: max-content;
+  grid-auto-flow: column dense;
+  grid-template-rows: repeat(var(--board-rows), var(--board-row));
+  justify-content: safe center;
+  overflow: auto hidden;
+  overscroll-behavior-x: contain;
+  padding: var(--s-1) var(--gutter) var(--s-2);
+  scrollbar-color: var(--rule-2) transparent;
+  scrollbar-width: thin;
+}
+
+.board[data-dragging],
+.board[data-dragging] .screen {
+  cursor: grabbing;
+}
+
+.screen {
+  --screen-rows: var(--board-small-rows);
+  cursor: zoom-in;
+  display: block;
+  grid-row: span var(--screen-rows);
+}
+
+.screenImage {
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  display: block;
+  height: calc(var(--screen-rows) * var(--board-pitch) - var(--board-gap));
+  width: auto;
+}
+
+.lead {
+  --screen-rows: 2;
+}
+
+.phone {
+  --screen-rows: var(--board-rows);
+}
+
 .era {
   display: grid;
   padding: var(--s-4) 0;
@@ -323,6 +391,10 @@
 }
 
 @media (min-width: 768px) {
+  .board {
+    --board-gap: var(--s-2);
+  }
+
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -349,6 +421,14 @@
 
   .wide {
     grid-column: 1 / -1;
+  }
+}
+
+@media (orientation: portrait) {
+  .board {
+    --board-lead-share: 0.88;
+    --board-rows: 6;
+    --board-small-rows: 2;
   }
 }
 

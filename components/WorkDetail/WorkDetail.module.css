@@ -43,11 +43,21 @@
 }
 
 .heroFact {
+  display: grid;
+  padding: var(--s-2) 0;
+  row-gap: var(--s-1);
+}
+
+.heroClient {
   align-items: baseline;
   column-gap: var(--s-3);
-  display: grid;
-  grid-template-columns: var(--s-6) minmax(0, 1fr);
-  padding: var(--s-2) 0;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--s-1);
+}
+
+.tagline + .heroActions {
+  margin-top: var(--s-2);
 }
 
 .heroFact dt {
@@ -64,6 +74,21 @@
   font-size: var(--fs-body);
   font-weight: 500;
   margin: 0;
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .heroFacts {
+    column-gap: var(--s-3);
+    display: grid;
+    grid-template-columns: minmax(var(--s-6), max-content) minmax(0, 1fr);
+  }
+
+  .heroFact {
+    align-items: baseline;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
 }
 
 @media (min-width: 1080px) {

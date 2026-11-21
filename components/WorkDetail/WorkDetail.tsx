@@ -7,7 +7,7 @@ import TagLinks from "@/components/TagLinks/TagLinks.tsx";
 import BrowserThumb from "@/components/hero/BrowserThumb/BrowserThumb.tsx";
 import Lightbox from "@/islands/Lightbox.tsx";
 import { Github } from "@/components/Icons/Icons.tsx";
-import type { ComponentType } from "preact";
+import type { ComponentChildren, ComponentType } from "preact";
 import styles from "./WorkDetail.module.css";
 
 const bodyModules = import.meta.glob("../../content/work/*.mdx", {
@@ -38,37 +38,25 @@ interface ProjectSlot {
   project: WorkProject;
 }
 
-interface HeroFact {
-  label: string;
-  values: string[];
-  hrefFor?: (value: string) => string;
-}
-
 function isLive(project: WorkProject): boolean {
   return project.href !== "#";
 }
 
-function present(value: string | undefined): string[] {
-  return value ? [value] : [];
+function clientLine(project: WorkProject): string {
+  return [project.client, project.period ?? project.year]
+    .filter(Boolean)
+    .join(" · ");
 }
 
-function heroFacts(project: WorkProject): HeroFact[] {
-  const facts: HeroFact[] = [
-    { label: "Client", values: present(project.client) },
-    { label: "Year", values: [String(project.period ?? project.year)] },
-    { label: "Role", values: present(project.role) },
-    { label: "Domain", values: project.domains, hrefFor: domainHref },
-    { label: "Stack", values: project.stack, hrefFor: stackHref },
-    { label: "Delivered", values: present(project.delivered) },
-  ];
-
-  return facts.filter((fact) => fact.values.length > 0);
-}
-
-function FactValues({ label, values, hrefFor }: HeroFact) {
-  if (!hrefFor) return <>{values.join(" · ")}</>;
-
-  return <TagLinks label={label} tags={values} hrefFor={hrefFor} />;
+function HeroFact(
+  { children, label }: { children: ComponentChildren; label: string },
+) {
+  return (
+    <div class={`${styles.heroFact} bleed-divider`}>
+      <dt>{label}</dt>
+      <dd>{children}</dd>
+    </div>
+  );
 }
 
 function VisitLink({ project }: ProjectSlot) {
@@ -117,12 +105,14 @@ function Film({ project }: ProjectSlot) {
 }
 
 function StudyHero({ project }: ProjectSlot) {
+  const story = Object.entries(project.story ?? {});
+
   return (
     <header class={styles.hero}>
       <div class={styles.heroIntro}>
         <h1 class={`${styles.heroTitle} display`}>{project.name}</h1>
         <p class={styles.tagline}>{project.tagline}</p>
-        <p class={styles.heroLede}>{project.summary}</p>
+        {story.length === 0 && <p class={styles.heroLede}>{project.summary}</p>}
         <div class={styles.heroActions}>
           <VisitLink project={project} />
           <SourceLink project={project} />
@@ -132,14 +122,22 @@ function StudyHero({ project }: ProjectSlot) {
         <Film project={project} />
       </div>
       <dl class={`${styles.heroFacts} bleed-divider-top`}>
-        {heroFacts(project).map((fact) => (
-          <div class={`${styles.heroFact} bleed-divider`} key={fact.label}>
-            <dt>{fact.label}</dt>
-            <dd>
-              <FactValues {...fact} />
-            </dd>
+        <HeroFact label="Client">
+          <div class={styles.heroClient}>
+            <span>{clientLine(project)}</span>
+            <TagLinks
+              label="Domain"
+              tags={project.domains}
+              hrefFor={domainHref}
+            />
           </div>
+        </HeroFact>
+        {story.map(([label, line]) => (
+          <HeroFact label={label} key={label}>{line}</HeroFact>
         ))}
+        <HeroFact label="Stack">
+          <TagLinks label="Stack" tags={project.stack} hrefFor={stackHref} />
+        </HeroFact>
       </dl>
     </header>
   );

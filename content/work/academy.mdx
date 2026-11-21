@@ -1,11 +1,12 @@
 ---
 id: academy
 name: Academy
-tagline: A business-education site built in plain HTML first, then moved to WordPress.
-summary: Academy is the website of an imaginary business-education body in Birmingham, where people who manage contracts and suppliers choose a certificate, a course or a membership. I built all 26 pages in plain HTML and CSS first, then moved them into WordPress with the same stylesheets, so an editor can change the prices, courses and people without touching the design.
+tagline: A 26-page brochure site its own staff can update without a developer.
+summary: Academy is the website of an imaginary business-education body. I settled its content, components, accessibility and speed in plain HTML, then built it in WordPress.
+story:
+  Audience: Professionals and the organisations that train them.
+  Outcome: 26 light pages, built from 24 components, that work from a keyboard. Staff can change any of 125 fields without breaking a layout.
 client: Academy, an imaginary brand
-delivered: 26-page HTML prototype, WordPress theme, YAML content model, rerunnable content seed, Cloud Run deploy
-role: System author
 kind: study
 layout: chapters
 stack:
@@ -26,92 +27,138 @@ tone: "linear-gradient(135deg, #0a5fa322, #ffffff05)"
 cover: /img/work/academy.webp
 ---
 
+import BarChart from "@/components/diagrams/BarChart.tsx";
+import BuildSteps from "@/components/diagrams/BuildSteps.tsx";
+import ChangeRoutes from "@/components/diagrams/ChangeRoutes.tsx";
+import ContentModel from "@/components/diagrams/ContentModel.tsx";
+import PageWireframes from "@/components/diagrams/PageWireframes.tsx";
+import SiteMap from "@/components/diagrams/SiteMap.tsx";
+
 <Study>
 
-<Chapter label="The learner" title="Choose a certificate, then a course." lede="Academy is an imaginary business-education body in Birmingham. It trains, in its own words, the people who write contracts, choose suppliers and keep the numbers honest. The website had to help them pick a certificate and decide whether to join.">
-<Rows>
-  <Row title="Compare the certificates">Two core certificates and three specialist ones. Each has a page with its level, study time, assessment and price.</Row>
-  <Row title="Know the cost before booking">Certificates run from £295 to £545, plus a £35 booking fee. Members pay the listed price and non-members add 20 per cent.</Row>
-  <Row title="Find a short course">There are 21 courses you can finish around a full-time job, split into a foundation series and a practitioner series.</Row>
-  <Row title="Join and move up">Membership costs £120 a year, or £60 at the concession rate. You become Certified by passing a certificate, and the fee is the same at every level.</Row>
-</Rows>
+<Chapter label="The brief" title="An ordinary brief for a brochure site." lede="Academy is an imaginary business-education body, and its site is for professionals and the organisations that train them. It needed a 26+ page brochure site that is mobile friendly, accessible, quick to load and secure, and that its own staff can update without a developer." />
+
+<Chapter label="The site" title="The site, in the order of its menu." dark>
+<Board>
+  <Screen size="lead" src="/img/work/academy/home.webp" w={1600} h={900} alt="The Academy home page on a desktop: the heading The practical standard in business education, the buttons Explore certification and Browse courses, and a photograph of a woman at a laptop in a bright office." />
+  <Screen size="lead" src="/img/work/academy/about.webp" w={1600} h={900} alt="The About page on a desktop: the heading About Academy, the buttons Explore certification and Meet the people, and a photograph of a woman smiling at a laptop." />
+  <Screen size="phone" src="/img/work/academy/home-phone.webp" w={804} h={1880} alt="The home page on a phone: the logo above the menu links About, Membership, Certification, Courses and Community, the buttons My Academy and Join now, then the heading and the button Explore certification." />
+  <Screen src="/img/work/academy/membership.webp" w={1600} h={900} alt="The Membership page: the heading Membership, the buttons Join now and See membership levels, and a photograph of a man at a laptop." />
+  <Screen src="/img/work/academy/certification.webp" w={1600} h={900} alt="The Certification page: a navy banner reading Certification beside a photograph of a man in glasses, above the Overview text." />
+  <Screen src="/img/work/academy/courses.webp" w={1600} h={900} alt="The Courses page: a navy banner reading Courses beside a photograph of a woman at a laptop, above the heading Learn the work, one course at a time." />
+  <Screen src="/img/work/academy/community.webp" w={1600} h={900} alt="The Community page: the heading Community, a row of eight section links from Events to Regional networks, and the Events and Research sections." />
+  <Screen size="phone" src="/img/work/academy/certificate-phone.webp" w={804} h={1880} alt="A certificate page on a phone: a photograph of a man in glasses holding a pen, above a navy panel titled Foundation Certificate in Commercial Practice (FCCP) with its course code, level and category." />
+</Board>
 </Chapter>
 
-<Chapter label="The site" title="Each certificate has a page of its own." lede="The site has 26 pages: the certificates, the course list, membership, the people, news and the legal pages. The layout follows an existing design, and the brand, the words and the images are new.">
-<Figures numbered bleed>
-  <Figure src="/img/work/academy/certification-overview.webp" w={1600} h={1000} alt="The certification page: under the heading Overview, prices from £295 to £545 plus a £35 booking fee, above two cards marked Entry level and Advanced." title="Certification">Compare the five certificates and see the price rule before opening one.</Figure>
-  <Figure src="/img/work/academy/certificate-fccp.webp" w={1600} h={1000} alt="The Foundation Certificate in Commercial Practice page: a navy hero listing the course code, level, category, duration, assessment and price, beside a photograph of a man in glasses holding a pen." title="One certificate">Check the level, the study time, the exam and the price, then read the ten-topic outline.</Figure>
-  <Figure src="/img/work/academy/courses-register.webp" w={1600} h={1000} alt="A blue band titled Become a student, it's easy, with four numbered steps from Create an account to Start learning, above the start of the course list." title="Courses">See the four steps to start, then pick from 21 courses in two series.</Figure>
-  <Figure src="/img/work/academy/membership-fees.webp" w={1600} h={1000} alt="Annual fees in three cards: Standard rate £120 a year, Concession rate £60 a year for students, public-sector staff and retirees, and Groups of ten or more by enquiry." title="Fees">Check the annual fee, with a concession rate and a rate for groups.</Figure>
-</Figures>
-<Figures bleed quartered>
-  <Figure src="/img/work/academy/home-why.webp" w={1600} h={1000} alt="The Academy home page: the heading The practical standard in business education, the buttons Explore certification and Browse courses, and a photograph of a woman at a laptop in a bright office." title="Home">Start from certification or from the course list.</Figure>
-  <Figure src="/img/work/academy/membership-levels.webp" w={1600} h={1000} alt="Membership levels and benefits: three cards, Associate, Certified and Senior, each with an overview and a list of benefits." title="Levels">See the three membership levels and how to reach each one.</Figure>
-  <Figure src="/img/work/academy/people-staff.webp" w={1600} h={1000} alt="The Staff tab selected under the heading The people behind Academy, above five portraits with names and roles such as Head of Learning." title="People">Switch between the founding members and the staff.</Figure>
-  <Figure src="/img/work/academy/news-article.webp" w={1600} h={1000} alt="The article Membership fees held for 2027, with its date tag, standfirst, byline, a Share panel and a photograph of canal-side warehouses and narrowboats." title="News">Read an article with its byline and a share panel, whose links are samples.</Figure>
-</Figures>
-</Chapter>
-
-<Chapter label="The prototype" title="Every page started as plain HTML." lede="I built those 26 pages in plain HTML and CSS before writing any WordPress, and treated them as final. The WordPress theme had to reproduce them, and any design change went into the prototype first.">
+<Chapter label="The decision" title="Content came first and WordPress came last." lede="Only one part of that brief needs a content management system (CMS), the software staff use to update a site: letting staff change the words. So the work went in five steps, and WordPress was the last of them.">
+<BuildSteps />
 <Facts>
-  <Fact k="Why first">The prototype runs on its own with Python's built-in web server, so anyone can review the design in a browser without a database or WordPress. The WordPress build then had one fixed target to match.</Fact>
-  <Fact k="Same stylesheets">The theme copies the prototype's 33 CSS files byte for byte. A file comparison of the two folders finds no difference.</Fact>
-  <Fact k="Same pages">In WordPress the 26 pages become 13 pages, the certificate list, 5 certificates, 6 news posts and the page-not-found template.</Fact>
+  <Fact k="Why this order">Each decision is made where changing it costs least: a page title in the brief, a colour in the design tokens, a layout in the static pages. The first three steps use nothing from WordPress, so the theme had one fixed target.</Fact>
+  <Fact k="The same HTML">The theme prints the fields into the same HTML and copies the 33 stylesheet files unchanged. Comparing the two folders file by file finds no difference.</Fact>
+  <Fact k="Repeated">[Wealth](/work/wealth/), [Halveron](/work/halveron/) and [Boxes](/work/boxes/) were built the same way, static pages first.</Fact>
 </Facts>
 </Chapter>
 
-<Chapter label="The content model" title="The copy comes from the content model." lede="The prototype fixed the page structure, but an editor still had to change prices, courses and people without a developer. So the theme holds the structure, and the copy lives in fields described in YAML, a plain text format. Only a few labels, such as the contact form's, stay in the templates.">
+<Chapter label="Content architecture" title="The brief fixed 26 pages, three content types and the navigation." lede="Content architecture is what a site holds and how it is organised. It was written down first, so every page had an address and its sections before anyone built it.">
+<SiteMap />
 <Facts>
-  <Fact k="Model">Five YAML files describe two content types, certificate and person, a Site settings page and 18 groups of fields. The platform's yacf plugin reads them and builds the edit screens.</Fact>
-  <Fact k="A certificate">Its fields match the facts list a learner reads: course code, level, category, duration, assessment and price. One more field decides whether it shows as a card or a link on the certification page.</Fact>
-  <Fact k="Seed">The seed is one PHP script of 1,425 lines. It fills the fields and builds the 13 pages, 10 people, 5 certificates, 6 news posts, 7 menus and 24 images, and deletes WordPress's sample content.</Fact>
-  <Fact k="Safe to rerun">The seed looks each post up by its slug, the last part of its address, and updates it if it exists. Menus change only the items that moved or point somewhere new, and the seed rebuilds an image only when the image sizes or WebP support change.</Fact>
-  <Fact k="On each deploy">GitHub Actions deploys the site to Cloud Run, Google's service for running containers, then runs the seed as a job and waits for it. If the seed fails, the run stops before it updates Firebase Hosting, which serves the public address. By then Cloud Run is already serving the new image.</Fact>
-  <Fact k="Platform">A base image shared with five other client sites holds WordPress and the yacf plugin. This repository holds the theme, the model and the seed.</Fact>
+  <Fact k="Content types">Certificates, people and news articles are each entered as items of their own. A certificate and an article get a page each, and a person appears on About.</Fact>
+  <Fact k="Copy deck">The words were then written in full as a copy deck, and every page took its text from it.</Fact>
 </Facts>
 </Chapter>
 
-<Chapter label="The front end" title="The theme keeps the prototype's rules." lede="The content model fills the pages, and WordPress adds its own styles and scripts to them. I switched off its styles, joined the prototype's 33 stylesheets into one file and wrote no JavaScript for the theme, as the prototype had none.">
+<Chapter label="Components" title="Every page is built from 24 components." lede="A component is a repeated piece of a page, such as the header or a news card. Home, About and News use the same news card, and all 26 pages use the same header and footer.">
+<PageWireframes />
 <Figures>
-  <Figure src="/img/work/academy/home-why.webp" phone="/img/work/academy/home-phone.webp" phoneAlt="The home page on a phone: the logo above the nav links About, Membership, Certification, Courses and Community, then the buttons My Academy and Join now." w={1600} h={1000} alt="The home page on a desktop, with the nav links and the My Academy and Join now buttons across the top." title="No menu button">On a phone the nav links wrap under the logo and stay on screen, so there is no menu to open.</Figure>
-  <Figure src="/img/work/academy/certificate-fccp.webp" phone="/img/work/academy/certificate-fccp-phone.webp" phoneAlt="The certificate page on a phone: the nav with Certification underlined, a photograph of a man in glasses, then the navy hero with the certificate's name." w={1600} h={1000} alt="The Foundation Certificate in Commercial Practice page on a desktop, with the photograph beside the navy hero." title="One certificate">On a phone the photograph moves above the navy hero.</Figure>
+  <Figure src="/img/work/academy/home-news.webp" w={1600} h={1000} alt="The home page section What we have been working on: three article cards, each with a photograph, a category and date, a headline, a summary and Read more." title="News card">Three news cards on the home page. The same component draws three on About and six on News.</Figure>
+  <Figure src="/img/work/academy/membership-levels.webp" w={1600} h={1000} alt="Membership levels and benefits: three cards, Associate, Certified and Senior, each with an overview and a list of benefits." title="Level card">One component, used three times. The cards differ only in the words they are given.</Figure>
 </Figures>
 <Facts>
-  <Fact k="Styles">The theme switches off WordPress's block and global styles. When the server image is built, a build step joins the 33 CSS files into one `main.css`, in the order development loads them, so the rules apply in the same order in both.</Fact>
-  <Fact k="Weight">The stylesheet is 43,083 bytes, and a browser downloads it compressed to 7,113 bytes.</Fact>
-  <Fact k="Tabs">The tabs on the About page are links to `#founding` and `#staff`. The stylesheet shows the panel the address points to, and the first panel when it points to neither.</Fact>
-  <Fact k="Images">WordPress saves each uploaded JPEG as WebP, a smaller format, at its own size and at smaller sizes for smaller screens. The home photograph is 639,810 bytes as a JPEG and 61,172 bytes as a WebP 1,376 pixels wide. The news photos load only when they scroll into view.</Fact>
-  <Fact k="Contrast">The colours live in one file of values that every page shares. The palette's lightest grey text on its pale blue tint measures 4.61:1, above the 4.5:1 that level AA of the web accessibility guidelines (WCAG) asks of body text.</Fact>
+  <Fact k="Design tokens">53 design tokens hold every colour, type size, space and corner radius on the site. No component states a colour of its own.</Fact>
+  <Fact k="Components">24, each in a stylesheet file of its own, with 6 small ones inside them, such as the button and the icon. 13 of the 24 are used on one page only.</Fact>
+  <Fact k="A new page">A new page is an arrangement of components that exist. It needs new CSS only when it needs a component nobody has built.</Fact>
 </Facts>
 </Chapter>
 
-<Chapter label="The limits" title="Where it stops today." lede="The pages read like a working site, but Academy is a demonstration, so the steps that would take money or personal data end at a message saying so. A few gaps belong to the build itself.">
+<Chapter label="Editorial control" title="An editor changes a page without a developer." lede="Components settle how a page looks. What a page says keeps changing after launch, so each word that might change is kept in a named field, and the components print whatever the fields hold. The content model is the list of those fields.">
+<ContentModel />
+<Figures>
+  <Figure src="/img/work/academy/certificate-fccp.webp" w={1600} h={1000} alt="The Foundation Certificate in Commercial Practice page: a navy hero listing the course code, level, category, duration, assessment and price, beside a photograph of a man in glasses holding a pen." title="Fields a visitor reads">The six facts beside the photograph are six fields: course code, level, category, duration, assessment and price.</Figure>
+  <Figure src="/img/work/academy/certification-overview.webp" w={1600} h={1000} alt="The certification page: under the heading Overview, prices from £295 to £545 plus a £35 booking fee, above two cards marked Entry level and Advanced." title="The editor's choice">Each certificate has a field called Overview placement. The editor chooses a card or a link, and the layout does the rest.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Model">125 fields in 18 groups, written in five short files of YAML, a plain text format. The platform reads those files and builds the edit screens, so the model is reviewed like code.</Fact>
+  <Fact k="Entered once">A certificate, a person and an article are each entered once. A person's card appears on About, and an article names that person as its author.</Fact>
+  <Fact k="No formatting">Each field is plain text, a choice from a list, an image, an email address or a link to another item. None accepts free formatting, so an editor cannot change a font, a colour or a layout by accident.</Fact>
+  <Fact k="Guidance">Where an editor might guess, the field says what it expects: ‘Bio (about 40 words)’ or ‘Separate paragraphs with a blank line’.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="Accessibility and speed" title="Contrast and weight were settled once, for all 26 pages." lede="Because editors enter words and little else, the decisions that make a page usable sit in the components and the 53 design tokens, where each was made once.">
+<Figures>
+  <Figure src="/img/work/academy/skip-link.webp" w={1600} h={1000} alt="The top of the home page after one press of the Tab key: a Skip to main content link over the logo, inside a blue ring with a white edge." title="Skip link">Press Tab once, and the first thing the keyboard reaches is ‘Skip to main content’.</Figure>
+  <Figure src="/img/work/academy/people-staff.webp" w={1600} h={1000} alt="The Staff tab selected under the heading The people behind Academy, above five portraits with names and roles such as Head of Learning." title="Tabs without a script">The two tabs are ordinary links, and the stylesheet shows the panel the address points to.</Figure>
+</Figures>
+<Facts>
+  <Fact k="Contrast">The web accessibility guidelines (WCAG) ask for 4.5 to 1 between body text and its background. I measured 13 pairs of colours from the tokens, and the lowest is 4.61 to 1.</Fact>
+  <Fact k="Keyboard">Buttons are at least 44 pixels tall. The focus ring is brand blue with a white edge, because blue alone measures 2.14 to 1 on the navy bands.</Fact>
+</Facts>
+<Split>
+<BarChart
+  readings={[
+    { label: "The page and its stylesheet", amount: 13735, value: "13,735 bytes", chosen: true },
+    { label: "WordPress's emoji script", amount: 4938, value: "4,938 bytes" },
+    { label: "Two fonts and their stylesheet", amount: 65599, value: "65,599 bytes" },
+    { label: "Four photographs", amount: 95530, value: "95,530 bytes" },
+  ]}
+/>
+<Facts>
+  <Fact k="One visit">The home page in Chrome, 1,440 pixels wide on a standard screen, without scrolling: 10 requests and 179,802 bytes.</Fact>
+  <Fact k="No script">The theme has no JavaScript, and its 33 stylesheet files are joined into one of 7,113 bytes compressed.</Fact>
+  <Fact k="What is heavy">The fonts come from Google's servers and the emoji script from WordPress. Hosting the fonts with the site and switching that script off come next.</Fact>
+</Facts>
+</Split>
+</Chapter>
+
+<Chapter label="The build" title="The site accepts very little, and the server cannot be changed in place." lede="A brochure site needs almost nothing from its visitors, so it accepts almost nothing, both in the code and in the way it is hosted.">
+<ChangeRoutes />
+<Facts>
+  <Fact k="A sealed server">The site runs as a container on Cloud Run, Google's service for running packaged software. In production WordPress cannot install a plugin, edit a theme file or update itself.</Fact>
+  <Fact k="Escaped output">Escaping makes harmless any characters a browser could read as code. The theme does it in 193 places.</Fact>
+  <Fact k="Patching">WordPress and PHP come from a base image that six sites share. A security fix is a one-line change: the latest commit moves to a base image that fixes two published PHP vulnerabilities.</Fact>
+</Facts>
+</Chapter>
+
+<Chapter label="The limits" title="Which rules have a check today." lede="I trust a rule more when something checks it than when it depends on someone remembering. Two of the rules above are enforced by the way the site is built. The rest are not checked yet.">
 <List>
-  <Item title="Nothing can be bought.">Buy this certificate and Join now end at the enquiry form, and Register now opens the My Academy sign-in, which says no accounts exist. A real launch would need a checkout and member accounts.</Item>
-  <Item title="The forms send nothing.">The contact form submits to its own page and shows a thank-you that says the message went nowhere. A real site needs somewhere for the message to go.</Item>
-  <Item title="Screen-reader testing is still to do.">The accessibility statement aims for WCAG 2.2 AA. It also says the site has not yet been tested with a full range of screen readers or with disabled users.</Item>
-  <Item title="No checks run before a deploy.">The pipeline builds and deploys. Nothing in it validates the pages or compares the theme's CSS with the prototype's, so nothing stops a deploy if the two copies drift apart.</Item>
-  <Item title="WordPress still adds scripts.">The theme ships none, but WordPress core adds 3 small scripts to every page I checked: two for emoji and one that tells the browser which links to load ahead. I would switch the emoji ones off the way I switched off the block styles.</Item>
+  <Item title="Two rules are enforced.">The platform lets a change in only as a new image built from the repository, and the content model offers editors no formatting.</Item>
+  <Item title="Nothing compares the two sets of stylesheets.">The static pages and the theme match today. No step in the pipeline compares them or tests a page, so a careless change could separate them unnoticed.</Item>
+  <Item title="Accessibility has no automatic test.">The contrast figures are mine, measured by hand, and no tool checks a page before a deploy. The site aims for level AA of WCAG 2.2. It has not been tested with screen readers or by disabled people, and its own accessibility statement says so.</Item>
+  <Item title="Each deploy puts the starting content back.">A script called the seed fills the site with its starting content on every deploy, which suits a demonstration. On a live site it would undo an editor's work, so the seed would run once, at launch.</Item>
+  <Item title="Hardening and the forms are unfinished.">The site sends no content security policy, a header that tells the browser which scripts to trust, and WordPress still announces its version. Join now, Buy this certificate and the contact form end at a message saying this is a demonstration.</Item>
 </List>
 </Chapter>
 
-<Chapter label="What carried forward" title="What carried forward." lede="A learner comparing certificates reads pages built on the stylesheets I signed off in the prototype. An editor can change any price, course or person on those pages without touching the design.">
+<Chapter label="The outcome" title="An editor can change any of 125 fields and cannot break a layout." lede="A visitor gets 26 light pages that work from a keyboard, and the organisation runs a server that nobody can alter in place. The content, the components, the accessibility and the speed were settled in plain HTML before any WordPress work started.">
 <Split>
 <List>
-  <Item title="Fix the design before the platform.">A prototype with every word final gave the WordPress build one target, and kept design questions out of the PHP.</Item>
-  <Item title="Let the seed own the content.">A seed that is safe to rerun lets each deploy fill the site the same way, on an empty database or a full one.</Item>
+  <Item title="Settle first what does not depend on the CMS.">Content, components, accessibility and weight were decided in the static pages, so the theme had one fixed target.</Item>
+  <Item title="Give design and code one set of names.">With 24 components and 53 design tokens, a page could be agreed and built without anything being translated on the way.</Item>
+  <Item title="Let people work without asking.">An editor changes words alone, and a developer ships by pushing to the repository. Neither can break the layout or the server.</Item>
 </List>
 <Facts>
-  <Fact k="Pages">26, built first in plain HTML</Fact>
-  <Fact k="Stylesheets">33 files joined into one, 7,113 bytes compressed</Fact>
-  <Fact k="Model">125 fields in 18 groups</Fact>
+  <Fact k="Pages">26, agreed in plain HTML first</Fact>
+  <Fact k="Components">24, built from 53 design tokens</Fact>
+  <Fact k="Content">125 fields in 18 groups</Fact>
+  <Fact k="Stylesheet">7,113 bytes compressed</Fact>
   <Fact k="Source">[github.com/poly-glot/academy](https://github.com/poly-glot/academy)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
-<Closing label="Visit it">
-  <ClosingCopy>Choose a certificate and see what it costs and how Academy assesses it.</ClosingCopy>
+<Closing label="Try it">
+  <ClosingCopy>Open the site, switch off JavaScript in your browser and use the tabs on the About page.</ClosingCopy>
   <ClosingLinks>
     <ClosingLink href="https://academy.junaid.guru/" external>Open Academy <span aria-hidden="true">→</span></ClosingLink>
   </ClosingLinks>

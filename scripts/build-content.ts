@@ -59,6 +59,7 @@ async function readProject(path: string): Promise<WorkProject> {
     name: fm.name as string,
     tagline: fm.tagline as string,
     summary: (fm.summary as string) ?? firstParagraphFromSource(markdown),
+    story: fm.story as Record<string, string> | undefined,
     client: fm.client as string | undefined,
     delivered: fm.delivered as string | undefined,
     role: fm.role as string | undefined,

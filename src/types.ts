@@ -51,6 +51,7 @@ export interface WorkProject {
   name: string;
   tagline: string;
   summary: string;
+  story?: Record<string, string>;
   client?: string;
   delivered?: string;
   role?: string;
