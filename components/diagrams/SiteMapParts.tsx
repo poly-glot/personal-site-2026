@@ -1,5 +1,5 @@
 import type { SketchLayout, SketchPage } from "../../src/types.ts";
-import { Chip, Line, Node, S1, S4, Sketch, Wire } from "./parts.tsx";
+import { Chip, Line, Node, S1, S4, Sketch, type Tone, Wire } from "./parts.tsx";
 
 type Box = readonly [x: number, y: number, w: number, h: number];
 
@@ -59,11 +59,24 @@ export function centres(labels: readonly string[], left: number): number[] {
 }
 
 export function Screen(
-  { page, x, y }: { page: SketchPage; x: number; y: number },
+  { page, tone, x, y }: {
+    page: SketchPage;
+    tone?: Tone;
+    x: number;
+    y: number;
+  },
 ) {
   return (
     <g>
-      <Node h={PAGE_H} lines={[]} title={page.name} w={PAGE_W} x={x} y={y} />
+      <Node
+        h={PAGE_H}
+        lines={[]}
+        title={page.name}
+        tone={tone}
+        w={PAGE_W}
+        x={x}
+        y={y}
+      />
       {SKETCHES[page.layout].map(([dx, dy, w, h]) => (
         <Sketch
           h={h}

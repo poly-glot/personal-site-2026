@@ -603,13 +603,16 @@ export const PROJECTS: WorkProject[] = [
     "id": "halveron",
     "name": "Halveron",
     "tagline":
-      "One consultancy's website for clients, trainees, forum members and job seekers.",
+      "A consultancy's 57-page site for four kinds of visitor, where every sector page shows who to contact.",
     "summary":
-      "Halveron is the website of an imaginary operations and customer-experience consultancy. One site serves service leaders looking for help, people choosing a course, members of a peer forum and job seekers. I built all 56 pages as a static prototype first, then gave WordPress a content model of 8 record types that point at each other, so a person or a client is written down once.",
+      "Halveron is the website of an imaginary operations and customer-experience consultancy, for the operations leaders it helps, people choosing a course, members of its forum and job seekers. I settled its content, components and accessibility in plain HTML, then built it in WordPress.",
+    "story": {
+      "Audience":
+        "Operations leaders in UK service organisations, people choosing a course, members of a peer forum, and job seekers.",
+      "Outcome":
+        "57 pages that work on a phone and from a keyboard, built from 39 reusable components, with a section for each of the four kinds of visitor. Staff update the content themselves and enter each person once, so every page that names them agrees. The site is deployed on secure infrastructure.",
+    },
     "client": "Halveron Consulting, an imaginary brand",
-    "delivered":
-      "Static prototype, WordPress theme, content model, content seed, enquiry handler, Cloud Run deployment",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [

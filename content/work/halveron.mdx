@@ -1,11 +1,12 @@
 ---
 id: halveron
 name: Halveron
-tagline: One consultancy's website for clients, trainees, forum members and job seekers.
-summary: Halveron is the website of an imaginary operations and customer-experience consultancy. One site serves service leaders looking for help, people choosing a course, members of a peer forum and job seekers. I built all 56 pages as a static prototype first, then gave WordPress a content model of 8 record types that point at each other, so a person or a client is written down once.
+tagline: A consultancy's 57-page site for four kinds of visitor, where every sector page shows who to contact.
+summary: Halveron is the website of an imaginary operations and customer-experience consultancy, for the operations leaders it helps, people choosing a course, members of its forum and job seekers. I settled its content, components and accessibility in plain HTML, then built it in WordPress.
+story:
+  Audience: Operations leaders in UK service organisations, people choosing a course, members of a peer forum, and job seekers.
+  Outcome: 57 pages that work on a phone and from a keyboard, built from 39 reusable components, with a section for each of the four kinds of visitor. Staff update the content themselves and enter each person once, so every page that names them agrees. The site is deployed on secure infrastructure.
 client: Halveron Consulting, an imaginary brand
-delivered: Static prototype, WordPress theme, content model, content seed, enquiry handler, Cloud Run deployment
-role: System author
 kind: study
 layout: chapters
 stack:
@@ -25,92 +26,199 @@ tone: "linear-gradient(135deg, #39207c22, #ffffff05)"
 cover: /img/work/halveron.webp
 ---
 
+import HalveronChangeRoutes from "@/components/diagrams/HalveronChangeRoutes.tsx";
+import HalveronContentModel from "@/components/diagrams/HalveronContentModel.tsx";
+import HalveronSiteMap from "@/components/diagrams/HalveronSiteMap.tsx";
+import HalveronWireframes from "@/components/diagrams/HalveronWireframes.tsx";
+import Scorecard from "@/components/diagrams/Scorecard.tsx";
+
 <Study>
 
-<Chapter label="The visitor" title="An operations leader looking for help." lede="Halveron Consulting is an imaginary consultancy that helps banks, utilities, universities and other service organisations, in its own words, 'do the right work, once, and do it well'. Its website speaks first to the operations leader who needs that help, and it also serves people choosing a course, forum members and job seekers.">
-<Rows>
-  <Row title="Find help for my sector">Eight capabilities and eight sectors. Each sector page names a consultant to talk to and links to Halveron's case studies.</Row>
-  <Row title="Choose a course">Five courses. Three open courses list their dates, length, price and location, and two are arranged with each client.</Row>
-  <Row title="Join the forum">The Lean Service Forum is a free peer network for UK organisations that run service operations, with a page for each meeting.</Row>
-  <Row title="Find a job">Six roles across consulting, training and the graduate programme: four permanent, one for an associate and one for a graduate.</Row>
-</Rows>
+<Chapter label="The brief" title="One site for operations leaders who need help, people choosing a course, forum members and job seekers." lede="Halveron Consulting is an imaginary operations and customer-experience consultancy, which helps service organisations ‘do the right work, once, and do it well’. Its site is for the operations leaders in those organisations, people choosing a course, forum members and job seekers. It needed to put each of them in touch with the right people, be mobile friendly and accessible, keep enquiries private, and let its own staff update it without a developer. The page layouts follow an existing design, and the Halveron brand, its words and its images were all made for this build." />
+
+<Chapter label="The outcome" title="An operations leader can go from their sector to the person at Halveron they would deal with." dark>
+<Board>
+  <Screen size="lead" src="/img/work/halveron/board/home.webp" w={1600} h={900} alt="The Halveron home page on a desktop: the logo, a contact line and a menu above a photograph of a bearded man in a navy jacket in a bright office, with the headline Serve well. Run well. and a purple panel reading At Halveron we start where your customers start: with the reasons they contact you." />
+  <Screen size="lead" src="/img/work/halveron/board/capabilities.webp" w={1600} h={900} alt="The Our capabilities page: a round diagram of eight segments around a centre labelled The Halveron method, beside a paragraph saying Halveron is a consultancy that does one thing, helping service organisations run their operations well." />
+  <Screen size="phone" src="/img/work/halveron/board/home-phone.webp" w={804} h={1880} alt="The home page on a phone: the logo with phone and search buttons, a purple Menu bar, a photograph of a man in a navy jacket in an office, the headline Serve well. Run well. and a purple panel reading At Halveron we start where your customers start." />
+  <Screen src="/img/work/halveron/board/capability-business-transformation.webp" w={1600} h={900} alt="The Business transformation page: a pale banner with the heading, a photograph of five people in front of a whiteboard covered in sticky notes, and a purple panel beginning Large change programmes fail less often for lack of ambition than for lack of grip." />
+  <Screen src="/img/work/halveron/board/capability-operations-strategy.webp" w={1600} h={900} alt="The Operations strategy and implementation page: a pale banner with the heading, a photograph of two people leaning over printed plans on a table, and a purple panel beginning An operations strategy should tell every manager what to do on Monday morning." />
+  <Screen src="/img/work/halveron/board/capability-operating-model-design.webp" w={1600} h={900} alt="The Operating model design page: a pale banner with the heading, a photograph of office workers walking between glass towers, and a purple panel describing how Halveron designs structures, roles and processes." />
+  <Screen src="/img/work/halveron/board/capability-organisational-effectiveness.webp" w={1600} h={900} alt="The Organisational effectiveness page: a pale banner with the heading, a photograph of a group in front of a wall of colourful sticky notes, and a purple panel beginning Good people in a poorly designed organisation spend their days working around it." />
+  <Screen src="/img/work/halveron/board/capability-customer-experience.webp" w={1600} h={900} alt="The Multichannel customer experience page: a pale banner with the heading, a photograph of a smiling woman wearing a headset at a desk, and a purple panel beginning Customers do not think in channels." />
+  <Screen src="/img/work/halveron/board/capability-process-improvement.webp" w={1600} h={900} alt="The Process improvement page: a pale banner with the heading, a photograph of hands moving coloured cards across a table, and a purple panel about taking waste out of service processes." />
+  <Screen src="/img/work/halveron/board/capability-digital-at-pace.webp" w={1600} h={900} alt="The Digital at pace page: a pale banner with the heading, a photograph of a woman showing a laptop to a man, and a purple panel beginning New technology rarely fixes a broken process." />
+  <Screen src="/img/work/halveron/board/capability-learning-and-development.webp" w={1600} h={900} alt="The Learning and development page: a pale banner with the heading, a photograph of a trainer beside a flipchart with a seated group, and a purple panel beginning Lasting improvement depends on managers who can lead it." />
+  <Screen src="/img/work/halveron/board/sector-banking.webp" w={1600} h={900} alt="The Banking page: a pale banner with the heading, a photograph of two women talking at a desk in a bank branch, and a purple panel beginning Lenders face tighter margins, rising fraud and closer scrutiny of customer outcomes." />
+  <Screen size="feature" src="/img/work/halveron/board/sectors.webp" w={1600} h={900} alt="The Our sectors page: the heading, an introduction saying Halveron works only in service organisations across eight sectors, and the top of a row of sector photographs below it." />
+  <Screen src="/img/work/halveron/board/sector-insurance.webp" w={1600} h={900} alt="The Insurance page: a pale banner with the heading, a photograph of an open-plan claims office with plants, and a purple panel beginning A claim is the moment an insurer keeps its promise." />
+  <Screen src="/img/work/halveron/board/sector-utilities.webp" w={1600} h={900} alt="The Utilities page: a pale banner with the heading, a photograph of a water treatment site with a worker in orange high-visibility clothing, and a purple panel beginning Utility customers cannot choose to leave a water company." />
+  <Screen src="/img/work/halveron/board/sector-travel.webp" w={1600} h={900} alt="The Travel page: a pale banner with the heading, a photograph of a busy station concourse under a glass roof with a uniformed member of staff, and a purple panel beginning In travel, the service is tested hardest when things go wrong." />
+  <Screen src="/img/work/halveron/board/sector-education.webp" w={1600} h={900} alt="The Education page: a pale banner with the heading, a photograph of students on a lawn in front of a stone university building with a glass extension, and a purple panel beginning Universities run admissions, student support, accommodation, finance and research administration." />
+  <Screen src="/img/work/halveron/board/sector-public-sector.webp" w={1600} h={900} alt="The Public sector page: a pale banner with the heading, a photograph of people sitting in a bright community hub, and a purple panel beginning Councils and public bodies are asked to do more each year with less." />
+  <Screen src="/img/work/halveron/board/sector-healthcare.webp" w={1600} h={900} alt="The Healthcare page: a pale banner with the heading, a photograph of two staff in scrubs and a man walking through a light hospital atrium, and a purple panel beginning Clinicians and administrators in health services lose hours each week." />
+  <Screen src="/img/work/halveron/board/sector-managed-services.webp" w={1600} h={900} alt="The Managed and contract services page: a pale banner with the heading, a photograph of five people in business clothes standing in a glass atrium, and a purple panel beginning Managed-service providers must meet tight service levels on fixed prices." />
+  <Screen src="/img/work/halveron/board/thinking.webp" w={1600} h={900} alt="The Our Thinking page: a pale banner with the heading and an introduction to news, case studies, white papers and In brief notes, above a carousel card for What we heard at the Future of Service Conference 2026 with a photograph of a packed lecture hall." />
+  <Screen src="/img/work/halveron/board/article-future-of-service-2026.webp" w={1600} h={900} alt="A news article: the category News, a date of 30 September 2026, the headline What we heard at the Future of Service Conference 2026, and a photograph of a full lecture hall watching a speaker." />
+  <Screen src="/img/work/halveron/board/article-customer-journey-insurer.webp" w={1600} h={900} alt="A case study: the category Case study, a date of 9 September 2026, the headline Understanding the customer journey at a mutual insurer, and a photograph of a woman on the phone in an open-plan office." />
+  <Screen src="/img/work/halveron/board/article-regulation-work-for-you.webp" w={1600} h={900} alt="A white paper: the category White paper, a date of 23 September 2026, the headline How to make regulation work for you, a Download white paper button and a photograph of two people at a desk." />
+  <Screen src="/img/work/halveron/board/article-start-with-demand.webp" w={1600} h={900} alt="An In brief note: the category In brief, a date of 28 September 2026, the headline Start with demand, not capacity, and a photograph of a printed sheet on a wooden desk beside a plant and a coffee cup." />
+  <Screen src="/img/work/halveron/board/article-public-sector-service-academy.webp" w={1600} h={900} alt="A news article: the category News, a date of 16 September 2026, the headline Halveron opens a service academy for public-sector leaders, and a photograph of people around a flipchart." />
+  <Screen src="/img/work/halveron/board/article-contact-centre-demand-report.webp" w={1600} h={900} alt="A news article: the category News, a date of 27 August 2026, the headline Our 2026 contact-centre demand report, and a photograph of rows of computers in an empty contact centre." />
+  <Screen src="/img/work/halveron/board/article-failure-demand-explained.webp" w={1600} h={900} alt="An In brief note: the category In brief, a date of 19 August 2026, the headline Failure demand on one page, and a photograph of envelopes and cardboard on a desk." />
+  <Screen size="phone" src="/img/work/halveron/board/sector-utilities-phone.webp" w={804} h={1880} alt="The Utilities page on a phone: the logo and a purple Menu bar, a pale banner with the heading, a photograph of a water treatment site with a worker in orange high-visibility clothing, and a purple panel beginning Utility customers cannot choose to leave a water company." />
+  <Screen src="/img/work/halveron/board/article-coaching-hybrid-teams.webp" w={1600} h={900} alt="An In brief note: the category In brief, a date of 10 June 2026, the headline Coaching hybrid operations teams, and a photograph of a woman wearing a headset in an office." />
+  <Screen src="/img/work/halveron/board/article-technology-in-travel.webp" w={1600} h={900} alt="A white paper: the category White paper, a date of 15 July 2026, the headline Sector review: technology in travel operations, a Download white paper button and a photograph of an open office by the water." />
+  <Screen src="/img/work/halveron/board/article-complaints-handling-utility.webp" w={1600} h={900} alt="A case study: the category Case study, a date of 12 August 2026, the headline Improving complaints handling at a water utility, and a photograph of a woman and a man in orange high-visibility clothing at a board of sticky notes." />
+  <Screen src="/img/work/halveron/board/article-back-office-productivity-bank.webp" w={1600} h={900} alt="A case study: the category Case study, a date of 24 June 2026, the headline Driving back-office productivity at a regional bank, and a photograph of people at a whiteboard of sticky notes." />
+  <Screen src="/img/work/halveron/board/article-change-delivery-council.webp" w={1600} h={900} alt="A case study: the category Case study, a date of 20 May 2026, the headline Improving change-delivery capability in a county council, and a photograph of people in front of a wall of coloured notes." />
+  <Screen src="/img/work/halveron/board/article-lean-forum-100-members.webp" w={1600} h={900} alt="A news article: the category News, a date of 8 July 2026, the headline The Lean Service Forum reaches 100 member organisations, and a photograph of a group of people in front of a wall of sticky notes." />
+  <Screen src="/img/work/halveron/board/news.webp" w={1600} h={900} alt="The News and insights page: a pale banner with the heading and a line saying every article, case study, white paper and In brief note is listed newest first, above a carousel card with a photograph of a lecture hall." />
+  <Screen src="/img/work/halveron/board/about.webp" w={1600} h={900} alt="The About us page: a pale banner with the heading, the line Who we are and how we work, and two columns of text beginning Halveron was founded in 2009 by a small group of operations managers." />
+  <Screen src="/img/work/halveron/board/courses.webp" w={1600} h={900} alt="The Courses page: a charcoal banner with the heading Halveron Learning & Development and the tabs About, Open training and Custom training, above a purple panel saying Halveron runs three accredited open courses and two programmes for a single organisation." />
+  <Screen size="feature" src="/img/work/halveron/board/training.webp" w={1600} h={900} alt="The Training page: a dark banner with a photograph of a desk and books, the heading Halveron Learning & Development, the tabs About, Open training and Custom training, and the line Practical, accredited training for the people who run service operations." />
+  <Screen src="/img/work/halveron/board/course-lean-practitioner.webp" w={1600} h={900} alt="The Lean Practitioner course page: a pale banner with the title, a photograph of a trainer by a whiteboard with a seated group, and a box inviting visitors to contact Tom Whitlock, Head of Learning and Development, with a Contact us button." />
+  <Screen src="/img/work/halveron/board/course-service-excellence.webp" w={1600} h={900} alt="The Service Excellence course page: a pale banner with the title, a photograph of four people talking round a table, and a box inviting visitors to contact Tom Whitlock, Head of Learning and Development, with a Contact us button." />
+  <Screen src="/img/work/halveron/board/course-operational-coaching.webp" w={1600} h={900} alt="The Operational Coaching course page: a pale banner with the title, a photograph of two people smiling at a desk, and a box inviting visitors to contact Tom Whitlock, Head of Learning and Development, with a Contact us button." />
+  <Screen src="/img/work/halveron/board/course-operations-management.webp" w={1600} h={900} alt="The Operations Management programme page: a pale banner with the title, a photograph of four people talking in a bright room, and a box inviting visitors to contact Tom Whitlock, Head of Learning and Development, with a Contact us button." />
+  <Screen src="/img/work/halveron/board/course-stakeholder-engagement.webp" w={1600} h={900} alt="The Stakeholder Engagement programme page: a pale banner with the title, a photograph of a trainer and a seated group, and a box inviting visitors to contact Tom Whitlock, Head of Learning and Development, with a Contact us button." />
+  <Screen src="/img/work/halveron/board/careers.webp" w={1600} h={900} alt="The Careers page: a black banner with the heading Halveron Careers, the tabs Working at Halveron, Current opportunities and Business schools, the quote We tell clients what we see, then stay until the work is done, and the top of a strip of photographs." />
+  <Screen src="/img/work/halveron/board/opportunities.webp" w={1600} h={900} alt="The Current opportunities page: a black banner with the heading Halveron Careers and the tabs Working at Halveron, Current opportunities and Business schools, above a purple panel saying Halveron is recruiting for six roles." />
+  <Screen src="/img/work/halveron/board/meeting-forum-november-2026.webp" w={1600} h={900} alt="A Lean Service Forum meeting page: a banner with the title Lean Service Forum at Northwyn Rail over a photograph of a control room, a short description, the date Thursday 19 November 2026, the time 09:30 to 15:00 and the host Northwyn Rail." />
+  <Screen size="feature" src="/img/work/halveron/board/forum.webp" w={1600} h={900} alt="The Forum page: a dark banner with a photograph of people on a city street, the heading Halveron Forum, the tabs About the Forum, Next event, Past events and Apply for membership, and the line Next meeting: Thursday 19 November 2026, Manchester." />
+  <Screen src="/img/work/halveron/board/meeting-forum-june-2026.webp" w={1600} h={900} alt="A Lean Service Forum meeting page: a banner with the title Lean Service Forum at Vellmore Building Society, a short description, the date Thursday 18 June 2026, the host Vellmore Building Society and the start of a What happened section." />
+  <Screen src="/img/work/halveron/board/meeting-forum-march-2026.webp" w={1600} h={900} alt="A Lean Service Forum meeting page: a banner with the title Lean Service Forum at Calderbrook Water, a short description, the date Thursday 12 March 2026, the host Calderbrook Water and the start of a What happened section." />
+  <Screen src="/img/work/halveron/board/conference.webp" w={1600} h={900} alt="The Conference page: a dark banner with a photograph of a brick building at dusk, the heading Halveron Conference, four tabs, and the line Future of Service Conference 2027, Wednesday 3 March 2027, The Assembly Rooms, Finsbury, London." />
+  <Screen src="/img/work/halveron/board/contact.webp" w={1600} h={900} alt="The Contact us page: a pale banner with the heading, an introduction saying the quickest way to reach Halveron is by phone or email, and the telephone number, the training number and the email address in large type." />
+  <Screen src="/img/work/halveron/board/search.webp" w={1600} h={900} alt="The Search page: a pale banner with the heading, a wide teal search box reading Search our website, and the line Type a word or phrase above to search the site." />
+  <Screen src="/img/work/halveron/board/sitemap.webp" w={1600} h={900} alt="The Sitemap page: a pale banner with the heading and the line Every page on this website, grouped by section, above columns of links headed Main pages, Our capabilities and Our sectors." />
+  <Screen src="/img/work/halveron/board/cookies.webp" w={1600} h={900} alt="The Cookie notice page: a pale banner with the heading, a Last updated line, the section Our cookies saying the site sets no cookies of its own, and the start of a section headed Fonts." />
+  <Screen src="/img/work/halveron/board/privacy.webp" w={1600} h={900} alt="The Privacy notice page: a pale banner with the heading, a boxed notice saying Halveron is a fictional firm and this is a demonstration website, and the section heading Who is responsible for your data." />
+  <Screen src="/img/work/halveron/board/terms.webp" w={1600} h={900} alt="The Terms of use page: a pale banner with the heading, a boxed notice saying the firm is fictional and courses cannot be booked, and the section heading About these terms." />
+  <Screen src="/img/work/halveron/board/accessibility.webp" w={1600} h={900} alt="The Accessibility statement page: a pale banner with the heading, a Last reviewed line, the section heading Our commitment with its first paragraph, and the heading Conformance status." />
+  <Screen src="/img/work/halveron/board/not-found.webp" w={1600} h={900} alt="The Page not found page: a pale banner with the heading We cannot find that page, a short apology, and the buttons Go to the home page and Browse our capabilities above the purple footer." />
+</Board>
 </Chapter>
 
-<Chapter label="The site" title="Each audience gets its own section." lede="Those four audiences share one site of 56 pages, from capabilities and sectors to a training catalogue, the forum, a conference, 13 articles and careers. The page layouts follow an existing design. The Halveron brand, the words and the images were made for this build.">
-<Figures numbered bleed>
-  <Figure src="/img/work/halveron/sector-utilities.webp" w={1600} h={1000} alt="The Utilities sector page: the breadcrumb Home / Our sectors / Utilities, a water-treatment photograph and a purple panel beginning Utility customers cannot choose to leave a water company." title="A sector page">Read how Halveron works with water and energy companies, then talk to the named consultant or send an enquiry further down the page.</Figure>
-  <Figure src="/img/work/halveron/course-facts.webp" w={1600} h={1000} alt="A course fact grid: accredited by the Service Operations Institute, next course 10 November 2026, a schedule, five days, £2,450 plus VAT and Woodstock, Oxfordshire, above the headings Who it is for and Modules." title="A course">Check a course's accreditation, dates, length, price and location before reading its modules.</Figure>
-  <Figure src="/img/work/halveron/forum-next-event.webp" w={1600} h={1000} alt="A purple band headed Next event, saying Northwyn Rail hosts members in Manchester on Thursday 19 November 2026, above an event card with a View detail button." title="The forum">See where the forum meets next, and open the meeting for its detail.</Figure>
-  <Figure src="/img/work/halveron/case-study-results.webp" w={1600} h={1000} alt="The heading The result over three stat cards reading 64%, 7 days and 31%, and a quote from a Customer Services Director." title="A case study">Read what Halveron did for a water company and the results it reports. The figures and the quote are invented, like the firm.</Figure>
+<Chapter label="Strategy" title="Help operations leaders find the right person at Halveron, and get in touch." lede="Halveron works only with service organisations, in eight sectors across the UK. It judges its work by what remains when it leaves, so it trains clients' own people to keep improving without it, and it also runs a free forum for operations leaders. That gives the site two jobs: bring each of its four kinds of visitor to the right place, and stay easy for Halveron's own staff to keep up to date." split>
+<Split reverse>
+<Steps>
+  <Step open name="The aim" hint="operations leaders get in touch">Winning means an operations leader finds their sector, reads how Halveron works there and what it changed for other organisations, and gets in touch. So every sector page carries an enquiry form, and so does the contact page. A leader can write to Halveron from the page they are reading, while what they have just read is still in front of them.</Step>
+  <Step name="Where to play" hint="eight sectors, four kinds of visitor">The eight sectors run from banking and utilities to healthcare and the public sector, and Halveron offers eight capabilities, the kinds of work it does. Four kinds of visitor share its site: leaders looking for help, people choosing a course, members of its Lean Service Forum and job seekers. A leader can send an enquiry from the site. Asking about a course, a forum place or a job means sending Halveron an email.</Step>
+  <Step name="How to win" hint="a named person beside the work">Halveron says it recruits people who have done the job before they advise on it, and it shares what it learns: its articles come from client work, and its forum is free. So the site shows that work and names a person beside it. Every capability, sector and course page shows who to talk to, with a portrait and a role, so a leader can see who they would deal with.</Step>
+  <Step name="What it takes" hint="each person entered once">People change roles, clients come and go, and course and meeting dates move on, across 57 pages for four kinds of visitor. Halveron's staff have to keep up without a developer. So each person, client and article has to live in one place, where staff change it once, and every page that shows it has to follow.</Step>
+  <Step name="How we'd know" hint="enquiries, and where each came from">Success would show in enquiries from leaders, and in which pages bring them in. So the two things to record are the form each enquiry came from and the page it was sent from, which would show which sectors and articles bring leaders to Halveron. This is a demonstration, so there are no figures. What can be checked today: every sector page names a person, and that person's details come from one record.</Step>
+</Steps>
+<Sites title="Similar strategy">
+  <Site name="Academy" href="/work/academy/" src="/img/work/academy.webp" w={2560} h={1440} />
+  <Site name="Wealth" href="/work/wealth/" src="/img/work/wealth.webp" w={2560} h={1440} />
+</Sites>
+</Split>
+</Chapter>
+
+<Chapter label="Content architecture" title="Each of the four kinds of visitor has a section of their own." lede="Choosing eight sectors and four kinds of visitor decided how the site is organised. Its content architecture, what the site holds and where each thing lives, is 57 pages under a menu of eight sections, and four of those sections belong to one kind of visitor each: Our Sectors, Training, Forum and Careers. The path in blue is one a leader might take, from their sector to a case study and on to the contact page.">
+<HalveronSiteMap />
+</Chapter>
+
+<Chapter label="Components" title="39 components build every page, including the box that names a person to talk to." lede="Putting a named person beside Halveron's work takes one box, and it appears on every capability, sector and course page, and on the forum and conference pages. That box is one of 39 components, the repeated pieces every page is built from, such as the header. Their colours and sizes come from one shared list of 49 values, called design tokens. So any sector, course or article staff add matches the rest.">
+<HalveronWireframes />
+</Chapter>
+
+<Chapter label="Editorial control" title="Staff enter each person once, and every page that shows them uses those details." lede="The strategy depends on Halveron's staff keeping people, clients, articles and dates current without a developer. Anything that might change, such as a person's role, is a field staff fill in. The list of those fields, 255 in all, is the content model. Each person, client and article is one record, and 27 of the fields are links, each pointing at a record instead of repeating it, so a sector's contact is chosen from a list of people.">
+<HalveronContentModel />
+<Fanout
+  source={{ src: "/img/work/halveron/edit-person.webp", w: 1600, h: 1000, alt: "The WordPress form for the person Ruth Calloway. Under her name is the Profile box: Role Managing Director, Group Management team, First name Ruth, How I work with her sentence about asking what the customer would say, her biography, Phone (display) +44 (0)1632 960410, Phone (tel link) +441632960410 and Email ruth.calloway@halveron.junaid.guru. Her portrait sits in the Featured image box on the right.", label: "One form: Ruth Calloway" }}
+  targets={[
+    { src: "/img/work/halveron/fan-article-author.webp", w: 1600, h: 900, alt: "The author box beside an article: Ruth Calloway's portrait, the label Author, her name, Managing Director, her phone number and email address as underlined links, and a Contact button.", label: "An article's author box" },
+    { src: "/img/work/halveron/fan-utilities-contact.webp", w: 1600, h: 900, alt: "The Talk to Ruth box on the Utilities sector page: the line Let us help you. Talk to Ruth, her portrait, her name, Managing Director, her phone number and email address as underlined links, and a Contact Ruth button.", label: "Talk to Ruth, on a sector page" },
+    { src: "/img/work/halveron/fan-about-card.webp", w: 1600, h: 900, alt: "Ruth Calloway's card on the About page, with the pointer over it: her portrait is covered by a purple circle holding her sentence, I ask what the customer would say about this before I ask what it costs. Under it are her name, Managing Director and an Email link. Marcus Adeyemi's card sits beside hers.", label: "Her card on the About page" },
+  ]}
+/>
+</Chapter>
+
+<Chapter label="Accessibility and speed" title="Built to be responsive and accessible, and designed for editorial control" lede="I built the site so that each visitor's section is straightforward to reach and the person to talk to is easy to find, across screen sizes and interaction methods, including keyboard navigation. These principles are built into shared components and design tokens, and applied across all 57 pages. Staff can update the content while the structure, accessibility and visual consistency stay intact. Two of the outlines that show where the keyboard is are too faint, and the site has not been tested with screen readers, as The limits explains.">
+<Figures>
+  <Figure src="/img/work/halveron/home-capabilities.webp" phone="/img/work/halveron/home-phone.webp" phoneAlt="The home page on a phone: the logo with phone and search buttons, a purple Menu bar, a photograph of a man in a navy jacket in an office and the headline Serve well. Run well." w={1600} h={1000} alt="The home page on a desktop, scrolled to Discover our capabilities: a row of eight capability tabs with Operating model design selected, above a photograph of office workers walking between glass towers beside a purple panel describing that capability." title="Tabs without a script">The eight capability tabs on the home page are ordinary links, so they work without JavaScript.</Figure>
+  <Figure src="/img/work/halveron/home-desktop.webp" phone="/img/work/halveron/menu-phone.webp" phoneAlt="The phone menu open on the home page: a purple panel headed Close menu listing Our Capabilities, Our Sectors, Our Thinking and About Us, then Training, Careers, Forum and Conference." w={1600} h={1000} alt="The home page on a desktop: the logo, contact line and a two-row menu above a photograph of a man in a navy jacket in an office, the headline Serve well. Run well. and a purple panel with a See how we work button." title="The phone menu">On a phone the eight menu links fold behind one button. The open menu pushes the page down instead of covering it, so every link can be tapped.</Figure>
 </Figures>
-<Figures bleed quartered>
-  <Figure src="/img/work/halveron/home-capabilities.webp" w={1600} h={1000} alt="The heading Discover our capabilities over a row of eight icon tabs with Operating model design selected, beside a street photograph and a purple panel of text." title="Home">Move through the eight capabilities from the home page.</Figure>
-  <Figure src="/img/work/halveron/capability-wheel.webp" w={1600} h={1000} alt="The heading Our capabilities beside an eight-segment wheel around the label The Halveron method." title="Capabilities">See the eight capabilities as one method, with a card for each further down the page.</Figure>
-  <Figure src="/img/work/halveron/conference-tickets.webp" w={1600} h={1000} alt="The headings Speakers include and Tickets available now, two speaker portraits with session blurbs, and a ticket panel showing £295 plus VAT per person and a Book tickets button." title="Conference">Read about the speakers and the ticket price. Booking is by email.</Figure>
-  <Figure src="/img/work/halveron/search-results.webp" w={1600} h={1000} alt="The Search heading above a cyan search band with demand typed in, the line We found 9 results for 'demand', and a first result tagged In brief." title="Search">Search the site. The server answers and lists every match on one page.</Figure>
-</Figures>
+<Scorecard
+  runs={[
+    {
+      label: "Mobile",
+      scores: [
+        { label: "Performance", value: 97 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "1.9 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0.092" },
+        { label: "Page weight", value: "302 KB" },
+      ],
+    },
+    {
+      label: "Desktop",
+      scores: [
+        { label: "Performance", value: 100 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "0.8 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0" },
+        { label: "Page weight", value: "344 KB" },
+      ],
+    },
+  ]}
+  checks={[
+    { label: "Works from a keyboard", value: "Yes" },
+    { label: "Focus ring", value: "3 px" },
+    { label: "Theme JavaScript", value: "3.8 KB" },
+    { label: "Phone menu", value: "Works on every page" },
+  ]}
+  source="Lighthouse 12.8 on the live home page, 22 November 2026: the middle of three runs."
+/>
 </Chapter>
 
-<Chapter label="The prototype" title="Every prototype address works on the live site." lede="Those 56 pages existed as plain HTML and CSS before I wrote any WordPress, with the words and images in place. The prototype stays in the repository, and the WordPress theme had to reproduce it. The first check was simple: each prototype page should open at the same address on the live site.">
-<Facts>
-  <Fact k="Order">The git history shows it. Seven commits built the static site, from the design system to the 13 articles, two rounds of fixes and the image set. The platform, the content model, the seed and the theme came after.</Fact>
-  <Fact k="Stylesheets">The theme holds the prototype's 39 component stylesheets unchanged. A file comparison of the two folders finds no difference.</Fact>
-  <Fact k="Templates">The theme builds its pages from 53 template parts, small PHP files for pieces such as the enquiry form and the contact box.</Fact>
-  <Fact k="Two fixes">Articles live under `/thinking/`, and WordPress would have put that prefix in front of the capability, course, event and sector addresses too. One commit turned it off. Another sent `/search/` to WordPress's own search, because no page existed at that address.</Fact>
-  <Fact k="The check">On 15 November 2026 a loop over all 56 prototype addresses got 200 from the live site for each one, the code a server sends for a page that loaded. The loop is a command-line check, not a test in the repository.</Fact>
-</Facts>
+<Chapter label="The build" title="Staff edit the content, a developer ships the code, and every enquiry records where it came from." lede="The strategy judges the site by its enquiries and leaves day-to-day changes to Halveron's staff. Staff change content in WordPress, and a developer changes code only through a deploy, a fresh build of the site that replaces the live one. Enquiries come from three kinds of form, on the contact page, the sector pages and the white papers, and all go to one handler: the code that checks each enquiry and saves it as a private record, with the page it came from.">
+<HalveronChangeRoutes />
 </Chapter>
 
-<Chapter label="The content model" title="Eight record types that point at each other." lede="Matching addresses proves the pages exist. Staff also had to change them without a developer, so the theme holds the layout and the copy lives in fields described in YAML, a plain text format. A field can also point at another record instead of repeating it.">
-<Facts>
-  <Fact k="Record types">16 YAML files, 1,314 lines in all, describe 8 types: capability, course, enquiry, event, job, organisation, person and sector. Articles use WordPress's own posts in four kinds: news, in brief, white paper and case study.</Fact>
-  <Fact k="Edit screens">The yacf plugin, part of the WordPress image shared across the agency's client sites, reads the YAML and builds the edit screens in wp-admin, WordPress's staff area.</Fact>
-  <Fact k="Links">27 fields point from one record to another. A sector names its contact, its client logos and its case studies. An article names its author, capabilities and sectors. A forum meeting names the organisation that hosts it.</Fact>
-  <Fact k="One person">Ruth Calloway is one person record. The Business transformation and Utilities pages name her as their contact, two articles name her as author and the careers page quotes her. The Talk to Ruth box takes her name, email and phone from that record.</Fact>
-  <Fact k="Organisations">22 invented organisations with their own logos fill four roles: 8 clients, 6 forum members, 4 accrediting bodies and 4 technology partners.</Fact>
-  <Fact k="Reading links">The theme loads each list of links in one query, in the order the editor set, and keeps only published records of the right type. If staff unpublish a person, that person drops off every page that named them.</Fact>
-  <Fact k="Seed">The seed, a PHP script of 2,696 lines, writes every record into WordPress on each deploy and is safe to rerun. It creates people and organisations first, then the records that point at them, and comes back after the articles to fill in each sector's case studies.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="The enquiry" title="From a sector page to a private enquiry." lede="The enquiry is one of those eight record types, and it is where the operations leader from the first chapter ends up. The contact page, each sector page and each white-paper download carry a version of the same form. All three post to one handler in the theme, with no form plugin.">
+<Chapter label="The limits" title="Where the strategy is not proven yet." lede="The strategy measures success in enquiries and the pages that bring them in. Two of its rules are built in: code reaches the server only through a deploy, and each person is entered once. Each gap below is set against the part of the strategy it puts at risk.">
 <List>
-  <Item title="It records where the message came from.">The form sends the id of the page it sits on. The handler accepts only a published page, article or sector, and sends anything else back to the home page.</Item>
-  <Item title="A bot gets no sign it was caught.">Each form carries a nonce, a token WordPress issues with the page and checks when the form comes back, and a hidden field called website that people never see. A bot that fills it in gets the usual thank-you, and the handler saves nothing.</Item>
-  <Item title="Interests must match a real capability.">The white-paper form asks which capabilities interest you. The handler keeps a choice only if it names a real capability and drops anything invented.</Item>
-  <Item title="Each form has its own rules.">A name and a valid email are always required. The contact and sector forms also need a message, and a download needs a company name.</Item>
-  <Item title="Saved where only staff can see it.">The handler saves the enquiry as a private record. Staff find it in wp-admin under Enquiries, with columns for the form, the page it was sent from, the company and the email. No email goes out.</Item>
+  <Item title="The aim: an enquiry waits until someone looks, and no white paper is sent.">Nothing in the site&apos;s code sends an email, so an enquiry waits in WordPress until someone opens it. The white-paper form says it will send the paper to the visitor&apos;s inbox, and its button reads Complete profile and download, but no file is attached and nothing is sent.</Item>
+  <Item title="How to win: every sector page shows the same four case studies.">All eight sector pages list the same four case studies, from a water company, a bank, an insurer and a council, in a different order. A leader in healthcare, travel, education or managed services finds nothing from their own sector.</Item>
+  <Item title="What it takes: past dates stay on the page until someone changes them.">Nothing compares a date with today. On 22 November 2026 the home page and the courses page still offer a course on 10 November, and the forum page still shows the meeting on 19 November as the next one.</Item>
+  <Item title="The aim: accessibility has small faults and no automatic test.">Two of the outlines that show where the keyboard is fall below the 3:1 contrast the accessibility guidelines (WCAG) ask for, and the nine email links on the About page are smaller than the 24-pixel minimum. The accessibility statement says every page passes automated checks, but nothing in the repository runs one, and screen-reader testing has not been done.</Item>
+  <Item title="How we'd know: there are no real enquiries to count.">The handler saves every enquiry with the form and the page it came from, but because Halveron is imaginary, the forms ask visitors not to enter real personal information. So the records it keeps cannot show which sectors or articles bring leaders in.</Item>
+  <Item title="What it takes: the starting content comes back on every deploy.">A script called the seed fills the site on every deploy and resets every record, setting and menu it created, which suits a demonstration. It would even publish again a person staff had taken down. On a live site it would run once, at launch.</Item>
+  <Item title="What it takes: hardening is unfinished.">The site holds visitors&apos; enquiries, but it sends no content security policy, a header that tells the browser which scripts to trust, and it still announces its WordPress and PHP versions.</Item>
 </List>
 </Chapter>
 
-<Chapter label="The limits" title="Where it stops today." lede="Halveron is a demonstration that takes no money and no bookings. The clearest gap is on the enquiry form, and the rest come from choices I made in the build.">
-<List>
-  <Item title="The form note contradicts the handler.">The note under the form says messages are not stored or read, but the handler saves each one as a private enquiry. I would change the note to say what the code does.</Item>
-  <Item title="Dates stay where staff left them.">Staff set each course's next date and pick each next forum meeting, and nothing moves them on. On 15 November 2026 the home page still shows a Lean Practitioner course on 10 November. I would have the theme hide a date once it has passed.</Item>
-  <Item title="The seed overwrites staff edits.">A change made in wp-admin to a seeded record lasts until the next deploy, when the seed writes its own copy back. For a real client I would seed once and then leave the content to staff.</Item>
-  <Item title="No checks run before a deploy.">The repository has no tests, no HTML validator and no accessibility checker, and the deploy pipeline builds the site and ships it. The accessibility statement says screen-reader testing has not yet been completed. I would commit the 56-address check as the first test.</Item>
-  <Item title="Nothing sends email.">Enquiries wait in wp-admin and the newsletter box stores nothing. The conference page asks people to book by email, and courses cannot be booked at all.</Item>
-</List>
-</Chapter>
-
-<Chapter label="What carried forward" title="What carried forward." lede="An operations leader can find their sector, see who at Halveron to call and send a message that staff can trace back to the page they read. People choosing a course, forum members and job seekers use the same 56 pages, and their copy lives in the content model.">
+<Chapter label="The lessons" title="Three things I would do the same way again." lede="The strategy set out to bring operations leaders to the right person at Halveron, on a site that also serves three other kinds of visitor and that Halveron's own staff keep current. These are the choices that made that work.">
 <Split>
 <List>
-  <Item title="Check the move to WordPress by address.">Requesting every prototype address from the live site is a quick way to show that no page went missing.</Item>
-  <Item title="Write a record down once.">A person, a client or a case study lives in one record, and each page that names it points there. One edit reaches every page.</Item>
-  <Item title="Make the page say what the code does.">The enquiry note and the handler disagree, and a visitor has no way to find that out.</Item>
+  <Item title="Start from what the firm says about itself.">Halveron says it judges itself by what remains when it leaves, and that its people have done the job before they advise on it. Those two lines decided the site map and the components: courses and the forum get sections of their own, and every capability, sector and course page names a person to talk to.</Item>
+  <Item title="Enter each person once.">A person is one record, and other forms choose from it, such as a sector&apos;s contact or an article&apos;s author. Ruth Calloway, the managing director, appears on six pages, and her name, role and portrait come from her one form on all of them. Changing her role on a local copy changed it on all five of the pages that were checked.</Item>
+  <Item title="Save each enquiry with the page it came from.">Every enquiry is saved with the form it came from and the page it was sent from, so staff can tell a leader who read the Utilities page from one who asked for a white paper. Each form carries two hidden values for this: its own name and the page&apos;s.</Item>
 </List>
 <Facts>
-  <Fact k="Pages">56, all live at the same addresses</Fact>
-  <Fact k="Record types">8, joined by 27 link fields</Fact>
-  <Fact k="Seed">2,696 lines, run on every deploy</Fact>
+  <Fact k="Pages">57, built in plain HTML first</Fact>
+  <Fact k="Components">39, built from 49 design tokens</Fact>
+  <Fact k="Content">255 fields across 30 edit boxes</Fact>
+  <Fact k="Stylesheet">11.5 KB compressed</Fact>
   <Fact k="Source">[github.com/poly-glot/halveron](https://github.com/poly-glot/halveron)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
-<Closing label="Visit it">
-  <ClosingCopy>Pick a sector and see who at Halveron you would talk to.</ClosingCopy>
+<Closing label="Try it">
+  <ClosingCopy>See the site as an operations leader would: pick your sector, find the person you would talk to, and read one of Halveron&apos;s case studies.</ClosingCopy>
   <ClosingLinks>
     <ClosingLink href="https://halveron.junaid.guru/" external>Open Halveron <span aria-hidden="true">→</span></ClosingLink>
   </ClosingLinks>
