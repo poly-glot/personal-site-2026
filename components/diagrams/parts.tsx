@@ -1,6 +1,9 @@
 import { type ComponentChildren, createContext } from "preact";
 import { useContext, useId } from "preact/hooks";
+import type { Tone } from "@/src/types.ts";
 import styles from "./diagram.module.css";
+
+export type { Tone };
 
 export const S1 = 8;
 export const S2 = 13;
@@ -9,7 +12,6 @@ export const S4 = 34;
 export const S5 = 55;
 export const PANEL_W = 520;
 
-export type Tone = "focal" | "ghost";
 export type Anchor = "start" | "middle" | "end";
 export type LabelKind =
   | "aside"
@@ -280,9 +282,17 @@ export function Node(
   );
 }
 
+function chipVoice(strong?: boolean, plain?: boolean): string {
+  if (strong) return styles.name;
+  if (plain) return styles.label;
+
+  return styles.data;
+}
+
 export function Chip(
-  { h = S4, strong, text, tone, w, x, y }: {
+  { h = S4, plain, strong, text, tone, w, x, y }: {
     h?: number;
+    plain?: boolean;
     strong?: boolean;
     text?: string;
     tone?: Tone;
@@ -291,7 +301,7 @@ export function Chip(
     y: number;
   },
 ) {
-  const voice = strong ? styles.name : styles.data;
+  const voice = chipVoice(strong, plain);
 
   return (
     <g>

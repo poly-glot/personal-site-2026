@@ -1,11 +1,12 @@
 ---
 id: wealth
 name: Wealth
-tagline: An investment manager's website where each strategy leads to the people who run it.
-summary: Wealth is the website of an imaginary investment manager in London, written for institutional and professional investors. Each strategy names the people who run it, and a person's page shows what they manage and what they last wrote. The decision worth reading about is where those links live. WordPress stores each one on one side only, and the theme works out the other side, so two pages cannot disagree.
+tagline: An investment manager's 26-page site where every strategy leads to the people who run it.
+summary: Wealth is the website of an imaginary investment manager in London, written for professional investors. I settled its content, components and accessibility in plain HTML, then built it in WordPress.
+story:
+  Audience: Professional investors, such as pension schemes, insurers, charities and family offices, and the advisers who work with them.
+  Outcome: 26 pages built from 20 reusable components, and each strategy names the people who manage it. Staff update the content themselves and enter each strategy's managers just once, so every page agrees. The site is deployed on secure infrastructure.
 client: Wealth Asset Management, an imaginary brand
-delivered: HTML and CSS prototype, WordPress theme, YAML content model, rerunnable content seed, enquiry form, Cloud Run deployment
-role: System author
 kind: study
 layout: chapters
 stack:
@@ -25,106 +26,169 @@ tone: "linear-gradient(135deg, #58727922, #ffffff05)"
 cover: /img/work/wealth.webp
 ---
 
+import Scorecard from "@/components/diagrams/Scorecard.tsx";
+import WealthChangeRoutes from "@/components/diagrams/WealthChangeRoutes.tsx";
+import WealthContentModel from "@/components/diagrams/WealthContentModel.tsx";
+import WealthSiteMap from "@/components/diagrams/WealthSiteMap.tsx";
+import WealthWireframes from "@/components/diagrams/WealthWireframes.tsx";
+
 <Study>
 
-<Chapter label="The investor" title="An investor checking who runs the money." lede="Wealth Asset Management is an imaginary investment manager in London. In its own words, it manages focused equity, credit and multi-asset portfolios for institutional and professional investors, such as pension schemes, insurers and charities. Before an investor like that gets in touch, they want to know who runs each strategy and how those people think.">
-<Rows>
-  <Row title="Compare the strategies">Four strategies, each with how the team invests, the key risks, the questions investors ask and the facts at a glance, from benchmark to typical holdings.</Row>
-  <Row title="Meet the people">Six people in two groups, executive management and the investment team. Four of them run strategies, and each of their pages lists which ones.</Row>
-  <Row title="Read what they write">Six insights on markets, stewardship and strategy. Each one names the person who wrote it, with a link to their page.</Row>
-  <Row title="Know where the firm stands">The legal pages read like a regulated firm's, then say that Wealth is fictional: it is not authorised and holds no client money or assets.</Row>
-</Rows>
+<Chapter label="The brief" title="A site for investors who want to know who runs their money." lede="Wealth Asset Management is an imaginary investment manager in St James's, London. Its site is for professional investors, such as pension schemes, insurers, charities and family offices, and the advisers who work with them. It needed to introduce the people behind each of its four strategies, be mobile friendly and accessible, keep investors' enquiries private, and let its own staff update it without a developer." />
+
+<Chapter label="The outcome" title="An investor can go from any strategy to the people who manage it." dark>
+<Board>
+  <Screen size="lead" src="/img/work/wealth/board/home.webp" w={1600} h={900} alt="The Wealth home page on a desktop: the logo and menu above a photograph of escalators with a pale panel reading Wealth is an independent investment manager based in London, and a line about focused equity, credit and multi-asset portfolios." />
+  <Screen size="lead" src="/img/work/wealth/board/strategies.webp" w={1600} h={900} alt="The Investment strategies page: a tan banner with the heading Investment strategies and a short introduction, above the first two strategy cards, UK Equity Income Strategy and European Quality Growth Strategy." />
+  <Screen size="phone" src="/img/work/wealth/board/home-phone.webp" w={804} h={1880} alt="The home page on a phone: the logo and a menu button above a photograph of escalators with a pale panel reading Wealth is an independent investment manager based in London." />
+  <Screen src="/img/work/wealth/board/strategy-uk-equity-income.webp" w={1600} h={900} alt="The UK Equity Income Strategy page: a blue banner with the heading and the line Dependable income from resilient British businesses, above a photograph of stone and glass office buildings." />
+  <Screen src="/img/work/wealth/board/strategy-european-quality-growth.webp" w={1600} h={900} alt="The European Quality Growth Strategy page: a grey banner with the heading and the line Compounding quality across Europe's quiet leaders, above a blurred photograph of a workshop with tall windows." />
+  <Screen src="/img/work/wealth/board/strategy-short-dated-sterling-credit.webp" w={1600} h={900} alt="The Short-Dated Sterling Credit Strategy page: a grey banner with the heading and the line Capital preservation with a sensible yield, above a photograph of a stone arcade." />
+  <Screen src="/img/work/wealth/board/strategy-global-multi-asset-income.webp" w={1600} h={900} alt="The Global Multi-Asset Income Strategy page: a tan banner with the heading and the line A balanced income across asset classes and regions, above a photograph of harbour cranes at sunset." />
+  <Screen src="/img/work/wealth/board/person-eleanor-whitcombe.webp" w={1600} h={900} alt="Eleanor Whitcombe's page: the name with the roles Chief Investment Officer and Investment Team, the start of her biography, and a portrait of a grey-haired woman." />
+  <Screen size="feature" src="/img/work/wealth/board/people.webp" w={1600} h={900} alt="The People page: a tan banner with the heading People and a short introduction, above a row of black and white portraits." />
+  <Screen src="/img/work/wealth/board/person-daniel-okafor.webp" w={1600} h={900} alt="Daniel Okafor's page: the name with the roles Head of Equities and Investment Team, the start of his biography, and a portrait of a man in a dark jacket." />
+  <Screen src="/img/work/wealth/board/person-sophie-lindqvist.webp" w={1600} h={900} alt="Sophie Lindqvist's page: the name with the roles CFA, Portfolio Manager, Fixed Income and Investment Team, the start of her biography, and a portrait of a fair-haired woman." />
+  <Screen src="/img/work/wealth/board/person-james-hartley.webp" w={1600} h={900} alt="James Hartley's page: the name with the roles Chief Executive and Executive Management, the start of his biography, and a portrait of a grey-haired man in glasses." />
+  <Screen src="/img/work/wealth/board/person-hannah-mercer.webp" w={1600} h={900} alt="Hannah Mercer's page: the name with the roles Chief Operating Officer and Executive Management, the start of her biography, and a portrait of a dark-haired woman." />
+  <Screen src="/img/work/wealth/board/person-tomas-herrera.webp" w={1600} h={900} alt="Tomás Herrera's page: the name with the roles CFA, Portfolio Manager, Multi-Asset and Investment Team, the start of his biography, and a portrait of a bearded man." />
+  <Screen src="/img/work/wealth/board/news.webp" w={1600} h={900} alt="The Insights page: a slate banner with the heading Insights and a short introduction, above a row of article photographs." />
+  <Screen src="/img/work/wealth/board/insight-why-income-still-matters.webp" w={1600} h={900} alt="An insight: the category Markets, a date and author line, and the headline Why income still matters in a higher-rate world above a short summary." />
+  <Screen size="phone" src="/img/work/wealth/board/strategy-uk-equity-income-phone.webp" w={804} h={1880} alt="The UK Equity Income Strategy page on a phone: a blue banner with the heading, a photograph of office buildings, the line Managed by Eleanor Whitcombe and Daniel Okafor, and the opening of the strategy text." />
+  <Screen src="/img/work/wealth/board/insight-case-for-short-dated-sterling-credit.webp" w={1600} h={900} alt="An insight: the category Strategy, a date and author line, and the headline The case for short-dated sterling credit above a short summary." />
+  <Screen src="/img/work/wealth/board/insight-quality-growth-in-europe.webp" w={1600} h={900} alt="An insight: the category Strategy, a date and author line, and the headline Quality growth in Europe: patience as an edge above a short summary." />
+  <Screen src="/img/work/wealth/board/insight-stewardship-review-2026.webp" w={1600} h={900} alt="An insight: the category Stewardship, a date and author line, and the headline Stewardship and voting: our 2026 review above a short summary." />
+  <Screen src="/img/work/wealth/board/insight-multi-asset-income-outlook.webp" w={1600} h={900} alt="An insight: the category Markets, a date and author line, and the headline Multi-asset income: the year ahead above a short summary." />
+  <Screen src="/img/work/wealth/board/insight-reading-the-central-banks.webp" w={1600} h={900} alt="An insight: the category Markets, a date and author line, and the headline Reading the central banks without over-trading above a short summary." />
+  <Screen src="/img/work/wealth/board/category-markets.webp" w={1600} h={900} alt="The Markets category page: a slate banner with the heading Markets, above three insight cards, each with a photograph, a headline, a category and a date." />
+  <Screen src="/img/work/wealth/board/contact.webp" w={1600} h={900} alt="The Contact page: a slate banner with the heading Contact and the line Talk to the people who manage the money, an introduction, an address and phone panel, and the heading What happens next." />
+  <Screen src="/img/work/wealth/board/legal.webp" w={1600} h={900} alt="The Important information page: a pale green banner with the heading, a notice that this is a demonstration website, and an On this page list of links." />
+  <Screen src="/img/work/wealth/board/privacy.webp" w={1600} h={900} alt="The Privacy notice page: a pale green banner with the heading, an introduction, the section heading Who is responsible for your data, and an On this page list of links." />
+  <Screen src="/img/work/wealth/board/cookies.webp" w={1600} h={900} alt="The Cookie notice page: a pale green banner with the heading, the section heading Our cookies with a line saying the site sets no cookies of its own, and an On this page list of links." />
+  <Screen src="/img/work/wealth/board/accessibility.webp" w={1600} h={900} alt="The Accessibility statement page: a pale green banner with the heading, the section heading Our commitment with its first paragraph, and an On this page list of links." />
+  <Screen src="/img/work/wealth/board/not-found.webp" w={1600} h={900} alt="The Page not found page: a slate banner with the heading and a short apology, above the buttons Go to the home page and Contact us." />
+</Board>
 </Chapter>
 
-<Chapter label="The site" title="Strategies, people and insights link to each other." lede="From a strategy, a visitor reaches the people who run it, and from each person's page, the last thing they wrote. The layout came from a design comp, a set of page mock-ups. The name, the compass logo and the words are new.">
-<Figures numbered bleed>
-  <Figure src="/img/work/wealth/strategies.webp" w={1600} h={1000} alt="The strategies page: four cards in blue, lavender, pale grey and tan for UK Equity Income, European Quality Growth, Short-Dated Sterling Credit and Global Multi-Asset Income, each with Learn more." title="Strategies">Choose one of four strategies, each card in its own tint.</Figure>
-  <Figure src="/img/work/wealth/strategy.webp" w={1600} h={1000} alt="The UK Equity Income Strategy page: How we invest in four numbered blocks, beside the At a glance list and the Documents list." title="One strategy">Read how the team invests, then check the benchmark, launch date, holdings and liquidity at a glance.</Figure>
-  <Figure src="/img/work/wealth/people.webp" w={1600} h={1000} alt="The people page: grey-scale portraits in three columns, with Eleanor Whitcombe, Chief Investment Officer, Daniel Okafor, Head of Equities, and Sophie Lindqvist, Portfolio Manager, Fixed Income." title="People">Meet six invented people and open anyone's page from the grid.</Figure>
-  <Figure src="/img/work/wealth/person.webp" w={1600} h={1000} alt="Daniel Okafor's page: Connect links, Download vCard, a Manages list with European Quality Growth Strategy and UK Equity Income Strategy, and his latest insight, Quality growth in Europe: patience as an edge." title="One person">See what a person manages and what they last wrote, and save their contact card.</Figure>
-</Figures>
-<Figures bleed quartered>
-  <Figure src="/img/work/wealth/home-tabs.webp" w={1600} h={1000} alt="The home page with the Investment opportunities tab selected beside About us, its copy starting Research is at the heart of every decision we make, and a pale compass motif." title="Home">Switch between About us and Investment opportunities.</Figure>
-  <Figure src="/img/work/wealth/article.webp" w={1600} h={1000} alt="The insight Why income still matters in a higher-rate world: Markets, 28 September 2026, By Eleanor Whitcombe, 5 min read and the standfirst, above the top of a photograph of a black door with a brass letterbox." title="An insight">Read an insight and follow the byline to its author.</Figure>
-  <Figure src="/img/work/wealth/contact.webp" w={1600} h={1000} alt="The contact page: Send us a message with fields for name, organisation, email, phone and investor type, beside a grey card with the firm's address, phone number, email address and Follow us." title="Contact">Send an enquiry and say what kind of investor you are.</Figure>
-  <Figure src="/img/work/wealth/legal.webp" w={1600} h={1000} alt="The Important information page: the Regulatory status section saying Wealth is not authorised and holds no client money or assets, with an On this page list of 11 sections." title="Legal">Jump to any of 11 sections, including the firm's regulatory status.</Figure>
-</Figures>
+<Chapter label="Strategy" title="Introduce investors to the people behind each strategy, so they get in touch." lede="Wealth is a small, partner-owned investment manager in St James's, London. It runs four investment strategies and closes each one to new money when it is full. It also promises investors that there is no sales team between them and the people who manage their money. So the site has two jobs: introduce those people, and stay easy for Wealth's own staff to keep up to date." split>
+<Split reverse>
+<Steps>
+  <Step open name="The aim" hint="investors get in touch with the team">Winning means a professional investor reads about a strategy, sees who manages it and how they think, and then gets in touch. Every strategy, person and insight page ends with a Contact us button, and the contact page promises that a named person will reply, usually the portfolio manager of the strategy the investor asked about.</Step>
+  <Step name="Where to play" hint="professional investors, four strategies">The site is for professional investors and the people who advise them. Its legal page says the strategies are not meant for retail investors, and sends private investors to a regulated financial adviser. Wealth runs four strategies, no more than it can manage well, and each has a page of its own. Nothing can be bought on the site. An investor's next step is a conversation with the firm.</Step>
+  <Step name="How to win" hint="the people behind each strategy">Wealth promises that the people who manage an investor's money are the ones who answer their questions. So the site puts those people first. Every strategy says who manages it, each manager's page lists the strategies they run and the last insight, or article, they wrote, and every insight links to its author. An investor can see how the team thinks before the first meeting.</Step>
+  <Step name="What it takes" hint="staff who keep it current">Who manages what, who works at the firm and what they have written all change over time, and Wealth's staff have to keep up without a developer. So each strategy, person and insight is a form they fill in. Who manages a strategy is entered once, on the strategy, and the author of an insight is entered once, on the insight. Each person's page then finds the strategies and insights that name them.</Step>
+  <Step name="How we'd know" hint="enquiries, by type of investor">Success would show in enquiries, and in who sends them. The contact form asks each visitor what kind of investor they are, and the site keeps every enquiry as a private record that staff can sort by investor type. In this demonstration the form asks visitors not to send real details, so there are no figures. What can be checked today: every strategy names its managers, and every insight links to its author.</Step>
+</Steps>
+<Sites title="Similar strategy">
+  <Site name="Academy" href="/work/academy/" src="/img/work/academy.webp" w={2560} h={1440} />
+  <Site name="Halveron" href="/work/halveron/" src="/img/work/halveron.webp" w={2560} h={1440} />
+</Sites>
+</Split>
 </Chapter>
 
-<Chapter label="The content model" title="WordPress stores each link on one side." lede="Those links come from fields, the boxes an editor fills in for each record. A strategy lists the people who manage it, and an insight names its author. A person's record stores neither, so the theme works out what each person manages and what they last wrote, and the two pages cannot disagree.">
-<Facts>
-  <Fact k="Model">Six YAML files, a plain text format, define three content types (strategy, person and enquiry), a Site settings page and 65 fields in 12 groups. The platform's yacf plugin reads them and builds the edit screens.</Fact>
-  <Fact k="A strategy">14 fields, from its tint and tagline to How we invest, Key risks, Questions investors ask and Managed by. The theme builds the page from six template parts, and the tint colours the band at the top of the page.</Fact>
-  <Fact k="Managed by">An ordered link to one or more people. The strategy page prints the names, in that order, as a sentence of links.</Fact>
-  <Fact k="Manages">The person page goes through the four strategies and finds the person's place in each Managed by list, so the strategies where they are named first come first. Daniel Okafor's page lists European Quality Growth, where he is the only name, before UK Equity Income, where Eleanor Whitcombe is named first.</Fact>
-  <Fact k="Latest insight">The person page asks for the newest insight whose author field points at that person. The insights list fetches all its authors in one trip to the database, instead of one per insight.</Fact>
-  <Fact k="One relation">At first a person also had a Manages field of their own, so one fact lived on two records and an editor could change one and forget the other. Commit 4802e49 on 2 October 2026 removed it, and the seed deletes the old value.</Fact>
-</Facts>
+<Chapter label="Content architecture" title="Every strategy and every person has a page, and the two link to each other." lede="Choosing professional investors and four strategies decided how the site is organised. Its content architecture, what the site holds and where each thing lives, is 26 pages and three kinds of item that staff fill in: strategies, people and insights, the articles the team writes. Each item has a page of its own. Every strategy page links to the people who run it, and their pages link back.">
+<WealthSiteMap />
 </Chapter>
 
-<Chapter label="The front end" title="The pages work before JavaScript loads." lede="The theme turns those fields into plain HTML and leaves most of the interaction to the browser. The tabs, the questions on each strategy page and the jumps between home screens need no JavaScript. The theme's one script runs the phone menu.">
+<Chapter label="Components" title="20 components show strategies, people and insights the same way on every page." lede="The aim is that an investor gets in touch, so every strategy, person and insight page ends with the same invitation to contact the firm. That band is one of 20 components, the repeated pieces every page is built from, such as the header. Their colours and sizes come from one shared list, called design tokens. So any page staff add matches the rest.">
+<WealthWireframes />
+</Chapter>
+
+<Chapter label="Editorial control" title="Staff name a strategy's managers once, and every page that shows them agrees." lede="The site depends on Wealth's staff keeping strategies, people and insights current. Each piece of text that might change is a field: a box staff fill in. The list of those fields is the content model. Who manages a strategy is a field on the strategy, and who wrote an insight is a field on the insight. A person's page then lists the strategies and insights that name them.">
+<WealthContentModel />
+<Fanout
+  source={{ src: "/img/work/wealth/edit-strategy.webp", w: 1600, h: 1000, alt: "The WordPress form for the UK Equity Income strategy, scrolled to the end: the last questions and answers, then the Managed by box holding Eleanor Whitcombe and Daniel Okafor, then the CTA heading and CTA body with their values filled in.", label: "One form: the UK Equity Income strategy" }}
+  targets={[
+    { src: "/img/work/wealth/fan-strategy-page.webp", w: 1600, h: 900, alt: "The UK Equity Income Strategy page below its photograph: the line Managed by Eleanor Whitcombe and Daniel Okafor, with both names underlined as links, above the strategy objective and the first two paragraphs of text.", label: "Its own page" },
+    { src: "/img/work/wealth/fan-strategy-card.webp", w: 1600, h: 900, alt: "The UK Equity Income Strategy card on the Strategies page: a blue card with the title, a four-line summary and a Learn more link.", label: "Its card on the Strategies page" },
+    { src: "/img/work/wealth/fan-manages.webp", w: 1600, h: 900, alt: "The Manages list on Daniel Okafor's page: two links, European Quality Growth Strategy and UK Equity Income Strategy.", label: "Each manager's page" },
+  ]}
+/>
+</Chapter>
+
+<Chapter label="Accessibility and speed" title="Built to be responsive and accessible, and designed for editorial control" lede="I built the site so that strategies are straightforward to compare and the people behind them are easy to find, across screen sizes and interaction methods, including keyboard navigation. These principles are built into shared components and design tokens, and applied across all 26 pages. Staff can update the content while the structure, accessibility and visual consistency stay intact. One fault remains: on a phone, the menu fails on five pages, as The limits explains.">
 <Figures>
-  <Figure src="/img/work/wealth/home-tabs.webp" phone="/img/work/wealth/home-phone.webp" phoneAlt="The home page on a phone: the headline Wealth is an independent investment manager based in London over a photograph of Tower Bridge at night, with the menu button top right." w={1600} h={1000} alt="The home page on a desktop with the Investment opportunities tab selected." title="Home">Pick a tab, with or without JavaScript. On a phone the headline fills the first screen, and a chevron leads to the next.</Figure>
-  <Figure src="/img/work/wealth/strategies.webp" phone="/img/work/wealth/strategies-menu-phone.webp" phoneAlt="The phone menu open over the strategies page, listing About, Strategy, People, News, Contact and Legal, with Strategy underlined." w={1600} h={1000} alt="The strategies page on a desktop with four tinted cards." title="The phone menu">On a phone the six links fold into a menu, and the current section stays underlined.</Figure>
+  <Figure src="/img/work/wealth/home-tabs.webp" phone="/img/work/wealth/home-phone.webp" phoneAlt="The home page on a phone: the headline Wealth is an independent investment manager based in London over a photograph of Tower Bridge at night, with the menu button top right." w={1600} h={1000} alt="The home page on a desktop with the Investment opportunities tab selected." title="Tabs without a script">The About us and Investment opportunities tabs on the home page are ordinary links, so they work without JavaScript.</Figure>
+  <Figure src="/img/work/wealth/strategies.webp" phone="/img/work/wealth/strategies-menu-phone.webp" phoneAlt="The phone menu open over the strategies page, listing About, Strategy, People, News, Contact and Legal, with Strategy underlined." w={1600} h={1000} alt="The strategies page on a desktop with four tinted cards." title="The phone menu">On a phone the six menu links fold behind one button, and the section you are in stays underlined.</Figure>
 </Figures>
-<Facts>
-  <Fact k="Tabs">Each tab is a link to its panel's address. The stylesheet shows the panel the address points to, using `:target` and `:has()`, and the first panel when it points to neither.</Fact>
-  <Fact k="Questions">On each strategy page, the questions investors ask are native `<details>` elements, so they open and close without a script.</Fact>
-  <Fact k="Menu">The menu button starts hidden. A 34-line script shows it, opens and closes the list, closes it on Escape and returns focus to the button. Without the script the six links wrap under the logo.</Fact>
-  <Fact k="Motion">Each home screen ends in a chevron, a link to the next screen. The smooth scroll switches off for visitors who ask their system for reduced motion.</Fact>
-  <Fact k="Basics">A link to skip past the menu, a 3px outline on whatever has keyboard focus, a label on every form field, and the current section marked in the menu for screen readers.</Fact>
-  <Fact k="Weight">The theme adds one script of 895 bytes. The Docker build joins 30 CSS files into one stylesheet of 39,357 bytes, about 7 KB compressed.</Fact>
-</Facts>
+<Scorecard
+  runs={[
+    {
+      label: "Mobile",
+      scores: [
+        { label: "Performance", value: 82 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 92 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "1.9 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0.347" },
+        { label: "Page weight", value: "236 KB" },
+      ],
+    },
+    {
+      label: "Desktop",
+      scores: [
+        { label: "Performance", value: 99 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 92 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "0.9 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0" },
+        { label: "Page weight", value: "495 KB" },
+      ],
+    },
+  ]}
+  checks={[
+    { label: "Works from a keyboard", value: "Yes" },
+    { label: "Focus ring", value: "3 px" },
+    { label: "Theme JavaScript", value: "895 bytes" },
+    { label: "Phone menu", value: "Fails on 5 pages" },
+  ]}
+  source="Lighthouse 12.8 on the live home page, 22 November 2026: the middle of three runs."
+/>
 </Chapter>
 
-<Chapter label="The enquiry" title="WordPress stores every enquiry as a private record." lede="The contact form also leans on the browser, which checks the required fields before the visitor can send them. Behind the form, I wrote the handler in about 40 lines of theme code instead of adding a form plugin. It saves each enquiry in WordPress, and the site sends no email.">
+<Chapter label="The build" title="Staff edit the content, a developer ships the code, and visitors send enquiries." lede="The site's strategy leaves day-to-day changes to Wealth's staff, and the contact form takes in investors' names and email addresses. So the site has to let staff work freely without opening it to anyone else. Staff change content in WordPress, a developer changes code only through a deploy, and a visitor can only send an enquiry, which is saved as a private record that staff alone can open.">
+<WealthChangeRoutes />
+</Chapter>
+
+<Chapter label="The limits" title="Where the site's strategy is not proven yet." lede="The site's strategy measures success in enquiries from professional investors. Two of its rules are built in: new code reaches the server only through a deploy, and who manages a strategy is entered once, on the strategy. Each gap below is set against the part of that strategy it puts at risk.">
 <List>
-  <Item title="A token on the form.">WordPress checks a security token tied to the form, called a nonce, before it reads anything, and sends the visitor back if the token fails.</Item>
-  <Item title="A trap for bots.">A hidden field called website stays empty for people. A bot that fills it sees the thank-you page, and the site stores nothing.</Item>
-  <Item title="Only known answers.">The handler cleans every value and blanks any investor type outside the 6 listed choices. If the name, email, message or consent tick is missing, it sends the visitor back and saves nothing.</Item>
-  <Item title="A list in wp-admin.">Enquiries are a content type the public cannot reach. In wp-admin, WordPress's editing screens, an editor sees each one under the sender's name and the time, with columns for organisation, email and investor type.</Item>
+  <Item title="How we'd know: there are no real enquiries to count.">The form stores every enquiry, but because Wealth is imaginary the page asks visitors not to send real details. So the records it keeps cannot show which investors the site reaches.</Item>
+  <Item title="The aim: nobody is told when an enquiry arrives.">The thank-you message promises a reply within two working days, but the site sends no email, so an enquiry waits until someone opens WordPress. The privacy notice also names an email service that the code does not use.</Item>
+  <Item title="The aim: on a phone, the home page jumps while it loads.">In two of three Lighthouse phone tests, the home page&apos;s main photograph moved as it loaded, and the web fonts added a little more. That gave a layout shift of 0.347, where 0.1 or less counts as good.</Item>
+  <Item title="Where to play: no page has a description for search engines.">Each of the 26 plain HTML pages has one, but the WordPress theme does not print it, so a search engine picks its own text for the result. That is why Lighthouse scores the site&apos;s search basics, labelled SEO, at 92.</Item>
+  <Item title="How to win: the phone menu fails on five pages.">At 390 pixels wide, the menu on the home page, the three news category pages and Page not found opens behind the content below it, so some of its links cannot be tapped (on the home page, none of them can). No check runs before a deploy, and the accessibility statement still says there are no known barriers.</Item>
+  <Item title="What it takes: the starting content comes back on every deploy.">A script called the seed fills the site on every deploy and rewrites each strategy, person, insight and page it created, which suits a demonstration. On a live site that would undo the staff&apos;s edits, so there the seed would run once, at launch.</Item>
+  <Item title="What it takes: hardening is unfinished.">The site holds investors&apos; enquiries, but it sends no content security policy, a header that tells the browser which scripts to trust, and it still announces its WordPress and PHP versions.</Item>
 </List>
 </Chapter>
 
-<Chapter label="The platform" title="The repository rebuilds the whole site." lede="The handler is one small part of the theme. The theme runs on wp-base, a WordPress server image that five of my other sites also use, hosted on Cloud Run, Google's service for running packaged apps. This repository adds a prototype, a theme and a seed, built in that order.">
-<Facts>
-  <Fact k="Prototype">I built every page first in plain HTML and CSS: 26 pages and 4 shared pieces, such as the header and footer, in `static/`, with the 30 CSS files the theme ships.</Fact>
-  <Fact k="Theme">On 1 October 2026 I ported those pages into a classic WordPress theme of 41 PHP files, 24 of them template parts.</Fact>
-  <Fact k="Seed">A PHP script of 866 lines that writes the content into WordPress: 4 strategies, 6 people, 6 insights, 7 pages, 2 menus and 21 images. It also deletes WordPress's sample content.</Fact>
-  <Fact k="Safe to rerun">The seed finds each post by its slug, the last part of its address, and updates it. It repairs a menu item only when its position or link has changed, and rebuilds an image only when the image sizes or WebP support change. Three fixes on 2 October 2026 added the menu and image rules.</Fact>
-  <Fact k="On each deploy">A push to the main branch builds the image, deploys it to Cloud Run, then runs the seed as a job and waits for it. Only a successful seed lets the run redeploy Firebase Hosting, which serves the public address. The new image is already live by then, so a failed seed stops the run without rolling the site back.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="The limits" title="Where the site stops today." lede="The seed and the theme run the live site today. Wealth is a demonstration, so some gaps are deliberate, and others belong to the build.">
-<List>
-  <Item title="Nobody hears about an enquiry.">The thank-you text promises a reply within two working days, but a stored enquiry waits until someone opens wp-admin. The privacy notice also names an email service the code does not use. I would add a notification to the same handler.</Item>
-  <Item title="The seed owns the content.">From the code, every deploy rewrites the seeded posts, fields and settings, so an edit made in wp-admin would last until the next push to main. I have not tested this on the live site. I would change the seed to fill in only what is missing.</Item>
-  <Item title="The home menu opens behind the hero.">At 390 pixels wide, the open menu on the home page sits under the hero photograph. It works on the inner pages. I expect the fix is a stacking order that puts the open list above the photograph, but I have not tried it.</Item>
-  <Item title="Documents and search are placeholders.">Each strategy lists a factsheet, a key information summary and a quarterly letter with no files, and tells screen readers so. A search results template exists, but no page shows a search box.</Item>
-  <Item title="No checks before a deploy.">The repository has no tests and no HTML or accessibility checks. The seed job is the closest thing to a check, and it runs after the new image is already live.</Item>
-</List>
-</Chapter>
-
-<Chapter label="What carried forward" title="What carried forward." lede="An investor can open a strategy, follow it to the people who run it and read what they last wrote, and the legal pages tell them the firm is imaginary. The links stay correct because WordPress stores each one on one side only.">
+<Chapter label="The lessons" title="Three things I would do the same way again." lede="The site's strategy set out to introduce professional investors to the people behind each of Wealth's four investment strategies, on a site the firm's own staff keep current without a developer. These are the choices that made both halves of that work.">
 <Split>
 <List>
-  <Item title="Store a relationship once.">Work out the other side when the page renders, and two pages cannot contradict each other.</Item>
-  <Item title="Let HTML handle the interaction.">Tabs made of links and CSS, and native questions, left one script of 895 bytes, for the phone menu.</Item>
-  <Item title="Say where the data goes.">The form keeps each enquiry in a private record, and the page tells visitors not to send real details.</Item>
+  <Item title="Start from what the firm promises investors.">Wealth promises investors that they deal with the people who manage their money, with no sales team in between. That decided the site map, the components and the forms, so every strategy names its managers and every manager&apos;s page shows what they run and write.</Item>
+  <Item title="Store who manages what in one place.">At first a person also had a Manages field, so the same fact lived in two places and could drift apart. I removed it on 2 October 2026, and each person&apos;s page now works the list out from the strategies.</Item>
+  <Item title="Finish every page before WordPress.">All 26 pages were built as plain web pages first, so the fields came from finished pages and staff got a box for each thing that changes. The WordPress theme then reproduced each page as it was.</Item>
 </List>
 <Facts>
-  <Fact k="Model">3 content types, 65 fields in 12 groups</Fact>
-  <Fact k="Seed">866 lines, run on every deploy</Fact>
-  <Fact k="Stylesheet">39 KB, about 7 KB compressed</Fact>
-  <Fact k="Commits">29, of which 28 fell between 1 and 3 October 2026</Fact>
+  <Fact k="Pages">26, built in plain HTML first</Fact>
+  <Fact k="Components">20, built from 46 design tokens</Fact>
+  <Fact k="Content">65 fields across 12 edit boxes</Fact>
+  <Fact k="Stylesheet">7.2 KB compressed</Fact>
   <Fact k="Source">[github.com/poly-glot/wealth](https://github.com/poly-glot/wealth)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
-<Closing label="Visit it">
-  <ClosingCopy>Open a strategy and follow it to the people who run it.</ClosingCopy>
+<Closing label="Try it">
+  <ClosingCopy>See the site as an investor would: choose a strategy, meet the people who run it, and read what they last wrote.</ClosingCopy>
   <ClosingLinks>
     <ClosingLink href="https://wealth.junaid.guru/" external>Open Wealth <span aria-hidden="true">→</span></ClosingLink>
   </ClosingLinks>

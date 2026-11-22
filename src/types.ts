@@ -109,3 +109,32 @@ export interface WorkVocab {
   stack: string[];
   years: number[];
 }
+
+export type Tone = "focal" | "ghost";
+
+export type WireframeSize = "band" | "bar" | "tall";
+
+export interface WireframeBlock {
+  cells?: number;
+  focal?: true;
+  names: readonly string[];
+  size: WireframeSize;
+}
+
+export interface WireframePage {
+  blocks: readonly WireframeBlock[];
+  name: string;
+}
+
+export interface ChangeStep {
+  lines: readonly string[];
+  title: string;
+  tone?: Tone;
+}
+
+export type SketchLayout = "banner" | "form" | "grid" | "hero" | "list";
+
+export interface SketchPage {
+  layout: SketchLayout;
+  name: string;
+}

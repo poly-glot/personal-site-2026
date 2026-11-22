@@ -874,13 +874,16 @@ export const PROJECTS: WorkProject[] = [
     "id": "wealth",
     "name": "Wealth",
     "tagline":
-      "An investment manager's website where each strategy leads to the people who run it.",
+      "An investment manager's 26-page site where every strategy leads to the people who run it.",
     "summary":
-      "Wealth is the website of an imaginary investment manager in London, written for institutional and professional investors. Each strategy names the people who run it, and a person's page shows what they manage and what they last wrote. The decision worth reading about is where those links live. WordPress stores each one on one side only, and the theme works out the other side, so two pages cannot disagree.",
+      "Wealth is the website of an imaginary investment manager in London, written for professional investors. I settled its content, components and accessibility in plain HTML, then built it in WordPress.",
+    "story": {
+      "Audience":
+        "Professional investors, such as pension schemes, insurers, charities and family offices, and the advisers who work with them.",
+      "Outcome":
+        "26 pages built from 20 reusable components, and each strategy names the people who manage it. Staff update the content themselves and enter each strategy's managers just once, so every page agrees. The site is deployed on secure infrastructure.",
+    },
     "client": "Wealth Asset Management, an imaginary brand",
-    "delivered":
-      "HTML and CSS prototype, WordPress theme, YAML content model, rerunnable content seed, enquiry form, Cloud Run deployment",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [
