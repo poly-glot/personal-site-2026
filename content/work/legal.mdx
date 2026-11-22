@@ -1,11 +1,12 @@
 ---
 id: legal
 name: Ferrow & Lisle
-tagline: A website for an imaginary disputes firm in London and New York.
-summary: Ferrow & Lisle is an imaginary disputes firm in London and New York, and this is its WordPress website for companies looking for counsel. The layout follows an existing design, and a written contract replaced the brand, the words and the images. The decision worth reading is the world map, where each pin is two numbers an editor types in.
+tagline: A London and New York law firm's 33-page site, built on an existing theme, with its 24/7 hotline on every page.
+summary: Ferrow & Lisle is the website of an imaginary law firm that handles cross-border disputes. I built it in WordPress, kept the layout of an existing theme, and replaced everything in it that identified a real organisation with the firm's own name, words and pictures.
+story:
+  Audience: Companies, states and individuals caught up in international disputes.
+  Outcome: 33 pages that work on a phone and load quickly, put together from the theme's 18 components. A client can read about every practice area, meet the professionals and call the firm from any page, and staff update most of the content themselves. Every enquiry is saved as a private record inside the site, which is deployed on secure infrastructure.
 client: Ferrow & Lisle, an imaginary brand
-delivered: WordPress theme, brand and icon set, dotted world map, repeatable content seed, enquiry form, Cloud Run deployment
-role: System author
 kind: study
 layout: chapters
 stack:
@@ -25,97 +26,179 @@ tone: "linear-gradient(135deg, #00145e22, #ffffff05)"
 cover: /img/work/legal.webp
 ---
 
+import LegalChangeRoutes from "@/components/diagrams/LegalChangeRoutes.tsx";
+import LegalContentModel from "@/components/diagrams/LegalContentModel.tsx";
+import LegalSiteMap from "@/components/diagrams/LegalSiteMap.tsx";
+import LegalWireframes from "@/components/diagrams/LegalWireframes.tsx";
+import Scorecard from "@/components/diagrams/Scorecard.tsx";
+
 <Study>
 
-<Chapter label="The client" title="Helping a company find counsel for a dispute." lede="A company in a dispute that crosses borders needs counsel. Ferrow & Lisle, an imaginary brand, is a disputes firm in London and New York that acts, in its own words, for companies, states and individuals when the stakes are high and the facts are contested. Its website had to help that company choose the firm and get in touch.">
-<Rows>
-  <Row title="Find the right practice">Six practice areas, from international arbitration to asset tracing and recovery, each with its recent highlights.</Row>
-  <Row title="Meet the people">Four professionals, from the senior partner to counsel, each with a biography and three representative matters.</Row>
-  <Row title="See where the firm works">Offices in London and New York, and the cities where the firm does client work, on a world map.</Row>
-  <Row title="Get in touch">A 24/7 hotline at the top of every page, and a contact form with both offices beside it.</Row>
-</Rows>
+<Chapter label="The brief" title="A law firm's site for clients whose disputes cross borders." lede="Ferrow & Lisle is an imaginary international law firm, and its people, matters and articles are invented too. It handles international arbitration, investigations and other disputes, through to tracing and recovering a client's assets. The site needed to show the firm's practice areas and its professionals, make it easy to call or write to the firm, work well on a phone, and let the firm's own staff update it without a developer. The page layouts follow an existing theme, and the firm's name, words and pictures were all made for this build." />
+
+<Chapter label="The outcome" title="A client can find a practice area, meet the professionals and get in touch." dark>
+<Board>
+  <Screen size="lead" src="/img/work/legal/board/home.webp" w={1600} h={900} alt="The Ferrow and Lisle home page on a desktop: a menu bar with a 24/7 Hotline number over a dark night photograph of St Paul's Cathedral and the Millennium Bridge, the headline Counsel for disputes that cross borders. with a sentence about the firm, and Our Practices and Get in Touch buttons." />
+  <Screen size="lead" src="/img/work/legal/board/practice-arbitration.webp" w={1600} h={900} alt="The International Arbitration page: a dark banner with the heading, then four paragraphs beginning We act for companies and states in commercial and investment arbitrations, a Recent Highlights list of four matters, and a list headed Our Practices with International Arbitration highlighted." />
+  <Screen size="phone" src="/img/work/legal/board/home-phone.webp" w={804} h={1880} alt="The home page on a phone: the 24/7 Hotline number, the logo with a menu button, a dark night photograph of St Paul's Cathedral and the Millennium Bridge, the whole headline Counsel for disputes that cross borders., a sentence about the firm and Our Practices and Get in Touch buttons." />
+  <Screen src="/img/work/legal/board/practice-commercial-disputes.webp" w={1600} h={900} alt="The Commercial Disputes page: a dark banner with the heading, then a paragraph beginning We resolve high-value contractual, shareholder and fraud disputes in the courts of England and New York beside a list headed Our Practices." />
+  <Screen src="/img/work/legal/board/practice-investigations.webp" w={1600} h={900} alt="The Investigations and White-Collar Defence page: a dark banner with the heading, then a paragraph beginning We lead internal and regulatory investigations and defend companies and individuals facing allegations of fraud, bribery and financial misconduct beside a list headed Our Practices." />
+  <Screen src="/img/work/legal/board/practice-regulatory.webp" w={1600} h={900} alt="The Regulatory and Government Affairs page: a dark banner with the heading, then a paragraph beginning We guide clients through contentious dealings with regulators and government beside a list headed Our Practices." />
+  <Screen src="/img/work/legal/board/practice-public-international-law.webp" w={1600} h={900} alt="The Public International Law page: a dark banner with the heading, then a paragraph beginning We advise states, state entities and investors on treaty rights, immunity and the international obligations that shape cross-border disputes beside a list headed Our Practices." />
+  <Screen src="/img/work/legal/board/practice-asset-recovery.webp" w={1600} h={900} alt="The Asset Tracing and Recovery page: a dark banner with the heading, then a paragraph beginning We trace, freeze and recover assets across jurisdictions beside a list headed Our Practices." />
+  <Screen src="/img/work/legal/board/person-eleanor-lisle.webp" w={1600} h={900} alt="The page of Eleanor Lisle: a dark banner with the name and the title Senior Partner, a biography beginning Eleanor Lisle is the firm's Senior Partner and a black-and-white portrait of a woman with light hair in a dark jacket above a blue Send Email button." />
+  <Screen src="/img/work/legal/board/person-marcus-ferrow.webp" w={1600} h={900} alt="The page of Marcus Ferrow: a dark banner with the name and the title Managing Partner, a biography beginning Marcus Ferrow is the firm's Managing Partner and a black-and-white portrait of a man in a dark suit and tie above a blue Send Email button." />
+  <Screen src="/img/work/legal/board/person-priya-raman.webp" w={1600} h={900} alt="The page of Priya Raman: a dark banner with the name and the title Partner, a biography beginning Priya Raman is a partner in the London office and a black-and-white portrait of a woman with dark hair in a dark jacket above a blue Send Email button." />
+  <Screen src="/img/work/legal/board/person-jonah-whitcombe.webp" w={1600} h={900} alt="The page of Jonah Whitcombe: a dark banner with the name and the title Counsel, a biography beginning Jonah Whitcombe is counsel in the New York office and a black-and-white portrait of a man with dark hair in a dark jacket above a blue Send Email button." />
+  <Screen size="feature" src="/img/work/legal/board/news.webp" w={1600} h={900} alt="The News page: a dark banner with the heading News and the line Insight and updates from our offices worldwide, above a large photograph of a hearing room with the date 09.15.2026 and the headline What the new arbitration rules mean for emergency relief, beside a night view of a boardroom headed Five questions boards should ask before an internal investigation." />
+  <Screen src="/img/work/legal/board/article-new-arbitration-rules-emergency-relief.webp" w={1600} h={900} alt="An article: a darkened photograph of a hearing room behind the headline What the new arbitration rules mean for emergency relief and the date 09.15.2026, then a paragraph beginning For most of the history of international arbitration beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/article-five-questions-before-an-internal-investigation.webp" w={1600} h={900} alt="An article: a darkened night photograph of a boardroom with city lights behind the headline Five questions boards should ask before an internal investigation and the date 08.26.2026, then a paragraph beginning When an allegation of misconduct reaches the board beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/article-enforcing-awards-against-state-assets.webp" w={1600} h={900} alt="An article: a darkened photograph of a stone building with tall columns behind the headline Enforcing awards against state assets: a practical primer and the date 07.29.2026, then a paragraph beginning States generally honour arbitral awards beside a Media list of News, White Papers and Engagements." />
+  <Screen size="phone" src="/img/work/legal/board/practice-arbitration-phone.webp" w={804} h={1880} alt="The International Arbitration page on a phone: the 24/7 Hotline number, the logo with a menu button, a dark banner with the heading and a white panel with the first four paragraphs, beginning We act for companies and states in commercial and investment arbitrations." />
+  <Screen src="/img/work/legal/board/article-preparing-for-a-regulatory-dawn-raid.webp" w={1600} h={900} alt="An article: a darkened photograph of an office with blinds and archive boxes behind the headline Preparing for a regulatory dawn raid and the date 06.30.2026, then a paragraph beginning Unannounced inspections are designed to find organisations unprepared beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/article-litigation-funding-what-claimants-should-know.webp" w={1600} h={900} alt="An article: a darkened photograph of glass office towers seen from below behind the headline Litigation funding: what claimants should know and the date 05.19.2026, then a paragraph beginning Third-party funding allows a claimant to pursue a claim beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/article-ferrow-lisle-opens-new-york-office.webp" w={1600} h={900} alt="An article: a warm photograph of a lit office lobby with glass doors behind the headline Ferrow and Lisle opens its New York office and the date 03.03.2026, then a paragraph beginning Ferrow & Lisle has opened an office in New York, its second after London beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/tag-publications.webp" w={1600} h={900} alt="The News Tags Publications page: a dark banner with that heading above a large photograph of a hearing room headed What the new arbitration rules mean for emergency relief, beside a night view of a boardroom headed Five questions boards should ask before an internal investigation." />
+  <Screen src="/img/work/legal/board/tag-litigation.webp" w={1600} h={900} alt="The News Tags Litigation page: a dark banner with that heading above a photograph of a stone building with columns headed Enforcing awards against state assets: a practical primer, beside a view of glass towers headed Litigation funding: what claimants should know." />
+  <Screen size="feature" src="/img/work/legal/board/white-papers.webp" w={1600} h={900} alt="The White Papers page: a dark banner with the heading White Papers and the line Research and analysis from the firm, above a white panel listing four papers, from Arbitration Clauses That Work to Sanctions Compliance for Mid-Market Companies." />
+  <Screen src="/img/work/legal/board/white-paper-arbitration-clauses-that-work.webp" w={1600} h={900} alt="A white paper: a dark banner with the heading Arbitration Clauses That Work, then a paragraph beginning Most arbitration clauses are agreed late in a negotiation beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/white-paper-emergency-arbitration-in-practice.webp" w={1600} h={900} alt="A white paper: a dark banner with the heading Emergency Arbitration in Practice, then a paragraph beginning This guide is written for in-house counsel and commercial managers beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/white-paper-boards-guide-to-internal-investigations.webp" w={1600} h={900} alt="A white paper: a dark banner with the heading The Board's Guide to Internal Investigations, then a paragraph beginning Directors are increasingly expected to take personal responsibility beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/white-paper-sanctions-compliance-for-mid-market-companies.webp" w={1600} h={900} alt="A white paper: a dark banner with the heading Sanctions Compliance for Mid-Market Companies, then a paragraph beginning Sanctions regimes change quickly and apply to companies of every size beside a Media list of News, White Papers and Engagements." />
+  <Screen size="feature" src="/img/work/legal/board/engagements.webp" w={1600} h={900} alt="The Engagements page: a dark banner with the heading Engagements and the line A selection of representative matters, above a white panel listing five matters, from Defence of a European logistics group in an ICC arbitration to Treaty claim for a North American energy investor." />
+  <Screen src="/img/work/legal/board/engagement-defence-of-a-european-logistics-group-in-an-icc-arbitration.webp" w={1600} h={900} alt="An engagement: a dark banner with the heading Defence of a European logistics group in an ICC arbitration, then a paragraph beginning A former supplier claimed more than €90 million from a European logistics group beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/engagement-enforcement-of-an-award-against-a-state-owned-trading-company.webp" w={1600} h={900} alt="An engagement: a dark banner with the heading Enforcement of an arbitration award against a state-owned trading company, then a paragraph beginning Our client held an unpaid arbitration award against a state-owned commodities trader beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/engagement-internal-investigation-for-a-listed-engineering-group.webp" w={1600} h={900} alt="An engagement: a dark banner with the heading Internal investigation for a listed engineering group, then a paragraph beginning The audit committee of a listed engineering group asked us to investigate payments made to agents beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/engagement-cross-border-freezing-order-against-a-former-director.webp" w={1600} h={900} alt="An engagement: a dark banner with the heading Cross-border freezing order against a former company director, then a paragraph beginning A mid-sized manufacturer discovered that its former managing director had diverted company funds beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/engagement-treaty-claim-for-a-north-american-energy-investor.webp" w={1600} h={900} alt="An engagement: a dark banner with the heading Treaty claim for a North American energy investor, then a paragraph beginning A North American energy company lost an offshore exploration licence beside a Media list of News, White Papers and Engagements." />
+  <Screen src="/img/work/legal/board/contact.webp" w={1600} h={900} alt="The Contact page: a dark banner with the heading Contact, then a Contact Us heading and the line Tell us about your matter. A partner will reply within one working day. Under it a note says this is a demonstration website for a fictional firm, and that messages are saved privately and no one is notified. Below are four boxes marked Your Name, Your Email, Subject and Your Message, with the London address and phone number on the right." />
+  <Screen src="/img/work/legal/board/not-found.webp" w={1600} h={900} alt="The Page not found page: a dark banner with that heading above a white panel reading Oops! That page can't be found. and the line It looks like nothing was found at this location., with the top of the footer below." />
+</Board>
 </Chapter>
 
-<Chapter label="The site" title="The site leads from a practice to a partner." lede="That company moves from a practice area to a partner, then to the contact form. The site's layout follows an existing design. The brand, the words and the images are new, and every footer says the firm is fictional and nothing on the site is legal advice.">
-<Figures numbered bleed>
-  <Figure src="/img/work/legal/home-hero.webp" w={1600} h={1000} alt="The Ferrow & Lisle home page: the menu across the top, the headline Counsel for disputes that cross borders, and the buttons Our Practices and Get in Touch over St Paul's and the Millennium Bridge at night." title="Home">Read what the firm does in one line, over a 10-second clip of London at night, then jump to the practices or the contact page.</Figure>
-  <Figure src="/img/work/legal/practice-area.webp" w={1600} h={1000} alt="The International Arbitration page: a dark banner, the opening paragraphs, the heading Recent Highlights, and the Our Practices side list with International Arbitration in blue." title="A practice">Read how the firm works on one kind of dispute, with its recent highlights.</Figure>
-  <Figure src="/img/work/legal/professional-profile.webp" w={1600} h={1000} alt="Priya Raman's page: her name and the title Partner on a banner, her biography, three representative matters, a black-and-white portrait and a blue Send Email button." title="A professional">Read a partner's background and three of her matters, with a Send Email button beside the portrait.</Figure>
-  <Figure src="/img/work/legal/contact.webp" w={1600} h={1000} alt="The contact page: the line Tell us about your matter, four empty fields and a Send Message button, beside the London and New York office addresses." title="Contact">Describe the matter in four fields, with both office addresses beside the form.</Figure>
-</Figures>
-<Figures bleed quartered>
-  <Figure src="/img/work/legal/practice-areas.webp" w={1600} h={1000} alt="The heading Our Practices over six square tiles, each with a blue line icon and a practice name." title="Practices">Pick one of the six practice areas from the home page.</Figure>
-  <Figure src="/img/work/legal/professionals.webp" w={1600} h={1000} alt="The heading Our Professionals over four black-and-white portraits in a row." title="Professionals">Open any of the four professionals from their portrait.</Figure>
-  <Figure src="/img/work/legal/global-presence.webp" w={1600} h={1000} alt="The heading Global Presence over a dotted grey world map with six blue pins." title="Global presence">See the two offices and four cities of client work on one map.</Figure>
-  <Figure src="/img/work/legal/news-mosaic.webp" w={1600} h={1000} alt="The heading Latest News over a wide and a narrow tile of dark photographs, titled What the new arbitration rules mean for emergency relief and Five questions boards should ask before an internal investigation, with two more tiles below." title="Latest news">Read the six newest articles, laid out in wide and narrow tiles.</Figure>
-</Figures>
+<Chapter label="Strategy" title="Show clients the people behind each practice area, so they call or write." lede="A single line on the home page sums the firm up, ‘Counsel for disputes that cross borders.’ For a firm like that, the site has two jobs. It has to show a client which practice area fits their dispute and who at the firm would handle it, and it has to stay easy for the firm's own staff to keep up to date." split>
+<Split reverse>
+<Steps>
+  <Step open name="The aim" hint="clients get in touch">Winning means a company, a state or a person in a cross-border dispute chooses Ferrow & Lisle and gets in touch. There are two ways in. The 24/7 hotline sits at the top of every page, and a form for a first message is on the home page and on the Contact page, under the firm's promise: ‘Tell us about your matter. A partner will reply within one working day.’</Step>
+  <Step name="Where to play" hint="six practice areas, two offices">The firm says it acts ‘for companies, states and individuals when the stakes are high and the facts are contested’. It offers six practice areas, from international arbitration and investigations to tracing and recovering assets. It has offices in London and New York, and it has done client work in Dubai, Singapore, Johannesburg and Mexico City.</Step>
+  <Step name="How to win" hint="named people beside the work">The firm's arbitration page says ‘We work as a single team across our two offices, so a client has one point of contact wherever the hearing sits’. So the site names the people. Each practice area page lists specialists, and each professional has a page with a biography and representative matters, such as Eleanor Lisle, the Senior Partner, who leads its international arbitration work. A map on the home page shows where the firm works, with a pin for each office and each city where it has done client work.</Step>
+  <Step name="What it takes" hint="staff who keep it current">Practice areas, professionals, offices and news change, and the firm's staff have to keep them current without a developer. The hotline is on every page and the two offices are in every footer, so every page that shows them has to agree. And a client's first message has to reach someone at the firm, and stay private.</Step>
+  <Step name="How we'd know" hint="enquiries, and what they ask">Success would show in enquiries. Each one holds the sender's name, email address, subject and message, so over time the firm could see how many clients write in and what they say their matter is about. Calls go straight to the phone, so the firm would count those itself. Ferrow & Lisle is imaginary, so there are no real enquiries and no figures.</Step>
+</Steps>
+<Sites title="Similar strategy">
+  <Site name="Parley" href="/work/parley/" src="/img/work/parley.webp" w={2560} h={1440} />
+  <Site name="Halveron" href="/work/halveron/" src="/img/work/halveron.webp" w={2560} h={1440} />
+</Sites>
+</Split>
 </Chapter>
 
-<Chapter label="The contract" title="A written contract said what could change." lede="The first build had a design of its own, in oxblood and brass. The next commit replaced it with the layout of an earlier theme, and CONTRACT.md, a file in the public repository, set the terms: replace only what identifies a real organisation, and keep everything else as it is.">
-<Facts>
-  <Fact k="Kept">The layout, the CSS, the typography, the markup and the content model. The rules forbid restyling, renaming classes or reorganising templates.</Fact>
-  <Fact k="Replaced">The logo, the images, the hero video, the old icon font, the drawing code copied into the social icons, and all the content.</Fact>
-  <Fact k="Three builders">The contract splits the work between three builders, for assets, theme and content, and gives each one its own files so they can work in parallel.</Fact>
-  <Fact k="Icons">An SVG sprite, one file holding 17 drawn icons, replaced the old icon font. One helper, `legal_icon()`, draws each icon and hides it from screen readers. Bootstrap's own glyph font stays, because it ships with Bootstrap.</Fact>
-  <Fact k="Invented">Every person, matter and article is invented. Emails use the legal.junaid.guru domain, and the disclaimer is a setting the footer template prints on every page.</Fact>
-  <Fact k="The swap">The restore commit changed 80 files. It deleted 3,255 lines, among them the first design's 1,457-line stylesheet.</Fact>
-</Facts>
+<Chapter label="Content architecture" title="Each of the six practice areas and four professionals has its own page." lede="The firm's practice areas and offices decided how the site is organised. Its content architecture, what the site holds and where each thing lives, is 33 pages under a menu of seven items. The home page is one long page in sections, and three menu items, Practice Areas, Our People and Global Presence, jump to a section of it instead of opening a page. Global Presence holds the map. The path in blue is one a client might take, from the home page to the International Arbitration page, and from its list of specialists to Eleanor Lisle's page.">
+<LegalSiteMap />
 </Chapter>
 
-<Chapter label="The map" title="An editor moves the six pins without code." lede="One of the images the contract replaced was the dotted world map behind Global Presence. Six pins sit over it, and each pin's position is two numbers in the Site settings page, so an editor can move a pin without code. Those numbers mean something only if the image follows a known projection, so the contract fixed one.">
+<Chapter label="Components" title="The 24/7 hotline sits in the header, at the top of every page." lede="Anyone who wants to call needs the number in front of them, and the header that carries it is one component. Here a component is one template part, a file that draws one piece of a page. The theme has 18 of them. The drawing shows the 15 that the home page, a practice area page and Contact use. The other three are the logo and the menu, which sit inside the header, and the list of Media links beside articles, white papers and engagements. Anything staff add looks like the rest, because the same component draws it.">
+<LegalWireframes />
+</Chapter>
+
+<Chapter label="Editorial control" title="Staff change a professional once, and every page that shows them follows." lede="Staff at the firm keep the site current themselves, from a new article to a new professional. Most of what they change is held in fields, each one a labelled piece of information, such as a professional's job title. The 28 fields are grouped into 11 edit boxes on WordPress's edit screens, and together they make up the content model. The hotline, the two offices and the six pins on the map each live in one place, the Site settings screen. A pin is placed by two numbers, its distance in pixels from the top and from the left of the map's picture.">
+<LegalContentModel />
+<Fanout
+  source={{ src: "/img/work/legal/edit-professional.webp", w: 1600, h: 1000, alt: "The WordPress form for the professional Eleanor Lisle, with her name as the title. Under it is the Details box: Job title Senior Partner and Email eleanor.lisle@legal.junaid.guru, then the start of her biography.", label: "One form: Eleanor Lisle" }}
+  targets={[
+    { src: "/img/work/legal/fan-home-people.webp", w: 1600, h: 900, alt: "The Our Professionals list on the home page, as a narrow screen shows it. Her card is first: her portrait, with the name Eleanor Lisle and the words Senior Partner beside it. Marcus Ferrow, Managing Partner, is next.", label: "Her card on the home page" },
+    { src: "/img/work/legal/fan-practice-specialists.webp", w: 1600, h: 900, alt: "The Our Specialists list in the side column of the International Arbitration page: Eleanor Lisle first, then Marcus Ferrow and Priya Raman, each with a small portrait.", label: "Our Specialists, on a practice page" },
+    { src: "/img/work/legal/fan-profile.webp", w: 1600, h: 900, alt: "The top of her own page: on a dark banner the name Eleanor Lisle with Senior Partner under it, then the start of her biography and her portrait on the right.", label: "Her own page" },
+  ]}
+/>
+</Chapter>
+
+<Chapter label="Accessibility and speed" title="Pages load fast and work on a phone, and accessibility gaps remain." lede="On a phone the pages fit the screen from 360 pixels wide up, and the menu works on every kind of page. Nothing jumps while the home page loads, and its still picture shows before the 1.9 MB video arrives. Tab moves through each page in reading order, and every link and button shows a focus ring, the outline that marks where the keyboard is. Some gaps remain. A keyboard user cannot open the Practice Areas or Media lists in the header, some small text is too faint, and the form's fields have no labels. Those, and the rest, are among the limits listed near the end of this study.">
 <Figures>
-  <Figure src="/img/work/legal/global-presence.webp" phone="/img/work/legal/global-presence-phone.webp" phoneAlt="Global Presence on a phone: a list of London, Headquarters, New York, US Office, then Dubai, Singapore, Johannesburg and Mexico City, each marked Client work." w={1600} h={1000} alt="The dotted world map with six blue pins across the Americas, Europe, Africa, the Middle East and Asia." title="One list, two views">Each pin links to the contact page. Below 768 pixels the page hides the map and shows the same six settings as a list.</Figure>
+  <Figure src="/img/work/legal/global-presence.webp" phone="/img/work/legal/global-presence-phone.webp" phoneAlt="The same section on a phone: the heading Global Presence over a list of six cities, each with its label on the right: London, Headquarters; New York, US Office; Dubai, Singapore, Johannesburg and Mexico City, Client work." w={1600} h={1000} alt="The Global Presence section of the home page on a desktop: the heading over a dotted world map with six blue pins and no names beside them." title="One list, two views">On a desktop the six pins sit on a dotted map of the world. Below 768 pixels wide the map is hidden, and the same six places show as a list of each city and its label. Every pin and every row leads to the Contact page.</Figure>
+  <Figure src="/img/work/legal/practice-area.webp" phone="/img/work/legal/menu-phone.webp" phoneAlt="The phone menu open on the International Arbitration page: the logo with a close button, then a full-width list of Home, Practice Areas with its six practice areas under it, Our People, Global Presence, News, Media with White Papers and Engagements under it, and Contact." w={1600} h={1000} alt="The top of the International Arbitration page on a desktop: the menu bar with the 24/7 Hotline number, a dark banner with the heading, four paragraphs beginning We act for companies and states in commercial and investment arbitrations, a Recent Highlights list and, on the right, a list headed Our Practices." title="The phone menu">On a phone one button opens all 15 of the menu's entries, and each one can be tapped. The menu needs JavaScript to open.</Figure>
 </Figures>
-<Facts>
-  <Fact k="Image">A PNG of grey dots, 1,026 by 506 pixels and 11 KB.</Fact>
-  <Fact k="Projection">Equirectangular, a flat grid where each degree takes the same space: x = (longitude + 180) × 2.85 and y = 50 + (83 − latitude) × 2.85, in pixels. So each degree is 2.85 pixels, and 83° north sits 50 pixels from the top.</Fact>
-  <Fact k="Pins">A 28 by 42 pixel SVG pin with its tip at the bottom centre. The settings hold the pin's top-left corner, so the tip lands 14 pixels right of it and 42 below.</Fact>
-  <Fact k="London">51.5° north and 0.1° west project to 513, 140. The settings say left 499px and top 98px, which puts the tip on 513, 140.</Fact>
-  <Fact k="All six">I projected each city's coordinates with the same formula, and all six pin tips land within 1 pixel of their city, from Mexico City to Singapore.</Fact>
-</Facts>
+<Scorecard
+  runs={[
+    {
+      label: "Mobile",
+      scores: [
+        { label: "Performance", value: 98 },
+        { label: "Accessibility", value: 92 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 92 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "2.1 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0" },
+        { label: "Page weight", value: "2.7 MB" },
+      ],
+    },
+    {
+      label: "Desktop",
+      scores: [
+        { label: "Performance", value: 99 },
+        { label: "Accessibility", value: 96 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 92 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "0.6 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0" },
+        { label: "Page weight", value: "2.5 MB" },
+      ],
+    },
+  ]}
+  checks={[
+    { label: "Phone menu", value: "Every kind of page" },
+    { label: "Works without JavaScript", value: "Not the phone menu" },
+    { label: "Theme JavaScript", value: "1.4 KB" },
+    { label: "Cookies set", value: "None" },
+  ]}
+  source="Lighthouse 12.8 on the live home page, 22 November 2026: the middle of three runs."
+/>
 </Chapter>
 
-<Chapter label="The content" title="One script writes all of the firm's content." lede="The pins are one of many settings. The contract kept the earlier theme's content model, the list of fields an editor fills in, so the work in WordPress was the content itself. One seed script, a program that writes the content into WordPress, fills those fields, and it runs again on each deploy.">
-<Facts>
-  <Fact k="Model">8 YAML files, 232 lines in all. They declare five content types (practice areas, professionals, white papers, engagements and private enquiries), a news tag and a Site settings page with four groups. The platform's yacf plugin, shared by the agency's WordPress sites, reads them and builds the edit screens.</Fact>
-  <Fact k="Templates">Section headings and button labels, such as Our Practices and Get in Touch, stay in the templates. Anything that names a person, a place or a matter is a field.</Fact>
-  <Fact k="Seed">One PHP script of 800 lines creates 6 practice areas, 4 professionals, 4 white papers, 5 engagements, 6 news posts, 3 pages, 3 menus and 10 images, and removes WordPress's sample content.</Fact>
-  <Fact k="Safe to rerun">It finds each post by its slug, the last part of its address, and updates it rather than adding a copy. It matches images by their path in the seed folder, and empties and rebuilds each menu so the order cannot drift.</Fact>
-  <Fact k="On each deploy">GitHub Actions builds the image and deploys it to Cloud Run, Google's service for running containers. It then runs the seed as a job and waits for it to finish. Firebase Hosting, which serves the public address and passes each request to Cloud Run, deploys last.</Fact>
-  <Fact k="Enquiries">34 lines in the theme handle the contact form. They check a WordPress nonce, a short-lived token that proves the form came from the site, and save the message as a private post in the site's admin. If a hidden field that only bots fill in has a value, they show the thank-you and save nothing.</Fact>
-</Facts>
+<Chapter label="The build" title="Enquiries stay private, and a contract set what could change in the theme." lede="Enquiries are how the firm would know the site works, so the handler, the code that receives each message, saves it as a private record that only signed-in staff can read. Staff change content in WordPress, and a developer changes code only through a deploy, a fresh build of the site that replaces the live one. On this demonstration a deploy also puts the starting content back, one of the limits listed further down. A short written contract kept the theme's layout, main stylesheet, typography, markup and most of its content model. It replaced only what identified a real organisation, and in its place I made the firm's name and logo, its icons, the map, the video, the pictures and all of the content.">
+<LegalChangeRoutes />
 </Chapter>
 
-<Chapter label="The limits" title="Where it stops today." lede="The seed fills a site that looks finished. Ferrow & Lisle is a demonstration, though, so some parts do nothing, and a few gaps belong to the build itself.">
+<Chapter label="The limits" title="Where the strategy is not proven yet." lede="Several of these came with the existing theme, which the contract kept as it was. Each one is set against the part of the strategy it puts at risk.">
 <List>
-  <Item title="The pins have no names on a desktop.">Each pin carries its city and label in the markup, but no script shows them, and hovering only darkens the pin. I would build a tooltip from those two values.</Item>
-  <Item title="The newsletter and share buttons do nothing.">The Subscribe button sends nothing, and the share buttons go nowhere. Their counts are numbers typed into fields: 18, 12 and 41 on the first article and 0 on the rest. A working firm would need a mailing service and live share links.</Item>
-  <Item title="Enquiries wait in the admin.">The form sends no email. Someone has to open Enquiries in WordPress to read a message, so I would add a notification.</Item>
-  <Item title="Nothing checks the pages.">The pipeline runs no tests and no accessibility check. The home page has seven h1 headings, the page tells phones to block pinch zoom, and the contact form uses placeholders where it needs labels. Each is a small fix, and I would add an accessibility check to the pipeline to keep them fixed.</Item>
-  <Item title="The contract fell behind the site.">It still lists the earlier phone numbers, a 12 to 15 second abstract video and no portraits. Later commits added a 10-second London clip and generated portraits, and I would bring the contract up to date with them.</Item>
+  <Item title="The aim: nobody is told when an enquiry arrives.">Nothing in the site&apos;s code sends an email, so a message waits in WordPress until a member of staff opens the list of enquiries. The form says so, but a client who writes in hears nothing from the firm until then.</Item>
+  <Item title="The aim: after a message from the home page, the thank-you is out of sight.">A message sent from the form on the home page brings the visitor back to the top of that page, while the thank-you is printed at its foot, out of view, so nothing on screen says the message went. The browser asks for a name and an email address, but the site itself checks for neither, so a message with nothing in it is still saved.</Item>
+  <Item title="How to win: every practice area page shows the same three specialists.">Our Specialists lists the first three professionals in the order staff set, so all six practice area pages show Eleanor Lisle, Marcus Ferrow and Priya Raman, and Jonah Whitcombe never appears. Nothing in the content model connects a professional to a practice area, so the list cannot show who works on which.</Item>
+  <Item title="How to win: on a desktop, the pins and the professionals show no names.">The map&apos;s six pins carry their names for screen readers, but nothing shows a name on screen, even under the pointer, so a visitor cannot tell which city is which. On the home page the four professionals are portraits with no names until the pointer or the keyboard is on one. Below 768 pixels wide both show their names.</Item>
+  <Item title="The aim: a keyboard, or a phone without JavaScript, cannot open every menu.">In the header, the Practice Areas and Media lists open only when a mouse is over them, so a keyboard user cannot reach the pages under them from there, and there is no link to skip past the menu to the content. The form&apos;s name, email and subject fields show only a faint darker border when the keyboard is on them. On a phone with JavaScript switched off the menu button does nothing, although the footer&apos;s menus and the two buttons at the top of the home page still reach the same pages. At 320 pixels wide, the narrowest phone screens, every page also scrolls sideways by 15 pixels.</Item>
+  <Item title="The aim: some text is faint, the form has no labels, and the video cannot be paused.">The featured article titles on the home page (3.0 to 1), the dates in the news list (2.3 to 1) and the grey labels in the phone&apos;s list of cities (4.0 to 1) are fainter than the 4.5 to 1 the accessibility guidelines (WCAG) ask for. The form&apos;s four fields are named only by grey text that disappears as you type, and the footer&apos;s links are 20 pixels tall, under the 24 asked for. The home page has seven top-level headings instead of one, and its video loops with no pause button, even when a visitor&apos;s device asks for less motion. The site has not been tested with a screen reader, in Safari or Firefox, or on a real phone.</Item>
+  <Item title="What it takes: a deploy puts back the starting content, and some changes need a developer.">A script called the seed fills the site with its starting content, and the pipeline runs it after every deploy. It puts back every title, order number and field it set, the pictures it attached and every value on the Site settings screen, so a changed hotline number or a seventh pin is lost, and it rebuilds the three menus, so a link staff added is gone. Records staff add are left alone. A portrait can only come from the seed, because a professional&apos;s form has no picture box, and a new pin means working out two numbers from the city&apos;s latitude and longitude. On a live site the seed would run once, at launch.</Item>
+  <Item title="What it takes: nothing checks a change before it goes live, and hardening is unfinished.">No test or check runs in the pipeline, so a change pushed to the main branch goes live without one. The site holds visitors&apos; messages, but it sends no content security policy, a header that tells the browser which scripts to trust, and it still announces its WordPress and PHP versions. Every page loads its two typefaces from Google and WordPress&apos;s own 22.7 KB emoji script, about 16 times the size of the other three scripts together, and no page gives search engines a description of itself.</Item>
+  <Item title="How we'd know: there are no real enquiries to count.">Each enquiry is saved with a name, an email address, a subject and a message, but not the page it was sent from, so it would not show which practice area brought a client in. The firm is imaginary and the form asks visitors not to enter real personal information, so there are none to count anyway. The newsletter box and the share buttons on each article do nothing when pressed, and the share counts beside them are numbers typed into the article, so interest in the firm&apos;s writing cannot be counted either.</Item>
 </List>
 </Chapter>
 
-<Chapter label="What carried forward" title="What carried forward." lede="A company looking for counsel finds six practices, four professionals and a map of where the firm works. All of it is invented, and the footer on every page says so.">
+<Chapter label="The lessons" title="Three things I would do the same way again." lede="For the firm, the site had to bring clients to a practice area and its professionals, and on to a call or a message, and stay easy for its staff to keep current. These three choices did most of that work.">
 <Split>
 <List>
-  <Item title="Write down what may change.">A contract that named what to keep, what to replace and who owned which files let three builders work in parallel.</Item>
-  <Item title="Tie editable numbers to a formula.">An editor can place a new pin from a city's coordinates, because the map image follows a stated projection.</Item>
-  <Item title="Update the contract with the site.">Commits that change what the contract describes should change the contract too.</Item>
+  <Item title="Write down what may change before changing it.">A short written contract said what stays and what goes, as set out further up this study. That is why the layout is still the theme&apos;s while the firm&apos;s name, words and pictures are all new, and it also settled smaller things, such as the formula behind the map. What I would add is keeping the contract current. Later changes to the phone numbers, the video and the portraits never went back into it, so it is out of date in those three places.</Item>
+  <Item title="Place the map's pins by a formula.">A pin on the map is placed by two numbers, and the contract fixed the formula that turns a city&apos;s latitude and longitude into them, down to where the pin&apos;s tip sits. I checked all six pins against it, and each tip lands within a pixel of its city. A new office can be placed the same way, by a sum instead of trial and error, though staff still have to do the sum themselves, which is part of one of the limits above.</Item>
+  <Item title="Enter each detail once, and let every page read it.">The hotline, the two offices and the six pins are each typed once, on the Site settings screen, and printed from there in every header and footer, on Contact and on the map. A professional works the same way. Changing Eleanor Lisle&apos;s job title on a test copy of the site, run on my own computer, changed it on her home page card and on her own page. Our Specialists prints her name and portrait but no job title, so it stayed as it was.</Item>
 </List>
 <Facts>
-  <Fact k="Commits">9, from 27 September to 22 October 2026</Fact>
-  <Fact k="Pins">6 of 6 within 1 pixel of their city</Fact>
-  <Fact k="Seed">800 lines, safe to rerun</Fact>
+  <Fact k="Pages">33</Fact>
+  <Fact k="Components">18 template parts, from an existing theme</Fact>
+  <Fact k="Content">28 fields across 11 edit boxes</Fact>
+  <Fact k="Stylesheet">18.4 KB compressed, in two files</Fact>
   <Fact k="Source">[github.com/poly-glot/legal](https://github.com/poly-glot/legal)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
-<Closing label="Visit it">
-  <ClosingCopy>Choose a practice, meet the professionals, then read the footer that says none of it is real.</ClosingCopy>
+<Closing label="Try it">
+  <ClosingCopy>See the site as a client would: open International Arbitration from the home page, then follow Our Specialists to Eleanor Lisle&apos;s page.</ClosingCopy>
   <ClosingLinks>
-    <ClosingLink href="https://legal.junaid.guru/" external>Open Ferrow & Lisle <span aria-hidden="true">→</span></ClosingLink>
+    <ClosingLink href="https://legal.junaid.guru/" external>Open Ferrow &amp; Lisle <span aria-hidden="true">→</span></ClosingLink>
   </ClosingLinks>
 </Closing>
 

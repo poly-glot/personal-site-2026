@@ -672,13 +672,16 @@ export const PROJECTS: WorkProject[] = [
     "id": "legal",
     "name": "Ferrow & Lisle",
     "tagline":
-      "A website for an imaginary disputes firm in London and New York.",
+      "A London and New York law firm's 33-page site, built on an existing theme, with its 24/7 hotline on every page.",
     "summary":
-      "Ferrow & Lisle is an imaginary disputes firm in London and New York, and this is its WordPress website for companies looking for counsel. The layout follows an existing design, and a written contract replaced the brand, the words and the images. The decision worth reading is the world map, where each pin is two numbers an editor types in.",
+      "Ferrow & Lisle is the website of an imaginary law firm that handles cross-border disputes. I built it in WordPress, kept the layout of an existing theme, and replaced everything in it that identified a real organisation with the firm's own name, words and pictures.",
+    "story": {
+      "Audience":
+        "Companies, states and individuals caught up in international disputes.",
+      "Outcome":
+        "33 pages that work on a phone and load quickly, put together from the theme's 18 components. A client can read about every practice area, meet the professionals and call the firm from any page, and staff update most of the content themselves. Every enquiry is saved as a private record inside the site, which is deployed on secure infrastructure.",
+    },
     "client": "Ferrow & Lisle, an imaginary brand",
-    "delivered":
-      "WordPress theme, brand and icon set, dotted world map, repeatable content seed, enquiry form, Cloud Run deployment",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [
