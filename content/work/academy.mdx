@@ -5,7 +5,7 @@ tagline: A 26-page brochure site its own staff can update without a developer.
 summary: Academy is the website of an imaginary business-education body. I settled its content, components, accessibility and speed in plain HTML, then built it in WordPress.
 story:
   Audience: Professionals and the organisations that train them.
-  Outcome: 26 light pages, built from 24 components, that work from a keyboard. Staff can change any of 125 fields without breaking a layout.
+  Outcome: 26 accessible, fast-loading pages built from 24 reusable components. Staff update the content themselves while the design stays consistent, and the site is deployed on secure infrastructure.
 client: Academy, an imaginary brand
 kind: study
 layout: chapters
@@ -27,18 +27,17 @@ tone: "linear-gradient(135deg, #0a5fa322, #ffffff05)"
 cover: /img/work/academy.webp
 ---
 
-import BarChart from "@/components/diagrams/BarChart.tsx";
-import BuildSteps from "@/components/diagrams/BuildSteps.tsx";
 import ChangeRoutes from "@/components/diagrams/ChangeRoutes.tsx";
 import ContentModel from "@/components/diagrams/ContentModel.tsx";
 import PageWireframes from "@/components/diagrams/PageWireframes.tsx";
+import Scorecard from "@/components/diagrams/Scorecard.tsx";
 import SiteMap from "@/components/diagrams/SiteMap.tsx";
 
 <Study>
 
 <Chapter label="The brief" title="An ordinary brief for a brochure site." lede="Academy is an imaginary business-education body, and its site is for professionals and the organisations that train them. It needed a 26+ page brochure site that is mobile friendly, accessible, quick to load and secure, and that its own staff can update without a developer." />
 
-<Chapter label="The site" title="The site, in the order of its menu." dark>
+<Chapter label="The outcome" title="An accessible, quick and secure site that its own staff run." dark>
 <Board>
   <Screen size="lead" src="/img/work/academy/home.webp" w={1600} h={900} alt="The Academy home page on a desktop: the heading The practical standard in business education, the buttons Explore certification and Browse courses, and a photograph of a woman at a laptop in a bright office." />
   <Screen size="lead" src="/img/work/academy/about.webp" w={1600} h={900} alt="The About page on a desktop: the heading About Academy, the buttons Explore certification and Meet the people, and a photograph of a woman smiling at a laptop." />
@@ -47,118 +46,148 @@ import SiteMap from "@/components/diagrams/SiteMap.tsx";
   <Screen src="/img/work/academy/certification.webp" w={1600} h={900} alt="The Certification page: a navy banner reading Certification beside a photograph of a man in glasses, above the Overview text." />
   <Screen src="/img/work/academy/courses.webp" w={1600} h={900} alt="The Courses page: a navy banner reading Courses beside a photograph of a woman at a laptop, above the heading Learn the work, one course at a time." />
   <Screen src="/img/work/academy/community.webp" w={1600} h={900} alt="The Community page: the heading Community, a row of eight section links from Events to Regional networks, and the Events and Research sections." />
-  <Screen size="phone" src="/img/work/academy/certificate-phone.webp" w={804} h={1880} alt="A certificate page on a phone: a photograph of a man in glasses holding a pen, above a navy panel titled Foundation Certificate in Commercial Practice (FCCP) with its course code, level and category." />
+  <Screen src="/img/work/academy/ccpp.webp" w={1600} h={900} alt="The Certified Commercial Practice Professional (CCPP) page: a navy panel with the title above its course code, level, category and duration, beside a photograph of a man in glasses holding a pen." />
+  <Screen src="/img/work/academy/ccm.webp" w={1600} h={900} alt="The Certificate in Contract Management (CCM) page: a navy panel with the title above its course code, level, category and duration, beside a photograph of a man in glasses holding a pen." />
+  <Screen src="/img/work/academy/csa.webp" w={1600} h={900} alt="The Certificate in Supplier Assurance (CSA) page: a navy panel with the title above its course code, level, category and duration, beside a photograph of a man in glasses holding a pen." />
+  <Screen src="/img/work/academy/article-certificate.webp" w={1600} h={900} alt="A news article: a photograph of brick warehouses and glass towers beside a canal, above the headline Certificate in Supplier Assurance opens for booking and links to share it." />
+  <Screen size="phone" src="/img/work/academy/login-phone.webp" w={804} h={1880} alt="The My Academy page on a phone: the menu above a navy log-in form with fields for a username and a password and a Log in button." />
+  <Screen src="/img/work/academy/ccr.webp" w={1600} h={900} alt="The Certificate in Commercial Risk (CCR) page: a navy panel with the title above its course code, level, category and duration, beside a photograph of a man in glasses holding a pen." />
+  <Screen size="feature" src="/img/work/academy/news.webp" w={1600} h={900} alt="The News and media page: the heading News & media above three article cards, each with a photograph, a category and a date." />
+  <Screen src="/img/work/academy/article-webinar.webp" w={1600} h={900} alt="A news article: a photograph of brick warehouses and glass towers beside a canal, above the headline Watch again: managing contract changes without the drama and links to share it." />
+  <Screen src="/img/work/academy/article-conference.webp" w={1600} h={900} alt="A news article: a photograph of brick warehouses and glass towers beside a canal, above the headline Registration opens for the autumn conference and links to share it." />
+  <Screen src="/img/work/academy/article-app.webp" w={1600} h={900} alt="A news article: a photograph of brick warehouses and glass towers beside a canal, above the headline Academy learning app now on mobile and links to share it." />
+  <Screen src="/img/work/academy/news-category.webp" w={1600} h={900} alt="The News category page: the heading Category: News above three article cards, each with a photograph, a date and a headline." />
+  <Screen src="/img/work/academy/media-category.webp" w={1600} h={900} alt="The Media category page: the heading Category: Media above two article cards, each with a photograph, a date and a headline." />
+  <Screen src="/img/work/academy/article-network.webp" w={1600} h={900} alt="A news article: a photograph of brick warehouses and glass towers beside a canal, above the headline Midlands Employers Network formed and links to share it." />
+  <Screen src="/img/work/academy/article-fees.webp" w={1600} h={900} alt="A news article: a photograph of brick warehouses and glass towers beside a canal, above the headline Membership fees held for 2027 and links to share it." />
+  <Screen src="/img/work/academy/contact.webp" w={1600} h={900} alt="The Contact page: the heading How may we help? above a list of common questions." />
+  <Screen src="/img/work/academy/fccp.webp" w={1600} h={900} alt="The Foundation Certificate in Commercial Practice (FCCP) page: a navy panel with the title above its course code, level, category and duration, beside a photograph of a man in glasses holding a pen." />
+  <Screen src="/img/work/academy/careers.webp" w={1600} h={900} alt="The Careers page: the heading Careers above a note that there are no open roles and a description of how the team works." />
+  <Screen src="/img/work/academy/terms.webp" w={1600} h={900} alt="The Terms and conditions page: the heading Terms and conditions above a section explaining that this is a demonstration website." />
+  <Screen src="/img/work/academy/copyright.webp" w={1600} h={900} alt="The Copyright and trademarks page: the heading Copyright and trademarks above sections on copyright and on names and marks." />
+  <Screen src="/img/work/academy/privacy.webp" w={1600} h={900} alt="The Privacy notice page: the heading Privacy notice above a section headed Who we are." />
+  <Screen src="/img/work/academy/accessibility.webp" w={1600} h={900} alt="The Accessibility statement page: the heading Accessibility statement above sections headed Our target and How we tested." />
+  <Screen src="/img/work/academy/not-found.webp" w={1600} h={900} alt="The Page not found page: a short apology and links to the home page, the courses and the contact page." />
 </Board>
 </Chapter>
 
-<Chapter label="The decision" title="Content came first and WordPress came last." lede="Only one part of that brief needs a content management system (CMS), the software staff use to update a site: letting staff change the words. So the work went in five steps, and WordPress was the last of them.">
-<BuildSteps />
-<Facts>
-  <Fact k="Why this order">Each decision is made where changing it costs least: a page title in the brief, a colour in the design tokens, a layout in the static pages. The first three steps use nothing from WordPress, so the theme had one fixed target.</Fact>
-  <Fact k="The same HTML">The theme prints the fields into the same HTML and copies the 33 stylesheet files unchanged. Comparing the two folders file by file finds no difference.</Fact>
-  <Fact k="Repeated">[Wealth](/work/wealth/), [Halveron](/work/halveron/) and [Boxes](/work/boxes/) were built the same way, static pages first.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="Content architecture" title="The brief fixed 26 pages, three content types and the navigation." lede="Content architecture is what a site holds and how it is organised. It was written down first, so every page had an address and its sections before anyone built it.">
-<SiteMap />
-<Facts>
-  <Fact k="Content types">Certificates, people and news articles are each entered as items of their own. A certificate and an article get a page each, and a person appears on About.</Fact>
-  <Fact k="Copy deck">The words were then written in full as a copy deck, and every page took its text from it.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="Components" title="Every page is built from 24 components." lede="A component is a repeated piece of a page, such as the header or a news card. Home, About and News use the same news card, and all 26 pages use the same header and footer.">
-<PageWireframes />
-<Figures>
-  <Figure src="/img/work/academy/home-news.webp" w={1600} h={1000} alt="The home page section What we have been working on: three article cards, each with a photograph, a category and date, a headline, a summary and Read more." title="News card">Three news cards on the home page. The same component draws three on About and six on News.</Figure>
-  <Figure src="/img/work/academy/membership-levels.webp" w={1600} h={1000} alt="Membership levels and benefits: three cards, Associate, Certified and Senior, each with an overview and a list of benefits." title="Level card">One component, used three times. The cards differ only in the words they are given.</Figure>
-</Figures>
-<Facts>
-  <Fact k="Design tokens">53 design tokens hold every colour, type size, space and corner radius on the site. No component states a colour of its own.</Fact>
-  <Fact k="Components">24, each in a stylesheet file of its own, with 6 small ones inside them, such as the button and the icon. 13 of the 24 are used on one page only.</Fact>
-  <Fact k="A new page">A new page is an arrangement of components that exist. It needs new CSS only when it needs a component nobody has built.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="Editorial control" title="An editor changes a page without a developer." lede="Components settle how a page looks. What a page says keeps changing after launch, so each word that might change is kept in a named field, and the components print whatever the fields hold. The content model is the list of those fields.">
-<ContentModel />
-<Figures>
-  <Figure src="/img/work/academy/certificate-fccp.webp" w={1600} h={1000} alt="The Foundation Certificate in Commercial Practice page: a navy hero listing the course code, level, category, duration, assessment and price, beside a photograph of a man in glasses holding a pen." title="Fields a visitor reads">The six facts beside the photograph are six fields: course code, level, category, duration, assessment and price.</Figure>
-  <Figure src="/img/work/academy/certification-overview.webp" w={1600} h={1000} alt="The certification page: under the heading Overview, prices from £295 to £545 plus a £35 booking fee, above two cards marked Entry level and Advanced." title="The editor's choice">Each certificate has a field called Overview placement. The editor chooses a card or a link, and the layout does the rest.</Figure>
-</Figures>
-<Facts>
-  <Fact k="Model">125 fields in 18 groups, written in five short files of YAML, a plain text format. The platform reads those files and builds the edit screens, so the model is reviewed like code.</Fact>
-  <Fact k="Entered once">A certificate, a person and an article are each entered once. A person's card appears on About, and an article names that person as its author.</Fact>
-  <Fact k="No formatting">Each field is plain text, a choice from a list, an image, an email address or a link to another item. None accepts free formatting, so an editor cannot change a font, a colour or a layout by accident.</Fact>
-  <Fact k="Guidance">Where an editor might guess, the field says what it expects: ‘Bio (about 40 words)’ or ‘Separate paragraphs with a blank line’.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="Accessibility and speed" title="Contrast and weight were settled once, for all 26 pages." lede="Because editors enter words and little else, the decisions that make a page usable sit in the components and the 53 design tokens, where each was made once.">
-<Figures>
-  <Figure src="/img/work/academy/skip-link.webp" w={1600} h={1000} alt="The top of the home page after one press of the Tab key: a Skip to main content link over the logo, inside a blue ring with a white edge." title="Skip link">Press Tab once, and the first thing the keyboard reaches is ‘Skip to main content’.</Figure>
-  <Figure src="/img/work/academy/people-staff.webp" w={1600} h={1000} alt="The Staff tab selected under the heading The people behind Academy, above five portraits with names and roles such as Head of Learning." title="Tabs without a script">The two tabs are ordinary links, and the stylesheet shows the panel the address points to.</Figure>
-</Figures>
-<Facts>
-  <Fact k="Contrast">The web accessibility guidelines (WCAG) ask for 4.5 to 1 between body text and its background. I measured 13 pairs of colours from the tokens, and the lowest is 4.61 to 1.</Fact>
-  <Fact k="Keyboard">Buttons are at least 44 pixels tall. The focus ring is brand blue with a white edge, because blue alone measures 2.14 to 1 on the navy bands.</Fact>
-</Facts>
-<Split>
-<BarChart
-  readings={[
-    { label: "The page and its stylesheet", amount: 13735, value: "13,735 bytes", chosen: true },
-    { label: "WordPress's emoji script", amount: 4938, value: "4,938 bytes" },
-    { label: "Two fonts and their stylesheet", amount: 65599, value: "65,599 bytes" },
-    { label: "Four photographs", amount: 95530, value: "95,530 bytes" },
-  ]}
-/>
-<Facts>
-  <Fact k="One visit">The home page in Chrome, 1,440 pixels wide on a standard screen, without scrolling: 10 requests and 179,802 bytes.</Fact>
-  <Fact k="No script">The theme has no JavaScript, and its 33 stylesheet files are joined into one of 7,113 bytes compressed.</Fact>
-  <Fact k="What is heavy">The fonts come from Google's servers and the emoji script from WordPress. Hosting the fonts with the site and switching that script off come next.</Fact>
-</Facts>
+<Chapter label="Strategy" title="Help professionals choose a certificate, with a site Academy's own staff can run." lede="Academy is an imaginary business-education body in Birmingham. It earns its living from certificates, courses and membership, and its team of 23 keeps the site up to date without a developer. So the site has two jobs: help professionals choose and join, and stay easy for that team to run." split>
+<Split reverse>
+<Steps>
+  <Step open name="The aim" hint="professionals choose and join">Winning means a professional finds the certificate that fits their work, sees what it costs and how it is assessed, and gets in touch to enrol or joins as a member. Both the home and About pages lead with Explore certification, and Join now sits at the top of every page.</Step>
+  <Step name="Where to play" hint="certification first">The site is for working professionals and the organisations that train them. Of everything Academy offers, certification comes first: each of the five certificates has a page of its own, while courses, membership and community have one page each. The site does not sell online. Buy this certificate leads to an enquiry.</Step>
+  <Step name="How to win" hint="the same facts for every certificate">People compare qualifications before they spend money and time on one. So every certificate page answers the same questions in the same order: level, duration, assessment and price, then who it is for, what it covers and who teaches it. Nobody has to look for the price on one page and the assessment on another.</Step>
+  <Step name="What it takes" hint="staff who can edit without a developer">Prices, dates, people and news change, and Academy's staff have to change them without a developer. So each certificate, person and article is a form they fill in, while the layout, colours and contrast are fixed in code. That keeps every page accessible and quick, whoever does the editing.</Step>
+  <Step name="How we'd know" hint="enquiries and new members">Success would show in enquiries and new members, so the enquiry form and Join now are the two things to measure. In this demonstration neither one sends anything, so there are no figures. What can be checked today: all five certificates show the same facts, the lowest text contrast on the site is 4.61 to 1, and a new certificate is one form to fill in.</Step>
+</Steps>
+<Sites title="Similar strategy">
+  <Site name="Wealth" href="/work/wealth/" src="/img/work/wealth.webp" w={2560} h={1440} />
+  <Site name="Halveron" href="/work/halveron/" src="/img/work/halveron.webp" w={2560} h={1440} />
+</Sites>
 </Split>
 </Chapter>
 
-<Chapter label="The build" title="The site accepts very little, and the server cannot be changed in place." lede="A brochure site needs almost nothing from its visitors, so it accepts almost nothing, both in the code and in the way it is hosted.">
-<ChangeRoutes />
-<Facts>
-  <Fact k="A sealed server">The site runs as a container on Cloud Run, Google's service for running packaged software. In production WordPress cannot install a plugin, edit a theme file or update itself.</Fact>
-  <Fact k="Escaped output">Escaping makes harmless any characters a browser could read as code. The theme does it in 193 places.</Fact>
-  <Fact k="Patching">WordPress and PHP come from a base image that six sites share. A security fix is a one-line change: the latest commit moves to a base image that fixes two published PHP vulnerabilities.</Fact>
-</Facts>
+<Chapter label="Content architecture" title="The site map gives certification the most room: a page for each of the five certificates." lede="Putting certification first decided how the site is organised. Its content architecture, what the site holds and where each thing lives, is 26 pages, a menu, and three kinds of item staff fill in: certificates, people and news articles. Certification is the only section with a page for each item. Courses, membership and community have one page each.">
+<SiteMap />
 </Chapter>
 
-<Chapter label="The limits" title="Which rules have a check today." lede="I trust a rule more when something checks it than when it depends on someone remembering. Two of the rules above are enforced by the way the site is built. The rest are not checked yet.">
+<Chapter label="Components" title="24 components keep every page consistent, whatever staff add." lede="The site map says what each page holds. Components decide how it looks, once for all 26 pages. A component is a repeated piece of a page, such as the header or a news card, and every page is an arrangement of the 24. Their colours and sizes come from one shared list, called design tokens. So a visitor meets the same patterns everywhere, staff only ever add words and pictures, and a new page is put together from parts that already exist.">
+<PageWireframes />
+</Chapter>
+
+<Chapter label="Editorial control" title="Staff keep the site current themselves, in forms that say what each box needs." lede="The strategy depends on Academy&apos;s staff keeping prices, dates, people and news current without a developer. Components already take care of how a page looks, so what staff need is somewhere to put the words. Each piece of text that might change is a named field, a box in a form, and the components show whatever the fields hold. The list of those fields is the content model.">
+<ContentModel />
+<Fanout
+  source={{ src: "/img/work/academy/edit-certificate.webp", w: 1600, h: 1000, alt: "The WordPress form for the Foundation Certificate in Commercial Practice: labelled boxes for the abbreviation FCCP, the overview placement, the overview kicker Entry level, the overview summary, course code, level, category, duration, assessment and price, each with its value filled in.", label: "One form: the FCCP certificate" }}
+  targets={[
+    { src: "/img/work/academy/fccp.webp", w: 1600, h: 900, alt: "The FCCP page: a navy panel with the title above its course code, level, category and duration, beside a photograph of a man in glasses holding a pen.", label: "Its own page" },
+    { src: "/img/work/academy/certification-cards.webp", w: 1600, h: 900, alt: "The Certification page: two cards, Entry level for the Foundation Certificate in Commercial Practice and Advanced for the Certified Commercial Practice Professional, each with a summary and Learn more.", label: "Its card on the Certification page" },
+    { src: "/img/work/academy/other-certificates.webp", w: 1600, h: 900, alt: "The Other certificates list on a certificate page: buttons for FCCP, CCPP, CCM, CSA and CCR.", label: "The list on every other certificate page" },
+  ]}
+/>
+</Chapter>
+
+<Chapter label="Accessibility and speed" title="Responsive, accessible and designed for editorial control" lede="I delivered a site where certificates are straightforward to review and contact details are easy to find, across screen sizes and interaction methods, including keyboard navigation. These principles are built into shared components and design tokens, and applied consistently across all 26 pages. Editors can update the content directly while the underlying structure, accessibility and visual consistency remain intact.">
+<Figures>
+  <Figure src="/img/work/academy/skip-link.webp" w={1600} h={1000} alt="The top of the home page after one press of the Tab key: a Skip to main content link over the logo, inside a blue ring with a white edge." title="Skip link">Press Tab once, and the first thing the keyboard reaches is ‘Skip to main content’.</Figure>
+  <Figure src="/img/work/academy/people-staff.webp" w={1600} h={1000} alt="The Staff tab selected under the heading The people behind Academy, above five portraits with names and roles such as Head of Learning." title="Tabs without a script">The tabs on the About page are ordinary links, so they work without JavaScript.</Figure>
+</Figures>
+<Scorecard
+  runs={[
+    {
+      label: "Mobile",
+      scores: [
+        { label: "Performance", value: 88 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "2.8 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0.112" },
+        { label: "Page weight", value: "129 KB" },
+      ],
+    },
+    {
+      label: "Desktop",
+      scores: [
+        { label: "Performance", value: 98 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "0.9 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0" },
+        { label: "Page weight", value: "180 KB" },
+      ],
+    },
+  ]}
+  checks={[
+    { label: "Lowest text contrast", value: "4.61 : 1" },
+    { label: "Smallest button", value: "44 px" },
+    { label: "JavaScript files", value: "0" },
+    { label: "Works from a keyboard", value: "Yes" },
+  ]}
+  source="Lighthouse 12.8 on the live home page, 22 November 2026."
+/>
+</Chapter>
+
+<Chapter label="The build" title="Staff change the content, a developer ships the code, and visitors change nothing." lede="The strategy leaves day-to-day changes to Academy&apos;s staff, so the site has to let them work freely without opening it to anyone else, and the brief asked for it to be secure. So each kind of person has one way to change the site, and the server itself cannot be changed in place.">
+<ChangeRoutes />
+</Chapter>
+
+<Chapter label="The limits" title="Where the strategy is not proven yet." lede="The strategy measures success in enquiries and new members. Two of its rules are enforced by the build: code reaches the server only as a new image, and the forms offer staff no formatting. Each gap below is set against the part of the strategy it puts at risk.">
 <List>
-  <Item title="Two rules are enforced.">The platform lets a change in only as a new image built from the repository, and the content model offers editors no formatting.</Item>
-  <Item title="Nothing compares the two sets of stylesheets.">The static pages and the theme match today. No step in the pipeline compares them or tests a page, so a careless change could separate them unnoticed.</Item>
-  <Item title="Accessibility has no automatic test.">The contrast figures are mine, measured by hand, and no tool checks a page before a deploy. The site aims for level AA of WCAG 2.2. It has not been tested with screen readers or by disabled people, and its own accessibility statement says so.</Item>
-  <Item title="Each deploy puts the starting content back.">A script called the seed fills the site with its starting content on every deploy, which suits a demonstration. On a live site it would undo an editor's work, so the seed would run once, at launch.</Item>
-  <Item title="Hardening and the forms are unfinished.">The site sends no content security policy, a header that tells the browser which scripts to trust, and WordPress still announces its version. Join now, Buy this certificate and the contact form end at a message saying this is a demonstration.</Item>
+  <Item title="How we'd know: there are no figures yet.">Join now, Buy this certificate and the contact form end at a message saying this is a demonstration. That is deliberate, so the site collects no spam or personal data, and it means no enquiry or new member can be counted.</Item>
+  <Item title="What it takes: the starting content comes back on every deploy.">A script called the seed fills the site on every deploy, which suits a demonstration. On a live site it would undo the staff&apos;s edits, so it would run once, at launch.</Item>
+  <Item title="What it takes: nothing keeps the two sets of stylesheets together.">The static pages and WordPress match today, but no step in the pipeline compares them, so a careless change could separate them unnoticed.</Item>
+  <Item title="The aim: accessibility has no automatic test.">Lighthouse and my own contrast checks pass, but no tool checks a page before a deploy. The site aims for level AA of WCAG 2.2. It has not yet been tested with screen readers or with people who have access needs, and its accessibility statement says so.</Item>
+  <Item title="A secure site, as the brief asked: hardening is unfinished.">The site sends no content security policy, a header that tells the browser which scripts to trust, and WordPress still announces its version.</Item>
 </List>
 </Chapter>
 
-<Chapter label="The outcome" title="An editor can change any of 125 fields and cannot break a layout." lede="A visitor gets 26 light pages that work from a keyboard, and the organisation runs a server that nobody can alter in place. The content, the components, the accessibility and the speed were settled in plain HTML before any WordPress work started.">
+<Chapter label="The lessons" title="Three things I would do the same way again." lede="The strategy set out to help professionals choose a certificate, on a site Academy&apos;s own staff can run. These are the choices that made that work.">
 <Split>
 <List>
-  <Item title="Settle first what does not depend on the CMS.">Content, components, accessibility and weight were decided in the static pages, so the theme had one fixed target.</Item>
-  <Item title="Give design and code one set of names.">With 24 components and 53 design tokens, a page could be agreed and built without anything being translated on the way.</Item>
-  <Item title="Let people work without asking.">An editor changes words alone, and a developer ships by pushing to the repository. Neither can break the layout or the server.</Item>
+  <Item title="Start from the organisation's aim.">Putting certification first, with the same facts on every certificate, decided the site map, the components and the forms. The build followed the strategy, not the other way round.</Item>
+  <Item title="Decide what staff change before WordPress.">The forms came from the finished pages, so staff got a box for each thing that changes and nothing that can break the design.</Item>
+  <Item title="Settle the design while it is cheap to change.">All 26 pages were reviewed as plain web pages first, where a change meant editing one file. WordPress came last.</Item>
 </List>
 <Facts>
   <Fact k="Pages">26, agreed in plain HTML first</Fact>
   <Fact k="Components">24, built from 53 design tokens</Fact>
-  <Fact k="Content">125 fields in 18 groups</Fact>
-  <Fact k="Stylesheet">7,113 bytes compressed</Fact>
+  <Fact k="Content">125 fields across 18 edit boxes</Fact>
+  <Fact k="Stylesheet">6.9 KB compressed</Fact>
   <Fact k="Source">[github.com/poly-glot/academy](https://github.com/poly-glot/academy)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
 <Closing label="Try it">
-  <ClosingCopy>Open the site, switch off JavaScript in your browser and use the tabs on the About page.</ClosingCopy>
+  <ClosingCopy>See the site as a professional would: choose a certificate, then find out what it costs and how to enrol.</ClosingCopy>
   <ClosingLinks>
     <ClosingLink href="https://academy.junaid.guru/" external>Open Academy <span aria-hidden="true">→</span></ClosingLink>
   </ClosingLinks>

@@ -13,7 +13,7 @@ interface Page {
 }
 
 const DESCRIPTION =
-  "Three pages drawn as wireframes, each a stack of named components from top to bottom. Home has seven: site-header, hero, feature-list, mission, join-band, a row of three news-card and site-footer. About has eight: site-header, hero, goals, mission, tabs, ten person-card, a row of three news-card and site-footer. News and media has four: site-header, page-title, two rows of three news-card and site-footer. The news-card rows are marked on all three pages, because they are one component used on each.";
+  "Three pages drawn as wireframes, each a stack of named components from top to bottom. Home has seven: site-header, hero, feature-list, mission, join-band, a row of three news-card and site-footer. About has eight: site-header, hero, goals, mission, tabs, ten person-card, a row of three news-card and site-footer. News and media has four: site-header, page-title, two rows of three news-card and site-footer. The news-card rows are marked on all three pages, because they are one component used on each. The three frames are the same height, with site-footer at the foot of each, so a shorter page shows space above its footer.";
 
 const SHEET_W = 1600;
 const FRAME_W = 488;
@@ -101,7 +101,18 @@ function blockTop(blocks: readonly Block[], index: number): number {
   return FRAME_TOP + FIRST_BLOCK + above;
 }
 
-const HEIGHT = FRAME_TOP + Math.max(...PAGES.map(frameHeight)) + S3;
+const FRAME_H = Math.max(...PAGES.map(frameHeight));
+const HEIGHT = FRAME_TOP + FRAME_H + S3;
+
+function isFooter(blocks: readonly Block[], index: number): boolean {
+  return index === blocks.length - 1;
+}
+
+function blockY(blocks: readonly Block[], index: number): number {
+  if (!isFooter(blocks, index)) return blockTop(blocks, index);
+
+  return FRAME_TOP + FRAME_H - FRAME_PAD - blocks[index].h;
+}
 
 function CardRow(
   { name, x, y }: { name?: string; x: number; y: number },
@@ -129,7 +140,7 @@ function Wireframe({ page, x }: { page: Page; x: number }) {
   return (
     <g>
       <Zone
-        h={frameHeight(page)}
+        h={FRAME_H}
         label={page.name}
         w={FRAME_W}
         x={x}
@@ -143,7 +154,7 @@ function Wireframe({ page, x }: { page: Page; x: number }) {
         y={FRAME_TOP + S4}
       />
       {page.blocks.map((block, index) => {
-        const y = blockTop(page.blocks, index);
+        const y = blockY(page.blocks, index);
 
         return block.cards
           ? <CardRow key={index} name={block.name} x={inner} y={y} />

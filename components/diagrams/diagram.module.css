@@ -178,11 +178,11 @@
 }
 
 .quiet .wire {
-  stroke: var(--muted);
+  stroke: color-mix(in srgb, var(--muted) 55%, transparent);
 }
 
 .quiet .head {
-  fill: var(--muted);
+  fill: color-mix(in srgb, var(--muted) 55%, transparent);
 }
 
 .sticker {

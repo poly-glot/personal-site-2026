@@ -1,4 +1,4 @@
-import { createContext } from "preact";
+import { createContext, Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 import type { ComponentChildren } from "preact";
 import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
@@ -52,12 +52,27 @@ export function Study({ children }: Slot) {
   );
 }
 
+interface ChapterOpening {
+  lede?: string;
+  split?: boolean;
+  title: string;
+}
+
+function Opening({ lede, split, title }: ChapterOpening) {
+  const heading = <h2 class={`${styles.title} display`}>{title}</h2>;
+  const standfirst = lede && (
+    <p class={styles.lede}>{keepLastWordsTogether(lede)}</p>
+  );
+
+  if (!split) return <>{heading}{standfirst}</>;
+
+  return <div class={styles.opening}>{heading}{standfirst}</div>;
+}
+
 export function Chapter(
-  { label, title, lede, dark, children }: Slot & {
+  { label, title, lede, dark, split, children }: Slot & ChapterOpening & {
     dark?: boolean;
     label: string;
-    title: string;
-    lede?: string;
   },
 ) {
   const counter = useContext(CounterContext);
@@ -80,15 +95,18 @@ export function Chapter(
         rule={false}
         class={styles.eyebrow}
       />
-      <h2 class={`${styles.title} display`}>{title}</h2>
-      {lede && <p class={styles.lede}>{lede}</p>}
+      <Opening lede={lede} split={split} title={title} />
       <div class={styles.body}>{children}</div>
     </section>
   );
 }
 
-export function Split({ children }: Slot) {
-  return <div class={styles.split}>{children}</div>;
+export function Split({ reverse, children }: Slot & { reverse?: boolean }) {
+  return (
+    <div class={classes(styles.split, reverse && styles.reverse)}>
+      {children}
+    </div>
+  );
 }
 
 export function Facts({ children }: Slot) {
@@ -200,9 +218,10 @@ export function Figure(
   );
 }
 
-type ScreenSize = "lead" | "phone";
+type ScreenSize = "feature" | "lead" | "phone";
 
 const SCREEN_SIZES: Record<ScreenSize, string> = {
+  feature: styles.feature,
   lead: styles.lead,
   phone: styles.phone,
 };
@@ -284,6 +303,110 @@ export function Item({ title, children }: Slot & { title: string }) {
   );
 }
 
+export function Steps({ children }: Slot) {
+  return <ol class={styles.steps}>{children}</ol>;
+}
+
+export function Step(
+  { name, hint, open, children }: Slot & {
+    hint: string;
+    name: string;
+    open?: boolean;
+  },
+) {
+  return (
+    <li class={styles.step}>
+      <details class={styles.stepDetails} open={open}>
+        <summary class={styles.stepHead}>
+          <span class={styles.stepNumber} aria-hidden="true" />
+          <span class={`${styles.heading} display`}>{name}</span>
+          <span class={styles.stepHint}>{hint}</span>
+          <span class={styles.stepGlyph} aria-hidden="true" />
+        </summary>
+        {h("p", {
+          class: `${styles.note} ${styles.stepBody}`,
+        }, keepLastWordsTogether(children))}
+      </details>
+    </li>
+  );
+}
+
+interface FanPicture extends Picture {
+  label: string;
+}
+
+type FanPosition = "first" | "middle" | "last";
+
+function fanPosition(index: number, count: number): FanPosition {
+  if (index === 0) return "first";
+  if (index === count - 1) return "last";
+
+  return "middle";
+}
+
+export function Fanout(
+  { source, targets }: { source: FanPicture; targets: FanPicture[] },
+) {
+  return (
+    <figure class={styles.fanout}>
+      <div class={styles.fanSource}>
+        <Plate {...source} />
+        <span class={styles.fanLabel}>{source.label}</span>
+      </div>
+      {targets.map((target, index) => (
+        <Fragment key={target.src}>
+          <span
+            aria-hidden="true"
+            class={styles.fanJoint}
+            data-position={fanPosition(index, targets.length)}
+          />
+          <div class={styles.fanTarget}>
+            <Plate {...target} />
+          </div>
+          {index < targets.length - 1 && (
+            <span aria-hidden="true" class={styles.fanBus} />
+          )}
+          <span class={`${styles.fanLabel} ${styles.fanTargetLabel}`}>
+            {target.label}
+          </span>
+        </Fragment>
+      ))}
+    </figure>
+  );
+}
+
+export function Sites({ title, children }: Slot & { title: string }) {
+  return (
+    <div class={styles.sites}>
+      <h3 class={`${styles.heading} display`}>{title}</h3>
+      <ul class={styles.siteList}>{children}</ul>
+    </div>
+  );
+}
+
+export function Site(
+  { name, href, src, w, h }: Omit<Picture, "alt"> & {
+    href: string;
+    name: string;
+  },
+) {
+  return (
+    <li>
+      <a class={styles.site} href={href}>
+        <img
+          alt={`${name} case study`}
+          class={styles.plate}
+          decoding="async"
+          height={h}
+          loading="lazy"
+          src={src}
+          width={w}
+        />
+      </a>
+    </li>
+  );
+}
+
 export function Closing({ label, children }: Slot & { label: string }) {
   return (
     <section class="port-foot bleed-panel">
@@ -335,6 +458,11 @@ export const studyComponents = {
   Point,
   List,
   Item,
+  Steps,
+  Step,
+  Fanout,
+  Sites,
+  Site,
   Closing,
   ClosingCopy,
   ClosingLinks,

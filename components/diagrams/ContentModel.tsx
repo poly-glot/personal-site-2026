@@ -88,8 +88,9 @@ const ENTITY_Y = CAPTION_Y + S2;
 const ENTITY_H = sheetNodeHeight(ENTITIES[0].lines);
 const ENTITY_BOTTOM = ENTITY_Y + ENTITY_H;
 const ENTITY_MIDDLE = ENTITY_Y + ENTITY_H / 2;
-const BUS_Y = ENTITY_BOTTOM + S5;
-const PAGE_Y = BUS_Y + S4;
+const BUS_Y = ENTITY_BOTTOM + S5 + S4;
+const SHOWN_Y = BUS_Y - S3;
+const PAGE_Y = BUS_Y + S5 + S4;
 const HEIGHT = PAGE_Y + sheetNodeHeight(PAGE_LINES) + S3;
 
 function centre(entity: Entity): number {
@@ -110,6 +111,7 @@ export default function ContentModel() {
     <Canvas
       description={DESCRIPTION}
       title="Academy's content model: five kinds of record and where each appears"
+      quiet
       viewBox={`0 0 ${SHEET_W} ${HEIGHT}`}
     >
       <Line d={BUS} />
@@ -145,7 +147,7 @@ export default function ContentModel() {
           <Label
             text={entity.shown}
             x={centre(entity) + S2}
-            y={ENTITY_BOTTOM + S4}
+            y={SHOWN_Y}
           />
         </g>
       ))}

@@ -245,7 +245,7 @@ export const PROJECTS: WorkProject[] = [
     "story": {
       "Audience": "Professionals and the organisations that train them.",
       "Outcome":
-        "26 light pages, built from 24 components, that work from a keyboard. Staff can change any of 125 fields without breaking a layout.",
+        "26 accessible, fast-loading pages built from 24 reusable components. Staff update the content themselves while the design stays consistent, and the site is deployed on secure infrastructure.",
     },
     "client": "Academy, an imaginary brand",
     "kind": "study",
