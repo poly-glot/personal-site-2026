@@ -772,13 +772,16 @@ export const PROJECTS: WorkProject[] = [
     "id": "parley",
     "name": "Parley",
     "tagline":
-      "A communications agency's website that shows its work by region.",
+      "A London communications agency's 45-page site, which files its work by region and keeps every enquiry private.",
     "summary":
-      "Parley is the website of an imaginary London communications agency for clients caught up in complex international issues. It shows the agency's work by region, with coordinates and results, and takes a confidential first message. I built it as a WordPress theme with one stylesheet and 2,499 bytes of JavaScript, and the menu and carousels work without the script.",
+      "Parley is the website of an imaginary London communications agency, for clients caught up in complex international issues and the law firms that refer them. I built it in WordPress, so that each case study is filed under one of five regions and Parley's own staff can keep the site up to date.",
+    "story": {
+      "Audience":
+        "Foundations, family businesses, campaigners and public figures caught up in international issues, and the law firms and agencies that refer them.",
+      "Outcome":
+        "45 pages that work on a phone and from a keyboard, built from 32 reusable components. A client can find Parley's work by region, staff update the content themselves, and every enquiry is saved as a private record inside the site. The site is deployed on secure infrastructure.",
+    },
     "client": "Parley, an imaginary brand",
-    "delivered":
-      "WordPress theme, YAML content model, rerunnable content seed, enquiry form, Cloud Run deploy pipeline",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [

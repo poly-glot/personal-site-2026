@@ -1,11 +1,12 @@
 ---
 id: parley
 name: Parley
-tagline: A communications agency's website that shows its work by region.
-summary: Parley is the website of an imaginary London communications agency for clients caught up in complex international issues. It shows the agency's work by region, with coordinates and results, and takes a confidential first message. I built it as a WordPress theme with one stylesheet and 2,499 bytes of JavaScript, and the menu and carousels work without the script.
+tagline: A London communications agency's 45-page site, which files its work by region and keeps every enquiry private.
+summary: Parley is the website of an imaginary London communications agency, for clients caught up in complex international issues and the law firms that refer them. I built it in WordPress, so that each case study is filed under one of five regions and Parley's own staff can keep the site up to date.
+story:
+  Audience: Foundations, family businesses, campaigners and public figures caught up in international issues, and the law firms and agencies that refer them.
+  Outcome: 45 pages that work on a phone and from a keyboard, built from 32 reusable components. A client can find Parley's work by region, staff update the content themselves, and every enquiry is saved as a private record inside the site. The site is deployed on secure infrastructure.
 client: Parley, an imaginary brand
-delivered: WordPress theme, YAML content model, rerunnable content seed, enquiry form, Cloud Run deploy pipeline
-role: System author
 kind: study
 layout: chapters
 stack:
@@ -25,105 +26,188 @@ tone: "linear-gradient(135deg, #16299c22, #ffffff05)"
 cover: /img/work/parley.webp
 ---
 
+import ParleyChangeRoutes from "@/components/diagrams/ParleyChangeRoutes.tsx";
+import ParleyContentModel from "@/components/diagrams/ParleyContentModel.tsx";
+import ParleySiteMap from "@/components/diagrams/ParleySiteMap.tsx";
+import ParleyWireframes from "@/components/diagrams/ParleyWireframes.tsx";
+import Scorecard from "@/components/diagrams/Scorecard.tsx";
+
 <Study>
 
-<Chapter label="The client" title="A client who needs to be heard." lede="Parley is an imaginary London communications agency for clients caught up in complex international issues. In its own words, it runs media campaigns, handles reputational attack and makes the case to policymakers, usually all at once. The people reading its website are foundations, family businesses, campaigners, public figures and the law firms that refer them.">
-<Rows>
-  <Row title="Show where it has worked">A client needs to be heard in a particular country, so the case studies are listed by region, from Latin America to Asia.</Row>
-  <Row title="Explain each service">Seven services, each with what's included, how the work runs in four steps and the questions clients often ask.</Row>
-  <Row title="Introduce the people">The brand promises a senior partner on every account, so the team page shows who leads the work, and each profile lists their languages.</Row>
-  <Row title="Take a first message in confidence">A form that promises confidentiality, and a 24-hour line for anyone facing a crisis right now.</Row>
-</Rows>
+<Chapter label="The brief" title="A site for clients with a case to make abroad, and the firms that refer them." lede="Parley is an imaginary London communications agency for clients ‘caught up in complex international issues’, such as foundations, family businesses, campaigners and public figures, many of them sent by international law firms and other agencies. Its people, its clients and their results are invented too. The site needed to show where the agency has worked and who would lead the work, take a first message in confidence, be mobile friendly and accessible, and let Parley's own staff update it without a developer." />
+
+<Chapter label="The outcome" title="A client can see where Parley has worked, meet its team and get in touch." dark>
+<Board>
+  <Screen size="lead" src="/img/work/parley/board/home.webp" w={1600} h={900} alt="The Parley home page on a desktop: a menu bar over a dusk photograph of the Houses of Parliament, the headline Earn trust. Win the argument. with About us and Start a conversation buttons, and a blue panel headed A different kind of agency beside a paragraph about Parley and an About Parley button." />
+  <Screen size="lead" src="/img/work/parley/board/about.webp" w={1600} h={900} alt="The About page: a banner with the heading About and the line Because the story will be told either way over a greyscale photograph of people seated in a lecture hall, then a large P|Y mark beside a paragraph beginning Parley is a London communications agency and a smaller paragraph beginning We started Parley because we kept meeting the same kind of client." />
+  <Screen size="phone" src="/img/work/parley/board/home-phone.webp" w={804} h={1880} alt="The home page on a phone: the logo with search and menu buttons, a dusk photograph of the Houses of Parliament, the whole headline Earn trust. Win the argument., stacked About us and Start a conversation buttons, and the top of a blue panel headed A different kind of agency." />
+  <Screen src="/img/work/parley/board/service-media-relations.webp" w={1600} h={900} alt="The Media relations page: a microphone icon above the heading, the line Coverage that adds to the debate, and a first paragraph beginning Good coverage isn't luck, and it isn't volume." />
+  <Screen size="feature" src="/img/work/parley/board/services.webp" w={1600} h={900} alt="The Services page: a pale banner with the heading Services and the line One team. Every channel that matters., above the first service, Media relations, with a microphone icon in a circle and a short description." />
+  <Screen src="/img/work/parley/board/service-digital-social.webp" w={1600} h={900} alt="The Digital and social page: a three-node share icon above the heading, the line Build communities that talk back, and a first paragraph beginning An online audience is only worth having if it listens, trusts you and does something when you ask." />
+  <Screen src="/img/work/parley/board/service-crisis-reputation.webp" w={1600} h={900} alt="The Crisis and reputation page: a shield icon with a tick above the heading, the line Calm, fast and on the record, and a first paragraph beginning A crisis rarely arrives with notice." />
+  <Screen src="/img/work/parley/board/service-issues-advocacy.webp" w={1600} h={900} alt="The Issues advocacy page: a flag icon above the heading, the line Making the case where policy is made, and a first paragraph beginning Some problems can't be solved in a newspaper." />
+  <Screen src="/img/work/parley/board/service-podcasts-audio.webp" w={1600} h={900} alt="The Podcasts and audio page: a broadcast icon above the heading, the line Long-form trust, straight into their ears, and a first paragraph beginning No other medium gets 40 uninterrupted minutes of someone's attention." />
+  <Screen src="/img/work/parley/board/service-film-explainers.webp" w={1600} h={900} alt="The Film and explainers page: a play-button icon above the heading, the line Two minutes that explain everything, and a first paragraph beginning Every campaign has a lot of moving parts." />
+  <Screen src="/img/work/parley/board/service-design-development.webp" w={1600} h={900} alt="The Design and development page: a rocket icon above the heading, the line Websites built to carry a campaign, and a first paragraph beginning Your website is where every interview, post and briefing eventually sends people." />
+  <Screen src="/img/work/parley/board/work-land-reform-colombia.webp" w={1600} h={900} alt="A case study page: a darkened photograph of a stately building on a public square, the region label Latin America, the headline Setting the record straight on land reform and the client line A regional think tank, Bogotá, above a row of facts: Region Latin America, Services Media Relations, Digital & Social, Film & Explainers, Duration 6 months." />
+  <Screen src="/img/work/parley/board/work-due-process-west-africa.webp" w={1600} h={900} alt="A case study page: a darkened, grainy aerial photograph, the region label Africa, the headline Due process, not politics and the client line A former state governor, West Africa, above a row of facts: Region Africa, Services Crisis & Reputation, Media Relations, Issues Advocacy, Duration 14 months." />
+  <Screen size="feature" src="/img/work/parley/board/work.webp" w={1600} h={900} alt="The Our Work page: a blue banner with the heading Our Work and the line Complex international issues, handled with care, a paragraph saying much of Parley's best work never carries its name, and the top of the first region band, Latin America, with its coordinates 4.71° N · 74.07° W." />
+  <Screen src="/img/work/parley/board/work-press-freedom-central-europe.webp" w={1600} h={900} alt="A case study page: a darkened photograph of a building among trees, the region label Europe, the headline A voice for a jailed journalist and the client line A human rights foundation, Central Europe, above a row of facts: Region Europe, Services Digital & Social, Issues Advocacy, Design & Development, Duration 5 months." />
+  <Screen src="/img/work/parley/board/work-infrastructure-levant.webp" w={1600} h={900} alt="A case study page: a darkened photograph of a waterfront, the region label Middle East, the headline Explaining a project to European lenders and the client line A family-owned infrastructure group, the Levant, above a row of facts: Region Middle East, Services Crisis & Reputation, Media Relations, Design & Development, Duration 9 months." />
+  <Screen src="/img/work/parley/board/work-civil-society-south-east-asia.webp" w={1600} h={900} alt="A case study page: a darkened photograph of a large crowd, the region label Asia, the headline Ready for the foreign press and the client line A civil society coalition, South East Asia, above a row of facts: Region Asia, Services Media Relations, Digital & Social, Crisis & Reputation, Duration 4 months." />
+  <Screen src="/img/work/parley/board/team.webp" w={1600} h={900} alt="The Team page: a blue banner with the heading Our team and the line Small by design. Senior by default., above a large statement beginning We've been foreign correspondents, parliamentary researchers, campaigners and designers." />
+  <Screen src="/img/work/parley/board/team-eleanor-marsh.webp" w={1600} h={900} alt="The profile of Eleanor Marsh: a blue Our team banner, a black-and-white portrait of a woman with long fair hair, the name and the role Founder & Managing Partner, with the languages English, Spanish and Portuguese, and the start of a biography." />
+  <Screen src="/img/work/parley/board/team-tunde-adeyemi-clarke.webp" w={1600} h={900} alt="The profile of Tunde Adeyemi-Clarke: a blue Our team banner, a black-and-white portrait of a smiling man in a dark jacket, the name and the role Partner, Public Affairs & Africa, and the start of a biography." />
+  <Screen src="/img/work/parley/board/team-priya-raman.webp" w={1600} h={900} alt="The profile of Priya Raman: a blue Our team banner, a black-and-white portrait of a woman with dark hair in a dark jacket, the name and the role Director, Crisis & Asia, and the start of a biography." />
+  <Screen src="/img/work/parley/board/team-kasia-nowak.webp" w={1600} h={900} alt="The profile of Kasia Nowak: a blue Our team banner, a black-and-white portrait of a woman with fair hair, the name and the role Director, Digital & Audio, and the start of a biography." />
+  <Screen src="/img/work/parley/board/team-rafael-duarte.webp" w={1600} h={900} alt="The profile of Rafael Duarte: a blue Our team banner, a black-and-white portrait of a man with dark hair, the name and the role Head of Design & Development, and the start of a biography." />
+  <Screen src="/img/work/parley/board/team-oliver-grant.webp" w={1600} h={900} alt="The profile of Oliver Grant: a blue Our team banner, a black-and-white portrait of a young man in a dark jacket, the name and the role Account Manager, and the start of a biography." />
+  <Screen src="/img/work/parley/board/article-grow-social-audience-organically.webp" w={1600} h={900} alt="An article in the Digital category: a close photograph of a phone showing a grid of social app icons on a wooden table, the headline Ten ways to grow a social media audience without buying one, and a byline with Kasia Nowak, 22 September 2026 and a 4 minute read." />
+  <Screen size="phone" src="/img/work/parley/board/work-land-reform-colombia-phone.webp" w={804} h={1880} alt="A case study on a phone: the logo with search and menu buttons, a darkened photograph of a stately building under the label Latin America, the headline Setting the record straight on land reform, the client line A regional think tank, Bogotá, and a list of Region, Services and Duration above the first result, 3 corrections published." />
+  <Screen src="/img/work/parley/board/article-first-48-hours-crisis-checklist.webp" w={1600} h={900} alt="An article in the Crisis category: a photograph of white chairs round a wooden table, the headline The first 48 hours: a crisis checklist for boards, and a byline with Priya Raman, 18 September 2026 and a 3 minute read." />
+  <Screen size="feature" src="/img/work/parley/board/dispatches.webp" w={1600} h={900} alt="The Dispatches page: the heading Dispatches with a line about notes from the Parley team, a row of category links with All highlighted and a search box, and the featured article Ten ways to grow a social media audience without buying one, dated 22 Sep, in a blue panel beside a photograph of a phone." />
+  <Screen src="/img/work/parley/board/article-why-your-op-ed-was-rejected.webp" w={1600} h={900} alt="An article in the Media category: a photograph of a stack of newspapers, the headline Why your op-ed was rejected, and how to fix it, and a byline with Eleanor Marsh, 15 September 2026 and a 1 minute read." />
+  <Screen src="/img/work/parley/board/article-human-rights-and-trade.webp" w={1600} h={900} alt="An article in the International affairs category: a photograph of stacked shipping containers, the headline Human rights and trade: why the two can no longer be kept apart, and a byline with Tunde Adeyemi-Clarke, 11 September 2026 and a 1 minute read." />
+  <Screen src="/img/work/parley/board/article-select-committee-evidence.webp" w={1600} h={900} alt="An article in the Advocacy category: a photograph of the Houses of Parliament and Big Ben across the river, the headline What a select committee actually wants from you, and a byline with Tunde Adeyemi-Clarke, 8 September 2026 and a 1 minute read." />
+  <Screen src="/img/work/parley/board/article-disinformation-pr-problem.webp" w={1600} h={900} alt="An article in the Crisis category: a photograph of a hand holding a phone showing a screen of app icons, the headline Disinformation isn't a PR problem. Until it is., and a byline with Priya Raman, 4 September 2026 and a 1 minute read." />
+  <Screen src="/img/work/parley/board/article-should-you-start-a-podcast.webp" w={1600} h={900} alt="An article in the Digital category: a photograph of a microphone in front of a sound-panel wall, the headline Should your organisation start a podcast? Probably not. Here's when you should., and a byline with Kasia Nowak, 1 September 2026 and a 1 minute read." />
+  <Screen src="/img/work/parley/board/article-foreign-press-safety.webp" w={1600} h={900} alt="An article in the Media category: a photograph of a camera tripod on a paved path beside plants, the headline Speaking to the foreign press when it isn't safe at home, and a byline with Priya Raman, 28 August 2026 and a 1 minute read." />
+  <Screen src="/img/work/parley/board/article-accessibility-campaign-issue.webp" w={1600} h={900} alt="An article in the Digital category: a photograph of hands on a backlit keyboard in blue light, the headline Accessibility is a campaign issue, not a compliance box, and a byline with Rafael Duarte, 25 August 2026 and a 1 minute read." />
+  <Screen src="/img/work/parley/board/category-advocacy.webp" w={1600} h={900} alt="The Advocacy category page: the heading, the line Dispatches filed under this category, a row of links with Advocacy highlighted and a search box, then one entry dated 8 Sep with a photograph of the Houses of Parliament." />
+  <Screen src="/img/work/parley/board/category-crisis.webp" w={1600} h={900} alt="The Crisis category page: the heading, the line Dispatches filed under this category, a row of links with Crisis highlighted and a search box, then two entries, dated 18 Sep and 4 Sep, with photographs of white chairs and of a hand holding a phone." />
+  <Screen src="/img/work/parley/board/category-digital.webp" w={1600} h={900} alt="The Digital category page: the heading, the line Dispatches filed under this category, a row of links with Digital highlighted and a search box, then two entries, dated 22 Sep and 1 Sep, with photographs of a phone and of a microphone." />
+  <Screen src="/img/work/parley/board/category-international-affairs.webp" w={1600} h={900} alt="The International affairs category page: the heading, the line Dispatches filed under this category, a row of links with International affairs highlighted and a search box, then one entry dated 11 Sep with a photograph of shipping containers." />
+  <Screen src="/img/work/parley/board/category-media.webp" w={1600} h={900} alt="The Media category page: the heading, the line Dispatches filed under this category, a row of links with Media highlighted and a search box, then two entries, dated 15 Sep and 28 Aug, with photographs of newspapers and of a camera tripod." />
+  <Screen src="/img/work/parley/board/search.webp" w={1600} h={900} alt="The Search results page for the word media: the heading Search results, the line Results for “media”, the row of category links with a bordered search box holding media, and the first results, articles dated 22 Sep, with a photograph of a phone, and 18 Sep, with a photograph of white chairs round a table." />
+  <Screen src="/img/work/parley/board/contact.webp" w={1600} h={900} alt="The Contact page: a blue banner with the heading Contact and the line Tell us what's happening, a Send us a message heading with a promise that every conversation is confidential, a note that this is a demonstration website for a fictional agency, the first two form fields, Your name and Organisation, and a blue box headed Facing a crisis right now? with the 24-hour phone number." />
+  <Screen src="/img/work/parley/board/image-credits.webp" w={1600} h={900} alt="The Image credits page: a pale banner with the heading, a short note about the photography, and a table headed Image, Author and Licence with one credited photograph." />
+  <Screen src="/img/work/parley/board/privacy.webp" w={1600} h={900} alt="The Privacy policy page: a pale banner with the heading, then a short paragraph saying Parley is a fictional agency and this is a demonstration website, that the enquiry form keeps what you send privately and emails no one, and that nobody should enter real personal information." />
+  <Screen src="/img/work/parley/board/cookies.webp" w={1600} h={900} alt="The Cookie policy page: a pale banner with the heading, then three short paragraphs saying the site sets no cookies and stores nothing in the browser, that its two typefaces come from Google Fonts, and that Parley is a fictional agency and this is a demonstration website." />
+  <Screen src="/img/work/parley/board/accessibility.webp" w={1600} h={900} alt="The Accessibility statement page: a pale banner with the heading, then a paragraph saying everyone should be able to read the site and contact Parley, the line What was checked on 22 November 2026, by hand and with scripts, in Chrome, and the start of a list that begins with keyboard use and a Skip to content link." />
+  <Screen src="/img/work/parley/board/not-found.webp" w={1600} h={900} alt="The Page not found page: the heading This page has left the room, the line It may have moved, or it never existed., Back to home and Read Dispatches buttons, and the top of the footer." />
+</Board>
 </Chapter>
 
-<Chapter label="The site" title="From the first page to a message." lede="The site has six sections: About, Services, Our Work, Team, Dispatches (the blog) and Contact. Nothing needs a sign-in. The agency, its six staff, its clients and their results are invented, and the phone number is a placeholder.">
-<Figures numbered bleed>
-  <Figure src="/img/work/parley/home-work-carousel.webp" w={1600} h={1000} alt="The home page carousel labelled Our work: the coordinates 4.71° N · 74.07° W above the heading Latin America, the client line A regional think tank, Bogotá, a summary, a Read the case study link and four slide dots, beside a line drawing of a globe." title="Home">Browse the case studies by place, each headed by its coordinates and region.</Figure>
-  <Figure src="/img/work/parley/about-venn.webp" w={1600} h={1000} alt="A three-circle Venn diagram labelled Media relations, Digital campaigns and International public affairs, with the caption Most agencies are strong in one circle. We work in the overlap." title="About">See where the agency says it works: in the overlap of media, digital and public affairs.</Figure>
-  <Figure src="/img/work/parley/services-index.webp" w={1600} h={1000} alt="The services list showing Media Relations and Digital & Social, each with an icon, a summary and a View details button, on alternating sides." title="Services">Compare the seven services, then open one for the steps and the questions clients ask.</Figure>
-  <Figure src="/img/work/parley/team.webp" w={1600} h={1000} alt="Greyscale portraits in a grid with names and roles, from Eleanor Marsh, Founder & Managing Partner, to Kasia Nowak, Director, Digital & Audio, with a second row starting below." title="Team">Meet the six people behind the accounts, each with a profile page.</Figure>
-</Figures>
+<Chapter label="Strategy" title="Show clients that Parley has worked in their region, so they write or call." lede="Parley says it is small on purpose. It takes on a limited number of clients and causes, and the person who pitches to a client runs their campaign. It promises that every conversation is confidential, and its team has worked in more than 30 countries. So the site has two jobs. It has to show a client that Parley has worked in their part of the world and who would lead the work, and it has to stay easy for Parley's own staff to keep up to date." split>
+<Split reverse>
+<Steps>
+  <Step open name="The aim" hint="clients get in touch">Winning means someone who needs Parley's help, or the law firm advising them, sees that Parley has worked in their part of the world, sees who would lead the work, and gets in touch. Both ways in are on the Contact page: a form for a first message, and a 24-hour line for anyone facing a crisis right now. Parley promises that a partner will reply to a message within one working day.</Step>
+  <Step name="Where to play" hint="five regions, seven services">Parley works across five regions, Africa, Asia, Europe, Latin America and the Middle East, and offers seven services, from media relations and crisis work to podcasts and film. Its clients need to raise an issue that matters, build a serious voice in their field or answer misleading claims about them, and many reach Parley through international law firms and other agencies. It also says who it is not for. ‘If you want to be on breakfast television tomorrow to launch a new product, we're probably not your agency.’</Step>
+  <Step name="How to win" hint="the work shown by place">Parley says most agencies are strong in one of three things, media relations, digital campaigns or international public affairs, and that it does all three together. So the site shows its work by place and names the people who do it. The home page and the Our Work page head each case study with its region and the map position of a city there, such as 4.71° N · 74.07° W for Bogotá. The Team page gives each person their role, such as Partner, Public Affairs & Africa, so a client from West Africa can see who would lead their case.</Step>
+  <Step name="What it takes" hint="staff who keep it current">Case studies, services, people and the 24-hour number change, and every page that shows them has to agree. One case study appears on the home page, the Our Work page and its own page, and one service is named on the case studies that use it as well as on the Services page and the home page. Parley's staff have to keep all of that current without a developer. And a first message has to stay private, as Parley has promised.</Step>
+  <Step name="How we'd know" hint="enquiries, and who sends them">Success would show in enquiries. Each one is saved with what the client needs help with, one of the seven services or Not sure yet, and who referred them, from a law firm to the press. Over time those two answers would tell Parley which services clients ask for most, and which law firms, agencies and other referrers send them, so it could see where its next clients come from. Parley is imaginary, so there are no real enquiries and no figures.</Step>
+</Steps>
+<Sites title="Similar strategy">
+  <Site name="Halveron" href="/work/halveron/" src="/img/work/halveron.webp" w={2560} h={1440} />
+  <Site name="Wealth" href="/work/wealth/" src="/img/work/wealth.webp" w={2560} h={1440} />
+</Sites>
+</Split>
 </Chapter>
 
-<Chapter label="The work" title="Each case study starts with a place." lede="Our Work is where a visitor checks whether Parley has worked in their part of the world, and the About page says the team has worked in more than 30 countries. The content model, the set of fields an editor fills in, puts the place first in every case study.">
+<Chapter label="Content architecture" title="Parley shows one case study for each of the five regions it works in." lede="Working across five regions decided how the site is organised. Its content architecture, what the site holds and where each thing lives, is 45 pages under a menu of six sections: About, Services, Our Work, Team, Dispatches (Parley's articles) and Contact. Our Work lists the five regions, each with one case study, the coordinates of a city there and a client line, which describes the client without naming them, such as ‘A regional think tank, Bogotá’. The path in blue is one a client might take, from Our Work to the Latin America case study and on to the Contact page.">
+<ParleySiteMap />
+</Chapter>
+
+<Chapter label="Components" title="Every page about Parley's work ends with an invitation to talk." lede="The aim is a first conversation, so the pages a client reads on the way end by asking for one. A band with a heading, a line of text and a Talk to us button, which leads to the Contact page, closes the home page, the About page, every service, every case study and every profile. It is one component, one of the 32 repeated pieces every page is built from, such as the header. Their colours, type sizes and spacing come from one shared list of 40 values, called design tokens, so anything staff add matches the rest.">
+<ParleyWireframes />
+</Chapter>
+
+<Chapter label="Editorial control" title="Staff give each case study a region and choose its services from a list." lede="Parley's staff keep the site up to date themselves, from a new case study to a changed 24-hour number. Most of what they change is held in fields, each one labelled piece of information, such as a person's role. The 66 fields are grouped into 11 edit boxes on WordPress's edit screens, and together they make up the content model. A case study starts with a place. Its region is chosen from a list of five, and its coordinates and client line are typed in. Its services are chosen from the list of services, so each service is entered once.">
+<ParleyContentModel />
+<Fanout
+  source={{ src: "/img/work/parley/edit-case-study.webp", w: 1600, h: 1000, alt: "The WordPress form for the case study Setting the record straight on land reform. Under the title is the Case study box: Region Latin America, Coordinates 4.71° N · 74.07° W and Client line A regional think tank, Bogotá, then the start of the Region summary.", label: "One form: the Colombia land reform case study" }}
+  targets={[
+    { src: "/img/work/parley/fan-home-carousel.webp", w: 1600, h: 900, alt: "The first slide of the Our work carousel on the home page: the coordinates 4.71° N · 74.07° W above the large heading Latin America, the line A regional think tank, Bogotá beside it, a four-line teaser about a Colombian policy institute, a Read the case study link and four dots for the slides.", label: "Its slide on the home page" },
+    { src: "/img/work/parley/fan-our-work.webp", w: 1600, h: 900, alt: "The Latin America band on the Our Work page: the coordinates 4.71° N · 74.07° W, the heading Latin America with the line A regional think tank, Bogotá beside it, a paragraph that begins Latin America is where Parley began, and a Read the case study link, over a faded black and white photograph of a square with a long colonnaded building.", label: "Its band on the Our Work page" },
+    { src: "/img/work/parley/fan-case-study.webp", w: 1600, h: 900, alt: "The top of the case study's own page: over a dark photograph of a square, the label Latin America, the title Setting the record straight on land reform and the line A regional think tank, Bogotá, all in capitals. Below it are the facts Region Latin America, Services Media Relations, Digital & Social, Film & Explainers and Duration 6 months.", label: "Its own page" },
+  ]}
+/>
+</Chapter>
+
+<Chapter label="Accessibility and speed" title="Built to be responsive and accessible, and designed for editorial control" lede="I built the site so that Parley's work in each region is straightforward to find and the Contact page is easy to reach, across screen sizes and interaction methods, including keyboard navigation. These principles are built into shared components and design tokens, and applied across all 45 pages. Staff can update the content while the structure, accessibility and visual consistency stay intact. It has not yet been tested with a screen reader, in Safari or Firefox, or on a real phone, which is one of the limits listed near the end of this study.">
 <Figures>
-  <Figure src="/img/work/parley/work-regions.webp" w={1600} h={1000} alt="The Latin America band on the Our Work page: the coordinates 4.71° N · 74.07° W, the client line A regional think tank, Bogotá, a summary and Read the case study, over a faded photograph of a city square, with the Africa band starting below." title="Our Work">Read the work one region at a time, with the client and a summary for each.</Figure>
-  <Figure src="/img/work/parley/case-study.webp" phone="/img/work/parley/case-study-phone.webp" phoneAlt="The same case study on a phone, with the three results stacked in one column, each with a blue rule on its left, then the heading The challenge." w={1600} h={1000} alt="A case study page with the facts Region Latin America, Services Media Relations, Digital & Social, Film & Explainers, and Duration 6 months, above the results 3 corrections published, 11 international interviews and 2.4m explainer views." title="A case study">Check the region, the services and how long the work took, then the results. On a phone the results stack.</Figure>
+  <Figure src="/img/work/parley/home-work-carousel.webp" phone="/img/work/parley/home-carousel-phone.webp" phoneAlt="The same carousel on a phone: the Our work label, the coordinates 4.71° N · 74.07° W, the region Latin America, the client line A regional think tank, Bogotá, the paragraph about the case study and a Read the case study link." w={1600} h={1000} alt="The Our work carousel on the Parley home page on a desktop: the coordinates 4.71° N · 74.07° W above the region Latin America, the client line A regional think tank, Bogotá, a paragraph about the land reform case study, a Read the case study link, four slide dots with the first selected, and a pale globe outline on the right." title="A carousel without a script">The home page shows its case studies as slides in a row that scrolls sideways and stops on each one. The row can be moved with the arrow keys, and it still scrolls with JavaScript switched off.</Figure>
+  <Figure src="/img/work/parley/case-study.webp" phone="/img/work/parley/menu-phone.webp" phoneAlt="The phone menu open on the same case study page: a dark panel with a close button listing About, Services, Our Work, Team, Dispatches and Contact, above the Region and Services facts." w={1600} h={1000} alt="The Setting the record straight on land reform case study on a desktop, scrolled a little: the headline over a darkened photograph of a public square, the client line A regional think tank, Bogotá, a row of facts (Region Latin America, Services Media Relations, Digital & Social, Film & Explainers, Duration 6 months) and three results: 3 corrections published, 11 international interviews, 2.4m explainer views." title="The phone menu">On a phone the six menu links fold behind one button, and every link in the open menu can be tapped. With JavaScript switched off, the same six links show as a row under the logo.</Figure>
 </Figures>
-<Facts>
-  <Fact k="Model">A case study is a set of fields written in a YAML file, a plain text format. The shared platform's yacf plugin reads the file and builds the edit screen in the WordPress admin.</Fact>
-  <Fact k="Place">A region chosen from five (Africa, Asia, Europe, Latin America and the Middle East), coordinates written as text, such as 4.71° N · 74.07° W, and a line naming the client.</Fact>
-  <Fact k="Results">A list of figures, each with a label. The sample Bogotá study says '3 corrections published'. Like every result on the site, it is written copy and measures nothing.</Fact>
-  <Fact k="Services">Links to the service pages. The template writes the services line from their titles, so renaming a service updates every case study that uses it.</Fact>
-  <Fact k="Chapters">The challenge, Our approach and The outcome are three rich-text fields. The template leaves out any that is empty, so a short study needs no layout of its own.</Fact>
-  <Fact k="Next">The Next case study link follows the order an editor sets, and wraps from the last study to the first.</Fact>
-</Facts>
+<Scorecard
+  runs={[
+    {
+      label: "Mobile",
+      scores: [
+        { label: "Performance", value: 92 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "3.3 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0" },
+        { label: "Page weight", value: "171 KB" },
+      ],
+    },
+    {
+      label: "Desktop",
+      scores: [
+        { label: "Performance", value: 98 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "1.0 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0.003" },
+        { label: "Page weight", value: "277 KB" },
+      ],
+    },
+  ]}
+  checks={[
+    { label: "Works from a keyboard", value: "Yes" },
+    { label: "Works without JavaScript", value: "Yes" },
+    { label: "Theme JavaScript", value: "2.4 KB" },
+    { label: "Cookies set", value: "None" },
+  ]}
+  source="Lighthouse 12.8 on the live home page, 22 November 2026: the middle of three runs."
+/>
 </Chapter>
 
-<Chapter label="The front end" title="One stylesheet and two small scripts." lede="Those places reach a visitor through the carousel on the home page and long pages of photographs. I kept the code a browser downloads for them small: one stylesheet, and 2,499 bytes of JavaScript that adds controls to pages that already work without it.">
-<Figures>
-  <Figure wide src="/img/work/parley/service-faq.webp" w={1600} h={1000} alt="The heading Questions we're often asked, with the question Will our conversation be confidential? open and answered, above two closed questions." title="The questions">Open a question to read the answer. Each one is the browser's own open and close element, with no script behind it.</Figure>
-</Figures>
-<Facts>
-  <Fact k="41 files">The theme's CSS is 41 small files, one per piece of the page: 3 for the base, 6 for small parts such as the logo, and 32 for components. Together they hold 2,738 lines.</Fact>
-  <Fact k="One file">One shell command joins the 41 files in a fixed order into `main.css` as Docker builds the server image. The repository ignores that file and keeps only the sources.</Fact>
-  <Fact k="Before and after">The commit that made the change says the page went from 41 render-blocking requests (files the browser must finish before drawing anything), 20.3 KB compressed, to 1 request of 8.8 KB. The live file today is 55,748 bytes, and the server sends it compressed as 9,998 bytes.</Fact>
-  <Fact k="Local setup">If `main.css` is missing, the theme loads the 41 files one by one in the same order, so the local development setup runs without a build step.</Fact>
-  <Fact k="Scripts">The menu script (679 bytes) loads on every page and the carousel script (1,820 bytes) on the home page only. Both wait until the browser has read the page, so neither holds it up while it loads.</Fact>
-  <Fact k="Without them">On a screen narrower than 1,024 pixels the menu links sit in a row under the logo, and each carousel on the home page scrolls sideways and stops on each slide. The menu script shows a menu button, and pressing Escape closes the menu and puts focus back on the button. The carousel script adds the dots and arrows.</Fact>
-</Facts>
+<Chapter label="The build" title="Staff edit the content, a developer ships the code, and each message stays private." lede="Enquiries are how Parley would judge the site, and each one has to stay private. So a message goes to no outside form service. The one form, on the Contact page, sends it to one handler, the code that checks a message and saves it, and the handler keeps it as a private record inside Parley's own WordPress, where only signed-in staff can read it. Staff change content in WordPress, and a developer changes code only through a deploy, a fresh build of the site that replaces the live one.">
+<ParleyChangeRoutes />
 </Chapter>
 
-<Chapter label="The enquiry" title="A first message, kept in the admin." lede="After reading the work, a client writes in, and the form works without JavaScript like the rest of the site. Parley promises every conversation is confidential, so the form saves each message as a private record inside WordPress instead of passing it to an outside form service.">
-<Figures>
-  <Figure wide src="/img/work/parley/contact-form.webp" phone="/img/work/parley/contact-form-phone.webp" phoneAlt="The enquiry form on a phone, with full-width fields and a label above each, from Organisation (optional) to Were you referred to us? (optional)." w={1600} h={1000} alt="The enquiry form with fields for name, organisation, email, phone, what the visitor needs help with and who referred them, beside a panel headed Facing a crisis right now? with a phone number and the office address." title="Contact">Tell the agency what's happening, or call the 24-hour line beside the form. The number on screen is a placeholder.</Figure>
-</Figures>
+<Chapter label="The limits" title="Where the strategy is not proven yet." lede="Two of the site's rules are built into its code: every case study is filed under a region, and every enquiry is kept inside Parley's own WordPress. Each gap below is set against the part of the strategy it puts at risk.">
 <List>
-  <Item title="A private record.">Each message becomes an enquiry, a content type that stays off the public site. The admin lists enquiries with the email and the topic in their own columns.</Item>
-  <Item title="Plain HTML first.">The form posts to WordPress's own handler, and the thank-you is the contact page with `?sent=1` on the address. The browser checks the required fields and marks a field red only after the visitor has tried it.</Item>
-  <Item title="Checked on the server.">A one-time token from WordPress, called a nonce, shows the post came from this form. The handler cleans every field before saving it, and saves nothing without a name, an email and a message.</Item>
-  <Item title="A trap for bots.">A hidden field called website stays empty for people. A bot that fills it lands on the same thank-you page as everyone else, so it cannot tell that the handler threw its message away.</Item>
-  <Item title="The crisis line.">The 24-hour number on the contact page and in the footer is a link that starts a call on a phone. Both read the same two fields in Site settings, the number as shown and the number to dial, so an editor changes it in one place.</Item>
+  <Item title="The aim: nobody is told when an enquiry arrives.">Nothing in the site&apos;s code sends an email, so a message waits in WordPress until a member of staff opens the list of enquiries. Until then the client hears nothing from Parley.</Item>
+  <Item title="The aim: a message the site turns away gives no reason.">The browser asks for a name, an email address and a message before it sends the form. If a message still reaches the site without one of them, the visitor is taken back to an empty form with no explanation, and what they typed is lost. The consent tick works the other way round: the browser asks for it, but a message sent without it is still saved.</Item>
+  <Item title="How to win: the home page shows four of the five regions.">The case-study carousel on the home page is set to show four, in the order staff choose. Asia, fifth in that order, appears only on the Our Work page, so a client from South East Asia who stays on the home page does not see that Parley has worked in their region.</Item>
+  <Item title="What it takes: the enquiry form's topics do not follow a renamed service.">The ‘What can we help with?’ list on the enquiry form is typed into the form, and again into the enquiry record, instead of being read from the services. When a service was renamed on a test copy of the site, run on my own computer, its new name appeared everywhere else the service is shown, but not in that list. Adding a service to it, or changing it, needs a developer.</Item>
+  <Item title="What it takes: the starting content comes back on every deploy.">A script called the seed fills the site with its starting content, and it runs on every deploy. It puts back the title, fields, order and picture of every page and record it created, and every value on the Site settings screen, the 24-hour number included, which suits a demonstration. It leaves alone whatever staff add, the items in the menus and the enquiries. On a live site it would run once, at launch.</Item>
+  <Item title="The aim: accessibility has been checked in Chrome only.">Keyboard use, the phone menu, text contrast and the pages without JavaScript were checked by hand and with scripts, in Chrome and its phone mode. The site has not been tested with a screen reader, in Safari or Firefox, or on a real phone, and no automatic accessibility check runs when the site is updated. The thank-you that replaces the form after a message is sent is not announced to a screen reader, so someone using one may not know the message went.</Item>
+  <Item title="What it takes: hardening is unfinished.">The site holds visitors&apos; messages, but it sends no content security policy, a header that tells the browser which scripts to trust, and it still announces its WordPress and PHP versions. Junk messages are stopped only by a security token and a hidden field that people never see but automated programs fill in, and nothing limits how often the form can be sent. Every page also loads its two typefaces from Google, so each visit reaches a company outside the site.</Item>
+  <Item title="How we'd know: there are no real enquiries to count.">Each enquiry is saved with what the client needs help with and who referred them, but Parley is imaginary and the form asks visitors not to enter real personal information, so there are none to count. The newsletter box in every footer, The Parley Brief, keeps nothing either, so interest in Parley&apos;s writing cannot be counted.</Item>
 </List>
 </Chapter>
 
-<Chapter label="The platform" title="One seed fills the site on each deploy." lede="The contact page that holds the form reaches production the way every page, service and case study does: through one seed, a PHP file that writes the site's content and is safe to run again. Parley shares its server image and the yacf plugin with five other client sites. The theme, the model and the seed belong to this repository.">
-<Facts>
-  <Fact k="Seed">One file of 968 lines writes 8 pages, 7 services, 5 case studies, 6 team profiles, 9 posts, 4 menus, the site settings and 23 images, then deletes WordPress's sample content.</Fact>
-  <Fact k="Safe to rerun">It finds each post by its slug, the last part of its address, and updates it if it exists. It tags each image so a rerun does not upload it twice, and fills a menu only when the menu is empty.</Fact>
-  <Fact k="On each deploy">GitHub Actions builds the image and deploys it to Cloud Run, Google's service for running containers, then runs the seed as a job and waits for it. If the job fails, the run stops before it updates Firebase Hosting, which serves the public address. By then Cloud Run is already serving the new image.</Fact>
-  <Fact k="Why">The first deploys left the seed job as a manual step. I added it to the pipeline so seeded content and images, including the team portraits, reach production without one.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="The limits" title="Where it stops today." lede="Parley is a demonstration, so the phone number and the legal pages are placeholders, and the newsletter form in the footer goes nowhere. The gaps that belong to the build start with the enquiry form and the seed.">
-<List>
-  <Item title="Nobody hears about an enquiry.">The handler sends no email, so someone has to open the Enquiries list in the admin. An agency that promises a reply within one working day needs a notification for each new record, and that is the first thing I would add.</Item>
-  <Item title="The seed undoes admin edits.">Each deploy rewrites the seeded pages, posts and settings, so a change made in the admin, such as a new crisis line number, lasts until the next push. Menus are the exception. I would change the seed to write content only when it is missing.</Item>
-  <Item title="A rejected form says nothing.">If the name, email or message reaches the server empty, the handler sends the visitor back to the form with no error. Only the browser checks the consent box. I would have the handler say what is missing and check consent too.</Item>
-  <Item title="The home page clips on a phone.">At 390 pixels wide the second line of the headline, Win the argument, loses its last letter, because the CSS stops the line from wrapping. I would let it wrap or scale the type with the screen.</Item>
-  <Item title="Nothing checks the build.">The repository has no tests, and the deploy runs no page or accessibility checks. The live pages send no content security policy, the header that tells a browser which scripts it may run. I would add a page check after the seed runs, and set the headers in the Firebase Hosting config.</Item>
-</List>
-</Chapter>
-
-<Chapter label="What carried forward" title="What carried forward." lede="A client who needs to be heard can find a place where Parley has worked and send a confidential message, with or without JavaScript. The piece still missing is an email that tells a partner the message has arrived.">
+<Chapter label="The lessons" title="Three things I would do the same way again." lede="Looking back, the goal was to show clients where Parley has worked and to hear from them, on a site its own staff keep current, with every first message kept private. These are the choices that did most of that work.">
 <Split>
 <List>
-  <Item title="Model the brand's own idea.">Parley's clients need to be heard in particular places, so a case study starts with a region and coordinates, and the home page and Our Work lead with them.</Item>
-  <Item title="Join the stylesheets at build time.">41 small files kept the CSS easy to find and edit. One shell command in the image build removed the cost of sending them one by one.</Item>
-  <Item title="Build the page first, then add the script.">The menu, the carousels and the questions work in HTML and CSS, so a slow or failed script costs the visitor the extra controls and nothing more.</Item>
+  <Item title="Start a case study with a place.">Parley&apos;s work is shown by place, so in the content model a case study starts with one: a region chosen from five, its coordinates and a client line. Staff fill them in on the same form as the rest of the study, and the home page and the Our Work page print them above each case study they show, as the Colombia case study&apos;s form and its three pages show further up this study.</Item>
+  <Item title="Choose from a list instead of typing a name twice.">Because a case study chooses its services from the list of services, renaming Media Relations on a test copy of the site changed the name on the four case studies that use it, on the Services page, on the home page and on the service&apos;s own page. The one place it did not reach was the topic list on the enquiry form, which is typed by hand, and that is one of the limits above.</Item>
+  <Item title="Keep the first message inside the site.">Confidentiality is part of what Parley offers, so the enquiry form sends a message to Parley&apos;s own WordPress and to no outside service. It is saved as a private record that only signed-in staff can read, with what the client needs help with and who referred them. What it still needs is a notice to staff when a message arrives, which is the first limit above.</Item>
 </List>
 <Facts>
-  <Fact k="Stylesheet">41 files joined into 1, about 10 KB as sent</Fact>
-  <Fact k="JavaScript">2,499 bytes in 2 scripts</Fact>
-  <Fact k="Model">4 content types and 11 field groups in 7 YAML files</Fact>
+  <Fact k="Pages">45</Fact>
+  <Fact k="Components">32, built from 40 design tokens</Fact>
+  <Fact k="Content">66 fields across 11 edit boxes</Fact>
+  <Fact k="Stylesheet">9.9 KB compressed</Fact>
   <Fact k="Source">[github.com/poly-glot/parley](https://github.com/poly-glot/parley)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
-<Closing label="Visit it">
-  <ClosingCopy>Pick a region and read how the imaginary agency says it handled the work there.</ClosingCopy>
+<Closing label="Try it">
+  <ClosingCopy>See the site as a client would: find your region on the Our Work page, read its case study, then follow Talk to us to the Contact page.</ClosingCopy>
   <ClosingLinks>
     <ClosingLink href="https://parley.junaid.guru/" external>Open Parley <span aria-hidden="true">→</span></ClosingLink>
   </ClosingLinks>
