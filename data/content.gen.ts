@@ -273,13 +273,16 @@ export const PROJECTS: WorkProject[] = [
     "id": "airport-drupal",
     "name": "Meridian Airport",
     "tagline":
-      "Airport pages that editors build in Drupal and travellers get from Next.js.",
+      "An imaginary Birmingham airport's 29-page site, put together by staff in Drupal and drawn for travellers by Next.js.",
     "summary":
-      "The website for Meridian Airport, an imaginary two-terminal airport in Birmingham, written for travellers checking their trip before they leave the house. Editors build its 29 pages in Drupal from 48 components, and a separate Next.js app serves them to visitors. The decision worth reading is that split, and what an editor's save does to the cache.",
+      "Meridian Airport is the website of an imaginary airport with two terminals in Birmingham. I built it in two parts, with Drupal holding the pages and the editor the airport's staff use, and Next.js drawing the pages travellers see and keeping them ready in a cache.",
+    "story": {
+      "Audience":
+        "Travellers flying from Birmingham, and the people dropping them off or meeting them.",
+      "Outcome":
+        "29 pages built from 48 reusable components, quick on a desktop, slower on a phone, and passing the automated accessibility checks at two widths. From the home page a traveller reaches flights, travel notices, security waits, parking and the way in; the flights and waits are sample data typed in for the demonstration. Staff build and change pages themselves, though a change to the menu, the footer or a travel notice lasts only until the next code update. Both services run on Cloud Run, deployed without a stored key.",
+    },
     "client": "Meridian Airport, an imaginary brand",
-    "delivered":
-      "29-page website, 48 React components, split-flap flight board, two Cloud Run services, publishing on save",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [

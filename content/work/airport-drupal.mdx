@@ -1,11 +1,12 @@
 ---
 id: airport-drupal
 name: Meridian Airport
-tagline: Airport pages that editors build in Drupal and travellers get from Next.js.
-summary: The website for Meridian Airport, an imaginary two-terminal airport in Birmingham, written for travellers checking their trip before they leave the house. Editors build its 29 pages in Drupal from 48 components, and a separate Next.js app serves them to visitors. The decision worth reading is that split, and what an editor's save does to the cache.
+tagline: An imaginary Birmingham airport's 29-page site, put together by staff in Drupal and drawn for travellers by Next.js.
+summary: Meridian Airport is the website of an imaginary airport with two terminals in Birmingham. I built it in two parts, with Drupal holding the pages and the editor the airport's staff use, and Next.js drawing the pages travellers see and keeping them ready in a cache.
+story:
+  Audience: Travellers flying from Birmingham, and the people dropping them off or meeting them.
+  Outcome: 29 pages built from 48 reusable components, quick on a desktop, slower on a phone, and passing the automated accessibility checks at two widths. From the home page a traveller reaches flights, travel notices, security waits, parking and the way in; the flights and waits are sample data typed in for the demonstration. Staff build and change pages themselves, though a change to the menu, the footer or a travel notice lasts only until the next code update. Both services run on Cloud Run, deployed without a stored key.
 client: Meridian Airport, an imaginary brand
-delivered: 29-page website, 48 React components, split-flap flight board, two Cloud Run services, publishing on save
-role: System author
 kind: study
 layout: chapters
 stack:
@@ -26,115 +27,174 @@ tone: "linear-gradient(135deg, #14213d22, #ffffff05)"
 cover: /img/work/airport-drupal.webp
 ---
 
-import PublishPath from "@/components/diagrams/PublishPath.tsx";
+import AirportChangeRoutes from "@/components/diagrams/AirportChangeRoutes.tsx";
+import AirportContentModel from "@/components/diagrams/AirportContentModel.tsx";
+import AirportSiteMap from "@/components/diagrams/AirportSiteMap.tsx";
+import AirportWireframes from "@/components/diagrams/AirportWireframes.tsx";
+import Scorecard from "@/components/diagrams/Scorecard.tsx";
 
 <Study>
 
-<Chapter label="The traveller" title="Check your flight before you leave the house." lede="Meridian Airport has two terminals in Birmingham, and its website is for travellers. Its home page promises they can check everything before they leave the house. A traveller had to find the answers on the first screen, and the airport's editors had to change those answers as soon as anything changed.">
-<Rows>
-  <Row title="Check a flight">Read the departures and arrivals board on the home page, and type a flight number or a city to filter it.</Row>
-  <Row title="Hear about disruption">Travel notices sit at the top of the home page, such as fog delaying morning departures, each with a link to check the flight.</Row>
-  <Row title="Plan the trip">Compare the car parks, find the way in by train, car or coach, and see both terminals on a map.</Row>
-  <Row title="Change it the same morning">The airport's editors build and change pages themselves, without a developer or a deploy.</Row>
-</Rows>
+<Chapter label="The brief" title="An airport website for travellers getting ready to fly." lede="Meridian Airport is an imaginary airport with two terminals in Birmingham, and its airlines, flights, offers and people are invented. The site needed to tell travellers whether their flight was on time, how long security would take, where to park and how to get there, on a phone or a desk. The airport's staff needed to change those answers themselves the same day, for example when fog delays morning departures. The home page follows an existing design. I built the site with coding agents, and the airport's name, words and pictures were made for it, the pictures generated with AI." />
+
+<Chapter label="The outcome" title="A traveller can find the departures board, the car parks and the way in." dark>
+<Board>
+  <Screen size="lead" src="/img/work/airport-drupal/board/home.webp" w={1600} h={900} alt="The Meridian Airport home page on a desktop: a red travel notice about fog delaying morning departures with a Check my flight link, the menu bar, and a golden sunrise photograph seen through terminal windows with the control tower on the right. The headline Welcome to Meridian Airport sits beside a white flight tracking form with a Search flights button, and a Security wait times strip runs below." />
+  <Screen size="lead" src="/img/work/airport-drupal/board/flights.webp" w={1600} h={900} alt="The Live flights page: a pale blue banner with the heading and the line Today's departures and arrivals, with the terminal, gate and latest status for every flight, then a dark departures board headed Departures and arrivals with a clock reading 09:42 and the first rows, Lisbon, Reykjavik and Amsterdam, in flip-tile letters." />
+  <Screen size="phone" src="/img/work/airport-drupal/board/home-phone.webp" w={804} h={1880} alt="The home page on a phone: a red travel notice about fog delaying morning departures marked 1 of 3, the logo with search, bag and menu buttons, a golden sunrise photograph behind the headline Welcome to Meridian Airport with the weather line 18 degrees sunny, three short links for duty free, parking and Fast Track, and the top of the white flight tracking form." />
+  <Screen src="/img/work/airport-drupal/board/flights-airlines.webp" w={1600} h={900} alt="The Airlines and destinations page: a pale blue banner with the heading Airlines and destinations and the line Four airlines, 20 destinations, and most of them under three hours away, then the heading Our airlines above cards for Meridian Air and Nordvik." />
+  <Screen src="/img/work/airport-drupal/board/flights-alerts.webp" w={1600} h={900} alt="The Flight alerts page: a pale blue banner with the heading Flight alerts and the line Gate changes, delays and boarding calls by text or WhatsApp, the moment they happen, then the heading How alerts work above a numbered list that starts Enter your flight number and date." />
+  <Screen src="/img/work/airport-drupal/board/at-the-airport-shopping.webp" w={1600} h={900} alt="The Shopping page: a pale blue banner with the heading and the line Reserve duty free online and collect it on the way to the gate, beside a photograph of travellers with wheeled bags on a bright airside concourse, then the heading Reserve and collect." />
+  <Screen src="/img/work/airport-drupal/board/parking.webp" w={1600} h={900} alt="The Parking page: a dark blue photograph of a covered car park behind the heading and the line Three car parks, all step-free to check-in, with three figures below (2 min closest walk, 10 min free pick-up wait, 3 pounds drop-off), beside a white Book parking form with three car parks to choose from, P1 Short-stay, P2 Long-stay and Mid-Stay." />
+  <Screen src="/img/work/airport-drupal/board/at-the-airport-lounges.webp" w={1600} h={900} alt="The Lounges and rest page: a pale blue banner with the heading and the line Quiet space, showers and work desks, by the hour, beside a photograph of a lounge looking out at aircraft at dawn, then the heading Hourly lounges." />
+  <Screen src="/img/work/airport-drupal/board/getting-here.webp" w={1600} h={900} alt="The Getting here page: a pale blue banner with the heading and the line about trains from the city centre running every 10 minutes, then the heading Airport map beside a map pane with a Directions button and a Larger map button." />
+  <Screen src="/img/work/airport-drupal/board/help.webp" w={1600} h={900} alt="The Help and contact page: a pale blue banner with the heading Help and contact and the line Answers to common questions, and how to reach us if you cannot find what you need, then the heading Contact us above boxes for Phone and Email." />
+  <Screen src="/img/work/airport-drupal/board/help-special-assistance.webp" w={1600} h={900} alt="The Special assistance page: a pale blue banner with the heading Special assistance and the line Step-free routes, sunflower lanyards and help from kerb to gate, then the heading Who it is for above a paragraph on free help getting through the airport." />
+  <Screen src="/img/work/airport-drupal/board/help-baggage-and-lost-property.webp" w={1600} h={900} alt="The Baggage and lost property page: a pale blue banner with the heading Baggage and lost property and the line Allowances by airline, what you can carry through security, and how to report a lost item, then the heading Baggage allowances above a paragraph on standard allowances." />
+  <Screen src="/img/work/airport-drupal/board/help-travelling-with-children.webp" w={1600} h={900} alt="The Travelling with children page: a pale blue banner with the heading Travelling with children and the line Family security lanes, prams to the aircraft door and somewhere to play before you board, then the heading Through security above two paragraphs on the family lane and baby food." />
+  <Screen src="/img/work/airport-drupal/board/help-first-time-flying.webp" w={1600} h={900} alt="The First time flying? page: a pale blue banner with the heading First time flying? and the line Check-in, bag drop, security, the departure lounge and the gate: five steps, then the heading Before you leave home above a paragraph on how early to arrive." />
+  <Screen src="/img/work/airport-drupal/board/at-the-airport.webp" w={1600} h={900} alt="The At the airport page: a pale blue banner with the heading and the line Everything between the door and the gate, then the heading Before you fly above links for Security and customs, Eat and drink, Shopping and Lounges and rest." />
+  <Screen src="/img/work/airport-drupal/board/at-the-airport-eat-and-drink.webp" w={1600} h={900} alt="The Eat and drink page: a pale blue banner with the heading and the line Cafes, restaurants and bars before and after security, beside a photograph of a coffee machine and a case of pastries by tall terminal windows, then the heading Before you start." />
+  <Screen src="/img/work/airport-drupal/board/at-the-airport-security.webp" w={1600} h={900} alt="The Security and customs page: a pale blue banner with the heading Security and customs and the line What to pack, what to take out, and how early to arrive, then the heading How early to arrive above a paragraph and a list of bag drop, security and gate times." />
+  <Screen src="/img/work/airport-drupal/board/destinations.webp" w={1600} h={900} alt="The Destination guides page: a pale blue banner with the heading and the line Three places you can reach from here before lunch, then the heading Our guides above the tops of three photographs, of Lisbon, the northern lights and Marrakech." />
+  <Screen src="/img/work/airport-drupal/board/destinations-lisbon.webp" w={1600} h={900} alt="The Lisbon in a long weekend page: a pale blue banner with the heading and the line Where to eat, which hills to climb and the tram worth queueing for, beside a photograph of a tram climbing a cobbled street in golden light, then the heading Getting there from Meridian." />
+  <Screen size="phone" src="/img/work/airport-drupal/board/flights-phone.webp" w={804} h={1880} alt="The Live flights page on a phone: the logo with search, bag and menu buttons, a pale blue banner with the heading, then the dark Departures and arrivals board with its 09:42 clock, Departures and Arrivals tabs, a search box and the first six rows from Lisbon to Geneva in flip-tile letters." />
+  <Screen src="/img/work/airport-drupal/board/destinations-marrakech.webp" w={1600} h={900} alt="The Marrakech for first-timers page: a pale blue banner with the heading and the line Riads, rooftops and how to find your way around the souks, beside a photograph of a riad courtyard with a fountain and lanterns, then the heading Getting there from Meridian." />
+  <Screen src="/img/work/airport-drupal/board/destinations-reykjavik.webp" w={1600} h={900} alt="The Chasing the northern lights page: a pale blue banner with the heading and the line When to go, what to pack and how far from the city you really need to go, beside a photograph of green northern lights over a lava field, then the heading Getting there from Meridian." />
+  <Screen src="/img/work/airport-drupal/board/about.webp" w={1600} h={900} alt="The About Meridian page: a pale blue banner with the heading and the line A two-terminal airport in Birmingham, built around a railway station, beside a photograph of a glass terminal and control tower at blue hour, then a cream box headed Demonstration note." />
+  <Screen src="/img/work/airport-drupal/board/about-careers.webp" w={1600} h={900} alt="The Careers page: a pale blue banner with the heading and the line Around 3,100 people work at Meridian, beside a photograph of staff in high-visibility jackets in an operations room, then a cream box headed Demonstration note saying the roles are fictional." />
+  <Screen src="/img/work/airport-drupal/board/about-media-centre.webp" w={1600} h={900} alt="The Media centre page: a pale blue banner with the heading and the line News from Meridian Airport, and how journalists can reach us, then a cream Demonstration note saying the releases are fictional, and the heading Latest news." />
+  <Screen src="/img/work/airport-drupal/board/about-sustainability.webp" w={1600} h={900} alt="The Sustainability page: a pale blue banner with the heading and the line about carbon, noise, waste and water, then a cream Demonstration note saying all figures are fictional, and the heading Our targets." />
+  <Screen src="/img/work/airport-drupal/board/accessibility.webp" w={1600} h={900} alt="The Accessibility page: a pale blue banner with the heading and the line How this website meets WCAG 2.2 level AA, then a cream Please note box saying Meridian Airport is a fictional airport, and the heading Using this website." />
+  <Screen src="/img/work/airport-drupal/board/cookies.webp" w={1600} h={900} alt="The Cookies page: a pale blue banner with the heading and the line One strictly necessary cookie at most, then a cream Please note box saying the airport is fictional, and the heading What cookies are." />
+  <Screen src="/img/work/airport-drupal/board/privacy.webp" w={1600} h={900} alt="The Privacy page: a pale blue banner with the heading and the line What this website collects about you, which is very little, then a cream Please note box saying the airport is fictional, and the heading The short version." />
+  <Screen src="/img/work/airport-drupal/board/terms.webp" w={1600} h={900} alt="The Terms of use page: a pale blue banner with the heading and the line The rules for using this website, then a cream Please note box saying the airport is fictional, and the heading About this website." />
+  <Screen src="/img/work/airport-drupal/board/sitemap.webp" w={1600} h={900} alt="The Site map page: a pale blue banner with the heading and the line Every page on this website, grouped by section, then white boxes headed Home, Flights, and Parking and getting here, each with its page links." />
+  <Screen src="/img/work/airport-drupal/board/not-found.webp" w={1600} h={900} alt="The Page not found response: a plain white page with only the words Not found in a large serif face at the top left, and no menu, footer or links." />
+</Board>
 </Chapter>
 
-<Chapter label="The site" title="Everything between the door and the gate." lede="The site has 29 pages, and a traveller needs no account for any of them. No form books or charges anything, and every form that asks for personal details says it is a demonstration.">
-<Figures numbered bleed>
-  <Figure src="/img/work/airport-drupal/hero-and-search.webp" w={1600} h={1000} alt="The Meridian Airport home page: a Travel disruption notice above the heading Welcome to Meridian Airport over a sunrise airport picture, beside a white Flight tracking card with a Search flights button." title="Home">Start from the flight tracking card, or go straight to duty free, parking and Fast Track.</Figure>
-  <Figure src="/img/work/airport-drupal/live-board.webp" w={1600} h={1000} alt="The Security wait times panel, showing 8 min at Terminal 1 and 22 min at Terminal 2, above the dark Live flights board with its clock, Departures and Arrivals tabs, search field and a first row for Lisbon, boarding." title="Flights">See the security queue at each terminal, then switch between departures and arrivals or search the board.</Figure>
-  <Figure src="/img/work/airport-drupal/parking-compare.webp" w={1600} h={1000} alt="Compare car parks: cards for P1 Short-stay from £4 an hour, P2 Long-stay from £8.50 a day with a Recommended tag, and Mid-Stay from £12 a day." title="Parking">Compare the three car parks by price, with the long stay marked as the one to pick.</Figure>
-  <Figure src="/img/work/airport-drupal/getting-here-map.webp" w={1600} h={1000} alt="The Airport map section of Getting here: rows for By train, By car or taxi and By bus or coach beside a drawn map of Terminal 1, Terminal 2, the car parks and runway 09/27." title="Getting here">Choose train, car or coach, and find each terminal and car park on a drawn map.</Figure>
-</Figures>
-</Chapter>
-
-<Chapter label="The split" title="Drupal stores the pages and Next.js serves them." lede="Behind those 29 pages are two services. Editors build pages in Drupal 11 with Canvas, Drupal's visual page builder, and a separate Next.js app asks Drupal for each page, draws it and keeps it in a cache until an editor saves a change. Once a page is cached, a sleeping Drupal doesn't hold up a traveller.">
-<PublishPath />
-<Split>
-<Facts>
-  <Fact k="Editor">Canvas runs on Drupal's own Cloud Run address, behind a sign-in. Editors place components on a page and fill in their words.</Fact>
-  <Fact k="Content API">Next.js asks `/canvas/content-api` for a path and gets back a tree of components, each with its settings (props) and the spaces other components can fill (slots).</Fact>
-  <Fact k="Page shell">Next.js takes the notice bar, header and footer out of the tree and wraps the rest in one `main` element, so the skip link has a place to land.</Fact>
-  <Fact k="Two services">`airport-web` runs Next.js on Node 24, and Cloud Run starts at most 2 copies of it. `airport-drupal` runs Drupal on FrankenPHP, a PHP web server. One container for both would need a process supervisor and would share its scaling and cold starts.</Fact>
-  <Fact k="Front door">Firebase Hosting sends every path on airport.junaid.guru to `airport-web`. Two scheduled pings every 15 minutes keep both services warm.</Fact>
-</Facts>
-<Facts>
-  <Fact k="Cache">Each copy of the Next.js app keeps every published page in its own cache under one tag. Drafts in the editor skip the cache and fetch live.</Fact>
-  <Fact k="On save">A small Drupal module waits until a saved page or page template is in the database, then sends Next.js one request with a secret token and a 5-second timeout.</Fact>
-  <Fact k="The check">Next.js compares the token in constant time, so timing the reply can't reveal it, and answers 401 to a missing or wrong one. A good token expires the tag at once, and the next visitor to that copy gets the new page.</Fact>
-  <Fact k="If it fails">Drupal logs a warning and keeps the save. Every cached page also goes stale after an hour (3,600 seconds), so a missed call leaves an old page up for about an hour.</Fact>
-  <Fact k="Tested">Playwright checks both 401 cases. No test covers a successful save yet.</Fact>
-</Facts>
+<Chapter label="Strategy" title="Put the answers on the home page, so a traveller arrives ready to fly." lede="For an airport, the site has two jobs. It has to answer what a traveller needs to know on the day they fly, from a delayed flight to the nearest car park, in the order they need it. And it has to stay easy for the airport's own staff to keep those answers right from the first flight of the morning to the last." split>
+<Split reverse>
+<Steps>
+  <Step open name="The aim" hint="travellers arrive ready">Winning means a traveller turns up ready: at the right terminal, in time for security, with somewhere to park or a train to catch. The airport puts its promise in the line that describes its home page to search engines: ‘Live flights, security wait times and parking at Meridian Airport, Birmingham. Check everything before you leave the house.’ Every page on the site is there to help keep it.</Step>
+  <Step name="Where to play" hint="two terminals and a railway station">Meridian is a two-terminal airport in Birmingham, ‘built around a railway station’, with trains from the city centre every 10 minutes. Its four airlines fly mostly short flights to Europe and North Africa. Its travellers include families, people flying for the first time and anyone who needs help from kerb to gate, along with the people dropping them off or meeting them. The site has to work for all of them, on whatever screen they have to hand.</Step>
+  <Step name="How to win" hint="the answers, in the order needed">The home page puts the answers in the order a traveller needs them. Travel notices, the airport's warnings such as fog delaying morning departures, sit above everything. The first screen also holds a flight search and the security wait at each terminal. Below them come the departures board, the car parks with their prices, and the way in by train, car or coach, each with a link to a page that has the detail.</Step>
+  <Step name="What it takes" hint="staff change them the same morning">The answers change through the day. When a flight is delayed or a lane closes on the approach road, staff have to change the notice, the board and the security waits the same morning, without waiting for a developer or a deploy, a new release of the site's code. And the menu, the footer and the phone number have to agree on every page.</Step>
+  <Step name="How we'd know" hint="fewer calls, fewer late travellers">Success would show as fewer calls to the passenger enquiries line, and fewer travellers who miss a gate change or turn up at the wrong terminal. Over time the airport would learn which answers people still had to phone for. Meridian is imaginary, so there are no calls and no figures, and the site runs no analytics, so it does not count visits either.</Step>
+</Steps>
+<Sites title="Similar strategy">
+  <Site name="BHX Travel" href="/work/bhx-travel/" src="/img/work/bhx-travel.webp" w={2560} h={1440} />
+  <Site name="Academy" href="/work/academy/" src="/img/work/academy.webp" w={2560} h={1440} />
+</Sites>
 </Split>
 </Chapter>
 
-<Chapter label="The components" title="Editors build every page from 48 components." lede="Every tree Next.js gets from Drupal is built from the same 48 React components, and Canvas reads that list from the running Next.js app. The coding agents that built the site worked to a rulebook in the repository, and one rule in it keeps the components reusable: editorial copy lives in Canvas pages, never in a component.">
-<Figures>
-  <Figure src="/img/work/airport-drupal/where-we-fly.webp" w={1600} h={1000} alt="Where we fly: the heading Find your next holiday, a counter reading 1 to 3 of 4 with previous and next buttons, and cards for Cairo, New York and Beijing with price, flight time and frequency." title="City rail">Step through destinations with the arrows. Each card gives the starting fare, the flight time and how often it flies.</Figure>
-  <Figure src="/img/work/airport-drupal/at-the-airport.webp" w={1600} h={1000} alt="At the airport: the line Everything between the door and the gate above four navy towers numbered 01 to 04, for security and customs, eat and drink, baggage and lost property, and terminal maps." title="Tower grid">Four numbered links to what a traveller needs inside the terminal. Every word on them lives in the page, where an editor can change it.</Figure>
-</Figures>
-<Facts>
-  <Fact k="Three files">`component.yml` names the component and lists its props and slots, `index.tsx` draws it, and an optional CSS module styles it. 31 of the 48 have one.</Fact>
-  <Fact k="Fixed words">A component may hold only the words every page shares, such as the skip link and the legend labels. Destinations and notices live in pages. The forms bend the rule: the parking form's prices and the flight search's 3 dates are written in the code.</Fact>
-  <Fact k="Names">The content API turns prop names into camelCase, such as imageSrc. The first full render returned 500 on three pages until the names matched, so every prop and slot is camelCase now.</Fact>
-  <Fact k="Scale">The 29 pages hold 999 component instances between them. The home page alone has 48.</Fact>
-</Facts>
+<Chapter label="Content architecture" title="The home page's sections lead a traveller on to the pages with the detail." lede="The questions travellers bring decided how the site is organised. Its content architecture, what the site holds and where each thing lives, is 29 pages under a header menu of six links: Flights, Shop, Parking, Lounges, Getting here and Assistance. The home page is one long page in nine sections, from travel notices to getting here, and all but one of them link to the pages behind them. The path in blue is one a traveller might take, from the departures board on the home page to Live flights, then by its Parking and pick-up link to Parking.">
+<AirportSiteMap />
 </Chapter>
 
-<Chapter label="The board and the hero" title="The page works before the script arrives." lede="Of the 48 components, 5 also run in the browser, and the two a traveller sees first are among them: the hero and the departures board. Both arrive from the server as plain HTML that works without JavaScript, and a script adds the motion afterwards.">
-<Figures>
-  <Figure src="/img/work/airport-drupal.webp" phone="/img/work/airport-drupal/board-phone.webp" phoneAlt="The same board on a phone, with the clock, the Departures and Arrivals tabs, the search field and columns for time, destination and flight." w={1600} h={988} alt="The dark split-flap board on the flights page, headed Departures and arrivals, with rows for Lisbon boarding, Reykjavík delayed and Amsterdam gate open." title="Departures board">Switch between departures and arrivals, or type a flight or city to filter the rows. On a phone the table scrolls sideways.</Figure>
-  <Figure src="/img/work/airport-drupal/hero-and-search.webp" phone="/img/work/airport-drupal/home-phone.webp" phoneAlt="The home page on a phone: the Travel disruption notice, the header icons, and Welcome to Meridian Airport under a 14°C cloudy line." w={1600} h={1000} alt="The home page hero with a sunrise airport picture behind the heading Welcome to Meridian Airport and the Flight tracking card." title="Hero">Two of the 12 skies: a sunny morning on the desktop and a cloudy afternoon on the phone.</Figure>
-</Figures>
-<Facts>
-  <Fact k="Board">The server sends ordinary captioned tables. The script turns each cell into split-flap tiles and keeps a hidden copy of the text for screen readers.</Fact>
-  <Fact k="Demo data">The rows are part of the page's content. Five scripted events, such as a gate change and a delay, play one every 6 seconds and move the clock on a minute each. There is no flight-data feed.</Fact>
-  <Fact k="Motion">A visitor who asks for reduced motion sees the final characters without the flip. Each status is a dot and a word, so colour is never the only signal.</Fact>
-  <Fact k="Hero">The server sends the rainy-morning picture. The script swaps in one of 12 AI-generated photos (4 times of day by 3 kinds of weather) from the visitor's clock and the weather the editor chose.</Fact>
-  <Fact k="Contrast">A Python script blends the hero's dark overlay, in its desktop and phone forms, over all 12 photos and fails if white text would fall below 4.5:1. CI doesn't run it.</Fact>
-  <Fact k="Behaviours">All of it lives in one 607-line script that finds elements by `data-*` attributes. A small helper catches and logs a behaviour that throws, and the page stays up.</Fact>
-</Facts>
+<Chapter label="Components" title="The departures board is one component, on the home page and Live flights." lede="The departures board is built once and placed on the home page and Live flights. That makes it a component, a piece of a page written once in the Next.js app and used wherever needed. The site has 48, and five also run in the browser, among them the board, whose letters flip into place like the boards in a terminal. The drawing shows three pages as stacks of top-level components, 10 on the home page and five each on Live flights and Getting here, with smaller ones inside, such as the board's 12 flight rows on the home page.">
+<AirportWireframes />
 </Chapter>
 
-<Chapter label="The bootstrap" title="Rebuild the whole site from an empty database." lede="The board, the hero and the 29 pages around them have to exist before an editor first signs in. The repository holds the pages as a content recipe and the templates and components as exported configuration. On an empty database the production image builds the site from them, and CI rehearses those steps on every pull request.">
+<Chapter label="Editorial control" title="Staff change pages themselves, but the menu and footer sit in 10 templates." lede="Staff work in the Canvas editor, Drupal's page builder. They place components on a page and fill in each one's settings, the labelled boxes for its words, links and choices; the 48 kinds of component offer 215 settings between them. Around every page sits a page template holding the header, the menu and the footer. The main template serves 16 pages, so one footer change reaches all 16. The other nine serve the other 13 pages, one for four help pages, one for two flights pages and one each for seven, each with its own copy of the menu and footer.">
+<AirportContentModel />
+<Fanout
+  source={{ src: "/img/work/airport-drupal/edit-template.webp", w: 1600, h: 1000, alt: "The Canvas editor with the page template called 'meridian' open. The preview shows the site header, a green 'Page content' placeholder and the dark site footer, outlined and labelled 'Site footer'. On the right the Settings panel lists the footer's fields: the enquiries text 'Open 24 hours. Passenger enquiries', the phone number 0121 496 0123, the phone link, the text after the number and the legal line.", label: "One template: meridian" }}
+  targets={[
+    { src: "/img/work/airport-drupal/fan-about.webp", w: 1600, h: 900, alt: "The bottom of the About Meridian page: a 'Work with us' heading with links to Careers and Media centre, a 'Contact' heading with the address and phone number, then the dark footer. It reads 'Open 24 hours. Passenger enquiries 0121 496 0123, every day 05:00–23:00. Live chat in the app.' and ends with '© 2026 Meridian Airport Ltd. A fictional airport.'", label: "About Meridian" },
+    { src: "/img/work/airport-drupal/fan-destinations.webp", w: 1600, h: 900, alt: "The bottom of the Destination guides page: a 'More places to go' heading, a 'Before you go' heading with a short list and a pale note, then the same dark footer with the phone number 0121 496 0123 and the legal line.", label: "Destination guides" },
+    { src: "/img/work/airport-drupal/fan-cookies.webp", w: 1600, h: 900, alt: "The bottom of the Cookies page: 'Managing cookies', 'Changes' and 'Contact' headings with a few lines under each, then the same dark footer with the phone number 0121 496 0123 and the legal line.", label: "Cookies" },
+  ]}
+/>
+</Chapter>
+
+<Chapter label="Accessibility and speed" title="Every page passes the automated accessibility checks, and some gaps remain." lede="Pages fit a phone screen from 320 pixels wide, and the menu works with or without JavaScript. The automated accessibility checks (WCAG 2.2 AA) found no failures on any page at two widths. Pages load quickly on a desktop and more slowly on a phone, where the hero, the photograph at the top of the home page, is the largest thing to arrive. Gaps remain: the board's search box has no visible label, map labels are about 7 pixels high on a phone, unavailable buttons give no visible reason, and Live flights shifts as its clock turns into tiles.">
+<Figures>
+  <Figure src="/img/work/airport-drupal/board.webp" phone="/img/work/airport-drupal/board-phone.webp" phoneAlt="The departures board on a phone: the heading Departures and arrivals, a clock reading 09:42, Departures and Arrivals tabs, a search box, and six rows of flip-tile letters from Lisbon to Geneva, cut off at the Flight column." w={1600} h={1000} alt="The departures board on the Live flights page: the heading Departures and arrivals with a clock reading 09:42, Departures and Arrivals tabs, a search box, and rows in flip-tile letters from Lisbon, Boarding, to Marrakech, On time, with Reykjavik marked Delayed and Geneva marked Cancelled." title="The departures board">On a desktop the whole board fits, from the time to the gate, the status and a note on what to do. On a phone it shows the time, the destination and part of the flight number, and the terminal, gate and status sit behind a sideways scroll with nothing to say they are there. A short scripted set of changes plays as the page opens, because no real flights reach it.</Figure>
+  <Figure src="/img/work/airport-drupal/hero-sunny.webp" phone="/img/work/airport-drupal/hero-night-phone.webp" phoneAlt="The home page on a phone under the night rainy sky: a red travel notice, the logo with search, bag and menu buttons, a dark blue rain-streaked night photograph behind the headline Welcome to Meridian Airport, the weather line 12 degrees light rain, and the top of the flight tracking form." w={1600} h={1000} alt="The home page on a desktop under the morning sunny sky: a red travel notice, the menu bar, and a golden sunrise over the apron seen through terminal windows, with the control tower on the right, behind the headline Welcome to Meridian Airport and a white flight tracking form." title="Twelve skies, one check">The hero photograph follows the time of day on the traveller's own device and the weather staff choose, so four times of day and three kinds of weather make 12 photographs, all generated. A Python script lays the hero's dark shading over each one and checks that white text stays at 4.5 to 1 or better. It is run by hand, not by the automatic checks that run on every proposed change.</Figure>
+</Figures>
+<Scorecard
+  runs={[
+    {
+      label: "Mobile",
+      scores: [
+        { label: "Performance", value: 85 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "3.7 s" },
+        { label: "Blocking time", value: "34 ms" },
+        { label: "Layout shift", value: "0.001" },
+        { label: "Page weight", value: "715 KB" },
+      ],
+    },
+    {
+      label: "Desktop",
+      scores: [
+        { label: "Performance", value: 97 },
+        { label: "Accessibility", value: 100 },
+        { label: "Best practices", value: 100 },
+        { label: "SEO", value: 100 },
+      ],
+      metrics: [
+        { label: "Largest content shown", value: "1.0 s" },
+        { label: "Blocking time", value: "0 ms" },
+        { label: "Layout shift", value: "0.003" },
+        { label: "Page weight", value: "715 KB" },
+      ],
+    },
+  ]}
+  checks={[
+    { label: "Works from a keyboard", value: "Yes, 4 pages tested" },
+    { label: "Narrowest screen", value: "Fits from 320 px" },
+    { label: "Works without JavaScript", value: "Board, hero, menu" },
+    { label: "Cookies set", value: "None" },
+  ]}
+  source="Lighthouse 12.8 on the live home page, 23 November 2026: the middle of three runs."
+/>
+</Chapter>
+
+<Chapter label="The build" title="Drupal holds the pages for staff, and Next.js draws them for travellers." lede="The site runs as two services. Drupal holds the pages and the Canvas editor. Next.js draws each page once and keeps the copy in its cache, so a cached page is served without waiting for Drupal, and a save tells Next.js to draw the pages again. A deploy replaces both, and also puts the 10 page templates back as the code has them. I wrote the 48 components, the 29 pages and the code that joins them, working with coding agents to a rulebook in the repository. The home page's design, Drupal, Canvas and Next.js came from elsewhere.">
+<AirportChangeRoutes />
+</Chapter>
+
+<Chapter label="The limits" title="Where the strategy is not proven yet." lede="Nothing on the live site was changed for this study, so each gap is described as it stands. These are the ones a traveller or member of staff would meet first, and the smaller accessibility gaps are named further up, beside the accessibility checks. The one that puts the strategy most at risk is that a deploy puts back what staff change in the page templates. Each limit is set against the part of the strategy it affects.">
 <List>
-  <Item title="The steps on an empty database.">Drush, Drupal's command-line tool, installs the site from the exported configuration, rebuilds its caches, then applies the content recipe. A database that already exists gets `drush deploy` instead.</Item>
-  <Item title="CI rehearses the first install.">CI is the set of automated checks GitHub runs on every pull request. Its end-to-end job builds the production Drupal image, bootstraps it against an empty MySQL 8.4, starts the production Next.js image and runs Playwright against the pair.</Item>
-  <Item title="The rebuild came from a failure.">The first production install stopped because Drupal was still using what it had cached during the install, which didn't know the Metatag module yet. The same steps had passed in CI and in local rehearsals. I finished the install by hand, and a cache rebuild between the install and the recipe now prevents it.</Item>
-  <Item title="Tests that follow the recipe.">Playwright opens each of the 29 pages at 1440 and 390 pixels wide and checks that it loads without errors, has one `main` landmark, shows the exact title and description, and logs no console errors. axe-core, an accessibility checker, fails the run on any breach of the WCAG A and AA rules it checks, up to WCAG 2.2. A new page in the recipe joins both checks with no change to the tests.</Item>
-  <Item title="Then the editors take over.">The recipe runs once, on the first install. After that the content belongs to the editors in production.</Item>
+  <Item title="The aim: the flight search ignores what a traveller types.">The flight search at the top of the home page asks for departures or arrivals, a day and a flight or city, then opens Live flights on its departures with every row showing, whatever was chosen. Nothing on Live flights reads what the form sends. The board&apos;s own search box, on Live flights, does filter the rows.</Item>
+  <Item title="How to win: on a phone, the board hides whether a flight is delayed.">On a phone the board shows the time, the destination and part of the flight number. The terminal, the gate and the status sit off to the right, in a box that scrolls sideways, with nothing to say they are there. The table is wider than a phone screen, and I gave it no narrower layout. The site has also not been tried on a real phone, with a screen reader, or in Safari or Firefox.</Item>
+  <Item title="How to win: the home page shows three different times, and some dates and counts are wrong.">The hero shows the traveller&apos;s real clock. The board starts at 09:42 whatever the hour and says it ‘refreshes every minute’, though nothing refreshes, and the security waits say ‘updated 09:42’. The flight search offers ‘Today, 3 October’, and the hero promises ‘112 destinations’ while the Airlines and destinations page lists 20. A travel notice warns of lane closures ‘until 12 October’, the Shopping page&apos;s offers ended on 9 October, and two of the three closing dates on the Careers page have passed. All of it was typed in as fixed text for a demonstration, and nothing updates it.</Item>
+  <Item title="The aim: a mistyped address leaves a traveller with no way back.">An address that does not exist answers with the words ‘Not found’ and nothing else: no header, no menu, no footer and no link to the home page. A traveller who follows an old link has to retype the address. The header, menu and footer come from the page templates in Drupal, and the not-found page I wrote in Next.js draws none of them, only the heading.</Item>
+  <Item title="The aim: a few lines on the site do not match what it does.">Four forms say ‘Nothing you type is sent anywhere’, yet sending one would put what was typed into the page&apos;s web address, which reaches the site&apos;s server, although nothing keeps it. The footer&apos;s Instagram, X, YouTube and LinkedIn icons open those networks&apos; real front pages, while the Accessibility page says such links ‘go nowhere in this demonstration’.</Item>
+  <Item title="What it takes: a deploy puts back what staff change in the templates.">Page templates are part of the site&apos;s configuration, which every deploy imports again from the code. So a travel notice, a menu link or the phone number that staff change on the live site goes back to the old version at the next deploy, unless a developer copies the change into the code first. A menu link or the phone number also has to be changed by hand in all 10 templates. Travel notices are what staff would change on a bad morning, which is why this gap matters most.</Item>
+  <Item title="What it takes: pictures and flights are typed in by hand, and some words sit in code.">A member of staff picks a picture by typing its file path, widths and sizes into text boxes, with no upload and no preview, so a typing mistake shows a broken picture, and a new picture needs a developer to add the file first. Each flight row is ten settings typed by hand, because there is no flight feed. Some words and numbers are written into the code, out of staff&apos;s reach: the forms&apos; words, the parking prices, the flight search&apos;s three dates, the hero&apos;s temperatures and the board&apos;s column heads. The ‘1 of 3’ on each travel notice is typed too, so adding a notice means renumbering the others.</Item>
+  <Item title="What it takes: a saved change may not reach every traveller straight away.">When staff save a page or a template, Drupal tells Next.js once, after the save, and waits five seconds at most. If that call fails, it is logged and not tried again, and travellers see the old page until the cached copy runs out after an hour. Up to two copies of Next.js run, each with its own cache, and Drupal&apos;s one call reaches only one of them, although I have not tested that. Two tests check that a call without the right secret key is turned away, and none checks a successful save.</Item>
+  <Item title="What it takes: nothing checks a change before it goes live, and some protections are missing.">The automatic checks run on proposed changes, but a change pushed straight to the main branch goes live with no test at all. The site sends only one security header beyond HTTPS, the one that stops other sites showing it inside a frame. The part of Canvas that serves the pages to Next.js is marked experimental, and the Canvas editor does not stop staff placing a component where it does not belong. Drupal&apos;s own address shows a blank page to anyone who opens it, and the home page loads 202 KB of compressed JavaScript in 8 files.</Item>
 </List>
 </Chapter>
 
-<Chapter label="The limits" title="Where it stops today." lede="The bootstrap gives editors a working site on the first day. These are the limits a visitor or an editor would meet first.">
-<List>
-  <Item title="No real flights, waits or bookings.">The board, the security waits and the weather are fixed copy and scripted events, and the parking and alert forms send nothing. Flights and notices are components on pages, so I would first make flights their own kind of record in Drupal before connecting a feed.</Item>
-  <Item title="A save reaches one copy of the app.">Cloud Run can run 2 copies of Next.js at once, each with its own cache, and Drupal's call reaches only one of them. A visitor sent to the other copy can see the old page for about an hour. Fixing it needs a cache both copies share.</Item>
-  <Item title="The content API is experimental.">In Canvas 1.12 the module behind it, Canvas Headless, may change its APIs without a deprecation path, so a Canvas upgrade could break what Next.js reads.</Item>
-  <Item title="Slots accept anything.">Canvas 1.12 ignores the components a slot expects, so an editor can put any component in any slot.</Item>
-  <Item title="Drupal's own pages are bare.">A page opened on the Drupal address shows Drupal's unstyled Stark theme. Redirecting those routes to the public site is still an open question.</Item>
-</List>
-</Chapter>
-
-<Chapter label="The learning" title="What carried forward." lede="When fog delays the morning flights, an editor changes one notice in the home page template and saves. The next traveller to open the home page before leaving the house sees the new notice, and everyone after gets it from the cache.">
+<Chapter label="The lessons" title="Three things I would do the same way again." lede="The airport needed travellers to find flights, notices, waits, parking and the way in on any screen, and its staff to change those answers the same day. These three choices did most of that work, and each one still has a gap I would close.">
 <Split>
 <List>
-  <Item title="Give editors and visitors their own service.">Drupal and Next.js scale on their own, and one cache tag cleared on save brings the public pages up to date.</Item>
-  <Item title="Keep the words in the pages.">48 components make up all 29 pages, and an editor changes their words without a deploy, apart from the few the forms hold in code.</Item>
-  <Item title="A passing rehearsal can still miss a failure.">CI installed the site from an empty database and passed, and the production install still broke. The fix went into the one script both of them run.</Item>
+  <Item title="Keep the airport's words in its pages, not in the code.">The rulebook the coding agents worked to says the airport&apos;s words live in the pages, and a component holds only the text every page shares, such as the skip link. That is why staff can change a flight row, a security wait or a page&apos;s words in the Canvas editor, across the 29 pages and the 999 components placed on them. The forms broke the rule: their words, the parking prices and the flight search&apos;s three dates are in the code, as one of the limits above says. Next time each of them would get a setting of its own.</Item>
+  <Item title="Tell the public site as soon as staff save.">A small piece of code I added to Drupal waits until a saved page or template is stored, then calls Next.js, which draws the pages again. On a test copy of the site, run on my own computer, the first page fetched after a save showed the new title. If the call is missed, each cached page still runs out after an hour. It still needs a cache that both copies of Next.js share, and a test that a save goes through.</Item>
+  <Item title="Rehearse a fresh install on every proposed change.">Every proposed change builds the live versions of both services, installs them on an empty database and opens all 29 pages at a desktop and a phone width, checking each one for accessibility. Those steps had passed in the checks and on a test copy of the site, run on my own computer, when the first install on the live service stopped. Drupal&apos;s cache did not yet know one of its modules, so the content recipe, the file that puts the 29 pages in once, could not run. A cache rebuild between the install and the recipe fixed it, and the rehearsal runs that step too. I would also run the same checks before any change goes live.</Item>
 </List>
 <Facts>
-  <Fact k="Components">48, of which 5 also run in the browser</Fact>
-  <Fact k="Pages">29, with 999 component instances</Fact>
-  <Fact k="On save">One request, with an hour's safety net</Fact>
-  <Fact k="Checks">29 pages at 2 widths on every pull request</Fact>
+  <Fact k="Pages">29, holding 999 placed components</Fact>
+  <Fact k="Components">48, five of them also run in the browser</Fact>
+  <Fact k="Settings">215 across the 48 components</Fact>
+  <Fact k="Automated checks">29 pages at two widths, no failures</Fact>
   <Fact k="Source">[github.com/poly-glot/airport-drupal](https://github.com/poly-glot/airport-drupal)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
 <Closing label="Try it">
-  <ClosingCopy>Open the home page and search the departures board for a city.</ClosingCopy>
+  <ClosingCopy>See the site as a traveller would: press All departures under the board on the home page, then follow Parking and pick-up on Live flights to the Parking page.</ClosingCopy>
   <ClosingLinks>
     <ClosingLink href="https://airport.junaid.guru/" external>Open Meridian Airport <span aria-hidden="true">→</span></ClosingLink>
     <ClosingLink href="https://github.com/poly-glot/airport-drupal" external>Read the source <span aria-hidden="true">→</span></ClosingLink>
