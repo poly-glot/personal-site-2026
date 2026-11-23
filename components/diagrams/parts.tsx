@@ -346,6 +346,34 @@ export function Wire({ d, from }: { d: string; from?: "dot" }) {
   );
 }
 
+export function Slab(
+  { h, radius = S3, round, tone, w, x, y }: {
+    h: number;
+    radius?: number;
+    round: "all" | "bottom" | "top";
+    tone?: Tone;
+    w: number;
+    x: number;
+    y: number;
+  },
+) {
+  const top = round === "bottom" ? 0 : radius;
+  const bottom = round === "top" ? 0 : radius;
+  const d = [
+    `M${x} ${y + top}`,
+    `A${top} ${top} 0 0 1 ${x + top} ${y}`,
+    `L${x + w - top} ${y}`,
+    `A${top} ${top} 0 0 1 ${x + w} ${y + top}`,
+    `L${x + w} ${y + h - bottom}`,
+    `A${bottom} ${bottom} 0 0 1 ${x + w - bottom} ${y + h}`,
+    `L${x + bottom} ${y + h}`,
+    `A${bottom} ${bottom} 0 0 1 ${x} ${y + h - bottom}`,
+    "Z",
+  ].join(" ");
+
+  return <path class={frame(tone)} d={d} />;
+}
+
 export function Line({ d, from }: { d: string; from?: "dot" }) {
   const { dot } = useContext(ScaleContext);
 

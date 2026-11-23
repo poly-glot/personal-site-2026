@@ -1,7 +1,7 @@
 import { Canvas, Node, Zone } from "./parts.tsx";
 
 const DESCRIPTION =
-  "The site's pages by job. Sell: the home page, tiered packages for five services, and the quote form. Show: six portfolio galleries with logos in over 30 industries, 23 case studies and the testimonials. Explain: a page per service, the eight steps of how it works, and ten reasons to choose the studio. Be found: an HTML sitemap with 97 links, and a resources page.";
+  "The site's pages by job. Sell: the home page, tiered packages for five services, and the quote form. Show: six portfolio galleries with logos in over 30 industries, 23 case studies and the testimonials. Explain: a page per service, the eight steps of how it works, and ten reasons to choose the studio. Be found: an HTML sitemap linking to every page, and a resources page.";
 
 const COLUMNS = [20, 415, 810, 1205];
 const ROWS = [100, 250, 400];
@@ -89,7 +89,7 @@ export default function ContentMap() {
       />
 
       <Node
-        lines={["97 links, so a crawler", "can reach every page."]}
+        lines={["One page linking to", "every page, for crawlers."]}
         title="Sitemap"
         w={NODE_W}
         x={x(3)}
