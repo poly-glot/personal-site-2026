@@ -307,12 +307,17 @@ export const PROJECTS: WorkProject[] = [
   {
     "id": "amazing-landing",
     "name": "Amazing Landing",
-    "tagline": "Three questions. One product. One boutique.",
+    "tagline":
+      "A skincare quiz that sends women to their nearest boutique for a free trial, built in 2015 and rebuilt in 2026.",
     "summary":
-      "A skincare quiz for in-store promotions. A customer answers three questions, gets one recommended product and a voucher to collect a free trial of it, and is pointed to the nearest boutique. First shipped in 2015, rebuilt in 2026 beside the original.",
+      "Amazing Landing is an in-store promotion for an imaginary skincare brand. Three questions recommend one product, and the voucher names the nearest boutique to collect a free trial. I built it in 2015 and rebuilt it in 2026 beside the original, with an admin where staff run the promotion.",
+    "story": {
+      "Audience":
+        "Women of all ages shopping for skincare, and the Azadi staff who run the promotion.",
+      "Outcome":
+        "A quiz on desktop and phone that recommends one of four ranges from three questions and names the nearest of eight boutiques on her voucher. Staff change the boutiques, products and questions in an admin and export every entry. It loads quickly on a desktop and more slowly on a phone, and a keyboard cannot answer the desktop questions yet. The 2015 original still runs beside it.",
+    },
     "client": "Azadi Cosmetics, an imaginary brand",
-    "delivered": "Desktop and mobile quiz, voucher email, admin, API",
-    "role": "System author",
     "layout": "chapters",
     "stack": [
       "Vite",
