@@ -347,12 +347,17 @@ export const PROJECTS: WorkProject[] = [
   {
     "id": "azadi-go",
     "name": "Azadi",
-    "tagline": "One finance portal, built on three runtimes.",
+    "tagline":
+      "A car finance portal, built three times to measure what each runtime costs to run safely.",
     "summary":
-      "The customer portal for Azadi Financial Services, the finance arm of an imaginary luxury car maker. Customers sign in with their agreement details, pay by card, settle early and keep their bank details up to date. I built it three times, in Spring Boot, Helidon and Go, to measure what the runtime costs on Cloud Run.",
+      "The customer portal of Azadi Financial Services, the finance arm of an imaginary luxury car maker. I built it in Spring Boot, Helidon and Go, measured all three live on Cloud Run, and Go runs it now.",
+    "story": {
+      "Audience":
+        "People with a finance agreement on an Azadi car, who visit the portal a few times a year.",
+      "Outcome":
+        "Customers make payments, settle early, change their payment date and update their bank details online, without phoning. Card numbers go straight to Stripe and bank details are stored encrypted. Go was chosen after measuring three runtimes. It costs no more than the others in a busy hour, has the smallest image and starts fastest, a lead customers will feel once a 5-second wait in the infrastructure is removed. The portal works on a phone as well as a computer.",
+    },
     "client": "Azadi Financial Services, an imaginary brand",
-    "delivered": "Customer portal, card payments, three backends, Terraform",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [
