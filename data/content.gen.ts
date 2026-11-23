@@ -488,13 +488,16 @@ export const PROJECTS: WorkProject[] = [
     "id": "crea8ive",
     "name": "Crea8ive Design",
     "tagline":
-      "A logo studio's website from 2007, built to sell and to be found.",
+      "A logo studio from 2007, with a website that sold online and eight remote designers behind it.",
     "summary":
-      "Crea8ive Design sold custom logos, websites and stationery online from 2007, with packages from $99. The site had to do the selling on its own. It showed the work, made the prices clear, explained the process, and ranked for the phrases customers typed into search. It used the best web techniques of its day, and it is still online, exactly as it was.",
-    "client": "Crea8ive Design",
-    "delivered":
-      "Studio website, packages and portfolio, 23 search landing pages, archive",
-    "role": "Lead developer",
+      "Crea8ive Design was a logo studio, run as a partnership from 2007, that sold logos online to small businesses. I built its website and hired and ran a team of eight designers, who delivered more than 10,000 projects by 2011, and the site is still online as it was.",
+    "story": {
+      "Audience":
+        "Small businesses around the world, buying a logo online from designers they had never met.",
+      "Outcome":
+        "Packages with the price shown up front, from $99, sold by a 52-page site that showed the work, set out every step of an order and had a page written for each of 23 search phrases. Eight designers working remotely delivered more than 10,000 projects from 2007 to 2011, and a lead designer reviewed the concepts before any customer saw them. The site is still online with its original code, now saved as plain pages.",
+    },
+    "client": "Crea8ive Design, a partnership",
     "layout": "chapters",
     "stack": [
       "PHP",

@@ -1,11 +1,12 @@
 ---
 id: crea8ive
 name: Crea8ive Design
-tagline: A logo studio's website from 2007, built to sell and to be found.
-summary: Crea8ive Design sold custom logos, websites and stationery online from 2007, with packages from $99. The site had to do the selling on its own. It showed the work, made the prices clear, explained the process, and ranked for the phrases customers typed into search. It used the best web techniques of its day, and it is still online, exactly as it was.
-client: Crea8ive Design
-delivered: Studio website, packages and portfolio, 23 search landing pages, archive
-role: Lead developer
+tagline: A logo studio from 2007, with a website that sold online and eight remote designers behind it.
+summary: Crea8ive Design was a logo studio, run as a partnership from 2007, that sold logos online to small businesses. I built its website and hired and ran a team of eight designers, who delivered more than 10,000 projects by 2011, and the site is still online as it was.
+story:
+  Audience: Small businesses around the world, buying a logo online from designers they had never met.
+  Outcome: Packages with the price shown up front, from $99, sold by a 52-page site that showed the work, set out every step of an order and had a page written for each of 23 search phrases. Eight designers working remotely delivered more than 10,000 projects from 2007 to 2011, and a lead designer reviewed the concepts before any customer saw them. The site is still online with its original code, now saved as plain pages.
+client: Crea8ive Design, a partnership
 layout: chapters
 stack:
   - PHP
@@ -26,91 +27,146 @@ tone: "linear-gradient(135deg, #1565c020, #f8a41d0a)"
 ---
 
 import ContentMap from "@/components/diagrams/ContentMap.tsx";
+import Crea8iveArchive from "@/components/diagrams/Crea8iveArchive.tsx";
+import Crea8iveCorners from "@/components/diagrams/Crea8iveCorners.tsx";
+import Crea8iveSearch from "@/components/diagrams/Crea8iveSearch.tsx";
 
 <Study>
 
-<Chapter label="The studio" title="A logo studio that sold online." lede="In 2007 most small businesses still found a designer through someone they knew. Crea8ive Design sold logos online instead. A customer picked a package from $99, filled in a brief, and got concepts back from the studio's designers. There was no shop and no sales team, so the website had to do all of the selling.">
-<Rows>
-  <Row title="Show the work">A customer buying a logo from a stranger needs to see what they'll get, sorted by the kind of business they run.</Row>
-  <Row title="Make the price clear">Packages in tiers, with what each includes, so a customer can choose without having to ask.</Row>
-  <Row title="Explain the process">Every step from signing up to the final files, so paying up front feels safe.</Row>
-  <Row title="Be found">Customers searched for phrases like "custom logo design". The site had to rank for them.</Row>
-</Rows>
+<Chapter label="The brief" title="A logo studio, selling online to small businesses." lede="In 2007 small businesses usually found a designer through someone they knew. Crea8ive Design, a partnership, sold them logos online instead, along with websites, stationery, brochures and illustration, as packages with the price shown up front. The customers would never meet us, so two things had to work. A website had to win the trust of a stranger and be found in search, and a team of designers had to deliver everything it sold." />
+
+<Chapter label="The outcome" title="Small businesses chose a package online and got their logo from designers they never met." dark>
+<Board>
+  <Screen size="lead" src="/img/work/crea8ive/board/home.webp" w={1600} h={900} alt="The Crea8ive Design home page: a black logo tab and a happy 2011 greeting over a list of industries, a blue Start with just $99 badge, a LOGO CREATORS slideshow, and the Budget, Basic and Advance logo packages below." />
+  <Screen size="lead" src="/img/work/crea8ive/board/logo-design.webp" w={1600} h={900} alt="The Logo Design service page: the heading Custom Logo Design, Nothing is More Important than a Perfect Logo, then a few paragraphs, a note that pricing starts at just $99 and the first of the Recent Crea8ive Designs Logo Creations." />
+  <Screen size="phone" src="/img/work/crea8ive/board/home-phone.webp" w={804} h={1880} alt="The home page on a phone: the same desktop page shrunk to fit, so the menu, the three $99, $199 and $399 logo packages and the intro text are all too small to read." />
+  <Screen src="/img/work/crea8ive/board/about.webp" w={1600} h={900} alt="The About page: the heading About Crea8ive Design, Custom Logo Creation at an Unbeatable Price, a note that the team is here 24 hours a day, and a graphic of two people in a looping logo shape." />
+  <Screen src="/img/work/crea8ive/board/home-menu.webp" w={1600} h={900} alt="The home page with the About Us menu open, a dark dropdown listing Work Process, Quick Turnaround Project, Pricing And Packaging, Why Choose Crea8ivedesign and Our Logo Designers." />
+  <Screen src="/img/work/crea8ive/board/how-it-works.webp" w={1600} h={900} alt="The work process page: the heading Step-by-step Guide to Your Delivered Project over eight numbered steps from Signup to Deliver Final Files, and the start of the 8 Steps to Your Finished Project list." />
+  <Screen src="/img/work/crea8ive/board/quick-turnaround-project.webp" w={1600} h={900} alt="The quick turnaround page: the heading The Crea8ive Design Process, Quick and Quality Work Hand-in-Hand, beside a figure running along a red arrow, above a Teamwork is the Key panel." />
+  <Screen src="/img/work/crea8ive/board/prices-packages-logodesign.webp" w={1600} h={900} alt="The logo design prices page: tabs for logo, web, stationery, brochure and illustration prices, and the Budget, Basic and Advance packages at $99, $199 and $399." />
+  <Screen src="/img/work/crea8ive/board/why-choose-us.webp" w={1600} h={900} alt="The Why choose us page: the heading 10 of the Top Reasons Why Crea8ive Design is the Choice for You over a numbered list of ten reasons." />
+  <Screen src="/img/work/crea8ive/board/our-logo-designer.webp" w={1600} h={900} alt="The designers page: the heading Your Crea8ive Design Team, a photo and profile of David Kester, Creative Director, with six of his recent logos and arrows to move to the next designer." />
+  <Screen src="/img/work/crea8ive/board/portfolio-logodesign.webp" w={1600} h={900} alt="The logo portfolio: the heading Crea8ive design, Recent Logo Design, tabs for the five portfolios and an Industry Wise Portfolio list starting at Recent Logos." />
+  <Screen src="/img/work/crea8ive/board/portfolio-lightbox.webp" w={1600} h={900} alt="The logo portfolio with one logo opened full size in a lightbox over the dimmed page: a Norian logo, the caption Portfolio 1, a 1/8 counter with previous and next arrows and a close button." />
+  <Screen src="/img/work/crea8ive/board/portfolio-webdesign.webp" w={1600} h={900} alt="The web design portfolio: the heading Crea8ive design, Web Design Portfolio, five portfolio tabs, a page strip from 1 to 7 and a note to click an image to see the complete layout." />
+  <Screen src="/img/work/crea8ive/board/portfolio-stationery.webp" w={1600} h={900} alt="The stationery portfolio: the heading Crea8ive design, Stationery Collection, five portfolio tabs, a page strip from 1 to 3 and a note to click an image to see the complete layout." />
+  <Screen src="/img/work/crea8ive/board/portfolio-brochure.webp" w={1600} h={900} alt="The brochure portfolio: the heading Crea8ive design, Brochure Design Collection, five portfolio tabs, a page strip from 1 to 2 and a note to click an image to see the complete layout." />
+  <Screen src="/img/work/crea8ive/board/portfolio-banner.webp" w={1600} h={900} alt="The banner portfolio: the heading Crea8ive design, Banner Design Collection, a short introduction, a page strip from 1 to 7 and a note to click an image to see the complete layout." />
+  <Screen src="/img/work/crea8ive/board/portfolio-illustration.webp" w={1600} h={900} alt="The illustration portfolio: the heading Crea8ive design, Illustration Collection, five portfolio tabs, a page strip from 1 to 3 and a note to click an image to see the complete layout." />
+  <Screen src="/img/work/crea8ive/board/request-a-quote.webp" w={1600} h={900} alt="The quote page: the heading Request a Custom Design Quote, a Need to talk live? box with Google Talk and Skype contacts, and the start of the Tell Us About Your Needs form." />
+  <Screen src="/img/work/crea8ive/board/prices-packages-webdesign.webp" w={1600} h={900} alt="The web design prices page: Web Design Special Combination Packages, Budget W-Pkg at $249, Static W-Pkg at $425 and Custom W-Pkg at $849, under the five price tabs." />
+  <Screen src="/img/work/crea8ive/board/prices-packages-stationery.webp" w={1600} h={900} alt="The stationery prices page: Stationery Design Special Combination Packages, Card Design at $49, Stationery Pkg at $99 and Branding Pkge at $175, under the five price tabs." />
+  <Screen src="/img/work/crea8ive/board/prices-packages-brochure.webp" w={1600} h={900} alt="The brochure prices page: Brochure Design Special Combination Packages, Tri-Fold Pkg at $249, Bifold Pkg at $349 and Bifold-Pro Pkg at $675, under the five price tabs." />
+  <Screen src="/img/work/crea8ive/board/prices-packages-illustration.webp" w={1600} h={900} alt="The illustration prices page: Illustration Design Special Combination Packages, Basic Ilt-Pkg at $149, Adv-Ilt Pkg at $249 and Custom-ilt Pkg at $375, under the five price tabs." />
+  <Screen src="/img/work/crea8ive/board/testimonials.webp" w={1600} h={900} alt="The testimonials page: the heading Testimonials, Proof of success, and a quote headed A consistent look from the director of Highfive Photography, with the client's photo and logo and arrows to move on." />
+  <Screen src="/img/work/crea8ive/board/contact-us.webp" w={1600} h={900} alt="The contact page: the heading Reach Us Anytime, office hours of 9AM to 9PM EST Monday to Friday, Google Talk and Skype contacts, and the start of a contact form." />
+  <Screen src="/img/work/crea8ive/board/web-design.webp" w={1600} h={900} alt="The Web Design service page: the heading Web Design, Expand Your Business to the Online World, a few paragraphs and the start of the Recent Crea8ive Designs Web Site Creations." />
+  <Screen src="/img/work/crea8ive/board/stationery-design.webp" w={1600} h={900} alt="The Stationery Design service page: the heading Stationery Design, Create a Memorable Impression, a few paragraphs and four Recent Crea8ive Designs Stationery Creations." />
+  <Screen src="/img/work/crea8ive/board/brochure-design.webp" w={1600} h={900} alt="The Brochure Design service page: the heading Custom Brochure Design, A Professional Presentation at an Affordable Price, then questions on affordability and why a brochure and the start of the recent brochure creations." />
+  <Screen src="/img/work/crea8ive/board/guarantee.webp" w={1600} h={900} alt="The guarantee page: the heading Our Guarantee, in no nonsense Plain English, a blue and orange loop graphic, and the start of Our 100% Guarantee Applies to Everything We Do." />
+  <Screen src="/img/work/crea8ive/board/resources.webp" w={1600} h={900} alt="The Resources and Partners page: a note on the team's freelance work, the heading Crea8ivedesign Services around the world, and the Freelancer, Elance and Logo Designs Work logos with View Profile buttons." />
+  <Screen src="/img/work/crea8ive/board/terms-conditions.webp" w={1600} h={900} alt="The terms page: headed Our Guarantee, in no nonsense Plain English, with two columns of ticked terms such as Unlimited Revisions and Money Back Guarantee, above a General Service Agreement." />
+  <Screen src="/img/work/crea8ive/board/sitemap.webp" w={1600} h={900} alt="The sitemap: the heading Crea8ivedesign, Website Map, with link lists for the site, Portfolio, Services, Prices and Packages, Client Area, Case Studies and Contact us." />
+  <Screen src="/img/work/crea8ive/board/case-studies.webp" w={1600} h={900} alt="The case studies index: the heading Crea8ive Design, Case Studies, and three columns listing the 23 case studies from Corporate Logo Design to Custom Web Design, above a Browse our custom logo portfolio by Industry panel." />
+  <Screen src="/img/work/crea8ive/board/case-studies-corporate-logo-design.webp" w={1600} h={900} alt="The Corporate Logo Design case study: the heading Corporate Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-custom-logo-design.webp" w={1600} h={900} alt="The Custom Logo Design case study: the heading Custom Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-business-logo-design.webp" w={1600} h={900} alt="The Business Logo Design case study: the heading Business Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-company-logo-design.webp" w={1600} h={900} alt="The Company Logo Design case study: the heading Company Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-logo-design-services.webp" w={1600} h={900} alt="The Logo Design Services case study: the heading Logo Design Services, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-professional-logo-designer.webp" w={1600} h={900} alt="The Professional Logo Designer case study: the heading Professional Logo Designer, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-free-logo-design.webp" w={1600} h={900} alt="The Free Logo Design case study: the heading Free Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-logo-designers.webp" w={1600} h={900} alt="The Logo Designers case study: the heading Logo Designers, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-hitech-logo-design.webp" w={1600} h={900} alt="The Hitech Logo Design case study: the heading Hitech Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-elegant-logo-design.webp" w={1600} h={900} alt="The Elegant Logo Design case study: the heading Elegant Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-fancy-logo-design.webp" w={1600} h={900} alt="The Fancy Logo Design case study: the heading Fancy Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-web20-logo-design.webp" w={1600} h={900} alt="The Web20 Logo Design case study: the heading Web20 Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-classic-logo-design.webp" w={1600} h={900} alt="The Classic Logo Design case study: the heading Classic Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-artistic-logo-design.webp" w={1600} h={900} alt="The Artistic Logo Design case study: the heading Artistic Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-abstract-logo-design.webp" w={1600} h={900} alt="The Abstract Logo Design case study: the heading Abstract Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-textual-logo-design.webp" w={1600} h={900} alt="The Textual Logo Design case study: the heading Textual Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-illustrative-logo-design.webp" w={1600} h={900} alt="The Illustrative Logo Design case study: the heading Illustrative Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-iconic-logo-design.webp" w={1600} h={900} alt="The Iconic Logo Design case study: the heading Iconic Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-retro-logo-design.webp" w={1600} h={900} alt="The Retro Logo Design case study: the heading Retro Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-sporty-logo-design.webp" w={1600} h={900} alt="The Sporty Logo Design case study: the heading Sporty Logo Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-corporate-identity-business-logo.webp" w={1600} h={900} alt="The Corporate Identity Business Logo case study: the heading Corporate Identity Business Logo, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-website-design.webp" w={1600} h={900} alt="The Website Design case study: the heading Website Design, Case Study, over a long article with the key phrase linked in blue." />
+  <Screen src="/img/work/crea8ive/board/case-studies-custom-website-design.webp" w={1600} h={900} alt="The Custom Website Design case study: the heading Custom Website Design, Case Study, over a long article with the key phrase linked in blue." />
+</Board>
 </Chapter>
 
-<Chapter label="The site" title="A design studio's shop window." lede="The pages are still online exactly as they were. The home page still wishes visitors a happy 2011, from the last time it was updated.">
-<Figures numbered bleed>
-  <Figure src="/img/work/crea8ive/home.webp" w={1600} h={1000} alt="The Crea8ive Design home page with a 2011 new year greeting, a logo showcase and three logo packages." title="Home">The three best-selling logo packages up front, under the season's greeting.</Figure>
-  <Figure src="/img/work/crea8ive/packages.webp" w={1600} h={1000} alt="Logo design packages: Budget, Basic and Advance, with what each includes and its price." title="Packages">Budget, Basic and Advance packages, with a tab each for logos, websites, stationery, brochures and illustration.</Figure>
-  <Figure src="/img/work/crea8ive/portfolio.webp" w={1600} h={1000} alt="The logo portfolio, filtered by industry, with logo thumbnails." title="Portfolio">Logos sorted into over 30 industries, from accounting to sport, each opening full size in a lightbox.</Figure>
-  <Figure src="/img/work/crea8ive/case-study.webp" w={1600} h={1000} alt="A corporate logo design case study page with text and recent corporate logos." title="Case studies">23 case studies, most of them on one style of logo, from corporate to retro.</Figure>
-</Figures>
-<Figures bleed quartered>
-  <Figure src="/img/work/crea8ive/how-it-works.webp" w={1600} h={1000} alt="Step-by-step guide: sign up, package, questionnaire, payment, design, concepts, revisions and final files." title="How it works">Eight steps from signing up to receiving the final files.</Figure>
-  <Figure src="/img/work/crea8ive/testimonials.webp" w={1600} h={1000} alt="A testimonial carousel beside a special offer for free stationery." title="Testimonials">Customer quotes in a carousel, beside the season's offer.</Figure>
-  <Figure src="/img/work/crea8ive/quote.webp" w={1600} h={1000} alt="The request a quote form with name, email, phone, company and website fields." title="Request a quote">The brief form for anything the packages didn't cover.</Figure>
-  <Figure src="/img/work/crea8ive/about.webp" w={1600} h={1000} alt="The about page describing the studio and its round-the-clock design team." title="About">The studio in its own words: a design team on call day and night.</Figure>
-</Figures>
+<Chapter label="Strategy" title="Sell logos online to strangers, and deliver every order to the same standard." lede="Every page on that board was written for one reader, the owner of a small business who needed a logo and knew the studio only from its website. That owner was being asked to pay up front for work that had not started yet, from designers they would never meet. The studio&apos;s strategy was about getting that owner to pay, and then delivering what they had paid for, on every order." split>
+<Split reverse>
+<Steps>
+  <Step open name="The aim" hint="a stranger orders, and is satisfied">Winning meant the owner of a small business who had never heard of the studio found the site, chose a package, paid, and ended up with a logo they were happy with. The site offered unlimited revisions and a risk-free 100% satisfaction policy, so an order was finished only when the customer was satisfied.</Step>
+  <Step name="Where to play" hint="small businesses anywhere, buying online">The studio sold online to small businesses anywhere in the world. Logos came first, with websites, stationery, brochures and illustration as further packages. The logo portfolio was sorted into 31 industries, from accounting to sport, so an owner could see work done for a business like theirs.</Step>
+  <Step name="How to win" hint="a fixed price and every step set out">An owner will pay a stranger up front only if they know the price and what happens next. So every package had a fixed price, in three tiers called Budget, Basic and Advance, starting at $99 for a custom logo. The How it works page set out the eight steps of an order, from signing up to the final files, with the first concepts in two to three days. The cost was that every one of those promises had to be kept on every order.</Step>
+  <Step name="What it takes" hint="a team and a site">It took two things, and I built both. The first was a team that could deliver a large number of orders to the same quality, whichever designer drew them. The second was a site that could sell the packages and be found in search on its own.</Step>
+  <Step name="How we&apos;d know" hint="projects delivered, customers from search">Success would show in projects delivered and in customers arriving from the search phrases the site was written for. The first has a count. The studio delivered more than 10,000 design projects from 2007 to 2011. Its Resources page shows it also sold through freelance marketplaces such as Elance, so that count covers the whole studio, and the site&apos;s share of it is not known. The second has none, because no figures exist from those years on search rankings or on how many visitors went on to order. So this study can show how the site was built to be found, and cannot say how well it ranked.</Step>
+</Steps>
+<Sites title="Similar strategy">
+  <Site name="BHX Travel" href="/work/bhx-travel/" src="/img/work/bhx-travel.webp" w={2560} h={1440} />
+  <Site name="Boxes" href="/work/boxes/" src="/img/work/boxes.webp" w={2560} h={1440} />
+</Sites>
+</Split>
 </Chapter>
 
-<Chapter label="The craft of 2007" title="Polish before CSS3." lede="In 2007 there were no rounded corners in CSS, no smartphones to design for, and Internet Explorer 6 was still everywhere. A polished site meant images, careful markup and a few well-chosen jQuery plugins.">
-<Facts>
-  <Fact k="Markup">Every page declared XHTML 1.0 Strict, the standard that serious front-end work aimed for at the time.</Fact>
-  <Fact k="Corners">The rounded boxes are background images, a cap at the top and a strip that repeats down the side, years before border-radius worked everywhere.</Fact>
-  <Fact k="IE6">Internet Explorer 6 couldn't show transparent PNGs, so a script patched each one. It, and separate stylesheets for IE6 and IE7, loaded only for those browsers.</Fact>
-  <Fact k="Slideshows">jQuery Cycle runs the home showcase, the portfolio galleries and the testimonials.</Fact>
-  <Fact k="Lightbox">prettyPhoto opens portfolio work full size without leaving the page.</Fact>
-  <Fact k="Navigation">Superfish dropdown menus, tipTip tooltips and a smooth scroll back to the top.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="Content architecture" title="Four templates, 52 pages." lede="Each page had one job: sell, show, explain or help the site be found. Behind them, four templates for packages, portfolios, case studies and services did most of the work, filled from data.">
+<Chapter label="Content architecture" title="Four templates and two data files drew most of the 52 pages." lede="The site had to sell the packages on its own. Its content architecture, what the site holds and where each page lives, is 52 pages, grouped in the drawing by the job each one does. Most of them were not written one by one. Four templates, page layouts written once and filled in from data, drew the packages, the portfolio, the case studies and the service pages, and two data files held every package and every portfolio piece.">
 <ContentMap />
-<Facts>
-  <Fact k="Data">Packages and portfolio pieces live in data files, so a new package or a new logo is a data change, not a new page.</Fact>
-  <Fact k="Components">The header, footer, offers, testimonials and top ten reasons are shared pieces, reused across pages.</Fact>
-  <Fact k="Addresses">One script answers every address and picks the page from it, so every page has a readable address, like `/pages/logo_design`.</Fact>
-  <Fact k="Weight">Each page loads only what it needs. The portfolio script, for instance, loads only on portfolio pages.</Fact>
-</Facts>
-</Chapter>
-
-<Chapter label="Search" title="Built to be found." lede="Search was how a logo studio met its customers, and search engines of the day rewarded pages written around the phrases people typed.">
 <List>
-  <Item title="A page for every search.">The 23 case studies are landing pages, each named for a phrase customers searched for: free logo design, retro, corporate, web 2.0, professional logo designer.</Item>
-  <Item title="Links that name the phrase.">Each case study links its phrase back to the home page, so the link itself says what the page is about. That was the link-building advice of the time.</Item>
-  <Item title="Tags for every page.">Every page carries keywords and a description aimed at logo design searches, down to "Custom Logo Design just $99".</Item>
-  <Item title="A map for crawlers.">An HTML sitemap with 97 links lets a search engine reach every page from one place.</Item>
-  <Item title="A logo search engines can read.">The logo is an image laid over the studio's name, so crawlers still read "Crea8ivedesign.com".</Item>
+  <Item title="A readable address for every page.">The site is written in PHP, a language that builds each page on the server when someone asks for it. One PHP file answers every address and picks the page from it, which gave every page a readable address such as /pages/logo_design.</Item>
+  <Item title="A new package was a change to the data.">Adding a package, or a logo to the portfolio, meant one more entry in a data file, and the template drew the page.</Item>
 </List>
 </Chapter>
 
-<Chapter label="Looking back" title="What aged, and what didn't." lede="Seen from today, the site shows which search habits lasted and which didn't.">
+<Chapter label="Search" title="23 case studies, each written to be found for one search phrase." lede="Those 52 pages could only sell to people who found them, and a new customer had never heard of the studio. So 23 of the pages are case studies that work as landing pages, the page a visitor lands on from a search result. Each one is named for a single phrase, such as free logo design or professional logo designer. The weak point is the title, the line a search result shows as its link, because all 52 pages share the same one.">
+<Crea8iveSearch />
+</Chapter>
+
+<Chapter label="The craft of 2007" title="Rounded corners made from images, before CSS could draw them." lede="A visitor who arrived from one of those pages then had to trust what they saw, so every page had to look polished. In 2007 that took more work than it does now. Today one line of CSS, the border-radius rule, rounds the corners of a box in any browser. Back then it worked in too few browsers to rely on, so every rounded box on the site is built from images. The middle strip does the work. It is one image repeated down the box, so the box can grow with its text.">
+<Crea8iveCorners />
 <List>
-  <Item title="One title for every page.">The page class could give each page its own title, but no page does, so all 52 share one. The case studies would have ranked better with their own.</Item>
-  <Item title="Keyword tags stopped counting.">Google said in 2009 that it ignores the keywords tag. Repeating one phrase in links now reads as stuffing, not relevance.</Item>
-  <Item title="Structure still wins.">Readable addresses, a page per topic and a sitemap are still how a site gets found.</Item>
+  <Item title="Pages written to a strict standard.">Every page declares XHTML 1.0 Strict, a version of HTML that follows the stricter rules of XML.</Item>
+  <Item title="Patches for Internet Explorer 6.">Internet Explorer 6, Microsoft&apos;s browser of the time, could not show see-through PNG images, so the site patched them for it, and Internet Explorer 6 and 7 each had a stylesheet of their own.</Item>
+  <Item title="Four jQuery plugins for the moving parts.">jQuery, a JavaScript library, runs the slideshows (jQuery Cycle), the full-size view of portfolio work (prettyPhoto), the drop-down menus (Superfish) and the tooltips (tipTip).</Item>
 </List>
 </Chapter>
 
-<Chapter label="Kept online" title="Still online, with no server." lede="In 2023 the site moved, as it was, into a container on Kubernetes. In 2026 the deploy started running PHP once per page and saving the HTML, and Firebase Hosting now serves those files. Apart from one line that hides PHP's errors, the source is the same.">
+<Chapter label="Kept online" title="Still online with its original code, now saved as plain pages." lede="Those polished pages are still online. The site is an archive now and takes no orders, and the way it is served has changed more than the site itself. The drawing follows it from a PHP server in 2007 to the plain files Firebase Hosting serves now. What stayed the same through each move is the code. Apart from one setting that hides PHP&apos;s error messages, the source is as it was, and since 2026 it runs once for each page when I deploy, so no server builds a page while a visitor waits.">
+<Crea8iveArchive />
+</Chapter>
+
+<Chapter label="The limits" title="Where the site falls short of its strategy today." lede="Saving each page as a file let the original code stay online, but it left some links with no page behind them, and other gaps date from 2007. Each one below is set against the part of the strategy it puts at risk. The one a visitor meets first is on the logo portfolio, where the industry filters no longer open.">
+<List>
+  <Item title="Where to play: the portfolio&apos;s industry filters return a page-not-found error.">The 31 industry filters, the tabs on How it works and the package links, 33 of the 91 internal links I checked, point to addresses that carry a section after the page name. The 2026 deploy saves one file for each page, so those addresses have no file behind them. A fix that saves them too, as 41 more files, is tested on my own computer and is not deployed yet.</Item>
+  <Item title="The aim: nobody can order from the archive.">Ordering, My Account and the support tickets ran on a separate system that is not in the archive. The archive sends the order link to the quote page and the log-in link to the contact page, and neither form sends anything. The next step is a line on both pages saying so, so nobody types a brief that goes nowhere.</Item>
+  <Item title="What it takes: one link was broken from the start.">In the original site the link to one case study was mistyped, so it has never opened. The next step is to correct it, and to remove the link to the old support tickets, which have no page in the archive.</Item>
+  <Item title="What it takes: every page has the same title.">All 52 pages share one title, so a search result looked the same whichever case study it led to. Each case study would have stood a better chance in search with a title of its own, named for its phrase, and that is the next step.</Item>
+  <Item title="What it takes: keyword tags stopped counting.">Every page carries a keywords tag and a description tag, lines in the page&apos;s code that visitors never see, aimed at logo searches. Google said in 2009 that it ignores the keywords tag, and a phrase repeated in link after link now reads as stuffing. The next step is to move each phrase into its case study&apos;s title and first heading and drop the keywords tags.</Item>
+  <Item title="How to win: on a phone or with a screen reader, ordering is hard.">An owner has to read the packages and fill in forms to order. The site was built for desktop screens and has no viewport tag, the line that tells a phone to fit the page to its screen, so a phone shows the desktop page shrunk. Text contrast is low, form fields and buttons have no names for screen readers, and some links say little more than ‘click here’, though every image has a description. The next step is a viewport tag, names for the form fields and buttons, darker text and link words that say where each link goes.</Item>
+</List>
+</Chapter>
+
+<Chapter label="The lessons" title="Three things from 2007 I would do the same way today." lede="Those limits are the parts of the site that aged, and each has a next step. Three choices have lasted better. One kept the work even across a team of eight designers, one built most of the pages from four templates, and one kept the site online without rewriting it. I would make each of them the same way today.">
 <Split>
 <List>
-  <Item title="Templates and data scale content.">Four templates and two data files carried 52 pages and over 30 portfolio industries.</Item>
-  <Item title="Search rewards structure, not tricks.">The readable addresses and the sitemap aged well. The keyword tricks didn't.</Item>
-  <Item title="Archive, don't rewrite.">Keeping the source as it was means the site people see is the site that was built.</Item>
+  <Item title="Check the work before the customer sees it.">With eight designers working remotely on different orders, the lead designer&apos;s review of every set of concepts meant each customer met the same standard, whoever drew their logo. I would put the same check into any team that works apart.</Item>
+  <Item title="Write a layout once and fill it from data.">Because each kind of page came from one template, every package and every case study followed the same layout, and a change to a template reached every page it drew. The newer sites in my work are built on the same idea, with components and a content model in place of templates.</Item>
+  <Item title="Keep an old site as it was.">Moving the code without rewriting it means the site a visitor opens today is the one customers used. Saving each page once means no server has to run the PHP of 2007, and the portfolio filters showed me that saving the pages has to cover every address a link points to.</Item>
 </List>
 <Facts>
-  <Fact k="Pages">52</Fact>
-  <Fact k="Templates">Four</Fact>
-  <Fact k="Case studies">23 landing pages</Fact>
-  <Fact k="Sitemap">97 links</Fact>
+  <Fact k="Team">Eight designers, working remotely, 2007 to 2011</Fact>
+  <Fact k="Projects">More than 10,000</Fact>
+  <Fact k="Pages">52, most of them drawn by four templates</Fact>
+  <Fact k="Case studies">23, each a landing page for one search phrase</Fact>
+  <Fact k="Industries">31 in the logo portfolio</Fact>
   <Fact k="Code">[github.com/poly-glot/crea8ivedesign](https://github.com/poly-glot/crea8ivedesign)</Fact>
 </Facts>
 </Split>
 </Chapter>
 
 <Closing label="Visit it">
-  <ClosingCopy>Browse a logo studio's website from 2007, exactly as it was.</ClosingCopy>
+  <ClosingCopy>Browse the studio&apos;s site, down to the home page&apos;s greeting for 2011. It is an archive now and takes no orders, but How it works still shows the eight steps every order went through.</ClosingCopy>
   <ClosingLinks>
     <ClosingLink href="https://crea8ivedesign.junaid.guru/" external>Open the site <span aria-hidden="true">→</span></ClosingLink>
   </ClosingLinks>
