@@ -92,6 +92,27 @@
   margin: 0;
 }
 
+.stacked > .fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-3) 0;
+}
+
+.stacked .label {
+  color: var(--fg);
+  font-family: inherit;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.stacked dd {
+  font-weight: 400;
+  line-height: 1.6;
+}
+
 .cards,
 .eras {
   list-style: none;
@@ -241,6 +262,17 @@
 
 .bleed {
   padding: 0 var(--gutter);
+}
+
+.darkFigures {
+  background: var(--bg);
+  color: var(--fg);
+  padding-block: var(--s-5);
+}
+
+.body > .darkFigures:last-child {
+  margin-bottom: calc(-1 * var(--s-6));
+  padding-bottom: var(--s-6);
 }
 
 .numbered {

@@ -54,8 +54,9 @@ function Metrics({ metrics }: { metrics: readonly Metric[] }) {
 }
 
 export default function Scorecard(
-  { runs, checks, source }: {
+  { runs, checks, checksLabel = "Checked by hand", source }: {
     checks: readonly Metric[];
+    checksLabel?: string;
     runs: readonly Run[];
     source: string;
   },
@@ -75,7 +76,7 @@ export default function Scorecard(
           </section>
         ))}
         <section class={styles.run}>
-          <h3 class={styles.runLabel}>Checked by hand</h3>
+          <h3 class={styles.runLabel}>{checksLabel}</h3>
           <Metrics metrics={checks} />
         </section>
       </div>

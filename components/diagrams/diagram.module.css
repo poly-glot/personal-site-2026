@@ -153,6 +153,10 @@
   fill-opacity: 0.2;
 }
 
+.cell {
+  fill: var(--diagram);
+}
+
 .measure {
   fill: none;
   stroke: var(--diagram);

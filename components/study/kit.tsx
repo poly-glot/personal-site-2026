@@ -109,8 +109,14 @@ export function Split({ reverse, children }: Slot & { reverse?: boolean }) {
   );
 }
 
-export function Facts({ children }: Slot) {
-  return <dl class={styles.facts}>{children}</dl>;
+export function Facts(
+  { stacked, children }: Slot & { stacked?: boolean },
+) {
+  return (
+    <dl class={classes(styles.facts, stacked && styles.stacked)}>
+      {children}
+    </dl>
+  );
 }
 
 export function Fact({ k, children }: Slot & { k: string }) {
@@ -145,8 +151,9 @@ export function Row({ title, children }: Slot & { title: string }) {
 }
 
 export function Figures(
-  { numbered, bleed, quartered, children }: Slot & {
+  { numbered, bleed, dark, quartered, children }: Slot & {
     bleed?: boolean;
+    dark?: boolean;
     numbered?: boolean;
     quartered?: boolean;
   },
@@ -155,11 +162,12 @@ export function Figures(
     styles.figures,
     numbered && styles.numbered,
     bleed && `${styles.bleed} bleed-rule`,
+    dark && styles.darkFigures,
     quartered && styles.quartered,
   );
 
   return (
-    <div class={grid}>
+    <div class={grid} data-theme={dark ? "dark" : undefined}>
       {children}
     </div>
   );
