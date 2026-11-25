@@ -1,0 +1,119 @@
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin: 0;
+}
+
+.cards {
+  display: grid;
+  gap: var(--s-5) var(--s-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.card {
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding-top: var(--s-3);
+}
+
+.head {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  margin: 0;
+}
+
+.figure {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  margin: 0;
+}
+
+.number {
+  font-family: var(--ff-display);
+  font-size: var(--fs-display);
+  line-height: 1;
+}
+
+.unit {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.readings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reading {
+  align-items: baseline;
+  column-gap: var(--s-2);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  row-gap: 6px;
+}
+
+.readingLabel {
+  color: var(--fg);
+  font-size: 0.875rem;
+}
+
+.value {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.track {
+  display: block;
+  grid-column: 1 / -1;
+  height: var(--s-1);
+  width: 100%;
+}
+
+.rail {
+  fill: var(--rule);
+}
+
+.before {
+  fill: var(--muted-2);
+}
+
+.after {
+  fill: var(--diagram);
+}
+
+.gain {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  margin: 0;
+}
+
+.source {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  max-width: 72ch;
+}
+
+@media (min-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: var(--s-3);
+  }
+
+  .card {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+  }
+}

@@ -16,7 +16,7 @@ const H2 = (p: HeadingProps) =>
 const H3 = (p: HeadingProps) =>
   h("h3", { id: p.id, class: styles.h3 }, p.children);
 
-function Link(
+export function Link(
   { children, href }: { children?: ComponentChildren; href?: string },
 ) {
   if (!href?.startsWith("http")) {

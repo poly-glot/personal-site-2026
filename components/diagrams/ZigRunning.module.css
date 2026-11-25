@@ -1,0 +1,164 @@
+.band {
+  --bleed-panel-bg: var(--bg);
+  --bleed-panel-border: 0;
+  color: var(--fg);
+  margin-bottom: calc(-1 * var(--s-6));
+  padding: var(--s-5) 0 var(--s-6);
+}
+
+.tiles {
+  display: grid;
+  gap: var(--s-5) var(--s-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tile {
+  border-top: 1px solid var(--rule-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding-top: var(--s-3);
+}
+
+.head {
+  align-items: center;
+  display: flex;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  gap: var(--s-2);
+  margin: 0;
+}
+
+.badge {
+  align-items: center;
+  border: 1px solid var(--rule-2);
+  border-radius: 50%;
+  color: var(--diagram);
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  width: 44px;
+}
+
+.figure {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  margin: 0;
+}
+
+.number {
+  font-family: var(--ff-display);
+  font-size: var(--fs-display);
+  line-height: 1;
+}
+
+.unit {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.readings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reading {
+  align-items: baseline;
+  column-gap: var(--s-2);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  row-gap: 6px;
+}
+
+.readingLabel {
+  color: var(--fg-2);
+  font-size: 0.875rem;
+}
+
+.value {
+  font-family: var(--ff-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.track {
+  display: block;
+  grid-column: 1 / -1;
+  height: var(--s-1);
+  width: 100%;
+}
+
+.rail {
+  fill: var(--rule);
+}
+
+.fill {
+  fill: var(--diagram);
+}
+
+.past {
+  fill: var(--muted-2);
+}
+
+.servers {
+  align-items: center;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  gap: var(--s-2);
+  padding-top: var(--s-2);
+}
+
+.racks {
+  color: var(--diagram);
+  display: inline-flex;
+  gap: 4px;
+}
+
+.serversText {
+  color: var(--fg-2);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: auto 0 0;
+}
+
+@media (min-width: 640px) {
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1180px) {
+  .tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: var(--s-3);
+  }
+
+  .tile {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+  }
+
+  .note {
+    margin: 0;
+  }
+}

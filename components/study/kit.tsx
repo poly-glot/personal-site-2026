@@ -1,6 +1,7 @@
 import { createContext, Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 import type { ComponentChildren } from "preact";
+import { Link } from "@/components/Prose/proseComponents.tsx";
 import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import BoardScroller from "@/islands/BoardScroller.tsx";
 import styles from "./study.module.css";
@@ -109,8 +110,14 @@ export function Split({ reverse, children }: Slot & { reverse?: boolean }) {
   );
 }
 
-export function Facts({ children }: Slot) {
-  return <dl class={styles.facts}>{children}</dl>;
+export function Facts(
+  { stacked, children }: Slot & { stacked?: boolean },
+) {
+  return (
+    <dl class={classes(styles.facts, stacked && styles.stacked)}>
+      {children}
+    </dl>
+  );
 }
 
 export function Fact({ k, children }: Slot & { k: string }) {
@@ -145,8 +152,9 @@ export function Row({ title, children }: Slot & { title: string }) {
 }
 
 export function Figures(
-  { numbered, bleed, quartered, children }: Slot & {
+  { numbered, bleed, dark, quartered, children }: Slot & {
     bleed?: boolean;
+    dark?: boolean;
     numbered?: boolean;
     quartered?: boolean;
   },
@@ -155,11 +163,12 @@ export function Figures(
     styles.figures,
     numbered && styles.numbered,
     bleed && `${styles.bleed} bleed-rule`,
+    dark && styles.darkFigures,
     quartered && styles.quartered,
   );
 
   return (
-    <div class={grid}>
+    <div class={grid} data-theme={dark ? "dark" : undefined}>
       {children}
     </div>
   );
@@ -189,11 +198,12 @@ function Shot({ phone, phoneAlt = "", ...picture }: Picture & PhonePair) {
 }
 
 export function Figure(
-  { title, meta, wide, tile, children, ...shot }:
+  { title, meta, wide, tile, live, children, ...shot }:
     & Picture
     & PhonePair
     & {
       children?: ComponentChildren;
+      live?: string;
       meta?: string;
       tile?: boolean;
       title?: string;
@@ -213,6 +223,11 @@ export function Figure(
           </span>
         )}
         {children && <span class={styles.note}>{children}</span>}
+        {live && (
+          <span class={styles.live}>
+            <Link href={live}>Open on the live site</Link>
+          </span>
+        )}
       </figcaption>
     </figure>
   );

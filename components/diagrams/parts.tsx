@@ -388,6 +388,10 @@ export function Sketch(
   return <rect class={styles.sketch} height={h} width={w} x={x} y={y} />;
 }
 
+export function Cell({ size, x, y }: { size: number; x: number; y: number }) {
+  return <rect class={styles.cell} height={size} width={size} x={x} y={y} />;
+}
+
 export function Measure({ d }: { d: string }) {
   return <path class={styles.measure} d={d} />;
 }

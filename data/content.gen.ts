@@ -933,13 +933,16 @@ export const PROJECTS: WorkProject[] = [
     "id": "zig-directory",
     "name": "DMOZSTYLE",
     "tagline":
-      "A three-million-link web directory on a database I built in Zig.",
+      "A web directory of three million links, searchable in a sentence, on a database I built in Zig.",
     "summary":
-      "DMOZSTYLE is a web directory of 3,042,240 links in the style of DMOZ, the old Open Directory Project. People browse it by topic or describe the site they want, and AI assistants ask it the same questions through MCP. Underneath is dmozdb, a database server I built in Zig that confirms a write only once it is on disk.",
+      "DMOZSTYLE brings back DMOZ, the old Open Directory Project, as a directory of 3,042,241 links that people and AI assistants can browse by topic or search by describing what they want. Underneath is dmozdb, a database I built in Zig that confirms a new link only once it is safely on disk.",
+    "story": {
+      "Audience":
+        "People looking for a website, the AI assistants that search for them, and the people who send in or approve new links.",
+      "Outcome":
+        "Visitors browse 3,042,241 links topic by topic, or describe what they want in a sentence and see what the search understood as small labels they can remove. AI assistants get the same results through MCP, a standard way for them to use tools. A new link goes live once an admin approves it. Underneath is dmozdb, a database I wrote in Zig. It replies ok to a new link only once the link is safely on disk, and it serves the whole directory in under 5 GiB of memory.",
+    },
     "client": "My own product",
-    "delivered":
-      "Database server in Zig, directory website, hybrid search, MCP server and JSON API, benchmarks and evaluation harness",
-    "role": "System author",
     "kind": "study",
     "layout": "chapters",
     "stack": [

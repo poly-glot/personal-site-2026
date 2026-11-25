@@ -1,3 +1,5 @@
+import type { ComponentChildren } from "preact";
+
 export function Sun() {
   return (
     <svg
@@ -241,5 +243,72 @@ export function Play() {
     >
       <path d="M7 4.5v15l13-7.5z" />
     </svg>
+  );
+}
+
+function Stroke({ children }: { children: ComponentChildren }) {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      height="24"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.5"
+      viewBox="0 0 24 24"
+      width="24"
+    >
+      {children}
+    </svg>
+  );
+}
+
+export function Database() {
+  return (
+    <Stroke>
+      <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+      <path d="M4 5.5v13c0 1.66 3.58 3 8 3s8-1.34 8-3v-13" />
+      <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3" />
+    </Stroke>
+  );
+}
+
+export function Chip() {
+  return (
+    <Stroke>
+      <rect height="12" rx="1.5" width="12" x="6" y="6" />
+      <rect height="4" width="4" x="10" y="10" />
+      <path d="M9.5 2.5V6M14.5 2.5V6M9.5 18v3.5M14.5 18v3.5M2.5 9.5H6M2.5 14.5H6M18 9.5h3.5M18 14.5h3.5" />
+    </Stroke>
+  );
+}
+
+export function Restart() {
+  return (
+    <Stroke>
+      <path d="M20 12a8 8 0 1 1-2.34-5.66" />
+      <path d="M20 3.5V8h-4.5" />
+      <path d="M12 8v4l2.5 1.5" />
+    </Stroke>
+  );
+}
+
+export function Stopwatch() {
+  return (
+    <Stroke>
+      <circle cx="12" cy="13.5" r="7.5" />
+      <path d="M12 13.5l3-3M10 2.5h4M12 2.5V6M19 6.5l-1.5 1.5" />
+    </Stroke>
+  );
+}
+
+export function Server() {
+  return (
+    <Stroke>
+      <rect height="7" rx="1.5" width="18" x="3" y="3.5" />
+      <rect height="7" rx="1.5" width="18" x="3" y="13.5" />
+      <path d="M7 7h.01M7 17h.01M11 7h6M11 17h6" />
+    </Stroke>
   );
 }
