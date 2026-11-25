@@ -15,7 +15,7 @@ import {
 } from "./parts.tsx";
 
 const DESCRIPTION =
-  "How the search turns the sentence art in japan about buddhism into chips, in four steps. Step one pulls out typed operators such as site:, in:, country:, religion:, name: and role:; none were typed here. Step two, drawn as the subject, reads left to right and takes the longest run of words that matches a domain, a country, a religion word, a category name or a person or organisation: japan becomes the chip Tied to Japan and buddhism becomes About Buddhism. Step three drops cue words such as in and about, and turns what is left over into a word filter, here Mentioning art, or into a role. Step four asks the database for the links that match every chip and word, and a site, name or category chip also fetches its neighbours. The result is 8 links on 8 sites.";
+  "How the search turns the search query art in japan about buddhism into chips, in four steps. Step one pulls out typed operators such as site:, in:, country:, religion:, name: and role:; none were typed here. Step two, drawn as the subject, reads left to right and takes the longest run of words that matches a domain, a country, a religion word, a category name or a person or organisation: japan becomes the chip Tied to Japan and buddhism becomes About Buddhism. Step three drops cue words such as in and about, and turns what is left over into a word filter, here Mentioning art, or into a role. Step four asks the database for the links that match every chip and word, and a site, name or category chip also fetches its neighbours. The result is 8 links on 8 sites.";
 
 const STEP_COUNT = 4;
 
@@ -112,7 +112,7 @@ export default function ZigSentence() {
   return (
     <Canvas
       description={DESCRIPTION}
-      title="How the sentence art in japan about buddhism becomes chips"
+      title="How the search query art in japan about buddhism becomes chips"
       viewBox={`0 0 ${SHEET_W} ${HEIGHT}`}
     >
       <Label

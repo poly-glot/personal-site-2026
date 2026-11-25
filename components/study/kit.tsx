@@ -1,6 +1,7 @@
 import { createContext, Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 import type { ComponentChildren } from "preact";
+import { Link } from "@/components/Prose/proseComponents.tsx";
 import SectionEyebrow from "@/components/SectionEyebrow/SectionEyebrow.tsx";
 import BoardScroller from "@/islands/BoardScroller.tsx";
 import styles from "./study.module.css";
@@ -197,11 +198,12 @@ function Shot({ phone, phoneAlt = "", ...picture }: Picture & PhonePair) {
 }
 
 export function Figure(
-  { title, meta, wide, tile, children, ...shot }:
+  { title, meta, wide, tile, live, children, ...shot }:
     & Picture
     & PhonePair
     & {
       children?: ComponentChildren;
+      live?: string;
       meta?: string;
       tile?: boolean;
       title?: string;
@@ -221,6 +223,11 @@ export function Figure(
           </span>
         )}
         {children && <span class={styles.note}>{children}</span>}
+        {live && (
+          <span class={styles.live}>
+            <Link href={live}>Open on the live site</Link>
+          </span>
+        )}
       </figcaption>
     </figure>
   );

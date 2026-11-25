@@ -1,4 +1,8 @@
+import { Link } from "@/components/Prose/proseComponents.tsx";
 import styles from "./ZigWriteSpeed.module.css";
+
+const BENCHMARK =
+  "https://github.com/poly-glot/zig-directory/blob/main/bench/baseline-2026-10-17-summary.md#group-commit-perfgroup-commit-2026-10-17";
 
 interface Bar {
   amount: number;
@@ -104,9 +108,11 @@ export default function ZigWriteSpeed() {
         ))}
       </div>
       <figcaption class={styles.source}>
-        From the benchmark in the public repository, run before and after the
-        shared sync on a test store of 50,000 links. The small batches include
-        the quarter of links the server turned away as duplicates.
+        From the{" "}
+        <Link href={BENCHMARK}>benchmark in the public repository</Link>, run
+        before and after the shared sync on a test store of 50,000 links. The
+        small batches include the quarter of links dmozdb turned away as
+        duplicates.
       </figcaption>
     </figure>
   );

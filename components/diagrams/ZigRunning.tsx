@@ -72,13 +72,13 @@ const GAUGES: readonly Gauge[] = [
     icon: Restart,
     label: "Restart",
     note:
-      "It reads its indexes back from a saved file instead of 21 GB of store.",
+      "It reads its indexes back from a snapshot file instead of 21 GB of store.",
     readings: [
       { amount: 47, label: "Database serving again", value: "47 s" },
       { amount: 80, label: "Visitors see errors", value: "80 s" },
       {
         amount: 900,
-        label: "Before the saved file",
+        label: "Before the snapshot file",
         past: true,
         value: "15 min",
       },
@@ -90,7 +90,7 @@ const GAUGES: readonly Gauge[] = [
     figure: "96",
     icon: Stopwatch,
     label: "Search speed",
-    note: "Median time inside the server, 12 fixed queries, 23 November 2026.",
+    note: "Median time inside dmozdb, 12 fixed queries, 23 November 2026.",
     readings: [
       { amount: 96, label: "Ranked search", value: "96 ms" },
       { amount: 27, label: "Narrowed by a country", value: "27 ms" },

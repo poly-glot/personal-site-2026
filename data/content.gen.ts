@@ -940,7 +940,7 @@ export const PROJECTS: WorkProject[] = [
       "Audience":
         "People looking for a website, the AI assistants that search for them, and the people who send in or approve new links.",
       "Outcome":
-        "Visitors browse 3,042,241 links topic by topic, or describe what they want in a sentence and see what the search understood as small labels they can remove. AI assistants get the same results through MCP, a standard way for assistants to use tools. A new link goes live once an admin approves it. Underneath is dmozdb, a database I wrote in Zig. It replies ok to a new link only once the link is safely on disk, and it holds the whole directory in under 5 GiB of memory.",
+        "Visitors browse 3,042,241 links topic by topic, or describe what they want in a sentence and see what the search understood as small labels they can remove. AI assistants get the same results through MCP, a standard way for them to use tools. A new link goes live once an admin approves it. Underneath is dmozdb, a database I wrote in Zig. It replies ok to a new link only once the link is safely on disk, and it serves the whole directory in under 5 GiB of memory.",
     },
     "client": "My own product",
     "kind": "study",

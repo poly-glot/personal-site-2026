@@ -234,8 +234,15 @@
 
 .caption {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--s-1);
+}
+
+.live {
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  margin-top: auto;
 }
 
 .captionHead {
@@ -440,6 +447,14 @@
 .item strong {
   color: var(--fg);
   font-weight: 700;
+}
+
+.item > p {
+  display: inline;
+}
+
+.item > pre {
+  margin-top: var(--s-2);
 }
 
 .steps {

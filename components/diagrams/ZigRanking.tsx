@@ -14,10 +14,10 @@ import {
 } from "./parts.tsx";
 
 const MERGE_TEXT =
-  "Step one, the website turns the search query into an embedding of 384 dimensions with bge-small-en-v1.5. dmozdb then builds three shortlists side by side: keyword, the 200 links whose words match best; semantic, the 200 links nearest to the search query; and categories, the links filed under the 3 categories nearest to the search query. The three lists join into one merge by reciprocal rank fusion, drawn as the subject: each list gives a link 1 divided by 60 plus its place, and the scores are added. The merged order is the results page.";
+  "Step one, the website turns the search query into an embedding of 384 dimensions with bge-small-en-v1.5. dmozdb then builds three shortlists: keyword, the 200 links whose words match best; semantic, the 200 links nearest to the search query; and categories, the links filed under the 3 categories nearest to the search query. The three lists join into one merge by reciprocal rank fusion, drawn as the subject: each list gives a link 1 divided by 60 plus its rank, and the scores are added. The merged order is the results page.";
 
 const SEARCH_TEXT =
-  "Step two, a real search. These are the ten links the public search returned for buddhist art in japan on 24 November 2026, in order. Nine matched the keywords of the search query. Buddha Image Archive, in seventh place, was found by semantic search alone, so it reached the results only through the semantic list, drawn as the subject.";
+  "Step two, a real search. These are the ten links the public search returned for buddhist art in japan on 24 November 2026, in order. Nine matched the keywords of the search query. Buddha Image Archive, ranked seventh, was found by semantic search alone, so it reached the results only through the semantic list, drawn as the subject.";
 
 const ARROW_GAP = 2;
 const PANEL_INNER = 478;
@@ -36,7 +36,7 @@ const COLUMNS = [
   { lines: ["Links in the 3", "nearest ones"], title: "Categories" },
 ];
 const MERGE_LINES = [
-  "Each list gives a link 1 ÷ (60 + its place),",
+  "Each list gives a link 1 ÷ (60 + its rank),",
   "and the scores are added.",
 ];
 const RESULTS_LINES = ["The links in that order, read from the store."];

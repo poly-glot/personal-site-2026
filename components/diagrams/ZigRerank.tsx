@@ -13,7 +13,7 @@ import {
 } from "./parts.tsx";
 
 const DESCRIPTION =
-  "How one search becomes a ranked list, in three branches that run side by side. The search query goes two ways. It goes straight to keyword search, and it is turned into a 384-dimension embedding in the Deno server for semantic search and category search. Keyword search, on the left, splits the search query into words, matches a link on any of them, adds up an IDF score for each word, and keeps the top 200. Semantic search, in the middle, opens the 32 of 256 clusters nearest the search query, scores each link from its compressed 384-dimension vector, 96 bytes long, keeps the best 200, reads their full 384-byte vectors from the B+Tree on disk, and scores those 200 again exactly, drawn as the subject. Category search, on the right, finds the 3 categories whose embeddings are nearest the search query, expands their subtrees to every link filed under them, scores those links from their compressed 384-dimension vectors, and keeps the top 200. The three lists of up to 200 join in reciprocal rank fusion, which gives each link 1 divided by 60 plus its place in each list and adds the scores, and that order is the final ranked results.";
+  "How one search becomes a ranked list, in three branches. The search query goes two ways. It goes straight to keyword search, and it is turned into a 384-dimension embedding in the Deno server for semantic search and category search. Keyword search, on the left, splits the search query into words, matches a link on any of them, adds up an IDF score for each word, and keeps the top 200. Semantic search, in the middle, opens the 32 of 256 clusters nearest the search query, scores each link from its compressed 384-dimension vector, 96 bytes long, keeps the best 200, reads their full 384-byte embeddings from the B+Tree on disk, and scores those 200 again exactly, drawn as the subject. Category search, on the right, finds the 3 categories whose embeddings are nearest the search query, expands their subtrees to every link filed under them, scores those links from their compressed 384-dimension vectors, and keeps the top 200. The three lists of up to 200 join in reciprocal rank fusion, which gives each link 1 divided by 60 plus its rank in each list and adds the scores, and that order is the final ranked results.";
 
 const SHEET_W = 1600;
 const ZONE_W = 460;
@@ -61,7 +61,7 @@ const BRANCHES: readonly Branch[] = [
       { line: "The 200 best approximate scores.", title: "Keep 200" },
       {
         line: "384 bytes each, from the B+Tree on disk.",
-        title: "Read full vectors",
+        title: "Read full embeddings",
       },
       {
         line: "Rescore the 200. The semantic list.",
@@ -102,7 +102,7 @@ const TALLEST_ZONE = HEADING_TO_NODE + MAX_STEPS * NODE_H +
   (MAX_STEPS - 1) * STEP_GAP + ZONE_PAD;
 const THIRD_BUS_Y = ZONE_Y + TALLEST_ZONE + S4;
 const FUSION_LINES = [
-  "Each list gives a link 1 ÷ (60 + its place),",
+  "Each list gives a link 1 ÷ (60 + its rank),",
   "and the scores are added.",
 ];
 const FUSION_Y = THIRD_BUS_Y + S4;
@@ -205,7 +205,7 @@ export default function ZigRerank() {
   return (
     <Canvas
       description={DESCRIPTION}
-      title="How one search runs keyword, semantic and category search side by side and merges them"
+      title="How one search runs keyword, semantic and category search and merges them"
       viewBox={`0 0 ${SHEET_W} ${HEIGHT}`}
     >
       <Wiring />
