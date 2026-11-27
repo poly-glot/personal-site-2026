@@ -150,7 +150,7 @@ export default function BrowserThumb(
   const still = poster ? project.video?.poster ?? project.cover : project.cover;
 
   return (
-    <div class={styles.bw} data-tone={project.id}>
+    <div class={styles.bw} data-tone={project.id} data-work={project.id}>
       <div class={styles.bar}>
         <span class={styles.dots}>
           <i class={styles.red} />

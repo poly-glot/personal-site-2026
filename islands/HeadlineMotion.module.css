@@ -1,0 +1,164 @@
+.root {
+  min-width: 0;
+}
+
+.stage {
+  font-family: var(--ff-display);
+  font-size: clamp(2.5rem, 3.2vw, 3rem);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  position: relative;
+}
+
+.headline {
+  font-size: inherit;
+  font-weight: 400;
+  margin: 0;
+  text-box: trim-start cap alphabetic;
+  text-wrap: balance;
+}
+
+.word {
+  transition: color 300ms ease;
+}
+
+.root[data-live] .word,
+.scale .word {
+  color: transparent;
+}
+
+.scales {
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.scale {
+  align-items: center;
+  display: flex;
+  inset: 0 0 0 var(--offset, 138px);
+  position: absolute;
+}
+
+.scaleText {
+  text-wrap: balance;
+}
+
+.canvas {
+  height: 100%;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.root[data-live] .canvas {
+  opacity: 1;
+}
+
+.controls {
+  align-items: center;
+  display: flex;
+  margin-left: calc(-1 * var(--s-1));
+  margin-top: var(--s-3);
+  visibility: hidden;
+}
+
+.root[data-live] .controls {
+  animation: controls-in 500ms ease 450ms backwards;
+  visibility: visible;
+}
+
+.marker {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  height: 24px;
+  padding: 0 var(--s-1);
+  place-items: center;
+}
+
+.markerBox {
+  border: 1px solid var(--muted);
+  display: block;
+  height: 8px;
+  width: 8px;
+}
+
+.marker:hover .markerBox,
+.marker[aria-current] .markerBox {
+  border-color: var(--fg);
+}
+
+.marker[aria-current] .markerBox {
+  width: var(--s-4);
+}
+
+.markerFill {
+  background: var(--fg);
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.marker[aria-current] .markerFill {
+  animation: fill var(--scene-ms, 6s) linear forwards;
+}
+
+.root[data-paused] .markerFill {
+  animation-play-state: paused;
+}
+
+.pause {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  height: 24px;
+  margin-left: var(--s-1);
+  padding: 0;
+  place-items: center;
+  width: 24px;
+}
+
+.pause:hover {
+  color: var(--fg);
+}
+
+@keyframes controls-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes reveal {
+  from {
+    color: transparent;
+  }
+}
+
+@keyframes fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .root:not([data-live]) .word {
+    animation: reveal 300ms ease 1500ms backwards;
+  }
+}
+
+@media (max-width: 1079px) {
+  .stage {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+}

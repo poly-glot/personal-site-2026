@@ -2,6 +2,7 @@
   border-bottom: 1px solid var(--rule);
   position: sticky;
   top: 0;
+  view-transition-name: site-header;
   z-index: 50;
 }
 

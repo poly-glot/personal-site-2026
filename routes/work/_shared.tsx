@@ -3,6 +3,7 @@ import Footer from "@/components/Footer/Footer.tsx";
 import { CaseBand, CaseCard } from "@/components/CaseStudies/CaseStudies.tsx";
 import Pager from "@/components/Pager/Pager.tsx";
 import Lightbox from "@/islands/Lightbox.tsx";
+import CardParallax from "@/islands/CardParallax.tsx";
 import { canonicalWorkPath, WORK_PAGE_SIZE } from "@/data/taxonomy.ts";
 import WorkFilter from "@/islands/WorkFilter.tsx";
 import WorkOutro from "@/components/WorkOutro/WorkOutro.tsx";
@@ -69,6 +70,7 @@ export function WorkListPage({ data }: { data: WorkListData }) {
             </section>
           )}
         <Lightbox />
+        <CardParallax />
         <div class="container">
           <WorkOutro />
         </div>

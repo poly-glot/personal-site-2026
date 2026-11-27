@@ -8,15 +8,19 @@ interface CaseBandProps {
   children: ComponentChildren;
   columns?: 2 | 3;
   fill?: boolean;
+  reveal?: boolean;
+  taglines?: boolean;
 }
 
 interface CaseCardProps {
   index: number;
   project: WorkProject;
+  tagline?: string;
 }
 
 export function CaseBand(
-  { children, columns = 2, fill = false }: CaseBandProps,
+  { children, columns = 2, fill = false, reveal = false, taglines = false }:
+    CaseBandProps,
 ) {
   return (
     <div
@@ -24,10 +28,17 @@ export function CaseBand(
       data-columns={columns}
       data-fill={fill ? "" : undefined}
     >
-      <div class={styles.band}>
+      <div
+        class={styles.band}
+        data-reveal={reveal ? "" : undefined}
+        data-taglines={taglines ? "" : undefined}
+      >
         <span class={`${styles.mark} ${styles.markTl}`} aria-hidden="true" />
         <span class={`${styles.mark} ${styles.markTr}`} aria-hidden="true" />
-        <span class={`${styles.mark} ${styles.markBl}`} aria-hidden="true" />
+        <span
+          class={`${styles.mark} ${styles.markBl}`}
+          aria-hidden="true"
+        />
         <span class={`${styles.mark} ${styles.markBr}`} aria-hidden="true" />
         {children}
       </div>
@@ -35,11 +46,13 @@ export function CaseBand(
   );
 }
 
-export function CaseCard({ index, project }: CaseCardProps) {
+export function CaseCard(
+  { index, project, tagline }: CaseCardProps,
+) {
   const hasLiveSite = project.href !== "#";
 
   return (
-    <article class={styles.card} id={project.id}>
+    <article class={styles.card} data-parallax id={project.id}>
       <div class={styles.thumb} data-tone={project.id}>
         <div class={styles.frame}>
           <BrowserThumb poster project={project} />
@@ -116,6 +129,7 @@ export function CaseCard({ index, project }: CaseCardProps) {
           </span>
         </span>
       </div>
+      {tagline && <p class={styles.tagline}>{tagline}</p>}
     </article>
   );
 }

@@ -79,9 +79,9 @@ Deno.test("filterPosts: empty is all (date desc), OR within topics", () => {
   assertEquals(filterPosts(all, topicFilter("devex")).length > 0, true);
 });
 
-Deno.test("getAllProjects is source order; getProject by id", () => {
+Deno.test("getAllProjects follows the written order; getProject by id", () => {
   const projects = getAllProjects();
-  assertEquals(projects[0].id, "academy");
+  assertEquals(projects[0].id, "zig-directory");
   assertEquals(getProject("openguessr")?.name, "OpenGuessr");
   assertEquals(getProject("nope"), null);
 });

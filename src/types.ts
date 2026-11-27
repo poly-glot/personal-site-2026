@@ -48,6 +48,7 @@ export interface BlogPost {
 
 export interface WorkProject {
   id: string;
+  order: number;
   name: string;
   tagline: string;
   summary: string;
@@ -138,3 +139,17 @@ export interface SketchPage {
   layout: SketchLayout;
   name: string;
 }
+
+export interface Point {
+  x: number;
+  y: number;
+}
+
+export interface Box {
+  bottom: number;
+  left: number;
+  right: number;
+  top: number;
+}
+
+export type Shade = (u: number, v: number) => number;

@@ -94,31 +94,12 @@ Deno.test("every post's h2/h3 ids match the mockup ids", async () => {
   ]);
 });
 
-Deno.test("all 21 projects are generated in source order", () => {
+Deno.test("all 21 projects are generated in their written order", () => {
+  const orders = PROJECTS.map((p) => p.order);
+
   assertEquals(PROJECTS.length, 21);
-  assertEquals(PROJECTS.map((p) => p.id), [
-    "academy",
-    "airport-drupal",
-    "amazing-landing",
-    "azadi-go",
-    "bhx-travel",
-    "boxes",
-    "cabinet",
-    "crea8ive",
-    "donation",
-    "ech-uk",
-    "flyvipcms",
-    "halveron",
-    "hooklab",
-    "legal",
-    "openguessr",
-    "outrun",
-    "parley",
-    "shorten",
-    "txtlocal",
-    "wealth",
-    "zig-directory",
-  ]);
+  assertEquals(orders, PROJECTS.map((_, index) => index + 1));
+  assertEquals(PROJECTS[0].id, "zig-directory");
 });
 
 Deno.test("openguessr project matches its case study", () => {
