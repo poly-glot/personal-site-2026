@@ -56,6 +56,7 @@ async function readProject(path: string): Promise<WorkProject> {
 
   return {
     id: fm.id as string,
+    order: Number(fm.order),
     name: fm.name as string,
     tagline: fm.tagline as string,
     summary: (fm.summary as string) ?? firstParagraphFromSource(markdown),
@@ -107,9 +108,22 @@ function tonesCss(
   return `${rules.join("\n\n")}\n`;
 }
 
+function workTransitionsCss(projects: WorkProject[]): string {
+  const rules = projects.map((project) =>
+    `[data-work="${project.id}"] {\n  view-transition-name: work-${project.id};\n}`
+  );
+
+  return `${rules.join("\n\n")}\n`;
+}
+
+function byOrder(a: WorkProject, b: WorkProject): number {
+  return a.order - b.order;
+}
+
 async function build(): Promise<void> {
   const posts = await readDir("content/blog", readPost, ".mdx");
-  const projects = await readDir("content/work", readProject, ".mdx");
+  const unordered = await readDir("content/work", readProject, ".mdx");
+  const projects = unordered.toSorted(byOrder);
 
   const banner =
     `import type { BlogPost, WorkProject } from "@/src/types.ts";\n\n`;
@@ -127,6 +141,10 @@ async function build(): Promise<void> {
   await Deno.writeTextFile(
     "styles/content-tones.gen.css",
     tonesCss(posts, projects),
+  );
+  await Deno.writeTextFile(
+    "styles/work-transitions.gen.css",
+    workTransitionsCss(projects),
   );
 }
 

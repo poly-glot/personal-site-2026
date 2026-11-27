@@ -246,6 +246,20 @@ export function Play() {
   );
 }
 
+export function Pause() {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="currentColor"
+      height="12"
+      viewBox="0 0 24 24"
+      width="12"
+    >
+      <path d="M6 4.5h4v15H6zM14 4.5h4v15h-4z" />
+    </svg>
+  );
+}
+
 function Stroke({ children }: { children: ComponentChildren }) {
   return (
     <svg

@@ -1,5 +1,6 @@
 ---
 id: txtlocal
+order: 6
 name: txtlocal
 tagline: Business texting on AWS Lambda, with a fake carrier so the demo costs nothing.
 summary: A business texting platform for a small team that sends texts to its customers and pays for each one in pounds. It has a console, a developer API and Stripe billing, and every message passes one send policy and one gateway, which runs a fake carrier on the live site. The worker claims each text before it calls AWS, so a retried job never sends it twice.

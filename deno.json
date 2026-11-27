@@ -8,7 +8,7 @@
     "start": "deno serve -A --port 8100 _fresh/server.js",
     "preview": "deno serve -A --port 8100 _fresh/server.js",
     "update": "deno run -A -r jsr:@fresh/update .",
-    "content": "deno run -A scripts/build-content.ts && deno fmt data/content.gen.ts styles/content-tones.gen.css",
+    "content": "deno run -A scripts/build-content.ts && deno fmt data/content.gen.ts styles/content-tones.gen.css styles/work-transitions.gen.css",
     "check": "deno fmt --check && deno lint && deno check .",
     "verify:visual": "deno run -A scripts/visual-verify.ts",
     "verify:visual:test": "deno test -A scripts/visual_plan_test.ts"

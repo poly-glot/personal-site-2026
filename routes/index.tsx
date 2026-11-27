@@ -2,8 +2,11 @@ import { define } from "@/utils/state.ts";
 import Shell from "@/components/Shell/Shell.tsx";
 import { CaseBand, CaseCard } from "@/components/CaseStudies/CaseStudies.tsx";
 import Lightbox from "@/islands/Lightbox.tsx";
+import CardParallax from "@/islands/CardParallax.tsx";
 import DisclosureToggle from "@/islands/DisclosureToggle.tsx";
+import HeadlineMotion from "@/islands/HeadlineMotion.tsx";
 import { getProject } from "@/data/content.ts";
+import type { WorkProject } from "@/src/types.ts";
 import { CONTACT_EMAIL } from "@/src/nav.ts";
 import styles from "./index.module.css";
 
@@ -45,99 +48,142 @@ const CAPABILITIES: Capability[] = [
   },
 ];
 
+const HEADLINE =
+  "I build AI into the products and workflows enterprises already run.";
+
+const SCALES = [
+  "It starts as one prompt.",
+  "It grows into a workflow.",
+  "It ships inside a product.",
+  "It scales across the enterprise.",
+];
+
 const HOW_I_WORK_ID = "how-i-work";
 
-const FEATURED_IDS = ["azadi-go", "hooklab"];
+interface Showcase {
+  id: string;
+  line: string;
+}
 
-const FEATURED = FEATURED_IDS
-  .map(getProject)
-  .filter((project) => project !== null);
+interface ShowcaseCard {
+  line: string;
+  project: WorkProject;
+}
+
+const FEATURED: Showcase[] = [
+  {
+    id: "zig-directory",
+    line:
+      "Three million links, searched by describing what you want. AI assistants can search it too.",
+  },
+  {
+    id: "hooklab",
+    line:
+      "A webhook tool with an AI chat that turns a plain question into a query.",
+  },
+];
+
+function cardsFor(showcases: Showcase[]): ShowcaseCard[] {
+  return showcases.flatMap(({ id, line }) => {
+    const project = getProject(id);
+    return project ? [{ line, project }] : [];
+  });
+}
+
+const FEATURED_CARDS = cardsFor(FEATURED);
 
 export default define.page(function Home() {
   return (
     <Shell active="home">
       <main id="main" class={styles.stage}>
-        <section class={styles.hero}>
-          <div class={`container ${styles.heroGrid}`}>
-            <h1 class={styles.headline}>
-              I am a Solutions Architect, serving as the <em>glue</em>{" "}
-              between domains, platforms &amp; products.
-            </h1>
-            <div class={styles.aside}>
-              <p class={styles.lede}>
-                I bring <strong>vision</strong> to how they grow together,{" "}
-                <strong>strategy</strong>{" "}
-                that product and engineering teams can actually deliver,{" "}
-                <strong>governance</strong>{" "}
-                that catches risk while it's still cheap, and{" "}
-                <strong>enablement</strong>{" "}
-                that lets autonomous teams move quickly without drifting apart.
-              </p>
-              <div class={styles.actions}>
-                <a class={styles.cta} href={`mailto:${CONTACT_EMAIL}`}>
-                  <span class={styles.dot} aria-hidden="true" />
-                  <span class={styles.ctaLabel}>
-                    Start a conversation
-                    <svg
-                      class={styles.arrow}
-                      viewBox="0 0 16 16"
-                      width="16"
-                      height="16"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      aria-hidden="true"
+        <div class={styles.fold} data-motion-field>
+          <section class={styles.hero}>
+            <div class={`container ${styles.heroGrid}`}>
+              <HeadlineMotion headline={HEADLINE} scales={SCALES} />
+              <div class={styles.aside}>
+                <p class={styles.lede}>
+                  I'm a Principal Engineer at Inspired Thinking Group, working
+                  on its product, Storyteq. There I built the foundations for
+                  its{" "}
+                  <strong>AI agents</strong>. That work belongs to my employer,
+                  so the projects here are my own products, built in public.
+                </p>
+                <div class={styles.actions}>
+                  <a class={styles.cta} href={`mailto:${CONTACT_EMAIL}`}>
+                    <span class={styles.dot} aria-hidden="true" />
+                    <span class={styles.ctaLabel}>
+                      Start a conversation
+                      <svg
+                        class={styles.arrow}
+                        viewBox="0 0 16 16"
+                        width="16"
+                        height="16"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        aria-hidden="true"
+                      >
+                        <path d="M3 8h10M9 4l4 4-4 4" />
+                      </svg>
+                    </span>
+                  </a>
+                  <DisclosureToggle
+                    controls={HOW_I_WORK_ID}
+                    label="How I work"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section
+            id={HOW_I_WORK_ID}
+            class={styles.howIWork}
+            data-open="false"
+            aria-label="How I work"
+          >
+            <div class={styles.howIWorkInner}>
+              <div class={styles.howIWorkSpacer}>
+                <div class={styles.howIWorkRows}>
+                  {CAPABILITIES.map((cap) => (
+                    <details
+                      class={styles.capability}
+                      name="capability"
+                      open={cap.num === "01"}
+                      key={cap.num}
                     >
-                      <path d="M3 8h10M9 4l4 4-4 4" />
-                    </svg>
-                  </span>
-                </a>
-                <DisclosureToggle controls={HOW_I_WORK_ID} label="How I work" />
+                      <summary class={`container ${styles.row}`}>
+                        <span class={styles.num}>{cap.num}</span>
+                        <span class={styles.label}>{cap.label}</span>
+                        <span class={styles.hint}>{cap.hint}</span>
+                        <span class={styles.glyph} aria-hidden="true" />
+                      </summary>
+                      <div class="container">
+                        <p class={styles.body}>{cap.body}</p>
+                      </div>
+                    </details>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section
-          id={HOW_I_WORK_ID}
-          class={styles.howIWork}
-          data-open="false"
-          aria-label="How I work"
-        >
-          <div class={styles.howIWorkInner}>
-            <div class={styles.howIWorkSpacer}>
-              <div class={styles.howIWorkRows}>
-                {CAPABILITIES.map((cap) => (
-                  <details
-                    class={styles.capability}
-                    name="capability"
-                    open={cap.num === "01"}
-                    key={cap.num}
-                  >
-                    <summary class={`container ${styles.row}`}>
-                      <span class={styles.num}>{cap.num}</span>
-                      <span class={styles.label}>{cap.label}</span>
-                      <span class={styles.hint}>{cap.hint}</span>
-                      <span class={styles.glyph} aria-hidden="true" />
-                    </summary>
-                    <div class="container">
-                      <p class={styles.body}>{cap.body}</p>
-                    </div>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+          <section class={styles.work} aria-label="Selected work">
+            <CaseBand fill reveal taglines>
+              {FEATURED_CARDS.map(({ line, project }, i) => (
+                <CaseCard
+                  index={i}
+                  project={project}
+                  tagline={line}
+                  key={project.id}
+                />
+              ))}
+            </CaseBand>
+          </section>
+        </div>
 
-        <section class={styles.work} aria-label="Selected work">
-          <CaseBand fill>
-            {FEATURED.map((project, i) => (
-              <CaseCard index={i} project={project} key={project.id} />
-            ))}
-          </CaseBand>
-        </section>
         <Lightbox />
+        <CardParallax />
       </main>
     </Shell>
   );

@@ -11,7 +11,7 @@ export const SITE_LOCALE = "en_GB";
 
 const DEFAULT_TITLE = "Junaid Ahmed — Solutions Architect";
 const DEFAULT_DESCRIPTION =
-  "Junaid Ahmed — Solutions Architect in London, working as the glue between domains, platforms, and products.";
+  "Junaid Ahmed is a Solutions Architect in Birmingham, UK, who builds AI into the products and workflows enterprises already run.";
 
 const BLOG_DEFAULT: Partial<PageMeta> = {
   title: "Blog — Junaid Ahmed",
@@ -29,12 +29,12 @@ const STATIC_META: Record<string, Partial<PageMeta>> = {
   "/": {
     title: DEFAULT_TITLE,
     description:
-      "Junaid Ahmed — Solutions Architect in London. The glue between domains, platforms, and products: shaping architecture, turning strategy into delivery, and enabling autonomous teams.",
+      "Junaid Ahmed is a Solutions Architect in Birmingham, UK. He builds AI into the products and workflows enterprises already run, and makes complex products obvious to the people who use them.",
   },
   "/about": {
     title: "About — Junaid Ahmed",
     description:
-      "About Junaid Ahmed — a Solutions Architect in London connecting domains, platforms, and products across two decades of delivery.",
+      "About Junaid Ahmed, a Solutions Architect in Birmingham, UK, who has built for the web since 2001.",
   },
   "/blog": BLOG_DEFAULT,
   "/work": WORK_DEFAULT,
